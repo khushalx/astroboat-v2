@@ -1,14 +1,9 @@
-import { ExploreTools } from "@/components/home/ExploreTools";
+import { CoreTools } from "@/components/home/CoreTools";
 import { Hero } from "@/components/home/Hero";
-import { LatestBriefs } from "@/components/home/LatestBriefs";
-import { ObservatoryBoard } from "@/components/home/ObservatoryBoard";
-import { UpcomingEvents } from "@/components/home/UpcomingEvents";
 import type { Metadata } from "next";
 import { getNearEarthObjects } from "@/services/asteroids-service";
-import { getLatestBriefs } from "@/services/briefs-service";
 import { getUpcomingEvents } from "@/services/events-service";
 import { getCurrentMoonData } from "@/services/moon-service";
-import { getToolCards } from "@/services/tools-service";
 
 export const metadata: Metadata = {
   title: {
@@ -34,34 +29,26 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [briefs, events, moon, neos, tools] = await Promise.all([
-    getLatestBriefs(),
+  const [events, moon, neos] = await Promise.all([
     getUpcomingEvents(),
     getCurrentMoonData(),
-    getNearEarthObjects(),
-    getToolCards()
+    getNearEarthObjects()
   ]);
-  const closestNeo = neos[4] ?? neos[0];
-  const coreToolPreviews = tools.filter((tool) => tool.href === "/moon" || tool.href === "/asteroids");
+  const closestNeo = neos[0] ?? null;
 
   return (
     <>
       <Hero
         moon={moon}
-        nextEvent={events[1] ?? events[0]}
+        nextEvent={events[0] ?? null}
         closestNeo={closestNeo}
-        latestBrief={briefs[0]}
-        counts={{
-          briefs: briefs.length,
-          events: events.length,
-          neos: neos.length,
-          core: 4
-        }}
       />
-      <ObservatoryBoard moon={moon} nextEvent={events[0]} closestNeo={closestNeo} latestBrief={briefs[0]} />
-      <LatestBriefs briefs={briefs.slice(0, 3)} />
-      <UpcomingEvents events={events} />
-      <ExploreTools tools={coreToolPreviews} />
+      <CoreTools moon={moon} />
+      <section className="pb-8 pt-2">
+        <div className="rounded-lg border border-astro-border bg-astro-surface/60 px-4 py-3 text-sm leading-6 text-astro-muted">
+          Astroboat uses public astronomy data sources such as NASA, ESA, arXiv, USNO, JPL, and The Space Devs, with fallback data when live sources are unavailable.
+        </div>
+      </section>
     </>
   );
 }
