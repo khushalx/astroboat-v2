@@ -6,6 +6,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Astroboat | Astronomy Intelligence",
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <GlobalSearch />
+        <Analytics />
       </body>
     </html>
   );
