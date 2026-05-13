@@ -5,8 +5,24 @@ import { PageShell } from "@/components/ui/PageShell";
 import { getCombinedSpaceCalendar } from "@/services/events-service";
 
 export const metadata: Metadata = {
-  title: "Space Events Calendar — Astroboat",
-  description: "Track global launches, mission events, and selected sky events."
+  title: "Space Events Calendar",
+  description: "Follow global launches, mission events, crewed spaceflight updates, and selected sky events.",
+  alternates: {
+    canonical: "/events"
+  },
+  openGraph: {
+    title: "Space Events Calendar — Astroboat",
+    description: "Follow global launches, mission events, crewed spaceflight updates, and selected sky events.",
+    url: "/events",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Astroboat space events calendar"
+      }
+    ]
+  }
 };
 
 export default async function EventsPage() {

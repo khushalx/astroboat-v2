@@ -7,8 +7,24 @@ import { PageShell } from "@/components/ui/PageShell";
 import { getLatestBriefs } from "@/services/briefs-service";
 
 export const metadata: Metadata = {
-  title: "Astronomy Briefs — Astroboat",
-  description: "Read short, beginner-friendly summaries of astronomy updates, research papers, and space science stories."
+  title: "Astronomy Briefs",
+  description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
+  alternates: {
+    canonical: "/briefs"
+  },
+  openGraph: {
+    title: "Astronomy Briefs — Astroboat",
+    description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
+    url: "/briefs",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Astroboat astronomy briefs"
+      }
+    ]
+  }
 };
 
 export default async function BriefsPage() {

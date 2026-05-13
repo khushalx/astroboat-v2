@@ -11,8 +11,26 @@ import { getCurrentMoonData } from "@/services/moon-service";
 import { getToolCards } from "@/services/tools-service";
 
 export const metadata: Metadata = {
-  title: "Astroboat — Astronomy Intelligence & Sky Tools",
-  description: "Track astronomy briefs, space events, Moon data, and near-Earth objects with Astroboat."
+  title: {
+    absolute: "Astroboat — Astronomy Intelligence & Sky Tools"
+  },
+  description: "Track astronomy briefs, space events, Moon data, and near-Earth objects in one calm sky dashboard.",
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    title: "Astroboat — Astronomy Intelligence & Sky Tools",
+    description: "Track astronomy briefs, space events, Moon data, and near-Earth objects in one calm sky dashboard.",
+    url: "/",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Astroboat astronomy intelligence and sky tools"
+      }
+    ]
+  }
 };
 
 export default async function HomePage() {

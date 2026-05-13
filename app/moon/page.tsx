@@ -10,8 +10,24 @@ import type { PrimaryMoonPhase } from "@/lib/types";
 import { getCurrentMoonData } from "@/services/moon-service";
 
 export const metadata: Metadata = {
-  title: "Moon Phase Dashboard — Astroboat",
-  description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases."
+  title: "Moon Phase Dashboard",
+  description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
+  alternates: {
+    canonical: "/moon"
+  },
+  openGraph: {
+    title: "Moon Phase Dashboard — Astroboat",
+    description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
+    url: "/moon",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Astroboat Moon phase dashboard"
+      }
+    ]
+  }
 };
 
 export default async function MoonPage() {
