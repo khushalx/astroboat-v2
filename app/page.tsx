@@ -17,14 +17,7 @@ export const metadata: Metadata = {
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description: "Track astronomy briefs, space events, Moon data, and near-Earth objects in one calm sky dashboard.",
     url: "/",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Astroboat astronomy intelligence and sky tools"
-      }
-    ]
+    images: ["/opengraph-image"]
   }
 };
 

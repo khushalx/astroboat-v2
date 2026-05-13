@@ -19,14 +19,7 @@ export const metadata: Metadata = {
     title: "Moon Phase Dashboard — Astroboat",
     description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
     url: "/moon",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Astroboat Moon phase dashboard"
-      }
-    ]
+    images: ["/opengraph-image"]
   }
 };
 

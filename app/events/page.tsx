@@ -14,14 +14,7 @@ export const metadata: Metadata = {
     title: "Space Events Calendar — Astroboat",
     description: "Follow global launches, mission events, crewed spaceflight updates, and selected sky events.",
     url: "/events",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Astroboat space events calendar"
-      }
-    ]
+    images: ["/opengraph-image"]
   }
 };
 

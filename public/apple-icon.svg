@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Astroboat icon">
+  <rect width="512" height="512" rx="96" fill="#070B14"/>
+  <circle cx="256" cy="256" r="156" fill="#101827" stroke="#1E293B" stroke-width="10"/>
+  <path d="M120 298c76 52 198 52 272 0 35-25 48-56 36-85" fill="none" stroke="#7DD3FC" stroke-width="18" stroke-linecap="round"/>
+  <path d="M136 214c74-52 192-52 244 0" fill="none" stroke="#D6A84F" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="262" cy="252" r="55" fill="#D6A84F"/>
+  <path d="M288 193a64 64 0 1 0 0 118 78 78 0 1 1 0-118z" fill="#070B14" opacity=".82"/>
+  <circle cx="368" cy="170" r="12" fill="#7DD3FC"/>
+  <circle cx="158" cy="350" r="7" fill="#E5E7EB" opacity=".85"/>
+</svg>

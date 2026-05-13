@@ -9,7 +9,7 @@ import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://astroboat.in";
 const siteDescription =
-  "Track astronomy briefs, global space events, Moon phase data, and near-Earth object close approaches with Astroboat.";
+  "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -35,24 +35,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/",
+    url: siteUrl,
     siteName: "Astroboat",
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description: siteDescription,
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Astroboat astronomy intelligence and sky tools"
-      }
-    ]
+    images: ["/opengraph-image"]
   },
   twitter: {
     card: "summary_large_image",
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description: siteDescription,
-    images: ["/og-image.png"]
+    images: ["/twitter-image"]
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.svg"
   },
   robots: {
     index: true,

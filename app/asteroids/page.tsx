@@ -15,14 +15,7 @@ export const metadata: Metadata = {
     title: "Asteroid Watch — Astroboat",
     description: "Track near-Earth object close approaches with distance, speed, size estimates, and calm risk context.",
     url: "/asteroids",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Astroboat Asteroid Watch"
-      }
-    ]
+    images: ["/opengraph-image"]
   }
 };
 
