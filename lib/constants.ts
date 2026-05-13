@@ -2,6 +2,12 @@ import type { NavItem } from "@/lib/types";
 
 export const SITE_NAME = "Astroboat";
 
+export const BRIEFS_REVALIDATE_SECONDS = 3600;
+
+export const MAX_BRIEFS_PER_SOURCE = 15;
+
+export const FINAL_BRIEFS_LIMIT = 40;
+
 export const SPACE_DEVS_API_BASE = "https://ll.thespacedevs.com/2.3.0";
 
 export const EVENTS_REVALIDATE_SECONDS = 21600;

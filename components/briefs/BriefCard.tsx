@@ -14,7 +14,7 @@ export function BriefCard({ brief }: BriefCardProps) {
   const originalHref = getOriginalHref(brief.originalUrl);
 
   return (
-    <AstroCard as="article" className="flex h-full flex-col p-6 sm:p-7" interactive>
+    <AstroCard as="article" className="flex h-full flex-col p-4 sm:p-5" interactive>
       <div className="flex flex-wrap items-center gap-2">
         <SourceBadge source={brief.source.name} />
         <DataBadge label={category} />
@@ -22,18 +22,13 @@ export function BriefCard({ brief }: BriefCardProps) {
         <span className="font-mono text-xs text-astro-muted">{brief.readingTime}</span>
       </div>
 
-      <Link href={`/briefs/${brief.slug}`} className="group mt-5 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
-        <h2 className="text-xl font-semibold leading-8 text-astro-text transition group-hover:text-astro-blue">{brief.title}</h2>
+      <Link href={`/briefs/${brief.slug}`} className="group mt-4 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
+        <h2 className="line-clamp-2 text-lg font-semibold leading-7 text-astro-text transition group-hover:text-astro-blue">{brief.title}</h2>
       </Link>
-      <p className="mt-4 text-base leading-8 text-astro-muted">{getBriefSummary(brief, 2)}</p>
+      <p className="mt-3 line-clamp-2 text-sm leading-6 text-astro-muted">{getBriefSummary(brief, 1)}</p>
 
-      <div className="mt-6 rounded-lg border border-astro-border bg-astro-bg/35 p-4">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">Why it matters</p>
-        <p className="mt-2 text-sm leading-7 text-astro-muted">{brief.why}</p>
-      </div>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {brief.tags.map((tag) => (
+      <div className="mt-4 flex flex-wrap gap-2">
+        {brief.tags.slice(0, 4).map((tag) => (
           <span key={tag} className="rounded-full border border-astro-border bg-astro-bg/30 px-2.5 py-1 text-xs text-astro-muted">
             {tag}
           </span>
@@ -41,7 +36,7 @@ export function BriefCard({ brief }: BriefCardProps) {
       </div>
 
       {originalHref ? (
-        <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row">
+        <div className="mt-auto flex flex-col gap-3 pt-5 sm:flex-row">
           <Link
             href={originalHref}
             target={originalHref.startsWith("http") ? "_blank" : undefined}

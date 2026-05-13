@@ -1,6 +1,6 @@
 export type SourceInfo = {
   id: string;
-  name: "NASA" | "ESA" | "JPL" | "USNO" | "Space Devs" | "arXiv" | "ISRO" | "Astroboat" | "APOD";
+  name: string;
   kind: "agency" | "archive" | "research" | "platform" | "internal";
   credibility: "Primary" | "Reviewed" | "Preprint" | "Editorial";
 };
@@ -45,6 +45,24 @@ export type AstronomyBrief = {
   imageUrl?: string;
   beginnerExplanation?: string;
   isFallback?: boolean;
+};
+
+export type BriefSourceStatus = {
+  id: string;
+  name: string;
+  enabled: boolean;
+  count: number;
+  ok: boolean;
+  error?: string;
+};
+
+export type BriefsResult = {
+  briefs: AstronomyBrief[];
+  sourceStatuses: BriefSourceStatus[];
+  lastChecked: string;
+  latestItemDate?: string;
+  isFallback: boolean;
+  warnings: string[];
 };
 
 export type SpaceEvent = {

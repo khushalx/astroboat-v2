@@ -4,7 +4,7 @@ import { AstroCard } from "@/components/ui/AstroCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
-import { getLatestBriefs } from "@/services/briefs-service";
+import { getAstronomyBriefs } from "@/services/briefs-service";
 
 export const metadata: Metadata = {
   title: "Astronomy Briefs",
@@ -28,34 +28,38 @@ export const metadata: Metadata = {
 };
 
 export default async function BriefsPage() {
-  const briefs = await getLatestBriefs();
-  const isFallback = briefs.some((brief) => brief.isFallback);
+  const result = await getAstronomyBriefs();
 
   return (
     <PageShell>
       <PageHeader
         title="Astronomy Briefs"
-        subtitle="Short, clear summaries of trusted astronomy updates, research papers, and space science stories."
+        subtitle="Fresh astronomy and space science updates from trusted public sources."
       />
 
-      <AstroCard className="p-5">
-        <p className="max-w-3xl text-base leading-8 text-astro-muted">
-          Astroboat collects public RSS/API updates from sources like NASA, ESA, arXiv, and APOD, then turns them into
-          beginner-friendly reading cards with original source links.
+      <AstroCard className="mission-surface p-4 sm:p-5">
+        <p className="max-w-3xl text-sm leading-6 text-astro-muted sm:text-base sm:leading-7">
+          Astroboat reads public RSS/API updates, keeps summaries short, and always links back to the original source.
         </p>
-        <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">
-          Source summaries point back to the original publisher. Read the original source for complete context and rights information.
+        <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">
+          No full article copying / no article-page scraping
         </p>
       </AstroCard>
 
-      {isFallback ? (
+      {result.isFallback ? (
         <div className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-4 text-sm leading-6 text-astro-text">
           Live brief sources are temporarily unavailable. Showing saved Astroboat sample briefs.
         </div>
       ) : null}
 
-      {briefs.length > 0 ? (
-        <BriefsClient briefs={briefs} />
+      {!result.isFallback && result.warnings.length > 0 ? (
+        <div className="rounded-lg border border-astro-border bg-astro-surface/70 p-3 text-sm text-astro-muted">
+          {result.warnings[0]}
+        </div>
+      ) : null}
+
+      {result.briefs.length > 0 ? (
+        <BriefsClient result={result} />
       ) : (
         <EmptyState title="No briefs available" description="New summaries will appear here when source updates are available." />
       )}
