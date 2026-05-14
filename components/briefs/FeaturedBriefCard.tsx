@@ -13,28 +13,23 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
   const originalHref = getOriginalHref(brief.originalUrl);
 
   return (
-    <AstroCard as="article" className="p-5 sm:p-7">
+    <AstroCard as="article" className="p-4 sm:p-5">
       <div className="flex flex-wrap items-center gap-2">
         <SourceBadge source={brief.source.name} />
         <DataBadge label={getBriefCategory(brief)} />
         <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
       </div>
 
-      <Link href={`/briefs/${brief.slug}`} className="group mt-5 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
-        <h2 className="text-2xl font-semibold leading-tight text-astro-text transition group-hover:text-astro-blue sm:text-3xl">
+      <Link href={`/briefs/${brief.slug}`} className="group mt-4 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
+        <h2 className="line-clamp-2 text-xl font-semibold leading-tight text-astro-text transition group-hover:text-astro-blue sm:text-2xl">
           {brief.title}
         </h2>
       </Link>
-      <p className="mt-4 max-w-4xl text-base leading-7 text-astro-muted">{getBriefSummary(brief, 2)}</p>
-
-      <div className="mt-5 rounded-lg border border-astro-border bg-astro-bg/35 p-4">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">Why it matters</p>
-        <p className="mt-2 text-sm leading-6 text-astro-muted">{brief.why}</p>
-      </div>
+      <p className="mt-3 line-clamp-2 max-w-4xl text-sm leading-6 text-astro-muted">{getBriefSummary(brief, 1)}</p>
 
       <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-2">
-          {brief.tags.slice(0, 5).map((tag) => (
+          {brief.tags.slice(0, 3).map((tag) => (
             <span key={tag} className="rounded-full border border-astro-border bg-astro-bg/30 px-2.5 py-1 text-xs text-astro-muted">
               {tag}
             </span>
@@ -45,7 +40,7 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
             href={originalHref}
             target={originalHref.startsWith("http") ? "_blank" : undefined}
             rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="inline-flex justify-center rounded-md border border-astro-gold/45 bg-astro-gold/10 px-4 py-2.5 text-sm font-semibold text-astro-text transition hover:bg-astro-gold/15 focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
+            className="inline-flex min-h-11 justify-center rounded-md border border-astro-gold bg-astro-gold px-4 py-2.5 text-sm font-semibold text-astro-bg transition hover:bg-astro-text focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
           >
             Read original
           </Link>

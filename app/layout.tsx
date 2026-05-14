@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DM_Sans, DM_Serif_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -10,6 +11,24 @@ import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://astroboat.in";
 const siteDescription =
   "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.";
+
+const displayFont = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display"
+});
+
+const bodyFont = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body"
+});
+
+const monoFont = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -71,7 +90,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}>
         <SkyGridBackground />
         <Sidebar />
         <div className="min-h-screen lg:pl-72">

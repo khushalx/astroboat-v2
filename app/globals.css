@@ -4,7 +4,21 @@
 
 :root {
   color-scheme: dark;
-  background: #070b14;
+  --bg-base: #09090f;
+  --bg-surface: #0f1120;
+  --bg-elevated: #151829;
+  --border-subtle: #1e2240;
+  --border-accent: #2a3060;
+  --text-primary: #e8eaf2;
+  --text-secondary: #8a90b0;
+  --text-dim: #4a5070;
+  --accent-gold: #c9a84c;
+  --accent-gold-muted: #7a5f28;
+  --accent-blue: #4a7fc1;
+  --accent-blue-muted: #1e3a5f;
+  --danger: #c0392b;
+  --safe: #2ecc71;
+  background: var(--bg-base);
 }
 
 * {
@@ -18,13 +32,13 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 18% 8%, rgba(125, 211, 252, 0.055), transparent 30rem),
-    radial-gradient(circle at 78% 0%, rgba(214, 168, 79, 0.045), transparent 26rem),
-    linear-gradient(180deg, #080d18 0%, #070b14 42%, #050812 100%);
-  color: #e5e7eb;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+    radial-gradient(circle at 12% 18%, rgba(232, 234, 242, 0.055) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 78% 16%, rgba(74, 127, 193, 0.055) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 48% 72%, rgba(201, 168, 76, 0.045) 0 1px, transparent 1.4px),
+    var(--bg-base);
+  background-size: 180px 180px, 260px 260px, 340px 340px, auto;
+  color: var(--text-primary);
+  font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: geometricPrecision;
 }
 
@@ -40,11 +54,11 @@ select {
 }
 
 ::selection {
-  background: rgba(214, 168, 79, 0.3);
+  background: rgba(201, 168, 76, 0.3);
 }
 
 :focus-visible {
-  outline: 2px solid rgba(125, 211, 252, 0.55);
+  outline: 2px solid rgba(74, 127, 193, 0.62);
   outline-offset: 3px;
 }
 
@@ -54,46 +68,54 @@ select {
 }
 
 ::-webkit-scrollbar-track {
-  background: #070b14;
+  background: var(--bg-base);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border: 2px solid #070b14;
+  background: var(--border-subtle);
+  border: 2px solid var(--bg-base);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(125, 211, 252, 0.35);
+  background: rgba(74, 127, 193, 0.45);
 }
 
 .text-balance {
   text-wrap: balance;
 }
 
+.font-display,
+h1 {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 .star-field {
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(229, 231, 235, 0.17) 0 1px, transparent 1px),
-    radial-gradient(circle at 72% 12%, rgba(125, 211, 252, 0.15) 0 1px, transparent 1px),
-    radial-gradient(circle at 48% 68%, rgba(214, 168, 79, 0.12) 0 1px, transparent 1px),
-    radial-gradient(circle at 86% 74%, rgba(229, 231, 235, 0.12) 0 1px, transparent 1px),
-    linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+    radial-gradient(circle at 12% 18%, rgba(232, 234, 242, 0.12) 0 1px, transparent 1px),
+    radial-gradient(circle at 72% 12%, rgba(74, 127, 193, 0.11) 0 1px, transparent 1px),
+    radial-gradient(circle at 48% 68%, rgba(201, 168, 76, 0.1) 0 1px, transparent 1px),
+    radial-gradient(circle at 86% 74%, rgba(232, 234, 242, 0.08) 0 1px, transparent 1px),
+    linear-gradient(rgba(74, 127, 193, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 127, 193, 0.026) 1px, transparent 1px);
   background-size: 190px 190px, 260px 260px, 310px 310px, 370px 370px, 48px 48px, 48px 48px;
 }
 
 .orbital-field {
   background-image:
-    radial-gradient(ellipse 46rem 18rem at 58% 0%, transparent 58%, rgba(125, 211, 252, 0.08) 58.2%, transparent 58.6%),
-    radial-gradient(ellipse 42rem 16rem at 24% 100%, transparent 60%, rgba(214, 168, 79, 0.055) 60.2%, transparent 60.6%),
-    linear-gradient(115deg, transparent 0 58%, rgba(125, 211, 252, 0.035) 58.1%, transparent 58.35%),
-    linear-gradient(65deg, transparent 0 72%, rgba(214, 168, 79, 0.03) 72.1%, transparent 72.35%);
+    radial-gradient(ellipse 46rem 18rem at 58% 0%, transparent 58%, rgba(74, 127, 193, 0.05) 58.2%, transparent 58.6%),
+    radial-gradient(ellipse 42rem 16rem at 24% 100%, transparent 60%, rgba(201, 168, 76, 0.04) 60.2%, transparent 60.6%),
+    linear-gradient(115deg, transparent 0 58%, rgba(74, 127, 193, 0.024) 58.1%, transparent 58.35%);
 }
 
 .mission-surface {
   background-image:
-    linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(74, 127, 193, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 127, 193, 0.028) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -102,7 +124,7 @@ select {
 }
 
 .terminal-rule::before {
-  background: linear-gradient(90deg, rgba(214, 168, 79, 0.72), rgba(125, 211, 252, 0.38), transparent);
+  background: linear-gradient(90deg, rgba(201, 168, 76, 0.72), rgba(74, 127, 193, 0.34), transparent);
   content: "";
   height: 1px;
   left: 0;

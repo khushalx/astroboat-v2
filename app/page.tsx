@@ -38,8 +38,8 @@ export default async function HomePage() {
       />
       <CoreTools moon={moon} />
       <section className="pb-8 pt-2">
-        <div className="rounded-lg border border-astro-border bg-astro-surface/60 px-4 py-3 text-sm leading-6 text-astro-muted">
-          Astroboat uses public astronomy data sources such as NASA, ESA, arXiv, USNO, JPL, and The Space Devs, with fallback data when live sources are unavailable.
+        <div className="rounded-lg border border-astro-border bg-astro-surface/60 px-4 py-3 text-xs leading-6 text-[color:var(--text-dim)]">
+          Data from NASA JPL, The Space Devs, USNO, RSS/API feeds, and open astronomical sources.
         </div>
       </section>
     </>

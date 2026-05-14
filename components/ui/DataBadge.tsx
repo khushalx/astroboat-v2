@@ -2,9 +2,14 @@ import { cn } from "@/lib/utils";
 
 const badgeStyles: Record<string, string> = {
   scheduled: "border-astro-blue/30 bg-astro-blue/10 text-astro-blue",
+  upcoming: "border-astro-blue/30 bg-astro-blue/10 text-astro-blue",
+  past: "border-astro-border bg-astro-bg/40 text-astro-muted",
+  launch: "border-astro-blue/30 bg-astro-blue/10 text-astro-blue",
+  "space event": "border-astro-blue/30 bg-astro-blue/10 text-astro-blue",
+  "sky event": "border-astro-gold/35 bg-astro-gold/10 text-astro-gold",
   safe: "border-astro-green/30 bg-astro-green/10 text-astro-green",
   watch: "border-astro-gold/35 bg-astro-gold/10 text-astro-gold",
-  notable: "border-astro-blue/30 bg-astro-blue/10 text-astro-blue",
+  notable: "border-astro-red/35 bg-astro-red/10 text-astro-red",
   confirmed: "border-astro-green/30 bg-astro-green/10 text-astro-green",
   "to be confirmed": "border-astro-gold/35 bg-astro-gold/10 text-astro-gold",
   "to be determined": "border-astro-gold/35 bg-astro-gold/10 text-astro-gold",

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
-import { MetricCard } from "@/components/ui/MetricCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import { MoonPhaseVisual } from "@/components/visuals/MoonPhaseVisual";
-import type { PrimaryMoonPhase } from "@/lib/types";
+import type { MoonEvent, PrimaryMoonPhase } from "@/lib/types";
 import { getCurrentMoonData } from "@/services/moon-service";
 
 export const metadata: Metadata = {
@@ -28,28 +27,26 @@ export default async function MoonPage() {
   const metricCards = [
     ["Moonrise", moon.moonrise ?? "Unavailable"],
     ["Moonset", moon.moonset ?? "Unavailable"],
-    ["Transit", moon.transit ?? "Unavailable"],
-    ["Next full moon", moon.nextFullMoon?.dateDisplay ?? "Unavailable"],
-    ["Next new moon", moon.nextNewMoon?.dateDisplay ?? "Unavailable"],
-    ["Photography score", `${moon.photographyScore}/10`]
+    ["Next full moon", moon.nextFullMoon ? `${moon.nextFullMoon.dateDisplay} · ${countdown(moon.nextFullMoon)}` : "Unavailable"],
+    ["Next new moon", moon.nextNewMoon ? `${moon.nextNewMoon.dateDisplay} · ${countdown(moon.nextNewMoon)}` : "Unavailable"]
   ];
 
   return (
     <PageShell>
       <PageHeader
-        title="Moon Phase Dashboard"
-        subtitle="Live lunar phase, illumination, rise/set times, and upcoming Moon events."
+        title="Moon"
+        subtitle="Current phase, illumination, rise/set times, and the next lunar milestones."
       />
 
       {moon.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-4 text-sm leading-6 text-astro-text">
+        <div className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-3.5 text-sm leading-6 text-astro-text">
           Live Moon data is temporarily unavailable. Showing saved Astroboat sample data.
         </div>
       ) : null}
 
-      <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
-        <AstroCard className="mission-surface p-6">
-          <div className="flex flex-col items-center justify-center text-center">
+      <AstroCard className="p-5 sm:p-6">
+        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div className="flex flex-col items-center text-center">
             <MoonPhaseVisual
               phaseName={moon.phaseName}
               illuminationPercent={moon.illuminationPercent}
@@ -58,76 +55,72 @@ export default async function MoonPage() {
             />
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
               <SourceBadge source={moon.source} />
-              <DataBadge label={`${moon.illuminationPercent}% illuminated`} />
+              <DataBadge label={moon.locationName} />
             </div>
-            <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-astro-muted">{moon.date}</p>
-            <p className="mt-2 text-sm text-astro-muted">{moon.locationName}</p>
-            <p className="mt-4 rounded-md border border-astro-border px-3 py-2 text-sm text-astro-muted">
-              Location changes coming later
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-muted">Illumination</p>
+            <p className="mt-2 font-mono text-6xl font-semibold leading-none text-astro-gold sm:text-7xl">
+              {moon.illuminationPercent}%
+            </p>
+            <p className="mt-3 text-sm leading-6 text-astro-muted">
+              {trimAdvice(moon.viewingAdvice)}
+            </p>
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-dim)]">
+              {moon.date} / {moon.locationName}
             </p>
           </div>
-        </AstroCard>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          {metricCards.map(([label, value]) => (
-            <MetricCard key={label} label={label} value={value} />
-          ))}
         </div>
+      </AstroCard>
+
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {metricCards.map(([label, value]) => (
+          <StatTile key={label} label={label} value={value} />
+        ))}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        <AstroCard className="p-5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Beginner explanation</p>
-          <p className="mt-3 text-sm leading-7 text-astro-muted">{moon.beginnerExplanation}</p>
-        </AstroCard>
-
-        <AstroCard className="p-5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Viewing advice</p>
-          <p className="mt-3 text-sm leading-7 text-astro-muted">{moon.viewingAdvice}</p>
-        </AstroCard>
-      </div>
-
-      <AstroCard className="p-5">
-        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <AstroCard className="p-4">
+        <div className="mb-4 flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-semibold text-astro-text">Upcoming lunar phases</h2>
-            <p className="mt-2 text-sm leading-6 text-astro-muted">Primary Moon phases from USNO, shown in UTC.</p>
+            <h2 className="font-display text-2xl font-normal text-astro-text">Lunar cycle</h2>
+            <p className="mt-1 text-sm text-astro-muted">Primary phases from USNO, shown in UTC.</p>
           </div>
           <DataBadge label={moon.source} />
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 xl:grid-cols-8">
+        <div className="flex gap-3 overflow-x-auto pb-1">
           {moon.upcomingPhases.map((item) => (
-            <div key={`${item.phase}-${item.dateUtc}`} className="rounded-lg border border-astro-border bg-astro-elevated/90 p-3 text-center">
+            <div
+              key={`${item.phase}-${item.dateUtc}`}
+              className="min-w-36 rounded-lg border border-astro-border bg-astro-elevated p-3 text-center"
+            >
               <MoonPhaseVisual
                 phaseName={item.phase}
                 illuminationPercent={phaseIllumination(item.phase)}
                 size="sm"
+                className={item.phase === moon.closestPrimaryPhase?.phase ? "rounded-full ring-1 ring-astro-gold/70" : undefined}
               />
               <p className="mt-3 text-sm font-medium text-astro-text">{item.phase}</p>
-              <p className="mt-1 font-mono text-xs text-astro-muted">{item.dateDisplay}</p>
+              <p className="mt-1 font-mono text-[11px] text-astro-muted">{item.dateDisplay}</p>
             </div>
           ))}
         </div>
       </AstroCard>
 
-      <AstroCard className="p-5">
-        <div className="grid gap-5 md:grid-cols-[220px_1fr] md:items-center">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Photography score</p>
-            <p className="mt-3 text-5xl font-semibold text-astro-text">{moon.photographyScore}</p>
-            <p className="mt-2 text-sm text-astro-muted">out of 10</p>
-          </div>
-          <div>
-            <div className="h-3 overflow-hidden rounded-full border border-astro-border bg-astro-bg">
-              <div className="h-full rounded-full bg-gradient-to-r from-astro-blue/65 to-astro-gold" style={{ width: `${moon.photographyScore * 10}%` }} />
-            </div>
-            <p className="mt-4 text-sm leading-6 text-astro-muted">
-              Moon data is calculated from USNO Astronomical Applications. Times are shown for the selected/default location.
-            </p>
-          </div>
-        </div>
+      <AstroCard className="p-4">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Viewing advice</p>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-astro-muted">{trimAdvice(moon.beginnerExplanation)}</p>
       </AstroCard>
     </PageShell>
+  );
+}
+
+function StatTile({ label, value }: { label: string; value: string }) {
+  return (
+    <AstroCard className="p-3.5">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">{label}</p>
+      <p className="mt-2 text-sm font-semibold leading-6 text-astro-text">{value}</p>
+    </AstroCard>
   );
 }
 
@@ -141,4 +134,24 @@ function phaseIllumination(phase: PrimaryMoonPhase) {
     case "Full Moon":
       return 100;
   }
+}
+
+function countdown(event: MoonEvent) {
+  const date = new Date(event.dateUtc);
+
+  if (Number.isNaN(date.getTime())) {
+    return "date pending";
+  }
+
+  const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+  if (days <= 0) {
+    return "today";
+  }
+
+  return `in ${days} day${days === 1 ? "" : "s"}`;
+}
+
+function trimAdvice(value: string) {
+  return value.split(". ").slice(0, 2).join(". ").replace(/\.$/, "") + ".";
 }

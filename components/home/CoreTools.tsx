@@ -41,28 +41,28 @@ const tools = [
 
 export function CoreTools({ moon }: CoreToolsProps) {
   return (
-    <section className="py-8">
+    <section className="py-6 sm:py-8">
       <div className="mb-5">
-        <p className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.22em] text-astro-gold">
+        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">
           <span className="h-px w-6 bg-astro-gold/60" aria-hidden="true" />
           Core tools
         </p>
-        <h2 className="text-2xl font-semibold text-astro-text">Explore Astroboat</h2>
+        <h2 className="font-display text-2xl font-normal text-astro-text">Explore Astroboat</h2>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         {tools.map((tool) => (
-          <AstroCard key={tool.href} as="article" className="p-4 sm:p-5" interactive>
-            <div className="mb-4 h-16 rounded-lg border border-astro-border bg-astro-bg/35 p-2">
+          <AstroCard key={tool.href} as="article" className="p-3.5 sm:p-4" interactive>
+            <div className="mb-3 h-14 rounded-lg border border-astro-border bg-astro-bg/35 p-2">
               <ToolVisual type={tool.visual} moon={moon} />
             </div>
-            <h3 className="text-lg font-semibold text-astro-text">{tool.title}</h3>
-            <p className="mt-2 min-h-12 text-sm leading-6 text-astro-muted">{tool.copy}</p>
+            <h3 className="text-base font-semibold text-astro-text">{tool.title}</h3>
+            <p className="mt-1.5 text-sm leading-6 text-astro-muted">{tool.copy}</p>
             <Link
               href={tool.href}
-              className="mt-5 inline-flex rounded-md border border-astro-border px-3 py-2 text-sm font-medium text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+              className="mt-4 inline-flex min-h-11 items-center rounded-md border border-astro-border px-3 py-2 text-sm font-medium text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
             >
-              {tool.action}
+              {tool.action} <span className="ml-2" aria-hidden="true">→</span>
             </Link>
           </AstroCard>
         ))}
@@ -77,7 +77,7 @@ function ToolVisual({ type, moon }: { type: (typeof tools)[number]["visual"]; mo
       <div className="flex h-full items-center gap-3">
         <MoonPhaseVisual phaseName={moon.phaseName} illuminationPercent={moon.illuminationPercent} size="sm" />
         <div className="h-2 flex-1 overflow-hidden rounded-full border border-astro-border bg-astro-surface">
-          <div className="h-full rounded-full bg-gradient-to-r from-astro-blue/60 to-astro-gold/80" style={{ width: `${moon.illuminationPercent}%` }} />
+          <div className="h-full rounded-full bg-astro-gold" style={{ width: `${moon.illuminationPercent}%` }} />
         </div>
       </div>
     );

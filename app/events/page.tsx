@@ -24,8 +24,8 @@ export default async function EventsPage() {
   return (
     <PageShell>
       <PageHeader
-        title="Space Events Calendar"
-        subtitle="Global launches, mission events, crewed spaceflight updates, and selected sky events."
+        title="Space Events"
+        subtitle="Upcoming astronomical events, launches, and sky phenomena."
       />
       <EventsCalendarClient
         events={calendar.events}

@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { BriefCard } from "@/components/briefs/BriefCard";
-import { FeaturedBriefCard } from "@/components/briefs/FeaturedBriefCard";
-import { getBriefCategory, getFeaturedBrief } from "@/components/briefs/brief-utils";
+import { getBriefCategory } from "@/components/briefs/brief-utils";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { FilterBar } from "@/components/ui/FilterBar";
@@ -12,16 +11,10 @@ import type { AstronomyBrief, BriefsResult } from "@/lib/types";
 const filters = [
   "All",
   "NASA",
-  "ESA",
-  "arXiv",
-  "APOD",
-  "Research",
+  "Science",
   "Missions",
-  "Planetary Science",
-  "Space News",
-  "Skywatching",
-  "Astrophysics",
-  "Solar / Space Weather"
+  "Solar",
+  "Near-Earth"
 ];
 const pageSize = 12;
 
@@ -36,8 +29,7 @@ export function BriefsClient({ result }: BriefsClientProps) {
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const activeSources = sourceStatuses.filter((status) => status.ok && status.count > 0).length || new Set(briefs.map((brief) => brief.source.name)).size;
   const filteredBriefs = useMemo(() => filterBriefs(briefs, activeFilter, query), [activeFilter, briefs, query]);
-  const featured = getFeaturedBrief(filteredBriefs);
-  const gridBriefs = filteredBriefs.filter((brief) => brief.id !== featured?.id);
+  const gridBriefs = filteredBriefs;
   const visibleBriefs = gridBriefs.slice(0, visibleCount);
   const hasMore = visibleCount < gridBriefs.length;
 
@@ -46,7 +38,7 @@ export function BriefsClient({ result }: BriefsClientProps) {
   }, [activeFilter, query]);
 
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-5 sm:space-y-6">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <StatusCard label="Total briefs" value={briefs.length ? String(briefs.length) : "0"} />
         <StatusCard label="Active sources" value={String(activeSources)} />
@@ -61,7 +53,7 @@ export function BriefsClient({ result }: BriefsClientProps) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search briefs, missions, planets, JWST, asteroids..."
-            className="w-full rounded-lg border border-astro-border bg-astro-surface/80 px-4 py-3 text-sm text-astro-text placeholder:text-astro-muted focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="min-h-11 w-full rounded-lg border border-astro-border bg-astro-surface/80 px-4 py-3 text-sm text-astro-text placeholder:text-astro-muted focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
           />
         </label>
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">
@@ -71,18 +63,16 @@ export function BriefsClient({ result }: BriefsClientProps) {
 
       <FilterBar filters={filters} activeFilter={activeFilter} ariaLabel="Brief filters" onFilterChange={setActiveFilter} />
 
-      {featured ? <FeaturedBriefCard brief={featured} /> : null}
-
       <section>
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Feed</p>
-            <h2 className="mt-1 text-xl font-semibold text-astro-text sm:text-2xl">Latest summaries</h2>
+            <h2 className="font-display mt-1 text-2xl font-normal text-astro-text">Latest summaries</h2>
           </div>
         </div>
         {filteredBriefs.length > 0 ? (
           <>
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-3 xl:grid-cols-2">
               {(visibleBriefs.length > 0 ? visibleBriefs : filteredBriefs.slice(0, visibleCount)).map((brief) => (
                 <BriefCard key={brief.id} brief={brief} />
               ))}
@@ -109,9 +99,9 @@ export function BriefsClient({ result }: BriefsClientProps) {
 
 function StatusCard({ label, value }: { label: string; value: string }) {
   return (
-    <AstroCard className="mission-surface p-3.5 sm:p-4">
+    <AstroCard className="p-3">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">{label}</p>
-      <p className="mt-1.5 text-lg font-semibold text-astro-text sm:text-xl">{value}</p>
+      <p className="mt-1.5 font-mono text-base font-semibold text-astro-text sm:text-lg">{value}</p>
     </AstroCard>
   );
 }
@@ -124,15 +114,17 @@ function filterBriefs(briefs: AstronomyBrief[], activeFilter: string, query: str
     const source = brief.source.name.toLowerCase();
     const tags = brief.tags.map((tag) => tag.toLowerCase());
     const filter = activeFilter.toLowerCase();
+    const searchText = [brief.title, brief.source.name, category, ...brief.summary, ...brief.tags].join(" ").toLowerCase();
     const matchesFilter =
       activeFilter === "All" ||
       source === filter ||
       category.toLowerCase() === filter ||
       tags.some((tag) => tag === filter || tag.includes(filter)) ||
       (activeFilter === "NASA" && source.includes("nasa")) ||
-      (activeFilter === "ESA" && source.includes("esa")) ||
-      (activeFilter === "arXiv" && source.includes("arxiv")) ||
-      (activeFilter === "APOD" && source.includes("apod"));
+      (activeFilter === "Science" && (source.includes("arxiv") || category.toLowerCase().includes("research") || searchText.includes("science"))) ||
+      (activeFilter === "Missions" && (category.toLowerCase().includes("mission") || tags.some((tag) => tag.includes("mission")))) ||
+      (activeFilter === "Solar" && (searchText.includes("solar") || searchText.includes("sun") || searchText.includes("space weather"))) ||
+      (activeFilter === "Near-Earth" && (searchText.includes("asteroid") || searchText.includes("near-earth") || searchText.includes("neo")));
 
     if (!matchesFilter) {
       return false;
@@ -142,17 +134,7 @@ function filterBriefs(briefs: AstronomyBrief[], activeFilter: string, query: str
       return true;
     }
 
-    const searchable = [
-      brief.title,
-      brief.source.name,
-      category,
-      ...brief.summary,
-      ...brief.tags
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    return searchable.includes(normalizedQuery);
+    return searchText.includes(normalizedQuery);
   });
 }
 

@@ -26,16 +26,13 @@ export default async function BriefsPage() {
   return (
     <PageShell>
       <PageHeader
-        title="Astronomy Briefs"
-        subtitle="Fresh astronomy and space science updates from trusted public sources."
+        title="Briefs"
+        subtitle="The latest in astronomy and space science."
       />
 
-      <AstroCard className="mission-surface p-4 sm:p-5">
-        <p className="max-w-3xl text-sm leading-6 text-astro-muted sm:text-base sm:leading-7">
-          Astroboat reads public RSS/API updates, keeps summaries short, and always links back to the original source.
-        </p>
-        <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">
-          No full article copying / no article-page scraping
+      <AstroCard className="p-3.5 sm:p-4">
+        <p className="text-sm leading-6 text-astro-muted">
+          Public RSS/API updates, shortened for quick reading with original source links.
         </p>
       </AstroCard>
 

@@ -17,7 +17,7 @@ export function SearchTrigger({ className, showShortcut = false }: SearchTrigger
     <button
       type="button"
       className={cn(
-        "inline-flex items-center gap-2 rounded-md border border-astro-border bg-astro-surface/90 px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/45 hover:bg-astro-elevated hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40",
+        "inline-flex min-h-11 items-center gap-2 rounded-md border border-astro-border bg-astro-surface/90 px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/45 hover:bg-astro-elevated hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40",
         className
       )}
       aria-label="Open Astroboat search"
@@ -26,7 +26,7 @@ export function SearchTrigger({ className, showShortcut = false }: SearchTrigger
       <span className="relative h-3 w-3 rounded-full border border-current" aria-hidden="true">
         <span className="absolute -right-1 -bottom-1 h-1.5 w-px rotate-[-45deg] bg-current" />
       </span>
-      <span>Search</span>
+      <span>{showShortcut ? "Search Astroboat..." : "Search"}</span>
       {showShortcut ? (
         <span className="hidden rounded border border-astro-border bg-astro-bg/60 px-1.5 py-0.5 font-mono text-[10px] text-astro-muted xl:inline">
           Cmd K

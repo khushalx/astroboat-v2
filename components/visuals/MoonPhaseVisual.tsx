@@ -11,7 +11,7 @@ type MoonPhaseVisualProps = {
 const sizeClasses = {
   sm: "h-14 w-14",
   md: "h-20 w-20",
-  lg: "h-36 w-36"
+  lg: "h-44 w-44"
 };
 
 export function MoonPhaseVisual({
@@ -30,7 +30,7 @@ export function MoonPhaseVisual({
   return (
     <figure className={cn("inline-flex flex-col items-center gap-3", className)}>
       <svg
-        className={cn(sizeClasses[size], "drop-shadow-[0_0_20px_rgba(214,168,79,0.12)]")}
+        className={cn(sizeClasses[size])}
         viewBox="0 0 100 100"
         role="img"
         aria-label={`${phaseName}, ${clamped}% illuminated`}

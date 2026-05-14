@@ -26,7 +26,7 @@ export default async function AsteroidsPage() {
     <PageShell>
       <PageHeader
         title="Asteroid Watch"
-        subtitle="Track upcoming near-Earth object close approaches with calm, science-based explanations."
+        subtitle="Near-Earth objects on close approach, sourced from NASA JPL."
       />
 
       {nearEarthObjects.length > 0 ? (

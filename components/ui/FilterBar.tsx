@@ -12,7 +12,7 @@ type FilterBarProps = {
 export function FilterBar({ filters, activeFilter = filters[0], ariaLabel, onFilterChange }: FilterBarProps) {
   return (
     <div
-      className="mission-surface flex gap-2 overflow-x-auto rounded-lg border border-astro-border/80 bg-astro-surface/45 p-2"
+      className="flex gap-2 overflow-x-auto rounded-lg border border-astro-border bg-astro-surface/70 p-1.5"
       aria-label={ariaLabel}
     >
       {filters.map((filter) => {
@@ -24,10 +24,10 @@ export function FilterBar({ filters, activeFilter = filters[0], ariaLabel, onFil
             type="button"
             onClick={() => onFilterChange?.(filter)}
             className={cn(
-              "min-w-fit rounded-full border px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-astro-blue/40",
+              "min-h-11 min-w-fit rounded-full border px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-astro-blue/40",
               active
-                ? "border-astro-gold/45 bg-astro-gold/10 text-astro-text shadow-[0_0_0_1px_rgba(214,168,79,0.08)]"
-                : "border-astro-border/80 bg-astro-bg/25 text-astro-muted hover:border-astro-blue/45 hover:text-astro-blue"
+                ? "border-astro-gold/45 bg-astro-gold text-astro-bg"
+                : "border-transparent bg-transparent text-astro-muted hover:border-astro-border hover:text-astro-text"
             )}
           >
             {filter}

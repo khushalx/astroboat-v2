@@ -15,7 +15,7 @@ import {
   humanizeToken
 } from "@/lib/utils";
 
-const asteroidFilters = ["All", "Safe", "Watch", "Notable", "Closest", "Fastest", "This Week", "This Month"];
+const asteroidFilters = ["All", "This Week", "High Attention", "Low Risk", "Closest", "Fastest"];
 
 type AsteroidWatchClientProps = {
   objects: NearEarthObject[];
@@ -42,14 +42,11 @@ export function AsteroidWatchClient({ objects }: AsteroidWatchClientProps) {
         </div>
       ) : null}
 
-      <AstroCard className="border-astro-gold/35 bg-astro-gold/10 p-5">
-        <p className="font-semibold text-astro-text">Asteroid Watch is educational. A close approach does not mean an impact threat.</p>
-        <p className="mt-2 text-sm leading-6 text-astro-muted">
-          Close-approach data is sourced from NASA/JPL SBDB. Optional estimated size data may use NASA NeoWs when available.
-        </p>
+      <AstroCard className="border-astro-gold/35 bg-astro-gold/10 p-3.5">
+        <p className="text-sm font-medium text-astro-text">A close approach does not mean an impact threat.</p>
       </AstroCard>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
         <MetricCard label="Tracked objects" value={objects.length} />
         <MetricCard label="Closest pass" value={closest ? formatLunarDistance(closest.distanceLunar) : "Unavailable"} />
         <MetricCard label="Fastest object" value={fastest ? formatSpeedKps(fastest.speedKps) : "Unavailable"} />
@@ -59,7 +56,7 @@ export function AsteroidWatchClient({ objects }: AsteroidWatchClientProps) {
 
       <FilterBar filters={asteroidFilters} activeFilter={activeFilter} ariaLabel="Asteroid filters" onFilterChange={setActiveFilter} />
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {filteredObjects.length > 0 ? (
           filteredObjects.map((neo) => <NeoCard key={neo.id} neo={neo} />)
         ) : (
@@ -72,12 +69,12 @@ export function AsteroidWatchClient({ objects }: AsteroidWatchClientProps) {
 
 function NeoCard({ neo }: { neo: NearEarthObject }) {
   return (
-    <AstroCard as="article" className="p-5 sm:p-6" interactive>
+    <AstroCard as="article" className="p-3.5 sm:p-4" interactive>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">Object</p>
-          <h2 className="mt-2 text-xl font-semibold text-astro-text">{neo.name}</h2>
-          <p className="mt-2 font-mono text-xs text-astro-blue">{neo.closeApproachDateDisplay}</p>
+          <h2 className="mt-1 font-mono text-lg font-semibold text-astro-text">{neo.name}</h2>
+          <p className="mt-1 text-sm text-astro-muted">{neo.closeApproachDateDisplay}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <DataBadge label={humanizeToken(neo.riskLevel)} />
@@ -85,44 +82,33 @@ function NeoCard({ neo }: { neo: NearEarthObject }) {
         </div>
       </div>
 
-      <dl className="mt-5 grid gap-3 sm:grid-cols-4">
+      <dl className="mt-4 grid gap-2 sm:grid-cols-4">
         <Detail label="Distance" value={formatKilometers(neo.distanceKm)} />
         <Detail label="Lunar distance" value={formatLunarDistance(neo.distanceLunar)} />
         <Detail label="Speed" value={formatSpeedKps(neo.speedKps)} />
         <Detail label="Estimated size" value={neo.estimatedDiameterDisplay} />
       </dl>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <div className="mb-2 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-astro-muted">
           <span>Distance comparison</span>
           <span>{neo.distanceComparison}</span>
         </div>
         <div className="h-2 overflow-hidden rounded-full border border-astro-border bg-astro-bg">
-          <div className="h-full rounded-full bg-gradient-to-r from-astro-blue/60 to-astro-gold/75" style={{ width: `${distanceBarWidth(neo.distanceLunar)}%` }} />
+          <div className="h-full rounded-full bg-astro-gold" style={{ width: `${distanceBarWidth(neo.distanceLunar)}%` }} />
         </div>
       </div>
 
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="rounded-lg border border-astro-border bg-astro-bg/35 p-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">Risk context</p>
-          <p className="mt-2 text-sm leading-6 text-astro-muted">{neo.riskExplanation}</p>
-        </div>
-        <div className="rounded-lg border border-astro-border bg-astro-bg/35 p-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-blue">Why it matters</p>
-          <p className="mt-2 text-sm leading-6 text-astro-muted">{neo.whyItMatters}</p>
-        </div>
-      </div>
-
-      <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-astro-muted">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-astro-muted">
         <span>{neo.sizeComparison}</span>
         {neo.sourceUrl ? (
           <a
             href={neo.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-astro-border px-3 py-2 text-sm text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="inline-flex min-h-11 items-center rounded-md border border-astro-border px-3 py-2 text-sm text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
           >
-            Source
+            Source <span className="ml-1" aria-hidden="true">→</span>
           </a>
         ) : null}
       </div>
@@ -132,9 +118,9 @@ function NeoCard({ neo }: { neo: NearEarthObject }) {
 
 function Detail({ label, value }: { label: string; value: string }) {
   return (
-    <div>
+    <div className="rounded-md border border-astro-border bg-astro-bg/30 p-3">
       <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">{label}</dt>
-      <dd className="mt-1 text-sm text-astro-text">{value}</dd>
+      <dd className="mt-1 font-mono text-sm text-astro-text">{value}</dd>
     </div>
   );
 }
@@ -148,10 +134,14 @@ function filterObjects(objects: NearEarthObject[], activeFilter: string) {
     switch (activeFilter) {
       case "Safe":
         return object.riskLevel === "safe";
+      case "Low Risk":
+        return object.riskLevel === "safe";
       case "Watch":
         return object.riskLevel === "watch";
       case "Notable":
         return object.riskLevel === "notable";
+      case "High Attention":
+        return object.riskLevel === "watch" || object.riskLevel === "notable";
       case "This Week":
         return !Number.isNaN(date.getTime()) && date >= now && date <= weekEnd;
       case "This Month":

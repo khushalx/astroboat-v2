@@ -10,20 +10,20 @@ const config: Config = {
     extend: {
       colors: {
         astro: {
-          bg: "#070B14",
-          surface: "#101827",
-          elevated: "#131C2E",
-          border: "#1E293B",
-          text: "#E5E7EB",
-          muted: "#94A3B8",
-          gold: "#D6A84F",
-          blue: "#7DD3FC",
-          red: "#F87171",
-          green: "#86EFAC"
+          bg: "var(--bg-base)",
+          surface: "var(--bg-surface)",
+          elevated: "var(--bg-elevated)",
+          border: "var(--border-subtle)",
+          text: "var(--text-primary)",
+          muted: "var(--text-secondary)",
+          gold: "var(--accent-gold)",
+          blue: "var(--accent-blue)",
+          red: "var(--danger)",
+          green: "var(--safe)"
         }
       },
       boxShadow: {
-        astro: "0 18px 70px rgba(0, 0, 0, 0.28)"
+        astro: "0 1px 12px rgba(0, 0, 0, 0.4)"
       }
     }
   },
