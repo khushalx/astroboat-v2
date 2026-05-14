@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BriefImage } from "@/components/briefs/BriefImage";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
@@ -15,6 +16,16 @@ export function BriefCard({ brief }: BriefCardProps) {
 
   return (
     <AstroCard as="article" className="flex h-full flex-col p-3.5 sm:p-4" interactive>
+      <BriefImage
+        src={brief.imageUrl}
+        alt={`${brief.title} source image`}
+        source={brief.source.name}
+        category={category}
+        tags={brief.tags}
+        title={brief.title}
+        className="mb-3"
+      />
+
       <div className="flex flex-wrap items-center gap-2">
         <SourceBadge source={brief.source.name} />
         <DataBadge label={category} />

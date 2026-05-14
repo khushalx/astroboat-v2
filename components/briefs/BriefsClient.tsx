@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { BriefCard } from "@/components/briefs/BriefCard";
-import { getBriefCategory } from "@/components/briefs/brief-utils";
+import { FeaturedBriefCard } from "@/components/briefs/FeaturedBriefCard";
+import { getBriefCategory, getFeaturedBrief } from "@/components/briefs/brief-utils";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { FilterBar } from "@/components/ui/FilterBar";
@@ -29,7 +30,8 @@ export function BriefsClient({ result }: BriefsClientProps) {
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const activeSources = sourceStatuses.filter((status) => status.ok && status.count > 0).length || new Set(briefs.map((brief) => brief.source.name)).size;
   const filteredBriefs = useMemo(() => filterBriefs(briefs, activeFilter, query), [activeFilter, briefs, query]);
-  const gridBriefs = filteredBriefs;
+  const featured = getFeaturedBrief(filteredBriefs);
+  const gridBriefs = filteredBriefs.filter((brief) => brief.id !== featured?.id);
   const visibleBriefs = gridBriefs.slice(0, visibleCount);
   const hasMore = visibleCount < gridBriefs.length;
 
@@ -63,6 +65,8 @@ export function BriefsClient({ result }: BriefsClientProps) {
 
       <FilterBar filters={filters} activeFilter={activeFilter} ariaLabel="Brief filters" onFilterChange={setActiveFilter} />
 
+      {featured ? <FeaturedBriefCard brief={featured} /> : null}
+
       <section>
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
@@ -70,10 +74,10 @@ export function BriefsClient({ result }: BriefsClientProps) {
             <h2 className="font-display mt-1 text-2xl font-normal text-astro-text">Latest summaries</h2>
           </div>
         </div>
-        {filteredBriefs.length > 0 ? (
+        {gridBriefs.length > 0 ? (
           <>
             <div className="grid gap-3 xl:grid-cols-2">
-              {(visibleBriefs.length > 0 ? visibleBriefs : filteredBriefs.slice(0, visibleCount)).map((brief) => (
+              {visibleBriefs.map((brief) => (
                 <BriefCard key={brief.id} brief={brief} />
               ))}
             </div>
@@ -89,9 +93,9 @@ export function BriefsClient({ result }: BriefsClientProps) {
               </div>
             ) : null}
           </>
-        ) : (
+        ) : filteredBriefs.length === 0 ? (
           <EmptyState title="No briefs match this search" description="Try another source, topic, or mission keyword." />
-        )}
+        ) : null}
       </section>
     </div>
   );

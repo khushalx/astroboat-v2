@@ -247,15 +247,18 @@ function extractFeedItems(parsed: unknown): ParsedFeedItem[] {
 }
 
 function mapFeedItemToBrief(item: ParsedFeedItem, config: BriefSourceConfig, index: number): AstronomyBrief | null {
-  const title = cleanText(textValue(item.title));
   const originalUrl = normalizeLink(item);
-  const publishedAt = normalizeDate(textValue(item.pubDate) || textValue(item.published) || textValue(item.updated) || textValue(item["dc:date"]));
-  const rawSummary = cleanText(
-    textValue(item.description) ||
-      textValue(item.summary) ||
-      textValue(item.subtitle) ||
-      "Read the original source for the complete update."
-  );
+  const inferredDate = inferPublishedDateFromFeedItem(item, originalUrl);
+  const title = createFeedItemTitle(item, config, inferredDate);
+  const publishedAt =
+    normalizeDate(textValue(item.pubDate) || textValue(item.published) || textValue(item.updated) || textValue(item["dc:date"])) ||
+    inferredDate;
+  const cleanedSummary = cleanText(textValue(item.description) || textValue(item.summary) || textValue(item.subtitle));
+  const rawSummary =
+    cleanedSummary ||
+    (config.id === "apod"
+      ? "NASA Astronomy Picture of the Day features a curated sky image from the APOD archive."
+      : "Read the original source for the complete update.");
 
   if (!title || !originalUrl) {
     return null;
@@ -278,7 +281,10 @@ function mapFeedItemToBrief(item: ParsedFeedItem, config: BriefSourceConfig, ind
     readingTime: estimateReadingTime(rawSummary),
     publishedAt,
     category,
-    imageUrl: imageUrlFromItem(item)
+    imageUrl: extractImageUrlFromFeedItem(item, {
+      baseUrl: originalUrl || config.url,
+      sourceId: config.id
+    })
   };
 }
 
@@ -304,17 +310,182 @@ function normalizeLink(item: ParsedFeedItem) {
   return sanitizeUrl(textValue(item.guid) || textValue(item.id));
 }
 
-function imageUrlFromItem(item: ParsedFeedItem) {
-  const mediaContent = firstRecord(item["media:content"]);
-  const mediaThumbnail = firstRecord(item["media:thumbnail"]);
-  const enclosure = firstRecord(item.enclosure);
+function extractImageUrlFromFeedItem(
+  item: ParsedFeedItem,
+  context: { baseUrl?: string; sourceId?: string } = {}
+): string | undefined {
+  const mediaType = textValue(item.media_type || item.mediaType).toLowerCase();
+  const candidates = [
+    textValue(item.hdurl),
+    ...urlCandidatesFromField(item.enclosure),
+    ...urlCandidatesFromField(item["media:content"]),
+    ...urlCandidatesFromField(item["media:thumbnail"]),
+    ...urlCandidatesFromField(item.image),
+    ...urlCandidatesFromField(item.thumbnail),
+    ...urlCandidatesFromField(item["itunes:image"]),
+    ...[
+      textValue(item.description),
+      textValue(item.summary),
+      textValue(item["content:encoded"]),
+      textValue(item.content),
+      textValue(item.encoded)
+    ].flatMap(urlCandidatesFromHtml),
+    textValue(item.url)
+  ];
 
-  return (
-    sanitizeUrl(textValue(mediaContent?.["@_url"])) ||
-    sanitizeUrl(textValue(mediaThumbnail?.["@_url"])) ||
-    sanitizeUrl(textValue(enclosure?.["@_url"])) ||
-    undefined
+  for (const candidate of candidates) {
+    const url = sanitizeImageUrl(candidate, context.baseUrl ?? "");
+
+    if (!url) {
+      continue;
+    }
+
+    if (context.sourceId === "apod" && mediaType && mediaType !== "image") {
+      continue;
+    }
+
+    if (context.sourceId === "apod" && !mediaType && !isLikelyImageUrl(url)) {
+      continue;
+    }
+
+    return url;
+  }
+
+  return undefined;
+}
+
+function urlCandidatesFromField(value: unknown): string[] {
+  return asArray(value).flatMap(urlCandidatesFromRecordLike);
+}
+
+function urlCandidatesFromRecordLike(entry: unknown): string[] {
+  if (typeof entry === "string") {
+    return [entry];
+  }
+
+  if (!isRecord(entry)) {
+    return [];
+  }
+
+  const medium = textValue(entry["@_medium"]).toLowerCase();
+  const mimeType = textValue(entry["@_type"]) || textValue(entry.type);
+  const isVideo = medium === "video" || /^video\//i.test(mimeType);
+  const direct = isVideo
+    ? []
+    : [textValue(entry["@_url"]), textValue(entry.url), textValue(entry["@_href"]), textValue(entry.href)].filter(Boolean);
+  const nested = [
+    ...urlCandidatesFromField(entry["media:thumbnail"]),
+    ...urlCandidatesFromField(entry.thumbnail),
+    ...urlCandidatesFromField(entry.image),
+    ...urlCandidatesFromField(entry["media:content"])
+  ];
+
+  return [...direct, ...nested];
+}
+
+function urlCandidatesFromHtml(value: string) {
+  const directMatches = [
+    ...value.matchAll(/<img[^>]+(?:src|data-src|data-lazy-src|data-original)=["']([^"']+)["']/gi)
+  ].map((match) => decodeEntities(match[1] ?? ""));
+  const srcSetMatches = [...value.matchAll(/<img[^>]+srcset=["']([^"']+)["']/gi)].flatMap((match) =>
+    parseSrcSet(decodeEntities(match[1] ?? ""))
   );
+
+  return [...directMatches, ...srcSetMatches];
+}
+
+function sanitizeImageUrl(value: string, baseUrl: string) {
+  const decoded = decodeEntities(value).trim();
+  const resolved = resolveImageUrl(decoded, baseUrl);
+  const url = sanitizeUrl(resolved);
+
+  if (!url || /\.(mp4|m4v|mov|webm)(\?|#|$)/i.test(url) || /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url)) {
+    return "";
+  }
+
+  return url;
+}
+
+function parseSrcSet(value: string) {
+  return value
+    .split(",")
+    .map((part) => part.trim().split(/\s+/)[0] ?? "")
+    .filter(Boolean);
+}
+
+function createFeedItemTitle(item: ParsedFeedItem, config: BriefSourceConfig, inferredDate: string) {
+  const title = cleanText(textValue(item.title));
+
+  if (title) {
+    return title;
+  }
+
+  if (config.id === "apod") {
+    const dateLabel = inferredDate ? formatDateForTitle(inferredDate) : "";
+
+    return dateLabel ? `Astronomy Picture of the Day: ${dateLabel}` : "Astronomy Picture of the Day";
+  }
+
+  return "";
+}
+
+function inferPublishedDateFromFeedItem(item: ParsedFeedItem, originalUrl: string) {
+  const combined = `${originalUrl} ${textValue(item.description)} ${textValue(item["content:encoded"])}`;
+  const match = combined.match(/(?:ap|S_)(\d{2})(\d{2})(\d{2})/i);
+
+  if (!match) {
+    return "";
+  }
+
+  const year = 2000 + Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+
+  if (!isValidDateParts(year, month, day)) {
+    return "";
+  }
+
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+function formatDateForTitle(value: string) {
+  const date = new Date(`${value}T00:00:00Z`);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
+}
+
+function isValidDateParts(year: number, month: number, day: number) {
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+}
+
+function isLikelyImageUrl(value: string) {
+  return /\.(avif|gif|jpe?g|png|webp)(\?|#|$)/i.test(value);
+}
+
+function resolveImageUrl(value: string, baseUrl: string) {
+  if (!value) {
+    return "";
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  if (/^https?:\/\//i.test(value)) {
+    return value;
+  }
+
+  try {
+    return new URL(value, baseUrl).toString();
+  } catch {
+    return value;
+  }
 }
 
 function createSummaryLines(value: string) {

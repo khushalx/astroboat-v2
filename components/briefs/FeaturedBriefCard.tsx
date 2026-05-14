@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BriefImage } from "@/components/briefs/BriefImage";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
@@ -11,12 +12,24 @@ type FeaturedBriefCardProps = {
 
 export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
   const originalHref = getOriginalHref(brief.originalUrl);
+  const category = getBriefCategory(brief);
 
   return (
     <AstroCard as="article" className="p-4 sm:p-5">
+      <BriefImage
+        src={brief.imageUrl}
+        alt={`${brief.title} source image`}
+        source={brief.source.name}
+        category={category}
+        tags={brief.tags}
+        title={brief.title}
+        featured
+        className="mb-4"
+      />
+
       <div className="flex flex-wrap items-center gap-2">
         <SourceBadge source={brief.source.name} />
-        <DataBadge label={getBriefCategory(brief)} />
+        <DataBadge label={category} />
         <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
       </div>
 
