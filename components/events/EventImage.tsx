@@ -18,7 +18,7 @@ export function EventImage({ src, alt, category }: EventImageProps) {
   }
 
   return (
-    <div className="h-[130px] overflow-hidden rounded-md border border-astro-border bg-astro-bg/45 sm:h-[150px]">
+    <div className="h-[140px] overflow-hidden rounded-md border border-astro-border bg-astro-bg/45 md:h-[132px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}

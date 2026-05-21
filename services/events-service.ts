@@ -455,7 +455,7 @@ function isValidSpaceEvent(event: SpaceEvent) {
 }
 
 function getCuratedSkyEvents() {
-  return mockSpaceEvents.filter((event) => event.category === "sky_event");
+  return mockSpaceEvents.filter((event) => event.category === "sky_event" && !isPastSpaceEvent(event));
 }
 
 function getMockLaunchFallback(limit: number) {
@@ -479,6 +479,12 @@ function dedupeEvents(events: SpaceEvent[]) {
     seen.add(key);
     return true;
   });
+}
+
+function isPastSpaceEvent(event: SpaceEvent) {
+  const date = new Date(event.dateUtc);
+
+  return !Number.isNaN(date.getTime()) && event.status !== "live" && date.getTime() < Date.now();
 }
 
 function cleanText(value: string | null | undefined, fallback: string) {

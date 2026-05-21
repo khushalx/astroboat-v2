@@ -5,14 +5,14 @@ import { PageShell } from "@/components/ui/PageShell";
 import { getCombinedSpaceCalendar } from "@/services/events-service";
 
 export const metadata: Metadata = {
-  title: "Space Events Calendar",
-  description: "Follow global launches, mission events, crewed spaceflight updates, and selected sky events.",
+  title: "Space Events",
+  description: "Upcoming launches, sky events, and mission milestones in one clean calendar.",
   alternates: {
     canonical: "/events"
   },
   openGraph: {
-    title: "Space Events Calendar — Astroboat",
-    description: "Follow global launches, mission events, crewed spaceflight updates, and selected sky events.",
+    title: "Space Events — Astroboat",
+    description: "Upcoming launches, sky events, and mission milestones in one clean calendar.",
     url: "/events",
     images: ["/astroboat-search-banner.png"]
   }
@@ -25,7 +25,7 @@ export default async function EventsPage() {
     <PageShell>
       <PageHeader
         title="Space Events"
-        subtitle="Upcoming astronomical events, launches, and sky phenomena."
+        subtitle="Upcoming launches, sky events, and mission milestones in one clean calendar."
       />
       <EventsCalendarClient
         events={calendar.events}

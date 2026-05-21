@@ -8,7 +8,7 @@ export function EventVisualFallback({ category }: EventVisualFallbackProps) {
   const visual = getVisual(category);
 
   return (
-    <div className="flex h-[130px] items-center justify-center overflow-hidden rounded-md border border-astro-border bg-astro-bg/45 sm:h-[150px]">
+    <div className="flex h-[140px] items-center justify-center overflow-hidden rounded-md border border-astro-border bg-astro-bg/45 md:h-[132px]">
       <svg
         className="h-full w-full"
         viewBox="0 0 240 150"
