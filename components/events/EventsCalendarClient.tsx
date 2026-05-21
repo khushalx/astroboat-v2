@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { EventImage } from "@/components/events/EventImage";
 import { FilterBar } from "@/components/ui/FilterBar";
 import type { SpaceEvent } from "@/lib/types";
 import { humanizeToken } from "@/lib/utils";
@@ -52,11 +53,13 @@ export function EventsCalendarClient({ events, warnings, lastUpdated }: EventsCa
 
 function EventCard({ event }: { event: SpaceEvent }) {
   const past = isPastEvent(event);
-  const sourceHref = event.webcastUrl ?? event.sourceUrl;
+  const sourceHref = event.sourceUrl;
 
   return (
     <AstroCard as="article" className={past ? "p-3.5 opacity-65 sm:p-4" : "p-3.5 sm:p-4"} interactive>
-      <div className="grid gap-4 sm:grid-cols-[88px_1fr]">
+      <div className="grid gap-4 md:grid-cols-[180px_88px_1fr]">
+        <EventImage src={event.imageUrl} alt={`${event.title} event image`} category={event.category} />
+
         <time dateTime={event.dateUtc} className="rounded-lg border border-astro-border bg-astro-bg/40 p-3 text-center">
           <span className="block font-mono text-2xl font-semibold leading-none text-astro-blue">{formatDay(event.dateUtc)}</span>
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-astro-muted">{formatMonth(event.dateUtc)}</span>

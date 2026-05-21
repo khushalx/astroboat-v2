@@ -223,6 +223,7 @@ export function mapLaunchToSpaceEvent(launch: SpaceDevsLaunch): SpaceEvent {
   const location = [launch.pad?.name, launch.pad?.location?.name].filter(Boolean).join(", ") || "Launch location unavailable";
   const webcastUrl = firstUrl(launch.vid_urls) ?? firstUrl(launch.mission?.vid_urls);
   const sourceUrl = firstUrl(launch.info_urls) ?? firstUrl(launch.mission?.info_urls) ?? cleanText(launch.url, "");
+  const imageUrl = getLaunchImageUrl(launch);
 
   return {
     id: `launch-${id}`,
@@ -239,7 +240,7 @@ export function mapLaunchToSpaceEvent(launch: SpaceDevsLaunch): SpaceEvent {
     provider: provider || undefined,
     mission: mission || undefined,
     rocket: rocket || undefined,
-    imageUrl: cleanText(launch.image?.image_url, "") || undefined,
+    imageUrl,
     sourceUrl: sourceUrl || undefined,
     webcastUrl: webcastUrl || undefined,
     visibility: webcastUrl || launch.webcast_live ? "Online" : "Worldwide",
@@ -263,6 +264,7 @@ export function mapSpaceDevEventToSpaceEvent(event: SpaceDevsEvent): SpaceEvent 
   const webcastUrl = firstUrl(event.vid_urls);
   const sourceUrl = firstUrl(event.info_urls) ?? cleanText(event.url, "");
   const program = event.program?.map((item) => item.name).filter(Boolean).join(", ");
+  const imageUrl = cleanText(event.image?.image_url, "") || undefined;
 
   return {
     id: `event-${id}`,
@@ -276,7 +278,7 @@ export function mapSpaceDevEventToSpaceEvent(event: SpaceDevsEvent): SpaceEvent 
     dateDisplay: formatDateTimeUtc(dateUtc),
     location: cleanText(event.location, "Location unavailable"),
     agency: program || undefined,
-    imageUrl: cleanText(event.image?.image_url, "") || undefined,
+    imageUrl,
     sourceUrl: sourceUrl || undefined,
     webcastUrl: webcastUrl || undefined,
     visibility: webcastUrl || event.webcast_live ? "Online" : "Worldwide",
@@ -487,6 +489,16 @@ function cleanText(value: string | null | undefined, fallback: string) {
 
 function firstUrl(urls: Array<{ url?: string | null }> | null | undefined) {
   return urls?.find((item) => Boolean(item.url?.trim()))?.url?.trim();
+}
+
+function getLaunchImageUrl(launch: SpaceDevsLaunch) {
+  return (
+    cleanText(launch.image?.image_url, "") ||
+    cleanText(launch.image_url, "") ||
+    cleanText(launch.infographic, "") ||
+    cleanText(launch.mission_patches?.[0]?.image_url, "") ||
+    undefined
+  );
 }
 
 function getTodayDateFilter() {

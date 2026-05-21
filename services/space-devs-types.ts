@@ -43,6 +43,9 @@ export type SpaceDevsLaunch = {
     } | null;
   } | null;
   image?: SpaceDevsImage | null;
+  image_url?: string | null;
+  infographic?: string | null;
+  mission_patches?: SpaceDevsImage[] | null;
   webcast_live?: boolean | null;
   vid_urls?: SpaceDevsUrl[] | null;
   info_urls?: SpaceDevsUrl[] | null;
