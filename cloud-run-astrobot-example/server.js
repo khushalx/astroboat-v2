@@ -17,11 +17,39 @@ Do not provide unsafe or irrelevant content.`;
 
 app.use(express.json({ limit: "16kb" }));
 
-app.get("/health", (_request, response) => {
-  response.json({ ok: true });
+app.get("/", (_request, response) => {
+  response.json({
+    status: "ok",
+    service: "Astroboat Assistant"
+  });
 });
 
-app.post("/", async (request, response) => {
+app.get("/health", (_request, response) => {
+  response.json({
+    status: "ok",
+    service: "Astroboat Assistant"
+  });
+});
+
+app.post("/chat", handleChat);
+
+// Keep POST / available for older ASTROBOT_BACKEND_URL values.
+app.post("/", handleChat);
+
+app.use((request, response) => {
+  response.status(404).json({
+    error: `Route not found: ${request.method} ${request.path}`
+  });
+});
+
+app.use((error, _request, response, _next) => {
+  console.error("Astrobot request error:", error?.message || error);
+  response.status(400).json({
+    error: "Invalid request body."
+  });
+});
+
+async function handleChat(request, response) {
   const message = typeof request.body?.message === "string" ? request.body.message.trim() : "";
 
   if (!message) {
@@ -72,7 +100,7 @@ app.post("/", async (request, response) => {
     console.error("Astrobot backend error:", error?.message || error);
     return response.status(502).json({ error: "Astroboat Assistant could not answer right now." });
   }
-});
+}
 
 app.listen(port, () => {
   console.log(`Astroboat Assistant backend listening on port ${port}`);

@@ -27,7 +27,13 @@ npm start
 Then set Astroboat's server-side environment variable:
 
 ```bash
-ASTROBOT_BACKEND_URL=http://localhost:8080
+ASTROBOT_BACKEND_URL=http://localhost:8080/chat
+```
+
+The deployed Cloud Run endpoint should also include `/chat`, for example:
+
+```bash
+ASTROBOT_BACKEND_URL=https://YOUR_CLOUD_RUN_SERVICE_URL/chat
 ```
 
 ## Deploy Sketch
