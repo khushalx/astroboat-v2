@@ -1,4 +1,4 @@
-export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home";
+export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant";
 
 export type SearchIndexItem = {
   title: string;
@@ -43,9 +43,16 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/asteroids",
     kind: "Tracker",
     keywords: ["asteroid", "neo", "near earth object", "jpl", "close approach", "planetary defense"]
+  },
+  {
+    title: "Ask Astroboat",
+    description: "Ask simple astronomy chatbot questions about Moon phases, events, asteroids, and space science",
+    url: "/ask",
+    kind: "Assistant",
+    keywords: ["ask", "chatbot", "assistant", "questions", "astronomy basics", "space science"]
   }
 ];
 
 export const quickSearchItems = searchIndex.filter((item) =>
-  ["Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch"].includes(item.title)
+  ["Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch", "Ask Astroboat"].includes(item.title)
 );

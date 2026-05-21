@@ -62,5 +62,12 @@ const iconPaths: Record<string, ReactNode> = {
       <circle cx="16.8" cy="10.2" r="1.5" fill="currentColor" opacity="0.65" />
       <path d="M11 18.5h7" {...strokeProps} />
     </>
+  ),
+  "Ask Astroboat": (
+    <>
+      <path d="M5.5 6.5h13A1.5 1.5 0 0 1 20 8v7.2a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3v-3h-1A1.5 1.5 0 0 1 4 15.2V8a1.5 1.5 0 0 1 1.5-1.5Z" {...strokeProps} />
+      <path d="M8 10.5h8M8 13.5h4.5" {...strokeProps} />
+      <circle cx="16" cy="13.5" r="1" fill="currentColor" />
+    </>
   )
 };

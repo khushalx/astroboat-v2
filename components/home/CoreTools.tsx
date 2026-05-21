@@ -36,6 +36,13 @@ const tools = [
     href: "/asteroids",
     action: "Track Asteroids",
     visual: "orbit"
+  },
+  {
+    title: "Ask Astroboat",
+    copy: "Ask beginner-friendly space questions without leaving the observatory.",
+    href: "/ask",
+    action: "Ask Astroboat",
+    visual: "assistant"
   }
 ] as const;
 
@@ -95,6 +102,23 @@ function ToolVisual({ type, moon }: { type: (typeof tools)[number]["visual"]; mo
         <span className="h-2.5 w-2.5 rounded-full border border-astro-blue bg-astro-blue/15" />
         <span className="h-px flex-1 bg-astro-border" />
         <span className="h-2.5 w-2.5 rounded-full border border-astro-muted" />
+      </div>
+    );
+  }
+
+  if (type === "assistant") {
+    return (
+      <div className="flex h-full items-center gap-3" aria-label="Assistant signal visual">
+        <div className="relative h-10 w-12 rounded-lg border border-astro-blue/35 bg-astro-blue/10">
+          <span className="absolute left-2 top-2 h-1.5 w-1.5 rounded-full bg-astro-gold" />
+          <span className="absolute left-5 top-2 h-1.5 w-5 rounded-full bg-astro-blue/60" />
+          <span className="absolute bottom-2 left-2 h-1.5 w-8 rounded-full bg-astro-border" />
+        </div>
+        <div className="flex-1 space-y-2">
+          <div className="h-px w-full bg-astro-border" />
+          <div className="h-px w-4/5 bg-astro-blue/35" />
+          <div className="h-px w-2/5 bg-astro-gold/45" />
+        </div>
       </div>
     );
   }

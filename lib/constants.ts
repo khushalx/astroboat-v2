@@ -65,7 +65,8 @@ export const navItems: NavItem[] = [
   { label: "Briefs", href: "/briefs" },
   { label: "Events", href: "/events" },
   { label: "Moon", href: "/moon" },
-  { label: "Asteroid Watch", href: "/asteroids" }
+  { label: "Asteroid Watch", href: "/asteroids" },
+  { label: "Ask Astroboat", href: "/ask" }
 ];
 
 export const eventFilters = ["All", "Launches", "Space Events", "Sky Events", "This Week", "This Month", "Online", "Worldwide"];
