@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Astronomy Briefs — Astroboat",
     description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
     url: "/briefs",
-    images: ["/opengraph-image"]
+    images: ["/astroboat-search-banner.png"]
   }
 };
 

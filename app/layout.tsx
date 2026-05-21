@@ -8,9 +8,12 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://astroboat.in";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://astroboat.in";
 const siteDescription =
   "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.";
+const siteTitle = "Astroboat — Astronomy Intelligence & Sky Tools";
+const previewImage = "/astroboat-search-banner.png";
+const previewImageAlt = "Astroboat astronomy intelligence and sky tools";
 
 const displayFont = DM_Serif_Display({
   subsets: ["latin"],
@@ -33,7 +36,7 @@ const monoFont = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Astroboat — Astronomy Intelligence & Sky Tools",
+    default: siteTitle,
     template: "%s — Astroboat"
   },
   description: siteDescription,
@@ -54,17 +57,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
+    url: "https://astroboat.in",
     siteName: "Astroboat",
-    title: "Astroboat — Astronomy Intelligence & Sky Tools",
+    title: siteTitle,
     description: siteDescription,
-    images: ["/opengraph-image"]
+    images: [
+      {
+        url: previewImage,
+        width: 1200,
+        height: 630,
+        alt: previewImageAlt
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Astroboat — Astronomy Intelligence & Sky Tools",
+    title: siteTitle,
     description: siteDescription,
-    images: ["/twitter-image"]
+    images: [previewImage]
   },
   icons: {
     icon: "/icon.svg",
@@ -83,6 +93,25 @@ export const metadata: Metadata = {
   }
 };
 
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Astroboat",
+    url: "https://astroboat.in",
+    description: siteDescription,
+    image: "https://astroboat.in/astroboat-search-banner.png"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Astroboat",
+    url: "https://astroboat.in",
+    logo: "https://astroboat.in/icon.svg",
+    image: "https://astroboat.in/astroboat-search-banner.png"
+  }
+];
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -91,6 +120,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <SkyGridBackground />
         <Sidebar />
         <div className="min-h-screen lg:pl-72">

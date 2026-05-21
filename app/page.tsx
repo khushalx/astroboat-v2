@@ -9,15 +9,31 @@ export const metadata: Metadata = {
   title: {
     absolute: "Astroboat — Astronomy Intelligence & Sky Tools"
   },
-  description: "Track astronomy briefs, space events, Moon data, and near-Earth objects in one calm sky dashboard.",
+  description:
+    "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
-    description: "Track astronomy briefs, space events, Moon data, and near-Earth objects in one calm sky dashboard.",
-    url: "/",
-    images: ["/opengraph-image"]
+    description:
+      "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
+    url: "https://astroboat.in",
+    images: [
+      {
+        url: "/astroboat-search-banner.png",
+        width: 1200,
+        height: 630,
+        alt: "Astroboat astronomy intelligence and sky tools"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Astroboat — Astronomy Intelligence & Sky Tools",
+    description:
+      "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
+    images: ["/astroboat-search-banner.png"]
   }
 };
 
