@@ -1,7 +1,6 @@
 import { CoreTools } from "@/components/home/CoreTools";
 import { Hero } from "@/components/home/Hero";
 import type { Metadata } from "next";
-import { getNearEarthObjects } from "@/services/asteroids-service";
 import { getUpcomingEvents } from "@/services/events-service";
 import { getCurrentMoonData } from "@/services/moon-service";
 
@@ -10,14 +9,14 @@ export const metadata: Metadata = {
     absolute: "Astroboat — Astronomy Intelligence & Sky Tools"
   },
   description:
-    "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
+    "Astroboat helps you explore simple astronomy updates, sky events, Moon data, and AI-powered space explanations.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description:
-      "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
+      "Astroboat helps you explore simple astronomy updates, sky events, Moon data, and AI-powered space explanations.",
     url: "https://astroboat.in",
     images: [
       {
@@ -32,30 +31,31 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description:
-      "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.",
+      "Astroboat helps you explore simple astronomy updates, sky events, Moon data, and AI-powered space explanations.",
     images: ["/astroboat-search-banner.png"]
   }
 };
 
 export default async function HomePage() {
-  const [events, moon, neos] = await Promise.all([
+  const [events, moon] = await Promise.all([
     getUpcomingEvents(),
-    getCurrentMoonData(),
-    getNearEarthObjects()
+    getCurrentMoonData()
   ]);
-  const closestNeo = neos[0] ?? null;
 
   return (
     <>
       <Hero
         moon={moon}
         nextEvent={events[0] ?? null}
-        closestNeo={closestNeo}
       />
       <CoreTools moon={moon} />
-      <section className="pb-8 pt-2">
-        <div className="rounded-lg border border-astro-border bg-astro-surface/60 px-4 py-3 text-xs leading-6 text-[color:var(--text-dim)]">
-          Data from NASA JPL, The Space Devs, USNO, RSS/API feeds, and open astronomical sources.
+      <section className="pb-7 pt-1">
+        <div className="flex flex-col gap-2 rounded-lg border border-astro-border bg-astro-surface/60 px-3.5 py-3 text-sm text-astro-muted sm:flex-row sm:items-center sm:justify-between sm:px-4">
+          <span>Beginner friendly</span>
+          <span className="hidden h-1 w-1 rounded-full bg-astro-border sm:block" aria-hidden="true" />
+          <span>Uses public astronomy data</span>
+          <span className="hidden h-1 w-1 rounded-full bg-astro-border sm:block" aria-hidden="true" />
+          <span>AI assistant for quick explanations</span>
         </div>
       </section>
     </>

@@ -6,9 +6,10 @@ export function Footer() {
     { label: "Events", href: "/events" },
     { label: "Moon", href: "/moon" },
     { label: "Asteroid Watch", href: "/asteroids" },
+    { label: "Ask Astroboat", href: "/ask" },
     { label: "About", href: "/about" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Use", href: "/terms" },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
     { label: "Data Sources", href: "/data-sources" },
     { label: "Contact", href: "/contact" }
   ];

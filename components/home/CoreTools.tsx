@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { MoonPhaseVisual } from "@/components/visuals/MoonPhaseVisual";
-import { OrbitLineVisual } from "@/components/visuals/OrbitLineVisual";
 import type { MoonData } from "@/lib/types";
 
 type CoreToolsProps = {
@@ -11,56 +10,46 @@ type CoreToolsProps = {
 const tools = [
   {
     title: "Astronomy Briefs",
-    copy: "Short astronomy updates from trusted sources, rewritten for quick understanding.",
+    copy: "Short space updates from trusted sources, simplified for quick reading.",
     href: "/briefs",
     action: "Open Briefs",
     visual: "signal"
   },
   {
     title: "Space Events",
-    copy: "Track upcoming launches, mission events, and selected sky events.",
+    copy: "Track launches, sky events, and mission milestones.",
     href: "/events",
     action: "View Events",
     visual: "timeline"
   },
   {
-    title: "Moon Dashboard",
-    copy: "Check Moon phase, illumination, rise/set times, and viewing advice.",
+    title: "Moon Tracker",
+    copy: "Check Moon phase, illumination, and viewing times.",
     href: "/moon",
     action: "View Moon",
     visual: "moon"
   },
   {
-    title: "Asteroid Watch",
-    copy: "Follow near-Earth object close approaches with calm risk context.",
-    href: "/asteroids",
-    action: "Track Asteroids",
-    visual: "orbit"
-  },
-  {
     title: "Ask Astroboat",
-    copy: "Ask beginner-friendly space questions without leaving the observatory.",
+    copy: "Ask beginner-friendly questions about space and astronomy.",
     href: "/ask",
-    action: "Ask Astroboat",
+    action: "Ask Now",
     visual: "assistant"
   }
 ] as const;
 
 export function CoreTools({ moon }: CoreToolsProps) {
   return (
-    <section className="py-6 sm:py-8">
-      <div className="mb-5">
-        <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">
-          <span className="h-px w-6 bg-astro-gold/60" aria-hidden="true" />
-          Core tools
-        </p>
+    <section className="py-5 sm:py-7">
+      <div className="mb-4">
         <h2 className="font-display text-2xl font-normal text-astro-text">Explore Astroboat</h2>
+        <p className="mt-1 text-sm text-astro-muted">Four simple ways to start exploring space.</p>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
         {tools.map((tool) => (
           <AstroCard key={tool.href} as="article" className="p-3.5 sm:p-4" interactive>
-            <div className="mb-3 h-14 rounded-lg border border-astro-border bg-astro-bg/35 p-2">
+            <div className="mb-3 h-12 rounded-lg border border-astro-border bg-astro-bg/35 p-2">
               <ToolVisual type={tool.visual} moon={moon} />
             </div>
             <h3 className="text-base font-semibold text-astro-text">{tool.title}</h3>
@@ -88,10 +77,6 @@ function ToolVisual({ type, moon }: { type: (typeof tools)[number]["visual"]; mo
         </div>
       </div>
     );
-  }
-
-  if (type === "orbit") {
-    return <OrbitLineVisual className="h-full" />;
   }
 
   if (type === "timeline") {
