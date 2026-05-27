@@ -39,10 +39,9 @@ export function Hero({ moon, nextEvent }: HeroProps) {
       </div>
 
       <AstroCard className="p-3.5 sm:p-4">
-        <div className="mb-3 border-b border-astro-border pb-3">
+        <div className="mb-3 border-b border-astro-border pb-2.5">
           <div>
             <h2 className="text-base font-semibold text-astro-text">Start with today’s sky</h2>
-            <p className="mt-1 text-sm text-astro-muted">A small snapshot, not a dashboard.</p>
           </div>
         </div>
 
