@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Astroboat collects space and astronomy updates with source attribution, concise summaries, and useful context."
+    />
+    <title>Astroboat | Space News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas
+      id="starfield"
+      aria-hidden="true"
+      style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none"
+    ></canvas>
+    <div class="stellar-field" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Astroboat home">
+        <span class="brand-mark">A</span>
+        <span>
+          <strong>Astroboat</strong>
+          <small>Space news</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#today">Today</a>
+        <a href="#feed">Feed</a>
+        <a href="#launches">Launches</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <p class="eyebrow">Astroboat</p>
+        <h1>Astroboat</h1>
+        <p class="tagline">Space news, simplified.</p>
+        <p class="hero-text">
+          Curated space updates, launches, discoveries, and astronomy news in one clean place.
+        </p>
+        <div class="hero-actions" aria-label="Primary actions">
+          <a class="button primary" href="#today">Read Today in Space</a>
+          <a class="button secondary" href="#feed">Browse News Feed</a>
+        </div>
+      </section>
+
+      <section class="today-band" id="today">
+        <div class="section-heading">
+          <p class="eyebrow">Today in Space</p>
+          <h2>Essential updates</h2>
+        </div>
+        <div class="today-list" id="today-list"></div>
+      </section>
+
+      <section class="news-section" id="feed">
+        <div class="section-heading with-controls">
+          <div>
+            <p class="eyebrow">News Feed</p>
+            <h2>Latest stories</h2>
+            <p class="section-note" id="feed-status">Loading sources...</p>
+          </div>
+
+          <div class="controls" aria-label="News filters">
+            <label class="search-box">
+              <span class="sr-only">Search stories</span>
+              <input id="search-input" type="search" placeholder="Search space news" />
+            </label>
+            <label class="select-box">
+              <span class="sr-only">Filter by category</span>
+              <select id="category-filter"></select>
+            </label>
+          </div>
+        </div>
+
+        <div class="state-card" id="loading-state" role="status">
+          <span class="loader"></span>
+          Loading space updates...
+        </div>
+        <div class="state-card is-hidden" id="error-state" role="alert">
+          Live feeds are unavailable right now, so Astroboat is showing sample fallback stories.
+        </div>
+        <div class="state-card is-hidden" id="empty-state">
+          No stories match this search.
+        </div>
+
+        <div class="news-grid" id="news-grid"></div>
+      </section>
+
+      <section class="category-section" id="categories">
+        <div class="section-heading">
+          <p class="eyebrow">Categories</p>
+          <h2>Explore by topic</h2>
+        </div>
+        <div class="category-nav" id="category-nav" aria-label="Category navigation"></div>
+      </section>
+
+      <section class="launch-section" id="launches">
+        <div class="section-heading">
+          <p class="eyebrow">Upcoming Launches</p>
+          <h2>Next on the pad</h2>
+        </div>
+        <div class="launch-list" id="launch-list"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Astroboat</span>
+      <span>Summaries only. Original reporting belongs to each linked source.</span>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="js/starfield.js"></script>
+    <script src="sources.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
