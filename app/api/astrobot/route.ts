@@ -1,101 +1,136 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const GROQ_CHAT_COMPLETIONS_URL = "https://api.groq.com/openai/v1/chat/completions";
+const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
 const MAX_MESSAGE_LENGTH = 1000;
-const FALLBACK_ANSWER =
-  "Astroboat Assistant is not connected yet. You can still explore Briefs, Events, Moon, and Asteroid Watch.";
+const TEMPORARY_UNAVAILABLE_ERROR =
+  "Astroboat Assistant is temporarily unavailable. Please try again later.";
 
-type AstrobotBackendResponse = {
-  answer?: unknown;
+const SYSTEM_PROMPT = `You are Astroboat Assistant, a calm astronomy helper inside Astroboat.
+
+Answer only questions related to:
+- astronomy
+- space science
+- Moon phases
+- asteroids
+- skywatching
+- space missions
+- rockets and launches
+- telescopes
+- planets, stars, galaxies, black holes
+- Astroboat website features
+
+Rules:
+- Keep answers beginner-friendly.
+- Keep answers concise.
+- Do not pretend to have live/current data unless it is provided.
+- If the user asks for current launches, Moon details, or asteroid approaches, tell them to check Astroboat's dedicated pages: Events, Moon, or Asteroid Watch.
+- Do not invent exact current data.
+- If a question is unrelated to astronomy/space, politely redirect back to space topics.
+- Avoid fear-based language for asteroids.
+- Explain uncertainty clearly.`;
+
+type GroqChatCompletionResponse = {
+  choices?: Array<{
+    message?: {
+      content?: unknown;
+    };
+  }>;
 };
 
 export async function POST(request: NextRequest) {
+  const message = await readValidatedMessage(request);
+
+  if ("error" in message) {
+    return NextResponse.json({ error: message.error }, { status: 400 });
+  }
+
+  const apiKey = process.env.GROQ_API_KEY;
+
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: "Astroboat Assistant is not configured yet." },
+      { status: 503 }
+    );
+  }
+
+  try {
+    const response = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+        messages: [
+          {
+            role: "system",
+            content: SYSTEM_PROMPT
+          },
+          {
+            role: "user",
+            content: message.value
+          }
+        ],
+        temperature: 0.5,
+        max_tokens: 500
+      }),
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      console.warn("[Astrobot] Groq request failed", {
+        status: response.status,
+        statusText: response.statusText
+      });
+
+      return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
+    }
+
+    const data = (await response.json()) as GroqChatCompletionResponse;
+    const answer = data.choices?.[0]?.message?.content;
+
+    if (typeof answer !== "string" || !answer.trim()) {
+      console.warn("[Astrobot] Groq response did not include an answer.");
+      return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
+    }
+
+    return NextResponse.json({ answer: answer.trim() });
+  } catch (error) {
+    console.warn("[Astrobot] Groq request could not be completed", {
+      message: error instanceof Error ? error.message : "Unknown error"
+    });
+
+    return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
+  }
+}
+
+async function readValidatedMessage(
+  request: NextRequest
+): Promise<{ value: string } | { error: string }> {
   let body: unknown;
 
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
+    return { error: "Invalid JSON body." };
   }
 
-  const message = typeof (body as { message?: unknown }).message === "string"
-    ? (body as { message: string }).message.trim()
-    : "";
+  const rawMessage = isRecord(body) ? body.message : undefined;
+  const message = typeof rawMessage === "string" ? rawMessage.trim() : "";
 
   if (!message) {
-    return NextResponse.json({ error: "Message is required." }, { status: 400 });
+    return { error: "Message is required." };
   }
 
   if (message.length > MAX_MESSAGE_LENGTH) {
-    return NextResponse.json(
-      { error: `Message must be ${MAX_MESSAGE_LENGTH} characters or fewer.` },
-      { status: 400 }
-    );
+    return { error: `Message must be ${MAX_MESSAGE_LENGTH} characters or fewer.` };
   }
 
-  const backendUrl = process.env.ASTROBOT_BACKEND_URL;
-
-  if (!backendUrl) {
-    return NextResponse.json({ answer: FALLBACK_ANSWER });
-  }
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
-
-  try {
-    const response = await fetch(backendUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message }),
-      cache: "no-store",
-      signal: controller.signal
-    });
-
-    const data = await parseBackendResponse(response);
-
-    if (!response.ok) {
-      return NextResponse.json(
-        {
-          error: "Astroboat Assistant backend is unavailable.",
-          answer: data.answer ?? "Astroboat Assistant could not answer right now. Please try again shortly."
-        },
-        { status: 502 }
-      );
-    }
-
-    if (typeof data.answer !== "string" || !data.answer.trim()) {
-      return NextResponse.json(
-        {
-          error: "Astroboat Assistant returned an invalid response.",
-          answer: "Astroboat Assistant could not answer right now. Please try again shortly."
-        },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ answer: data.answer.trim() });
-  } catch {
-    return NextResponse.json(
-      {
-        error: "Astroboat Assistant backend is unavailable.",
-        answer: "Astroboat Assistant could not answer right now. Please try again shortly."
-      },
-      { status: 502 }
-    );
-  } finally {
-    clearTimeout(timeout);
-  }
+  return { value: message };
 }
 
-async function parseBackendResponse(response: Response): Promise<{ answer?: string }> {
-  const contentType = response.headers.get("content-type") ?? "";
-
-  if (contentType.includes("application/json")) {
-    const data = (await response.json()) as AstrobotBackendResponse;
-    return typeof data.answer === "string" ? { answer: data.answer } : {};
-  }
-
-  const text = await response.text();
-  return text.trim() ? { answer: text.trim() } : {};
+function isRecord(value: unknown): value is { message?: unknown } {
+  return typeof value === "object" && value !== null;
 }

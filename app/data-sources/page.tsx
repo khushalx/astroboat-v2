@@ -29,7 +29,7 @@ const sources = [
     use: "Launches and spaceflight event data from Launch Library 2."
   },
   {
-    name: "Google Vertex AI / Gemini",
+    name: "Groq",
     use: "Astroboat Assistant responses and astronomy explanations."
   }
 ];
