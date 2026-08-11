@@ -27,7 +27,9 @@ export function AstrobotClient() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (messages.length > 0 || isSending) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
   }, [messages, isSending]);
 
   async function sendMessage(value: string) {
@@ -106,25 +108,20 @@ export function AstrobotClient() {
   const hasUserMessages = messages.some((message) => message.role === "user");
 
   return (
-    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem]">
-      <AstroCard as="section" className="mission-surface p-0">
-        <div className="flex min-h-[36rem] flex-col sm:min-h-[38rem]">
-          <div className="flex items-start justify-between gap-4 border-b border-astro-border px-4 py-4 sm:px-5">
+    <section className="mx-auto max-w-4xl space-y-4">
+      <AstroCard as="section" className="p-0">
+        <div className="flex h-[clamp(34rem,70svh,42rem)] flex-col">
+          <div className="flex items-center justify-between gap-4 border-b border-astro-border/70 px-4 py-4 sm:px-6">
             <div>
-              <p className="font-display text-xl font-normal text-astro-text">Ask Astroboat</p>
-              <p className="mt-1 text-sm text-astro-muted">Ask simple astronomy questions.</p>
+              <p className="text-sm font-semibold text-astro-text">Astronomy conversation</p>
+              <p className="mt-1 text-xs text-astro-muted">Concepts and context, explained clearly.</p>
             </div>
-            <div
-              className="relative mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-astro-blue/30 bg-astro-blue/10"
-              aria-hidden="true"
-            >
-              <span className="h-3 w-3 rounded-full bg-astro-gold shadow-[0_0_18px_rgba(214,168,79,0.35)]" />
-              <span className="absolute h-7 w-7 rounded-full border border-astro-blue/45" />
-              <span className="absolute h-px w-8 rotate-[-24deg] bg-astro-blue/45" />
-            </div>
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-astro-gold/25 bg-astro-gold/[0.06] text-astro-gold" aria-hidden="true">
+              ✦
+            </span>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-5" aria-live="polite">
+          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-5" aria-live="polite">
             {!hasUserMessages ? (
               <StarterState onPromptClick={handlePromptClick} />
             ) : (
@@ -141,7 +138,7 @@ export function AstrobotClient() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-astro-border bg-astro-elevated/45 p-3 sm:p-4">
+          <div className="border-t border-astro-border/70 bg-astro-bg/35 p-3 sm:p-4">
             {error ? <ErrorNotice message={error} /> : null}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row sm:items-end">
@@ -159,13 +156,13 @@ export function AstrobotClient() {
                 rows={2}
                 aria-label="Ask Astroboat a question"
                 placeholder="Ask about Moon phases, asteroids, space events, or astronomy basics..."
-                className="min-h-14 flex-1 resize-none rounded-xl border border-astro-border bg-astro-bg/90 px-3.5 py-3 text-sm leading-6 text-astro-text shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] placeholder:text-astro-muted focus:border-astro-blue/70 focus:outline-none focus:ring-2 focus:ring-astro-blue/20 disabled:cursor-not-allowed disabled:opacity-70"
+                className="glass-control min-h-14 flex-1 resize-none rounded-lg px-3.5 py-3 text-sm leading-6 text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue/60 focus:outline-none focus:ring-2 focus:ring-astro-blue/20 disabled:cursor-not-allowed disabled:opacity-70"
               />
               <button
                 type="submit"
                 disabled={isSending || !input.trim()}
                 aria-label="Send message to Astroboat"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-astro-gold/45 bg-astro-gold px-5 py-3 text-sm font-semibold text-astro-bg shadow-[0_8px_24px_rgba(214,168,79,0.12)] transition hover:-translate-y-0.5 hover:bg-[#e3bb63] focus:outline-none focus:ring-2 focus:ring-astro-gold/35 disabled:translate-y-0 disabled:cursor-not-allowed disabled:border-astro-border disabled:bg-astro-surface disabled:text-astro-muted disabled:shadow-none"
+                className="cosmic-primary inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-gold/35 disabled:translate-y-0 disabled:cursor-not-allowed disabled:border-astro-border disabled:bg-astro-surface disabled:text-astro-muted disabled:shadow-none"
               >
                 {isSending ? (
                   <>
@@ -184,21 +181,8 @@ export function AstrobotClient() {
         </div>
       </AstroCard>
 
-      <aside className="space-y-3">
-        <AstroCard className="p-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Good questions</p>
-          <div className="mt-3 flex flex-col gap-2">
-            {SUGGESTED_PROMPTS.map((prompt) => (
-              <PromptButton key={prompt} prompt={prompt} onClick={() => handlePromptClick(prompt)} />
-            ))}
-          </div>
-        </AstroCard>
-        <AstroCard className="p-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Live data note</p>
-          <p className="mt-3 text-sm leading-6 text-astro-muted">
-            For live launches, Moon data, and asteroid approaches, use Astroboat&apos;s dedicated pages. The assistant explains concepts and context.
-          </p>
-        </AstroCard>
+      <aside className="border-l-2 border-astro-blue/30 pl-4 text-sm leading-6 text-astro-muted">
+        For current launches, Moon data, and asteroid approaches, use Astroboat&apos;s dedicated pages. The assistant is best for explanations and context.
       </aside>
     </section>
   );
@@ -206,15 +190,13 @@ export function AstrobotClient() {
 
 function StarterState({ onPromptClick }: { onPromptClick: (prompt: string) => void }) {
   return (
-    <div className="flex min-h-[20rem] flex-col items-center justify-center rounded-xl border border-astro-border bg-astro-bg/35 px-4 py-8 text-center">
-      <div className="relative mb-4 grid h-14 w-14 place-items-center rounded-full border border-astro-blue/30 bg-astro-blue/10" aria-hidden="true">
-        <span className="h-3 w-3 rounded-full bg-astro-gold" />
-        <span className="absolute h-9 w-9 rounded-full border border-astro-gold/30" />
-        <span className="absolute h-px w-12 rotate-[-18deg] bg-astro-blue/45" />
-      </div>
-      <h2 className="font-display text-2xl font-normal text-astro-text">What would you like to explore?</h2>
+    <div className="flex min-h-[23rem] flex-col items-center justify-center px-2 py-8 text-center">
+      <span className="mb-5 grid h-12 w-12 place-items-center rounded-full border border-astro-blue/20 bg-astro-blue/[0.05] text-lg text-astro-blue" aria-hidden="true">
+        ✦
+      </span>
+      <h2 className="font-display text-2xl font-normal text-astro-text sm:text-3xl">What would you like to explore?</h2>
       <p className="mt-2 max-w-md text-sm leading-6 text-astro-muted">Ask about Moon phases, asteroids, space events, or astronomy basics.</p>
-      <div className="mt-5 flex max-w-2xl flex-wrap justify-center gap-2">
+      <div className="mt-5 grid w-full max-w-2xl gap-2 sm:grid-cols-2">
         {SUGGESTED_PROMPTS.map((prompt) => (
           <PromptButton key={prompt} prompt={prompt} onClick={() => onPromptClick(prompt)} />
         ))}
@@ -229,13 +211,13 @@ function ChatBubble({ message }: { message: ChatMessage }) {
   return (
     <article
       className={cn(
-        "max-w-[92%] rounded-2xl border px-3.5 py-3 text-sm leading-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] sm:max-w-[78%] sm:px-4",
+        "max-w-[92%] rounded-xl border px-3.5 py-3 text-sm leading-6 sm:max-w-[78%] sm:px-4",
         isUser
-          ? "ml-auto border-astro-gold/35 bg-astro-gold/10 text-astro-text"
-          : "mr-auto border-astro-blue/30 bg-astro-bg/80 text-astro-text"
+          ? "ml-auto border-astro-gold/25 bg-astro-gold/[0.07] text-astro-text"
+          : "mr-auto border-astro-border bg-white/[0.025] text-astro-text"
       )}
     >
-      <p className={cn("mb-1 font-mono text-[10px] uppercase tracking-[0.18em]", isUser ? "text-astro-gold" : "text-astro-blue")}>
+      <p className={cn("mb-1 text-xs font-semibold", isUser ? "text-astro-gold" : "text-astro-blue")}>
         {isUser ? "You" : "Astroboat"}
       </p>
       <p className="whitespace-pre-wrap">{message.text}</p>
@@ -245,7 +227,7 @@ function ChatBubble({ message }: { message: ChatMessage }) {
 
 function TypingIndicator() {
   return (
-    <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-astro-blue/25 bg-astro-bg/80 px-3 py-2 text-sm text-astro-muted">
+    <div className="mt-3 inline-flex items-center gap-2 rounded-lg border border-astro-border bg-white/[0.025] px-3 py-2 text-sm text-astro-muted">
       <span>Astroboat is thinking</span>
       <span className="flex gap-1" aria-hidden="true">
         {[0, 120, 240].map((delay) => (
@@ -269,7 +251,7 @@ function PromptButton({ prompt, onClick }: { prompt: string; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      className="rounded-full border border-astro-border bg-astro-bg/70 px-3 py-2 text-left text-xs leading-5 text-astro-muted transition hover:border-astro-blue/50 hover:bg-astro-blue/10 hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/25"
+      className="rounded-lg border border-astro-border bg-white/[0.018] px-3 py-2.5 text-left text-xs leading-5 text-astro-muted transition hover:border-astro-blue/35 hover:bg-astro-blue/[0.05] hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/25"
     >
       {prompt}
     </button>

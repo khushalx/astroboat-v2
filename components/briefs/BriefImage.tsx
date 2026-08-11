@@ -30,13 +30,13 @@ export function BriefImage({
 
   if (src && !failed) {
     return (
-      <div className={cn("overflow-hidden rounded-lg border border-astro-border bg-astro-bg", heightClass, className)}>
+      <div className={cn("media-frame overflow-hidden rounded-xl border border-astro-border/70 bg-astro-bg", heightClass, className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}
           loading="lazy"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition duration-500 hover:scale-[1.025]"
           onError={() => setFailed(true)}
         />
       </div>

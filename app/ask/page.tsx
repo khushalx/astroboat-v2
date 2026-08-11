@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AstrobotClient } from "@/components/ask/AstrobotClient";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { PageShell } from "@/components/ui/PageShell";
 
 export const metadata: Metadata = {
   title: "Ask Astroboat",
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
 
 export default function AskPage() {
   return (
-    <div className="space-y-6">
+    <PageShell>
       <PageHeader
         eyebrow="Assistant"
         title="Ask Astroboat"
         subtitle="Ask simple questions about astronomy, space events, Moon phases, asteroids, and space science."
       />
       <AstrobotClient />
-    </div>
+    </PageShell>
   );
 }

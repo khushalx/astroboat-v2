@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function LearnPage() {
   return (
-    <PageShell>
+    <PageShell className="max-w-3xl">
       <PageHeader
         title="Learning Paths"
         subtitle="This section is temporarily paused while Astroboat focuses on core astronomy tools."
@@ -25,13 +25,13 @@ export default function LearnPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/"
-            className="rounded-md border border-astro-gold/45 bg-astro-gold/10 px-4 py-3 text-sm font-semibold text-astro-text transition hover:bg-astro-gold/15 focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
+            className="cosmic-primary rounded-lg px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
           >
             Back to Home
           </Link>
           <Link
             href="/briefs"
-            className="rounded-md border border-astro-border px-4 py-3 text-sm font-semibold text-astro-muted transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="cosmic-secondary rounded-lg px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
           >
             Read Briefs
           </Link>

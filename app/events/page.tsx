@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Space Events — Astroboat",
     description: "Upcoming launches, sky events, and mission milestones in one clean calendar.",
     url: "/events",
-    images: ["/astroboat-search-banner.png"]
+    images: ["/og-image.png"]
   }
 };
 

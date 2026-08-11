@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: "https://astroboat.in",
     images: [
       {
-        url: "/astroboat-search-banner.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Astroboat astronomy intelligence and sky tools"
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Astroboat — Astronomy Intelligence & Sky Tools",
     description:
       "Astroboat helps you explore simple astronomy updates, sky events, Moon data, and AI-powered space explanations.",
-    images: ["/astroboat-search-banner.png"]
+    images: ["/og-image.png"]
   }
 };
 
@@ -49,15 +49,6 @@ export default async function HomePage() {
         nextEvent={events[0] ?? null}
       />
       <CoreTools moon={moon} />
-      <section className="pb-7 pt-1">
-        <div className="flex flex-col gap-2 rounded-lg border border-astro-border bg-astro-surface/60 px-3.5 py-3 text-sm text-astro-muted sm:flex-row sm:items-center sm:justify-between sm:px-4">
-          <span>Beginner friendly</span>
-          <span className="hidden h-1 w-1 rounded-full bg-astro-border sm:block" aria-hidden="true" />
-          <span>Uses public astronomy data</span>
-          <span className="hidden h-1 w-1 rounded-full bg-astro-border sm:block" aria-hidden="true" />
-          <span>AI assistant for quick explanations</span>
-        </div>
-      </section>
     </>
   );
 }

@@ -48,24 +48,24 @@ export default function DataSourcesPage() {
         subtitle="Astroboat uses public astronomy sources and clearly links back whenever possible."
       />
 
-      <AstroCard className="p-5 sm:p-6">
-        <div className="grid gap-3 sm:grid-cols-2">
+      <AstroCard as="article" className="divide-y divide-astro-border/70 p-0">
+        <dl className="divide-y divide-astro-border/60 px-5 sm:px-7">
           {sources.map((source) => (
-            <div key={source.name} className="rounded-lg border border-astro-border bg-astro-elevated p-4">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">{source.name}</p>
-              <p className="mt-2 text-sm leading-6 text-astro-muted">{source.use}</p>
+            <div key={source.name} className="grid gap-1 py-4 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6 sm:py-5">
+              <dt className="font-semibold text-astro-text">{source.name}</dt>
+              <dd className="text-sm leading-6 text-astro-muted">{source.use}</dd>
             </div>
           ))}
-        </div>
-      </AstroCard>
+        </dl>
 
-      <AstroCard className="p-5 sm:p-6">
-        <h2 className="text-lg font-semibold text-astro-text">Source Transparency</h2>
-        <p className="mt-3 text-sm leading-7 text-astro-muted">
-          Astroboat links back to original sources whenever possible and does not republish full articles. Briefs
-          are designed as short summaries or context cards that encourage readers to open the original source for
-          complete details.
-        </p>
+        <section className="p-5 sm:p-7">
+          <h2 className="font-display text-2xl font-normal text-astro-text">Source transparency</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">
+            Astroboat links back to original sources whenever possible and does not republish full articles. Briefs
+            are designed as short summaries or context cards that encourage readers to open the original source for
+            complete details.
+          </p>
+        </section>
       </AstroCard>
     </PageShell>
   );

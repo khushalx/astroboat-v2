@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { FilterBar } from "@/components/ui/FilterBar";
 import { EventImage } from "@/components/events/EventImage";
 import type { SpaceEvent } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { humanizeToken } from "@/lib/utils";
 
-const eventFilters = ["All", "Upcoming", "Launches", "Sky Events", "Past", "Eclipse", "Meteor", "Conjunction"];
+const eventFilters = ["Upcoming", "Launches", "Sky Events", "Past", "Eclipse", "Meteor", "Conjunction"];
 
 type EventsCalendarClientProps = {
   events: SpaceEvent[];
@@ -23,66 +23,36 @@ export function EventsCalendarClient({ events, warnings, lastUpdated }: EventsCa
 
   return (
     <>
-      <div className="rounded-lg border border-astro-border bg-astro-surface/70 p-3.5 text-sm leading-6 text-astro-muted sm:p-4">
-        <p>Launch data comes from The Space Devs. Selected sky events may be curated by Astroboat.</p>
-        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-dim)]">
-          Last checked {formatDateTimeUtc(lastUpdated)}
-        </p>
+      <div className="grid gap-3 border-y border-astro-border/70 py-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+        <div>
+          <p className="max-w-2xl text-sm leading-6 text-astro-muted">
+            Launch data comes from The Space Devs. Selected sky events may be curated by Astroboat.
+          </p>
+        </div>
+        <div className="text-xs text-astro-muted sm:text-right">
+          <span>Last updated </span>
+          <time className="font-mono text-astro-text">{formatDateTimeUtc(lastUpdated)}</time>
+        </div>
       </div>
 
       {warnings.map((warning) => (
-        <div key={warning} className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-3.5 text-sm leading-6 text-astro-text">
+        <div key={warning} className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
           {warning}
         </div>
       ))}
 
-      <EventFilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+      <FilterBar filters={eventFilters} activeFilter={activeFilter} ariaLabel="Event filters" onFilterChange={setActiveFilter} />
 
       {filteredEvents.length > 0 ? (
-        <div className="space-y-3">
+        <AstroCard className="divide-y divide-astro-border/70 p-0">
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
-        </div>
+        </AstroCard>
       ) : (
         <EmptyState title="No upcoming events found" description="Try another filter or check back later for new space events." />
       )}
     </>
-  );
-}
-
-function EventFilterBar({
-  activeFilter,
-  onFilterChange
-}: {
-  activeFilter: string;
-  onFilterChange: (filter: string) => void;
-}) {
-  return (
-    <div
-      className="flex gap-1.5 overflow-x-auto rounded-lg border border-astro-border bg-astro-surface/70 p-1.5"
-      aria-label="Event filters"
-    >
-      {eventFilters.map((filter) => {
-        const active = filter === activeFilter;
-
-        return (
-          <button
-            key={filter}
-            type="button"
-            onClick={() => onFilterChange(filter)}
-            className={cn(
-              "min-h-9 min-w-fit rounded-full border px-3 py-1.5 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-astro-blue/40 sm:text-sm",
-              active
-                ? "border-astro-blue/45 bg-astro-blue/15 text-astro-blue"
-                : "border-transparent bg-transparent text-astro-muted hover:border-astro-border hover:text-astro-text"
-            )}
-          >
-            {filter}
-          </button>
-        );
-      })}
-    </div>
   );
 }
 
@@ -94,22 +64,20 @@ function EventCard({ event }: { event: SpaceEvent }) {
   const locationLine = event.provider ?? event.agency ?? event.location;
 
   return (
-    <AstroCard as="article" className={past ? "p-3.5 opacity-65 sm:p-4" : "p-3.5 sm:p-4"} interactive>
-      <div className="grid gap-3 md:grid-cols-[205px_minmax(0,1fr)] md:gap-4">
-        <EventImage src={event.imageUrl} alt={`${event.title} event image`} category={event.category} />
+    <article className="group p-3 transition-colors hover:bg-white/[0.018] sm:p-4">
+      <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 sm:grid-cols-[9.5rem_minmax(0,1fr)]">
+        <EventImage src={event.imageUrl} alt={`${event.title} event image`} category={event.category} className="!h-full min-h-28" />
 
         <div className="flex min-w-0 flex-col">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex flex-wrap items-center gap-2">
-            <DataBadge label={humanizeToken(event.category)} />
+              <DataBadge label={humanizeToken(event.category)} />
               <DataBadge label={statusLabel} />
             </div>
-            {sourceLabel ? (
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--text-dim)]">{sourceLabel}</span>
-            ) : null}
+            {sourceLabel ? <span className="hidden text-xs text-[color:var(--text-dim)] sm:inline">{sourceLabel}</span> : null}
           </div>
 
-          <h2 className="mt-3 line-clamp-2 text-base font-semibold leading-6 text-astro-text">{event.title}</h2>
+          <h2 className="mt-2.5 line-clamp-2 font-display text-lg font-normal leading-6 text-astro-text transition group-hover:text-white sm:text-xl sm:leading-7">{event.title}</h2>
 
           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-astro-muted">
             <time dateTime={event.dateUtc} className="font-mono text-astro-blue">
@@ -119,24 +87,24 @@ function EventCard({ event }: { event: SpaceEvent }) {
           </div>
 
           {event.description ? (
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-astro-muted">{event.description}</p>
+            <p className="mt-2 hidden line-clamp-2 text-sm leading-6 text-astro-muted sm:block">{event.description}</p>
           ) : null}
 
           {sourceHref ? (
-            <div className="mt-3 flex justify-start md:mt-auto md:justify-end md:pt-3">
+            <div className="mt-auto pt-2">
               <a
                 href={sourceHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-9 items-center rounded-md border border-astro-border px-3 py-1.5 text-sm text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+                className="text-xs font-medium text-astro-blue transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
               >
-                Source <span className="ml-1" aria-hidden="true">→</span>
+                Source <span aria-hidden="true">↗</span>
               </a>
             </div>
           ) : null}
         </div>
       </div>
-    </AstroCard>
+    </article>
   );
 }
 
@@ -147,7 +115,6 @@ function filterEvents(events: SpaceEvent[], activeFilter: string) {
     const past = isPastEvent(event);
 
     switch (activeFilter) {
-      case "All":
       case "Upcoming":
         return upcoming;
       case "Past":

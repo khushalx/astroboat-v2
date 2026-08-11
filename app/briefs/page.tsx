@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { BriefsClient } from "@/components/briefs/BriefsClient";
-import { AstroCard } from "@/components/ui/AstroCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
     title: "Astronomy Briefs — Astroboat",
     description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
     url: "/briefs",
-    images: ["/astroboat-search-banner.png"]
+    images: ["/og-image.png"]
   }
 };
 
@@ -27,23 +26,17 @@ export default async function BriefsPage() {
     <PageShell>
       <PageHeader
         title="Briefs"
-        subtitle="The latest in astronomy and space science."
+        subtitle="Concise astronomy and space-science updates from public sources, with links to the original reporting."
       />
 
-      <AstroCard className="p-3.5 sm:p-4">
-        <p className="text-sm leading-6 text-astro-muted">
-          Public RSS/API updates, shortened for quick reading with original source links.
-        </p>
-      </AstroCard>
-
       {result.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-4 text-sm leading-6 text-astro-text">
+        <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
           Live brief sources are temporarily unavailable. Showing saved Astroboat sample briefs.
         </div>
       ) : null}
 
       {!result.isFallback && result.warnings.length > 0 ? (
-        <div className="rounded-lg border border-astro-border bg-astro-surface/70 p-3 text-sm text-astro-muted">
+        <div className="rounded-lg border border-astro-border/70 bg-white/[0.018] p-4 text-sm text-astro-muted">
           {result.warnings[0]}
         </div>
       ) : null}
