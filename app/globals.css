@@ -4,20 +4,33 @@
 
 :root {
   color-scheme: dark;
-  --bg-base: #09090f;
-  --bg-surface: #0f1120;
-  --bg-elevated: #151829;
-  --border-subtle: #1e2240;
-  --border-accent: #2a3060;
-  --text-primary: #e8eaf2;
-  --text-secondary: #8a90b0;
-  --text-dim: #4a5070;
-  --accent-gold: #c9a84c;
-  --accent-gold-muted: #7a5f28;
-  --accent-blue: #4a7fc1;
-  --accent-blue-muted: #1e3a5f;
-  --danger: #c0392b;
-  --safe: #2ecc71;
+  --bg-base: #070a11;
+  --bg-base-rgb: 7 10 17;
+  --bg-surface: #111824;
+  --bg-surface-rgb: 17 24 36;
+  --bg-elevated: #172131;
+  --bg-elevated-rgb: 23 33 49;
+  --border-subtle: #263244;
+  --border-subtle-rgb: 38 50 68;
+  --border-accent: #3b4c63;
+  --text-primary: #f3f5f8;
+  --text-primary-rgb: 243 245 248;
+  --text-secondary: #aab3c1;
+  --text-secondary-rgb: 170 179 193;
+  --text-dim: #737e8f;
+  --accent-gold: #d8b46a;
+  --accent-gold-rgb: 216 180 106;
+  --accent-gold-muted: #4f4228;
+  --accent-blue: #8ecbe4;
+  --accent-blue-rgb: 142 203 228;
+  --accent-blue-muted: #173444;
+  --accent-violet: #aaa6ca;
+  --accent-violet-rgb: 170 166 202;
+  --accent-violet-muted: #302f43;
+  --danger: #e47c84;
+  --danger-rgb: 228 124 132;
+  --safe: #73c79b;
+  --safe-rgb: 115 199 155;
   background: var(--bg-base);
 }
 
@@ -30,16 +43,12 @@ html {
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(232, 234, 242, 0.055) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 78% 16%, rgba(74, 127, 193, 0.055) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 48% 72%, rgba(201, 168, 76, 0.045) 0 1px, transparent 1.4px),
-    var(--bg-base);
-  background-size: 180px 180px, 260px 260px, 340px 340px, auto;
+  background: transparent;
   color: var(--text-primary);
   font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  text-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -49,22 +58,29 @@ a {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::selection {
-  background: rgba(201, 168, 76, 0.3);
+  background: rgba(142, 203, 228, 0.2);
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid rgba(74, 127, 193, 0.62);
+  outline: 2px solid rgba(142, 203, 228, 0.72);
   outline-offset: 3px;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
-  height: 10px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,13 +88,13 @@ select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
   border: 2px solid var(--bg-base);
   border-radius: 999px;
+  background: #2b3545;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(74, 127, 193, 0.45);
+  background: #3a4658;
 }
 
 .text-balance {
@@ -94,41 +110,308 @@ h1 {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.star-field {
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(232, 234, 242, 0.12) 0 1px, transparent 1px),
-    radial-gradient(circle at 72% 12%, rgba(74, 127, 193, 0.11) 0 1px, transparent 1px),
-    radial-gradient(circle at 48% 68%, rgba(201, 168, 76, 0.1) 0 1px, transparent 1px),
-    radial-gradient(circle at 86% 74%, rgba(232, 234, 242, 0.08) 0 1px, transparent 1px),
-    linear-gradient(rgba(74, 127, 193, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(74, 127, 193, 0.026) 1px, transparent 1px);
-  background-size: 190px 190px, 260px 260px, 310px 310px, 370px 370px, 48px 48px, 48px 48px;
+/* Quiet global atmosphere */
+.cosmic-background {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% -12%, rgba(58, 91, 123, 0.14), transparent 34rem),
+    radial-gradient(circle at 10% 72%, rgba(73, 84, 112, 0.08), transparent 30rem),
+    linear-gradient(180deg, #090d15 0%, #070a11 52%, #080b12 100%);
 }
 
-.orbital-field {
+.star-field-distant,
+.star-field-near {
+  position: absolute;
+  inset: -8%;
+  background-repeat: repeat;
+  transform: translateZ(0);
+}
+
+.star-field-distant {
   background-image:
-    radial-gradient(ellipse 46rem 18rem at 58% 0%, transparent 58%, rgba(74, 127, 193, 0.05) 58.2%, transparent 58.6%),
-    radial-gradient(ellipse 42rem 16rem at 24% 100%, transparent 60%, rgba(201, 168, 76, 0.04) 60.2%, transparent 60.6%),
-    linear-gradient(115deg, transparent 0 58%, rgba(74, 127, 193, 0.024) 58.1%, transparent 58.35%);
+    radial-gradient(circle at 18px 22px, rgba(255, 255, 255, 0.42) 0 0.6px, transparent 1px),
+    radial-gradient(circle at 96px 58px, rgba(142, 203, 228, 0.34) 0 0.6px, transparent 1px),
+    radial-gradient(circle at 150px 116px, rgba(255, 255, 255, 0.24) 0 0.5px, transparent 1px);
+  background-size: 180px 158px;
+  opacity: 0.22;
+}
+
+.star-field-near {
+  background-image:
+    radial-gradient(circle at 42px 64px, rgba(255, 255, 255, 0.76) 0 0.8px, transparent 1.3px),
+    radial-gradient(circle at 214px 122px, rgba(216, 180, 106, 0.58) 0 0.7px, transparent 1.2px),
+    radial-gradient(circle at 310px 36px, rgba(142, 203, 228, 0.58) 0 0.7px, transparent 1.2px);
+  background-size: 440px 250px;
+  opacity: 0.17;
+  animation: star-drift 150s linear infinite;
+}
+
+.constellation-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(122deg, transparent 0 67%, rgba(255, 255, 255, 0.018) 67.1%, transparent 67.22%),
+    linear-gradient(38deg, transparent 0 76%, rgba(142, 203, 228, 0.015) 76.1%, transparent 76.22%);
+  opacity: 0.7;
+}
+
+/* Surfaces */
+.astro-card {
+  isolation: isolate;
+  border-color: rgba(255, 255, 255, 0.085);
+  background: rgba(15, 22, 34, 0.72);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(10px);
+}
+
+.astro-card::before {
+  content: none;
+}
+
+.astro-card-interactive {
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.astro-card-interactive:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(18, 27, 41, 0.8);
+  transform: translateY(-1px);
+}
+
+.glass-control {
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  background: rgba(12, 18, 28, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(12px);
 }
 
 .mission-surface {
-  background-image:
-    linear-gradient(rgba(74, 127, 193, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(74, 127, 193, 0.028) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background: rgba(255, 255, 255, 0.018);
 }
 
-.terminal-rule {
+.media-frame {
   position: relative;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
 }
 
-.terminal-rule::before {
-  background: linear-gradient(90deg, rgba(201, 168, 76, 0.72), rgba(74, 127, 193, 0.34), transparent);
-  content: "";
-  height: 1px;
-  left: 0;
+.media-frame::after {
   position: absolute;
-  right: 0;
-  top: 0;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 58%, rgba(7, 10, 17, 0.24));
+  content: "";
+  pointer-events: none;
+}
+
+.status-pulse {
+  animation: status-soft 3.2s ease-in-out infinite;
+}
+
+.terminal-rule::before,
+.cosmic-page-header::after {
+  content: none;
+}
+
+/* Buttons */
+.cosmic-primary {
+  border: 1px solid #dfc181;
+  background: #d8b46a;
+  color: #101116;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.cosmic-primary:hover {
+  background: #e1c17f;
+  transform: translateY(-1px);
+}
+
+.cosmic-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text-primary);
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.cosmic-secondary:hover {
+  border-color: rgba(142, 203, 228, 0.38);
+  background: rgba(142, 203, 228, 0.055);
+}
+
+/* Brand and navigation */
+.brand-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(circle at 34% 30%, #f7e8bd 0 4%, #d8b46a 10%, #8d6c38 42%, #192130 44% 100%);
+  box-shadow: inset -4px -5px 9px rgba(0, 0, 0, 0.42);
+}
+
+.brand-core::after {
+  position: absolute;
+  width: 142%;
+  height: 38%;
+  border: 1px solid rgba(142, 203, 228, 0.58);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-20deg);
+}
+
+.nav-shell,
+.desktop-header {
+  border-color: rgba(255, 255, 255, 0.075);
+  background: rgba(7, 10, 17, 0.82);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-menu-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(12, 18, 28, 0.97);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-nav-track {
+  scrollbar-width: none;
+}
+
+.mobile-nav-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Focal astronomical graphics */
+.moon-feature {
+  position: relative;
+  display: grid;
+  min-height: 24rem;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(142, 203, 228, 0.07), transparent 52%);
+}
+
+.moon-feature::after {
+  position: absolute;
+  width: min(88%, 30rem);
+  height: 34%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-12deg);
+}
+
+.moon-feature > figure {
+  position: relative;
+  z-index: 1;
+}
+
+.assistant-core {
+  box-shadow: inset -6px -8px 14px rgba(0, 0, 0, 0.28);
+}
+
+.assistant-core::after {
+  position: absolute;
+  width: 136%;
+  height: 40%;
+  border: 1px solid rgba(142, 203, 228, 0.3);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-22deg);
+}
+
+/* Legacy scene classes are deliberately quiet while page compositions migrate. */
+.hero-stage::before,
+.orbital-viewport::after,
+.tool-card::after,
+.orbit-ring::after,
+.moon-stage::before {
+  content: none;
+}
+
+.hero-title-gradient {
+  color: var(--text-primary);
+}
+
+.orbital-viewport {
+  min-height: 26rem;
+  background: rgba(15, 22, 34, 0.58);
+}
+
+.orbit-ring {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.orbit-ring-two {
+  border-color: rgba(216, 180, 106, 0.12);
+}
+
+.moon-stage {
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.34));
+  animation: planet-float 9s ease-in-out infinite;
+}
+
+.scene-coordinate,
+.tool-index {
+  color: var(--text-dim);
+  text-shadow: none;
+}
+
+.tool-card {
+  min-height: auto;
+}
+
+@keyframes star-drift {
+  to {
+    transform: translate3d(-46px, 24px, 0);
+  }
+}
+
+@keyframes planet-float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-4px);
+  }
+}
+
+@keyframes status-soft {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 639px) {
+  .moon-feature {
+    min-height: 21rem;
+  }
+
+  .orbital-viewport {
+    min-height: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

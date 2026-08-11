@@ -40,53 +40,51 @@ export function BriefsClient({ result }: BriefsClientProps) {
   }, [activeFilter, query]);
 
   return (
-    <div className="space-y-5 sm:space-y-6">
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <StatusCard label="Total briefs" value={briefs.length ? String(briefs.length) : "0"} />
-        <StatusCard label="Active sources" value={String(activeSources)} />
-        <StatusCard label="Latest item" value={isFallback ? "Fallback data" : formatBriefStatusDate(latestItemDate)} />
-        <StatusCard label="Last checked" value={isFallback ? "Fallback data" : formatCheckedTime(lastChecked)} />
-      </div>
+    <div className="space-y-8">
+      <AstroCard className="p-0">
+        <div className="grid grid-cols-2 sm:grid-cols-4">
+          <StatusCard label="Total briefs" value={briefs.length ? String(briefs.length) : "0"} />
+          <StatusCard label="Active sources" value={String(activeSources)} />
+          <StatusCard label="Latest item" value={isFallback ? "Fallback data" : formatBriefStatusDate(latestItemDate)} />
+          <StatusCard label="Last checked" value={isFallback ? "Fallback data" : formatCheckedTime(lastChecked)} />
+        </div>
+      </AstroCard>
 
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <label className="block">
-          <span className="sr-only">Search briefs</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search briefs, missions, planets, JWST, asteroids..."
-            className="min-h-11 w-full rounded-lg border border-astro-border bg-astro-surface/80 px-4 py-3 text-sm text-astro-text placeholder:text-astro-muted focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
-          />
-        </label>
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">
-          Showing {Math.min(visibleCount, gridBriefs.length)} of {gridBriefs.length}
-        </p>
+      <div className="space-y-4">
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+          <label className="block">
+            <span className="sr-only">Search briefs</span>
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search briefs, missions, planets, JWST, asteroids..."
+              className="glass-control min-h-11 w-full rounded-lg px-4 py-2.5 text-sm text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue/35 focus:outline-none focus:ring-2 focus:ring-astro-blue/15"
+            />
+          </label>
+          <p className="text-xs text-astro-muted">
+            {filteredBriefs.length} result{filteredBriefs.length === 1 ? "" : "s"}
+          </p>
+        </div>
+        <FilterBar filters={filters} activeFilter={activeFilter} ariaLabel="Brief filters" onFilterChange={setActiveFilter} />
       </div>
-
-      <FilterBar filters={filters} activeFilter={activeFilter} ariaLabel="Brief filters" onFilterChange={setActiveFilter} />
 
       {featured ? <FeaturedBriefCard brief={featured} /> : null}
 
       <section>
-        <div className="mb-4 flex items-end justify-between gap-3">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Feed</p>
-            <h2 className="font-display mt-1 text-2xl font-normal text-astro-text">Latest summaries</h2>
-          </div>
-        </div>
+        <h2 className="mb-5 font-display text-3xl font-normal tracking-[-0.02em] text-astro-text">Latest briefs</h2>
         {gridBriefs.length > 0 ? (
           <>
-            <div className="grid gap-3 xl:grid-cols-2">
+            <AstroCard className="divide-y divide-astro-border/70 p-0">
               {visibleBriefs.map((brief) => (
                 <BriefCard key={brief.id} brief={brief} />
               ))}
-            </div>
+            </AstroCard>
             {hasMore ? (
               <div className="mt-6 flex justify-center">
                 <button
                   type="button"
                   onClick={() => setVisibleCount((count) => count + pageSize)}
-                  className="rounded-md border border-astro-border bg-astro-surface px-4 py-2.5 text-sm font-medium text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+                  className="cosmic-secondary rounded-lg px-5 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
                 >
                   Load more
                 </button>
@@ -103,10 +101,10 @@ export function BriefsClient({ result }: BriefsClientProps) {
 
 function StatusCard({ label, value }: { label: string; value: string }) {
   return (
-    <AstroCard className="p-3">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">{label}</p>
-      <p className="mt-1.5 font-mono text-base font-semibold text-astro-text sm:text-lg">{value}</p>
-    </AstroCard>
+    <div className="border-b border-r border-astro-border/70 p-4 even:border-r-0 [&:nth-child(n+3)]:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+      <p className="text-xs text-astro-muted">{label}</p>
+      <p className="mt-1.5 font-mono text-sm font-medium text-astro-text sm:text-base">{value}</p>
+    </div>
   );
 }
 

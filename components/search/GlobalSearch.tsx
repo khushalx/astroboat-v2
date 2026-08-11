@@ -17,7 +17,7 @@ export function SearchTrigger({ className, showShortcut = false }: SearchTrigger
     <button
       type="button"
       className={cn(
-        "inline-flex min-h-11 items-center gap-2 rounded-md border border-astro-border bg-astro-surface/90 px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/45 hover:bg-astro-elevated hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40",
+        "glass-control inline-flex min-h-10 items-center gap-2 rounded-lg px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/30 hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35",
         className
       )}
       aria-label="Open Astroboat search"
@@ -28,8 +28,8 @@ export function SearchTrigger({ className, showShortcut = false }: SearchTrigger
       </span>
       <span>{showShortcut ? "Search Astroboat..." : "Search"}</span>
       {showShortcut ? (
-        <span className="hidden rounded border border-astro-border bg-astro-bg/60 px-1.5 py-0.5 font-mono text-[10px] text-astro-muted xl:inline">
-          Cmd K
+        <span className="hidden rounded border border-astro-border/80 bg-white/[0.025] px-1.5 py-0.5 text-[10px] text-[color:var(--text-dim)] xl:inline">
+          ⌘K
         </span>
       ) : null}
     </button>
@@ -117,26 +117,45 @@ export function GlobalSearch() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center px-4 py-16 sm:py-24" role="dialog" aria-modal="true" aria-label="Astroboat search">
+    <div className="fixed inset-0 z-50 flex items-start justify-center px-3 py-8 sm:px-4 sm:py-20" role="dialog" aria-modal="true" aria-label="Astroboat search">
       <button
         type="button"
-        className="absolute inset-0 cursor-default bg-astro-bg/80 backdrop-blur-sm"
+        className="absolute inset-0 cursor-default bg-[#03050a]/80 backdrop-blur-sm"
         aria-label="Close search"
         onClick={closeSearch}
       />
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-lg border border-astro-border bg-astro-surface shadow-[0_24px_90px_rgba(0,0,0,0.48)]">
-        <div className="border-b border-astro-border p-4">
+      <div className="astro-card relative w-full max-w-xl overflow-hidden rounded-xl border">
+        <div className="border-b border-astro-border/70 p-4 sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-base font-semibold text-astro-text">Search Astroboat</p>
+              <p className="mt-0.5 text-xs text-astro-muted">Find astronomy tools and sections.</p>
+            </div>
+            <button
+              type="button"
+              onClick={closeSearch}
+              className="grid h-9 w-9 place-items-center rounded-lg border border-astro-border/80 bg-white/[0.025] text-sm text-astro-muted transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/30"
+              aria-label="Close search"
+            >
+              ×
+            </button>
+          </div>
           <label className="block">
             <span className="sr-only">Search Astroboat</span>
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search Moon, Events, Briefs, Asteroids, NASA, Launch, or NEO..."
-              className="w-full rounded-md border border-astro-border bg-astro-bg px-4 py-3 text-base text-astro-text placeholder:text-astro-muted focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
-            />
+            <span className="relative block">
+              <span className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border border-astro-blue" aria-hidden="true">
+                <span className="absolute -bottom-1 -right-1 h-1.5 w-px rotate-[-45deg] bg-astro-blue" />
+              </span>
+              <input
+                ref={inputRef}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search Moon, events, briefs, asteroids..."
+                className="w-full rounded-lg border border-astro-border bg-astro-bg/70 py-3 pl-11 pr-4 text-base text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue/45 focus:outline-none focus:ring-2 focus:ring-astro-blue/15"
+              />
+            </span>
           </label>
-          <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-astro-muted">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-[color:var(--text-dim)]">
             <span>Cmd K / Ctrl K</span>
             <span className="h-1 w-1 rounded-full bg-astro-border" />
             <span>/ to open</span>
@@ -145,26 +164,28 @@ export function GlobalSearch() {
           </div>
         </div>
 
-        <div className="max-h-[60vh] overflow-y-auto p-3">
+        <div className="max-h-[60vh] overflow-y-auto p-2 sm:p-3">
           {!trimmedQuery ? (
-            <p className="px-2 pb-3 font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">Quick links</p>
-          ) : null}
+            <p className="px-2 py-2 text-xs font-medium text-astro-muted">Quick destinations</p>
+          ) : (
+            <p className="px-2 py-2 text-xs font-medium text-astro-muted">{visibleResults.length} result{visibleResults.length === 1 ? "" : "s"}</p>
+          )}
 
           {visibleResults.length > 0 ? (
-            <div className="space-y-2">
+            <div>
               {visibleResults.map((item) => (
                 <button
                   key={item.url}
                   type="button"
                   onClick={() => navigateTo(item)}
-                  className="block w-full rounded-md border border-transparent p-3 text-left transition hover:border-astro-blue/35 hover:bg-astro-elevated focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+                  className="group block w-full rounded-lg border border-transparent p-3 text-left transition hover:bg-white/[0.035] focus:outline-none focus:ring-2 focus:ring-astro-blue/30"
                 >
                   <span className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <span>
-                      <span className="block text-base font-semibold text-astro-text">{item.title}</span>
+                      <span className="block text-base font-semibold text-astro-text transition group-hover:text-white">{item.title}</span>
                       <span className="mt-1 block text-sm leading-6 text-astro-muted">{item.description}</span>
                     </span>
-                    <span className="w-fit rounded-full border border-astro-border bg-astro-bg/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-astro-blue">
+                    <span className="w-fit rounded-md border border-astro-border/80 px-2 py-1 text-[10px] text-astro-muted">
                       {item.kind}
                     </span>
                   </span>
@@ -172,8 +193,8 @@ export function GlobalSearch() {
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-astro-border bg-astro-bg/35 p-6 text-center">
-              <h2 className="text-base font-semibold text-astro-text">No matching sky tool found</h2>
+            <div className="rounded-lg border border-dashed border-astro-border bg-white/[0.015] p-7 text-center">
+              <h2 className="font-display text-xl font-normal text-astro-text">No matching sky tool found</h2>
               <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-astro-muted">
                 Try searching for Moon, Events, Briefs, Asteroids, NASA, Launch, or NEO.
               </p>

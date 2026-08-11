@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SatellitesPausedPage() {
   return (
-    <PageShell>
+    <PageShell className="max-w-3xl">
       <PageHeader
         title="Satellite Finder"
         subtitle="This feature is temporarily paused while Astroboat focuses on core astronomy tools."
@@ -24,13 +24,13 @@ export default function SatellitesPausedPage() {
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/"
-            className="inline-flex justify-center rounded-md border border-astro-border px-4 py-3 text-sm font-semibold text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="cosmic-secondary inline-flex justify-center rounded-lg px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
           >
             Back to Home
           </Link>
           <Link
             href="/events"
-            className="inline-flex justify-center rounded-md border border-astro-gold/45 bg-astro-gold/10 px-4 py-3 text-sm font-semibold text-astro-text transition hover:bg-astro-gold/15 focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
+            className="cosmic-primary inline-flex justify-center rounded-lg px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
           >
             Explore Space Events
           </Link>

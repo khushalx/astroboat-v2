@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AstroCard } from "@/components/ui/AstroCard";
-import { DataBadge } from "@/components/ui/DataBadge";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 import { SourceBadge } from "@/components/ui/SourceBadge";
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
     title: "Moon Phase Dashboard — Astroboat",
     description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
     url: "/moon",
-    images: ["/astroboat-search-banner.png"]
+    images: ["/og-image.png"]
   }
 };
 
@@ -39,66 +38,79 @@ export default async function MoonPage() {
       />
 
       {moon.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/35 bg-astro-gold/10 p-3.5 text-sm leading-6 text-astro-text">
+        <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
           Live Moon data is temporarily unavailable. Showing saved Astroboat sample data.
         </div>
       ) : null}
 
-      <AstroCard className="p-5 sm:p-6">
-        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div className="flex flex-col items-center text-center">
+      <AstroCard className="p-0">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+          <div className="moon-feature min-h-[24rem] border-b border-astro-border/70 p-6 text-center lg:min-h-[30rem] lg:border-b-0 lg:border-r">
             <MoonPhaseVisual
               phaseName={moon.phaseName}
               illuminationPercent={moon.illuminationPercent}
               size="lg"
-              showLabel
+              className="scale-110 drop-shadow-[0_20px_24px_rgba(0,0,0,0.35)] sm:scale-125"
             />
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+            <div className="absolute bottom-5 left-5 right-5 z-10 flex flex-wrap items-center justify-center gap-2">
               <SourceBadge source={moon.source} />
-              <DataBadge label={moon.locationName} />
+              <span className="text-xs text-astro-muted">{moon.locationName}</span>
             </div>
           </div>
 
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-muted">Illumination</p>
-            <p className="mt-2 font-mono text-6xl font-semibold leading-none text-astro-gold sm:text-7xl">
+          <div className="flex flex-col justify-center p-5 sm:p-7 lg:p-9">
+            <div className="mb-7 flex items-center justify-between gap-3 border-b border-astro-border/70 pb-4 text-xs text-astro-muted">
+              <span>Current conditions</span>
+              <time className="font-mono">{moon.date}</time>
+            </div>
+            <p className="font-display text-2xl text-astro-text">{moon.phaseName}</p>
+            <p className="mt-5 text-sm text-astro-muted">Illumination</p>
+            <p className="mt-2 font-mono text-6xl font-medium leading-none tracking-[-0.06em] text-astro-gold sm:text-7xl">
               {moon.illuminationPercent}%
             </p>
-            <p className="mt-3 text-sm leading-6 text-astro-muted">
+            <div className="mt-5 h-1 overflow-hidden rounded-full bg-white/[0.06]">
+              <div
+                className="h-full rounded-full bg-astro-gold"
+                style={{ width: `${moon.illuminationPercent}%` }}
+              />
+            </div>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-astro-muted">
               {trimAdvice(moon.viewingAdvice)}
             </p>
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-dim)]">
-              {moon.date} / {moon.locationName}
-            </p>
+            <p className="mt-4 text-xs text-[color:var(--text-dim)]">Based on {moon.locationName}</p>
           </div>
         </div>
       </AstroCard>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {metricCards.map(([label, value]) => (
-          <StatTile key={label} label={label} value={value} />
-        ))}
-      </div>
+      <AstroCard className="p-0">
+        <dl className="grid gap-px bg-astro-border/70 sm:grid-cols-2 lg:grid-cols-4">
+          {metricCards.map(([label, value]) => (
+            <div key={label} className="bg-astro-surface/95 p-4 sm:p-5">
+              <dt className="text-xs text-astro-muted">{label}</dt>
+              <dd className="mt-2 text-sm font-medium leading-6 text-astro-text">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </AstroCard>
 
-      <AstroCard className="p-4">
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <div>
-            <h2 className="font-display text-2xl font-normal text-astro-text">Lunar cycle</h2>
+      <AstroCard className="p-0">
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <div className="px-5 pt-5 sm:px-6 sm:pt-6">
+            <h2 className="font-display text-2xl font-normal text-astro-text sm:text-3xl">Lunar cycle</h2>
             <p className="mt-1 text-sm text-astro-muted">Primary phases from USNO, shown in UTC.</p>
           </div>
-          <DataBadge label={moon.source} />
         </div>
-        <div className="flex gap-3 overflow-x-auto pb-1">
+        <div className="grid grid-cols-2 gap-px border-t border-astro-border/70 bg-astro-border/70 sm:grid-cols-4">
           {moon.upcomingPhases.map((item) => (
             <div
               key={`${item.phase}-${item.dateUtc}`}
-              className="min-w-36 rounded-lg border border-astro-border bg-astro-elevated p-3 text-center"
+              className="bg-astro-surface/95 p-4 text-center sm:p-5"
             >
               <MoonPhaseVisual
                 phaseName={item.phase}
                 illuminationPercent={phaseIllumination(item.phase)}
                 size="sm"
-                className={item.phase === moon.closestPrimaryPhase?.phase ? "rounded-full ring-1 ring-astro-gold/70" : undefined}
+                className={item.phase === moon.closestPrimaryPhase?.phase && item.dateUtc === moon.closestPrimaryPhase?.dateUtc ? "rounded-full ring-1 ring-astro-gold/50" : undefined}
               />
               <p className="mt-3 text-sm font-medium text-astro-text">{item.phase}</p>
               <p className="mt-1 font-mono text-[11px] text-astro-muted">{item.dateDisplay}</p>
@@ -107,20 +119,11 @@ export default async function MoonPage() {
         </div>
       </AstroCard>
 
-      <AstroCard className="p-4">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">Viewing advice</p>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-astro-muted">{trimAdvice(moon.beginnerExplanation)}</p>
-      </AstroCard>
+      <aside className="border-l-2 border-astro-gold/60 pl-5 sm:pl-6">
+        <h2 className="font-display text-xl font-normal text-astro-text">Viewing advice</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-astro-muted">{trimAdvice(moon.beginnerExplanation)}</p>
+      </aside>
     </PageShell>
-  );
-}
-
-function StatTile({ label, value }: { label: string; value: string }) {
-  return (
-    <AstroCard className="p-3.5">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-muted">{label}</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-astro-text">{value}</p>
-    </AstroCard>
   );
 }
 

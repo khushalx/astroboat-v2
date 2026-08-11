@@ -10,74 +10,62 @@ type HeroProps = {
 
 export function Hero({ moon, nextEvent }: HeroProps) {
   return (
-    <section className="grid gap-5 py-4 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:py-7">
+    <section className="grid gap-8 pb-12 pt-3 lg:grid-cols-[minmax(0,1fr)_minmax(25rem,0.9fr)] lg:items-center lg:gap-12 lg:pb-16 lg:pt-6">
       <div>
-        <p className="mb-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-astro-gold">
-          <span className="h-px w-8 bg-astro-gold/70" aria-hidden="true" />
-          Astroboat
-        </p>
-        <h1 className="font-display max-w-2xl text-4xl font-normal leading-tight text-astro-text text-balance sm:text-5xl lg:text-[3.4rem]">
-          Understand space, simply.
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.1em] text-astro-gold">Astronomy, made clear</p>
+        <h1 className="max-w-2xl font-display text-[2.65rem] font-normal leading-[1.04] tracking-[-0.035em] text-astro-text text-balance sm:text-5xl lg:text-[3.45rem]">
+          A clearer view of what&apos;s happening in space.
         </h1>
-        <p className="mt-4 max-w-[540px] text-sm leading-6 text-astro-muted sm:text-[15px] sm:leading-7">
-          Explore space through simple astronomy updates, sky events, Moon data, and an AI astronomy assistant.
+        <p className="mt-5 max-w-xl text-base leading-8 text-astro-muted">
+          Follow astronomy briefs, space events, the changing Moon, and near-Earth objects in one calm, source-linked place.
         </p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/briefs"
-            className="inline-flex min-h-11 justify-center rounded-md border border-astro-gold bg-astro-gold px-4 py-3 text-sm font-semibold text-astro-bg transition hover:bg-astro-text focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
+            className="cosmic-primary inline-flex min-h-11 items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-astro-gold/40"
           >
-            Explore Briefs
+            Read the latest briefs
           </Link>
           <Link
             href="/ask"
-            className="inline-flex min-h-11 justify-center rounded-md border border-astro-blue/45 px-4 py-3 text-sm font-semibold text-astro-blue transition hover:border-astro-blue hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="cosmic-secondary inline-flex min-h-11 items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
           >
             Ask Astroboat
           </Link>
         </div>
       </div>
 
-      <AstroCard className="p-3.5 sm:p-4">
-        <div className="mb-3 border-b border-astro-border pb-2.5">
+      <AstroCard className="p-0">
+        <div className="flex items-start justify-between gap-4 border-b border-astro-border/70 px-5 py-4 sm:px-6">
           <div>
-            <h2 className="text-base font-semibold text-astro-text">Start with today’s sky</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-astro-muted">Current Moon</p>
+            <p className="mt-1 text-sm text-astro-text">{moon.locationName}</p>
           </div>
+          <p className="font-mono text-xs text-astro-muted">{moon.date}</p>
         </div>
 
-        <div className="space-y-2.5">
-          <div className="flex items-center gap-3 rounded-lg border border-astro-border bg-astro-elevated p-3">
-            <MoonPhaseVisual phaseName={moon.phaseName} illuminationPercent={moon.illuminationPercent} size="sm" className="shrink-0" />
-            <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-astro-text">Moon: {moon.phaseName}</p>
-              <p className="mt-1 text-xs text-astro-muted">{moon.illuminationPercent}% illuminated</p>
-            </div>
+        <Link href="/moon" className="moon-feature group focus:outline-none focus:ring-2 focus:ring-inset focus:ring-astro-blue/35">
+          <div className="relative z-10 text-center">
+            <MoonPhaseVisual
+              phaseName={moon.phaseName}
+              illuminationPercent={moon.illuminationPercent}
+              size="lg"
+              className="transition duration-300 group-hover:scale-[1.02]"
+            />
+            <p className="mt-3 text-sm font-medium text-astro-text">{moon.phaseName}</p>
           </div>
+        </Link>
 
-          <div className="rounded-lg border border-astro-border bg-astro-elevated p-3">
-            <div className="flex items-center gap-3">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-astro-blue/35 bg-astro-blue/10" aria-hidden="true">
-                <span className="h-2 w-2 rounded-full bg-astro-blue" />
-              </span>
-              <div className="min-w-0">
-                <p className="line-clamp-1 text-sm font-medium text-astro-text">{nextEvent?.title ?? "Next space event"}</p>
-                <p className="mt-1 text-xs text-astro-muted">{nextEvent?.dateDisplay ?? "Event calendar available"}</p>
-              </div>
-            </div>
-          </div>
-
-          <Link
-            href="/ask"
-            className="flex items-center gap-3 rounded-lg border border-astro-border bg-astro-elevated p-3 transition hover:border-astro-blue/45 hover:bg-astro-blue/10 focus:outline-none focus:ring-2 focus:ring-astro-blue/25"
-          >
-            <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-astro-gold/35 bg-astro-gold/10" aria-hidden="true">
-              <span className="h-2 w-2 rounded-full bg-astro-gold" />
-              <span className="absolute h-px w-7 rotate-[-22deg] bg-astro-blue/50" />
-            </span>
-            <div className="min-w-0">
-              <p className="text-sm font-medium text-astro-text">Ask Astroboat</p>
-              <p className="mt-1 line-clamp-1 text-xs text-astro-muted">Try: “Why does the Moon change shape?”</p>
-            </div>
+        <div className="grid border-t border-astro-border/70 sm:grid-cols-2">
+          <Link href="/moon" className="group p-4 transition hover:bg-white/[0.025] sm:border-r sm:border-astro-border/70 sm:px-5">
+            <p className="text-xs text-astro-muted">Illumination</p>
+            <p className="mt-1.5 font-mono text-lg text-astro-text">{moon.illuminationPercent}%</p>
+          </Link>
+          <Link href="/events" className="group border-t border-astro-border/70 p-4 transition hover:bg-white/[0.025] sm:border-t-0 sm:px-5">
+            <p className="text-xs text-astro-muted">Next space event</p>
+            <p className="mt-1.5 line-clamp-1 text-sm font-medium text-astro-text">{nextEvent?.title ?? "View the event calendar"}</p>
+            <p className="mt-1 line-clamp-1 text-xs text-astro-muted">{nextEvent?.dateDisplay ?? "Upcoming events"}</p>
           </Link>
         </div>
       </AstroCard>

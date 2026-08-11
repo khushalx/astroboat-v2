@@ -19,9 +19,8 @@ export function AstroCard({
   return (
     <Component
       className={cn(
-        "relative overflow-hidden rounded-lg border border-astro-border bg-astro-surface shadow-astro",
-        "transition duration-200",
-        interactive && "hover:border-[color:var(--border-accent)] hover:bg-astro-elevated",
+        "astro-card relative overflow-hidden rounded-xl border",
+        interactive && "astro-card-interactive",
         className
       )}
     >

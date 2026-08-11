@@ -7,15 +7,14 @@ type PageHeaderProps = {
   className?: string;
 };
 
-export function PageHeader({ title, subtitle, eyebrow = "Astroboat", className }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, eyebrow, className }: PageHeaderProps) {
   return (
-    <header className={cn("terminal-rule max-w-3xl pt-3 sm:pt-5", className)}>
-      <p className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-astro-gold">
-        <span className="h-1.5 w-1.5 rounded-full bg-astro-gold" aria-hidden="true" />
-        {eyebrow}
-      </p>
-      <h1 className="font-display text-3xl font-normal leading-tight text-astro-text sm:text-4xl">{title}</h1>
-      <p className="mt-2 text-sm leading-6 text-astro-muted sm:text-base">{subtitle}</p>
+    <header className={cn("max-w-3xl pt-2 sm:pt-4", className)}>
+      {eyebrow ? <p className="mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-astro-gold">{eyebrow}</p> : null}
+      <h1 className="font-display text-4xl font-normal leading-[1.08] tracking-[-0.02em] text-astro-text text-balance sm:text-[2.75rem]">
+        {title}
+      </h1>
+      <p className="mt-3 max-w-2xl text-[15px] leading-7 text-astro-muted sm:text-base">{subtitle}</p>
     </header>
   );
 }

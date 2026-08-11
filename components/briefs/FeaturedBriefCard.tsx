@@ -15,49 +15,47 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
   const category = getBriefCategory(brief);
 
   return (
-    <AstroCard as="article" className="p-4 sm:p-5">
-      <BriefImage
-        src={brief.imageUrl}
-        alt={`${brief.title} source image`}
-        source={brief.source.name}
-        category={category}
-        tags={brief.tags}
-        title={brief.title}
-        featured
-        className="mb-4"
-      />
+    <AstroCard as="article" className="group p-0">
+      <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+        <BriefImage
+          src={brief.imageUrl}
+          alt={`${brief.title} source image`}
+          source={brief.source.name}
+          category={category}
+          tags={brief.tags}
+          title={brief.title}
+          featured
+          className="!h-56 !rounded-none !border-0 lg:!h-full lg:min-h-80"
+        />
 
-      <div className="flex flex-wrap items-center gap-2">
-        <SourceBadge source={brief.source.name} />
-        <DataBadge label={category} />
-        <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
-      </div>
+        <div className="flex flex-col p-5 sm:p-7">
+          <div className="flex flex-wrap items-center gap-2">
+            <SourceBadge source={brief.source.name} />
+            <DataBadge label={category} />
+            <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
+          </div>
 
-      <Link href={`/briefs/${brief.slug}`} className="group mt-4 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
-        <h2 className="line-clamp-2 text-xl font-semibold leading-tight text-astro-text transition group-hover:text-astro-blue sm:text-2xl">
-          {brief.title}
-        </h2>
-      </Link>
-      <p className="mt-3 line-clamp-2 max-w-4xl text-sm leading-6 text-astro-muted">{getBriefSummary(brief, 1)}</p>
-
-      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2">
-          {brief.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="rounded-full border border-astro-border bg-astro-bg/30 px-2.5 py-1 text-xs text-astro-muted">
-              {tag}
-            </span>
-          ))}
-        </div>
-        {originalHref ? (
-          <Link
-            href={originalHref}
-            target={originalHref.startsWith("http") ? "_blank" : undefined}
-            rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="inline-flex min-h-11 justify-center rounded-md border border-astro-gold bg-astro-gold px-4 py-2.5 text-sm font-semibold text-astro-bg transition hover:bg-astro-text focus:outline-none focus:ring-2 focus:ring-astro-gold/45"
-          >
-            Read original
+          <Link href={`/briefs/${brief.slug}`} className="mt-5 block focus:outline-none focus:ring-2 focus:ring-astro-blue/35">
+            <h2 className="font-display text-2xl font-normal leading-tight tracking-[-0.02em] text-astro-text transition group-hover:text-astro-blue sm:text-3xl">
+              {brief.title}
+            </h2>
           </Link>
-        ) : null}
+          <p className="mt-3 line-clamp-3 text-sm leading-7 text-astro-muted">{getBriefSummary(brief, 1)}</p>
+
+          <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-6">
+            <Link href={`/briefs/${brief.slug}`} className="text-sm font-medium text-astro-blue hover:text-astro-text">Read summary →</Link>
+            {originalHref ? (
+              <Link
+                href={originalHref}
+                target={originalHref.startsWith("http") ? "_blank" : undefined}
+                rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-sm text-astro-muted hover:text-astro-text"
+              >
+                Original source ↗
+              </Link>
+            ) : null}
+          </div>
+        </div>
       </div>
     </AstroCard>
   );

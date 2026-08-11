@@ -4,7 +4,6 @@ import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { Sidebar } from "@/components/layout/Sidebar";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 
@@ -12,7 +11,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://astroboat.in";
 const siteDescription =
   "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.";
 const siteTitle = "Astroboat — Astronomy Intelligence & Sky Tools";
-const previewImage = "/astroboat-search-banner.png";
+const previewImage = "/og-image.png";
 const previewImageAlt = "Astroboat astronomy intelligence and sky tools";
 
 const displayFont = DM_Serif_Display({
@@ -100,7 +99,7 @@ const structuredData = [
     name: "Astroboat",
     url: "https://astroboat.in",
     description: siteDescription,
-    image: "https://astroboat.in/astroboat-search-banner.png"
+    image: "https://astroboat.in/og-image.png"
   },
   {
     "@context": "https://schema.org",
@@ -108,7 +107,7 @@ const structuredData = [
     name: "Astroboat",
     url: "https://astroboat.in",
     logo: "https://astroboat.in/icon.svg",
-    image: "https://astroboat.in/astroboat-search-banner.png"
+    image: "https://astroboat.in/og-image.png"
   }
 ];
 
@@ -125,11 +124,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <SkyGridBackground />
-        <Sidebar />
-        <div className="min-h-screen lg:pl-72">
+        <div className="relative flex min-h-screen flex-col">
           <MobileNav />
           <Header />
-          <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+          <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">{children}</main>
           <Footer />
         </div>
         <GlobalSearch />

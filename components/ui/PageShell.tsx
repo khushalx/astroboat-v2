@@ -7,5 +7,5 @@ type PageShellProps = {
 };
 
 export function PageShell({ children, className }: PageShellProps) {
-  return <div className={cn("space-y-6 pb-6 sm:space-y-8", className)}>{children}</div>;
+  return <div className={cn("space-y-8 pb-10 sm:space-y-10 sm:pb-14", className)}>{children}</div>;
 }
