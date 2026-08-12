@@ -1,1 +1,1 @@
-# astroboat-v2
+# astroboat
