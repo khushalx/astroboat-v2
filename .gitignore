@@ -14,3 +14,4 @@ pnpm-debug.log*
 .DS_Store
 .env.example.env.local
 .env
+*.tsbuildinfo
