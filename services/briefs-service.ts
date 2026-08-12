@@ -190,7 +190,8 @@ async function fetchBriefSource(config: BriefSourceConfig): Promise<SourceFetchR
 
     const parsed = xmlParser.parse(xml);
     const items = extractFeedItems(parsed).slice(0, config.maxItems ?? MAX_BRIEFS_PER_SOURCE);
-    const mapped = items
+    const processedItems = config.id === "apod" ? await enrichApodFeedItems(items) : items;
+    const mapped = processedItems
       .map((item, index) => mapFeedItemToBrief(item, config, index))
       .filter((brief): brief is AstronomyBrief => Boolean(brief));
 
@@ -337,6 +338,10 @@ function extractImageUrlFromFeedItem(
     const url = sanitizeImageUrl(candidate, context.baseUrl ?? "");
 
     if (!url) {
+      continue;
+    }
+
+    if (context.sourceId === "apod" && /\/calendar\/S_/i.test(url)) {
       continue;
     }
 
@@ -756,4 +761,56 @@ function asArray(value: unknown): unknown[] {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+async function enrichApodFeedItems(items: ParsedFeedItem[]): Promise<ParsedFeedItem[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      const originalUrl = normalizeLink(item);
+
+      if (!originalUrl) {
+        return item;
+      }
+
+      try {
+        const response = await fetch(originalUrl, {
+          headers: {
+            "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+          },
+          signal: AbortSignal.timeout(5000)
+        });
+
+        if (!response.ok) {
+          return item;
+        }
+
+        const html = await response.text();
+        const itemCopy = { ...item };
+
+        // Extract high-resolution image URL from APOD daily post HTML
+        const imgMatches = [...html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)];
+        const highResMatch = imgMatches.find((match) => match[1].toLowerCase().includes("image/")) || imgMatches[0];
+
+        if (highResMatch) {
+          itemCopy.hdurl = resolveImageUrl(highResMatch[1], originalUrl);
+        }
+
+        // Extract complete title if missing or empty in RSS feed XML
+        const rawTitle = cleanText(textValue(item.title));
+        if (!rawTitle) {
+          const titleMatch =
+            html.match(/<b>\s*([^<]+?)\s*<\/b>\s*<br>\s*<b>\s*Image Credit/i) ||
+            html.match(/<title>\s*APOD:\s*\d{4}\s+[A-Za-z]+\s+\d{1,2}\s+[\u2013\-]\s*(.*?)\s*<\/title>/i);
+
+          if (titleMatch) {
+            itemCopy.title = cleanText(titleMatch[1].replace(/[\r\n]+/g, " "));
+          }
+        }
+
+        return itemCopy;
+      } catch {
+        return item;
+      }
+    })
+  );
 }
