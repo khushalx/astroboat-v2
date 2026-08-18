@@ -190,7 +190,7 @@ async function fetchBriefSource(config: BriefSourceConfig): Promise<SourceFetchR
 
     const parsed = xmlParser.parse(xml);
     const items = extractFeedItems(parsed).slice(0, config.maxItems ?? MAX_BRIEFS_PER_SOURCE);
-    const processedItems = config.id === "apod" ? await enrichApodFeedItems(items) : items;
+    const processedItems = await enrichFeedItems(items, config);
     const mapped = processedItems
       .map((item, index) => mapFeedItemToBrief(item, config, index))
       .filter((brief): brief is AstronomyBrief => Boolean(brief));
@@ -301,9 +301,14 @@ function normalizeLink(item: ParsedFeedItem) {
     if (isRecord(entry)) {
       const rel = textValue(entry["@_rel"]);
       const href = textValue(entry["@_href"]);
+      const embeddedUrl = textValue(entry["#text"]) || textValue(entry["#cdata"]);
 
       if (href && (!rel || rel === "alternate")) {
         return sanitizeUrl(href);
+      }
+
+      if (embeddedUrl && (!rel || rel === "alternate")) {
+        return sanitizeUrl(embeddedUrl);
       }
     }
   }
@@ -373,16 +378,18 @@ function urlCandidatesFromRecordLike(entry: unknown): string[] {
   }
 
   const medium = textValue(entry["@_medium"]).toLowerCase();
-  const mimeType = textValue(entry["@_type"]) || textValue(entry.type);
-  const isVideo = medium === "video" || /^video\//i.test(mimeType);
-  const direct = isVideo
+  const mimeType = (textValue(entry["@_type"]) || textValue(entry.type)).toLowerCase();
+  const isKnownNonImage =
+    (Boolean(medium) && medium !== "image") || (Boolean(mimeType) && !mimeType.startsWith("image/"));
+  const direct = isKnownNonImage
     ? []
     : [textValue(entry["@_url"]), textValue(entry.url), textValue(entry["@_href"]), textValue(entry.href)].filter(Boolean);
   const nested = [
     ...urlCandidatesFromField(entry["media:thumbnail"]),
     ...urlCandidatesFromField(entry.thumbnail),
     ...urlCandidatesFromField(entry.image),
-    ...urlCandidatesFromField(entry["media:content"])
+    ...urlCandidatesFromField(entry["media:content"]),
+    ...urlCandidatesFromField(entry["media:group"])
   ];
 
   return [...direct, ...nested];
@@ -392,11 +399,11 @@ function urlCandidatesFromHtml(value: string) {
   const directMatches = [
     ...value.matchAll(/<img[^>]+(?:src|data-src|data-lazy-src|data-original)=["']([^"']+)["']/gi)
   ].map((match) => decodeEntities(match[1] ?? ""));
-  const srcSetMatches = [...value.matchAll(/<img[^>]+srcset=["']([^"']+)["']/gi)].flatMap((match) =>
-    parseSrcSet(decodeEntities(match[1] ?? ""))
-  );
+  const srcSetMatches = [
+    ...value.matchAll(/<(?:img|source)[^>]+(?:srcset|data-srcset)=["']([^"']+)["']/gi)
+  ].flatMap((match) => parseSrcSet(decodeEntities(match[1] ?? "")));
 
-  return [...directMatches, ...srcSetMatches];
+  return [...srcSetMatches, ...directMatches];
 }
 
 function sanitizeImageUrl(value: string, baseUrl: string) {
@@ -414,8 +421,15 @@ function sanitizeImageUrl(value: string, baseUrl: string) {
 function parseSrcSet(value: string) {
   return value
     .split(",")
-    .map((part) => part.trim().split(/\s+/)[0] ?? "")
-    .filter(Boolean);
+    .map((part, index) => {
+      const [url = "", descriptor = ""] = part.trim().split(/\s+/);
+      const size = Number.parseFloat(descriptor) || 0;
+
+      return { url, size, index };
+    })
+    .filter((candidate) => Boolean(candidate.url))
+    .sort((a, b) => b.size - a.size || a.index - b.index)
+    .map((candidate) => candidate.url);
 }
 
 function createFeedItemTitle(item: ParsedFeedItem, config: BriefSourceConfig, inferredDate: string) {
@@ -761,6 +775,321 @@ function asArray(value: unknown): unknown[] {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+async function enrichFeedItems(items: ParsedFeedItem[], config: BriefSourceConfig) {
+  let enrichedItems = items;
+
+  if (config.id === "apod") {
+    enrichedItems = await enrichApodFeedItems(items);
+  }
+
+  if (config.id === "arxiv-astro-ph") {
+    return enrichArxivFeedItems(items);
+  }
+
+  return enrichArticlePageImages(enrichedItems, config);
+}
+
+const TRUSTED_ARTICLE_HOSTS: Partial<Record<string, { article: string[]; image: string[] }>> = {
+  "nasa-news": { article: ["nasa.gov"], image: ["nasa.gov"] },
+  "nasa-science": { article: ["nasa.gov"], image: ["nasa.gov"] },
+  "nasa-artemis": { article: ["nasa.gov"], image: ["nasa.gov"] },
+  "esa-space-science": { article: ["esa.int"], image: ["esa.int", "esawebb.org"] },
+  "esa-exploration": { article: ["esa.int"], image: ["esa.int", "esawebb.org"] },
+  "space-com": { article: ["space.com"], image: ["space.com", "futurecdn.net"] },
+  "universe-today": { article: ["universetoday.com"], image: ["universetoday.com"] }
+};
+
+async function enrichArticlePageImages(
+  items: ParsedFeedItem[],
+  config: BriefSourceConfig
+): Promise<ParsedFeedItem[]> {
+  const trustedHosts = TRUSTED_ARTICLE_HOSTS[config.id];
+
+  if (!trustedHosts) {
+    return items;
+  }
+
+  return mapWithConcurrency(items, 4, async (item) => {
+    const originalUrl = normalizeLink(item);
+
+    if (
+      !originalUrl ||
+      extractImageUrlFromFeedItem(item, { baseUrl: originalUrl, sourceId: config.id }) ||
+      !hasTrustedHostname(originalUrl, trustedHosts.article)
+    ) {
+      return item;
+    }
+
+    try {
+      const response = await fetchFromTrustedHosts(originalUrl, trustedHosts.article, {
+        headers: {
+          Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5",
+          "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+        },
+        next: { revalidate: BRIEFS_REVALIDATE_SECONDS },
+        signal: AbortSignal.timeout(6000)
+      });
+
+      if (!response) {
+        return item;
+      }
+
+      const contentType = response.headers.get("content-type") ?? "";
+
+      if (!response.ok || (contentType && !contentType.includes("text/html"))) {
+        return item;
+      }
+
+      const html = await response.text();
+
+      if (/Just a moment|cf-chl|challenge-platform/i.test(html)) {
+        return item;
+      }
+
+      const candidates = extractArticleImageCandidates(html, response.url || originalUrl).slice(0, 6);
+
+      for (const candidate of candidates) {
+        if (await isReachableImage(candidate, trustedHosts.image)) {
+          return { ...item, image: candidate };
+        }
+      }
+
+      return item;
+    } catch {
+      return item;
+    }
+  });
+}
+
+function hasTrustedHostname(value: string, allowedSuffixes: string[]) {
+  try {
+    const url = new URL(value);
+    const hostname = url.hostname.toLowerCase();
+
+    return (
+      (url.protocol === "https:" || url.protocol === "http:") &&
+      allowedSuffixes.some((suffix) => hostname === suffix || hostname.endsWith(`.${suffix}`))
+    );
+  } catch {
+    return false;
+  }
+}
+
+type CachedRequestInit = RequestInit & {
+  next?: { revalidate: number };
+};
+
+async function fetchFromTrustedHosts(
+  initialUrl: string,
+  allowedHostSuffixes: string[],
+  init: CachedRequestInit,
+  maxRedirects = 3
+) {
+  let currentUrl = initialUrl;
+
+  for (let redirectCount = 0; redirectCount <= maxRedirects; redirectCount += 1) {
+    if (!hasTrustedHostname(currentUrl, allowedHostSuffixes)) {
+      return undefined;
+    }
+
+    const response = await fetch(currentUrl, { ...init, redirect: "manual" });
+
+    if (response.status < 300 || response.status >= 400) {
+      return response;
+    }
+
+    const location = response.headers.get("location");
+
+    await response.body?.cancel();
+
+    if (!location || redirectCount === maxRedirects) {
+      return undefined;
+    }
+
+    try {
+      currentUrl = new URL(location, currentUrl).toString();
+    } catch {
+      return undefined;
+    }
+  }
+
+  return undefined;
+}
+
+function extractArticleImageCandidates(html: string, pageUrl: string) {
+  const metaCandidates = [...html.matchAll(/<meta\b[^>]*>/gi)].flatMap((match) => {
+    const tag = match[0];
+    const key = (htmlAttribute(tag, "property") || htmlAttribute(tag, "name")).toLowerCase();
+
+    if (!["og:image:secure_url", "og:image", "twitter:image", "twitter:image:src"].includes(key)) {
+      return [];
+    }
+
+    return [htmlAttribute(tag, "content")];
+  });
+  const articleHtml = [...html.matchAll(/<(?:article|main)\b[\s\S]*?<\/(?:article|main)>/gi)]
+    .map((match) => match[0])
+    .join(" ");
+  const bodyCandidates = urlCandidatesFromHtml(articleHtml);
+  const seen = new Set<string>();
+
+  return [...metaCandidates, ...bodyCandidates]
+    .map((candidate) => sanitizeImageUrl(candidate, pageUrl))
+    .filter((candidate) => {
+      if (!candidate || seen.has(candidate) || isDecorativeImageUrl(candidate)) {
+        return false;
+      }
+
+      seen.add(candidate);
+      return true;
+    });
+}
+
+function htmlAttribute(tag: string, attribute: string) {
+  const match = tag.match(new RegExp(`\\b${attribute}\\s*=\\s*(["'])([\\s\\S]*?)\\1`, "i"));
+
+  return decodeEntities(match?.[2] ?? "");
+}
+
+function isDecorativeImageUrl(value: string) {
+  return /(?:^|[\/_-])(avatar|badge|icon|license|logo|sprite)(?:[\/_\-.]|$)/i.test(value);
+}
+
+async function isReachableImage(imageUrl: string, allowedHostSuffixes: string[]) {
+  try {
+    const response = await fetchFromTrustedHosts(imageUrl, allowedHostSuffixes, {
+      method: "HEAD",
+      headers: {
+        Accept: "image/avif,image/webp,image/*,*/*;q=0.8",
+        "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+      },
+      next: { revalidate: BRIEFS_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(4000)
+    });
+
+    if (!response) {
+      return false;
+    }
+
+    const contentType = (response.headers.get("content-type") ?? "").toLowerCase();
+
+    if (response.ok && contentType.startsWith("image/")) {
+      return true;
+    }
+
+    const shouldRetryWithGet = response.status === 403 || response.status === 405 || response.status === 501 || !contentType;
+
+    if (!shouldRetryWithGet) {
+      return false;
+    }
+
+    const getResponse = await fetchFromTrustedHosts(imageUrl, allowedHostSuffixes, {
+      headers: {
+        Accept: "image/avif,image/webp,image/*,*/*;q=0.8",
+        Range: "bytes=0-0",
+        "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+      },
+      cache: "no-store",
+      signal: AbortSignal.timeout(4000)
+    });
+    const getContentType = (getResponse?.headers.get("content-type") ?? "").toLowerCase();
+    const isImage = Boolean(getResponse?.ok && getContentType.startsWith("image/"));
+
+    await getResponse?.body?.cancel();
+
+    return isImage;
+  } catch {
+    return false;
+  }
+}
+
+async function enrichArxivFeedItems(items: ParsedFeedItem[]): Promise<ParsedFeedItem[]> {
+  return mapWithConcurrency(items, 5, async (item) => {
+    const originalUrl = normalizeLink(item);
+    const htmlUrl = createArxivHtmlUrl(originalUrl);
+
+    if (!htmlUrl || extractImageUrlFromFeedItem(item, { baseUrl: originalUrl, sourceId: "arxiv-astro-ph" })) {
+      return item;
+    }
+
+    try {
+      const response = await fetchFromTrustedHosts(htmlUrl, ["arxiv.org"], {
+        headers: {
+          Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5",
+          "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+        },
+        next: { revalidate: BRIEFS_REVALIDATE_SECONDS },
+        signal: AbortSignal.timeout(6000)
+      });
+
+      if (!response?.ok) {
+        return item;
+      }
+
+      const html = await response.text();
+      const imageUrl = extractArxivFigureUrl(html, response.url || htmlUrl);
+
+      return imageUrl ? { ...item, image: imageUrl } : item;
+    } catch {
+      return item;
+    }
+  });
+}
+
+async function mapWithConcurrency<T, R>(items: T[], limit: number, mapper: (item: T, index: number) => Promise<R>) {
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(Math.max(1, limit), items.length);
+
+  await Promise.all(
+    Array.from({ length: workerCount }, async () => {
+      while (nextIndex < items.length) {
+        const currentIndex = nextIndex;
+
+        nextIndex += 1;
+        results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+      }
+    })
+  );
+
+  return results;
+}
+
+function createArxivHtmlUrl(originalUrl: string) {
+  try {
+    const url = new URL(originalUrl);
+    const hostname = url.hostname.toLowerCase();
+
+    if ((hostname !== "arxiv.org" && hostname !== "export.arxiv.org") || !url.pathname.startsWith("/abs/")) {
+      return "";
+    }
+
+    const paperId = url.pathname.slice("/abs/".length).replace(/^\/+|\/+$/g, "");
+
+    return paperId ? `https://arxiv.org/html/${paperId}` : "";
+  } catch {
+    return "";
+  }
+}
+
+function extractArxivFigureUrl(html: string, pageUrl: string) {
+  const figures = [...html.matchAll(/<figure\b[\s\S]*?<\/figure>/gi)].map((match) => match[0]);
+  const rasterCandidates = figures.flatMap(urlCandidatesFromHtml);
+  const objectCandidates = figures.flatMap((figure) =>
+    [...figure.matchAll(/<object\b[^>]+data=["']([^"']+)["']/gi)].map((match) => decodeEntities(match[1] ?? ""))
+  );
+
+  for (const candidate of [...rasterCandidates, ...objectCandidates]) {
+    const imageUrl = sanitizeImageUrl(candidate, pageUrl);
+
+    if (imageUrl && !/(?:^|[\/_-])(logo|icon|license|funder)(?:[\/_\-.]|$)/i.test(imageUrl)) {
+      return imageUrl;
+    }
+  }
+
+  return "";
 }
 
 async function enrichApodFeedItems(items: ParsedFeedItem[]): Promise<ParsedFeedItem[]> {
