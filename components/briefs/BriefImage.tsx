@@ -25,10 +25,10 @@ export function BriefImage({
   featured = false,
   className
 }: BriefImageProps) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string>();
   const heightClass = featured ? "h-44 sm:h-64" : "h-32 sm:h-40";
 
-  if (src && !failed) {
+  if (src && failedSrc !== src) {
     return (
       <div className={cn("media-frame overflow-hidden rounded-xl border border-astro-border/70 bg-astro-bg", heightClass, className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -36,8 +36,9 @@ export function BriefImage({
           src={src}
           alt={alt}
           loading="lazy"
+          referrerPolicy="no-referrer"
           className="h-full w-full object-cover transition duration-500 hover:scale-[1.025]"
-          onError={() => setFailed(true)}
+          onError={() => setFailedSrc(src)}
         />
       </div>
     );
