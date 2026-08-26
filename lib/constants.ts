@@ -60,8 +60,15 @@ export const DEFAULT_PASS_DAYS = 5;
 
 export const DEFAULT_MIN_VISIBILITY_SECONDS = 120;
 
+export const GALLERY_REVALIDATE_SECONDS = 21600;
+
+export const NASA_IMAGE_LIBRARY_API_BASE = "https://images-api.nasa.gov";
+
+export const NASA_APOD_API_URL = "https://api.nasa.gov/planetary/apod";
+
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Briefs", href: "/briefs" },
   { label: "Events", href: "/events" },
   { label: "Moon", href: "/moon" },
@@ -69,6 +76,20 @@ export const navItems: NavItem[] = [
   { label: "Ask Astroboat", href: "/ask" }
 ];
 
+export const galleryCategories = [
+  "All",
+  "Galaxies",
+  "Nebulae",
+  "Deep Space",
+  "Planets",
+  "Moon",
+  "Sun",
+  "Earth",
+  "Stars",
+  "Missions"
+];
+
 export const eventFilters = ["All", "Launches", "Space Events", "Sky Events", "This Week", "This Month", "Online", "Worldwide"];
 
 export const articleCategories = ["All", "Sky Watching", "Moon", "Asteroids", "Missions", "Cosmology", "Basics"];
+

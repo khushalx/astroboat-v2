@@ -257,3 +257,53 @@ export type ToolCard = {
   description: string;
   status: "Ready" | "Mock data" | "Prototype" | "Coming Next";
 };
+
+export type GalleryCategory =
+  | "All"
+  | "Galaxies"
+  | "Nebulae"
+  | "Deep Space"
+  | "Planets"
+  | "Moon"
+  | "Sun"
+  | "Earth"
+  | "Stars"
+  | "Missions";
+
+export type GallerySource =
+  | "NASA APOD"
+  | "NASA Image Library"
+  | "ESA / Webb"
+  | "Hubble"
+  | "Observatory Archive";
+
+export type GalleryImage = {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  thumbnailUrl: string;
+  hdImageUrl?: string;
+  source: GallerySource;
+  sourceUrl: string;
+  credit: string;
+  date: string;
+  category: GalleryCategory;
+  objectName?: string;
+  observatory?: string;
+  distance?: string;
+  aspectRatio?: number;
+  featured?: boolean;
+  isFallback?: boolean;
+};
+
+export type GalleryResult = {
+  images: GalleryImage[];
+  featuredImage: GalleryImage | null;
+  categories: string[];
+  total: number;
+  lastUpdated: string;
+  isFallback: boolean;
+  warnings: string[];
+};
+

@@ -10,6 +10,13 @@ type CoreToolsProps = {
 
 const tools = [
   {
+    title: "Astronomy Gallery",
+    copy: "High-resolution captures of galaxies, nebulae, planets, and deep space from NASA and space observatories.",
+    href: "/gallery",
+    action: "Explore gallery",
+    icon: "Gallery"
+  },
+  {
     title: "Astronomy Briefs",
     copy: "Concise updates from NASA, ESA, arXiv, APOD, and trusted astronomy sources.",
     href: "/briefs",
@@ -29,6 +36,13 @@ const tools = [
     href: "/moon",
     action: "Explore the Moon",
     icon: "Moon"
+  },
+  {
+    title: "Asteroid Watch",
+    copy: "Near-Earth object close approaches, distance, velocity, and calm scientific context.",
+    href: "/asteroids",
+    action: "Track asteroids",
+    icon: "Asteroid Watch"
   },
   {
     title: "Ask Astroboat",
@@ -54,8 +68,10 @@ export function CoreTools({ moon }: CoreToolsProps) {
               key={tool.href}
               href={tool.href}
               className={`group flex min-h-44 gap-4 p-5 transition hover:bg-white/[0.025] sm:p-6 ${
-                index < 3 ? "border-b border-astro-border/70" : ""
-              } ${index === 2 ? "md:border-b-0" : ""} ${index % 2 === 0 ? "md:border-r md:border-astro-border/70" : ""}`}
+                index < 5 ? "border-b border-astro-border/70" : ""
+              } ${index < 4 ? "md:border-b md:border-astro-border/70" : "md:border-b-0"} ${
+                index % 2 === 0 ? "md:border-r md:border-astro-border/70" : ""
+              }`}
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white/[0.04] text-astro-blue" aria-hidden="true">
                 <NavIcon label={tool.icon} className="h-4 w-4" />

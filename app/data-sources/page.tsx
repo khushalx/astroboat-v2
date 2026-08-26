@@ -6,7 +6,15 @@ import { PageShell } from "@/components/ui/PageShell";
 const sources = [
   {
     name: "NASA",
-    use: "Astronomy updates, mission news, and Astronomy Picture of the Day."
+    use: "Astronomy updates, mission news, and Astronomy Picture of the Day (APOD)."
+  },
+  {
+    name: "NASA Image Library",
+    use: "Public high-resolution space photography, telescopic observations, and planetary mission archives."
+  },
+  {
+    name: "STScI / ESA",
+    use: "James Webb Space Telescope (JWST) and Hubble Space Telescope deep-sky imagery."
   },
   {
     name: "ESA",

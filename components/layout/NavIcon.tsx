@@ -27,6 +27,13 @@ const strokeProps = {
 };
 
 const iconPaths: Record<string, ReactNode> = {
+  Gallery: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2" {...strokeProps} />
+      <circle cx="8.5" cy="9.5" r="1.5" fill="currentColor" />
+      <path d="M4 16.5l5.5-5 4 3.5 3-2.5 3.5 3.5" {...strokeProps} />
+    </>
+  ),
   Home: (
     <>
       <path d="M4 11.5 12 5l8 6.5" {...strokeProps} />
