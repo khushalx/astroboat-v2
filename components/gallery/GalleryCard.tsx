@@ -13,7 +13,28 @@ type GalleryCardProps = {
 
 export function GalleryCard({ image, onSelect, priority = false }: GalleryCardProps) {
   const [loaded, setLoaded] = useState(false);
+  const [srcIndex, setSrcIndex] = useState(0);
   const [error, setError] = useState(false);
+
+  // Candidate URLs in priority order
+  const candidateUrls = Array.from(
+    new Set(
+      [image.thumbnailUrl, image.imageUrl, image.hdImageUrl].filter(
+        (url): url is string => Boolean(url && url.length > 0)
+      )
+    )
+  );
+
+  const currentSrc = candidateUrls[srcIndex] || image.thumbnailUrl || image.imageUrl;
+
+  const handleImageError = () => {
+    setLoaded(false);
+    if (srcIndex + 1 < candidateUrls.length) {
+      setSrcIndex(srcIndex + 1);
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <article
@@ -42,18 +63,25 @@ export function GalleryCard({ image, onSelect, priority = false }: GalleryCardPr
               <circle cx="12" cy="12" r="10" />
               <path d="M12 8v4m0 4h.01" strokeLinecap="round" />
             </svg>
-            <span>Preview unavailable</span>
+            <span className="font-medium text-astro-text/80">{image.title}</span>
+            <span className="mt-1 text-[11px] text-astro-dim">Preview unavailable</span>
           </div>
         ) : (
           <Image
-            src={image.thumbnailUrl || image.imageUrl}
+            key={currentSrc}
+            src={currentSrc}
             alt={image.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={priority}
             loading={priority ? "eager" : "lazy"}
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
+            unoptimized
+            referrerPolicy="no-referrer"
+            onLoad={() => {
+              setLoaded(true);
+              setError(false);
+            }}
+            onError={handleImageError}
             className={cn(
               "object-cover transition-transform duration-500 ease-out group-hover:scale-105",
               loaded ? "opacity-100" : "opacity-0"

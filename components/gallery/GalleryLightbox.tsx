@@ -14,6 +14,7 @@ type GalleryLightboxProps = {
 export function GalleryLightbox({ image, images, onClose, onSelectImage }: GalleryLightboxProps) {
   const [copied, setCopied] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
@@ -110,6 +111,35 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
       setTimeout(() => setCopied(false), 2400);
     } catch {
       // Fallback
+    }
+  };
+
+  const candidateUrls = image
+    ? Array.from(
+        new Set(
+          [image.imageUrl, image.thumbnailUrl, image.hdImageUrl].filter(
+            (url): url is string => Boolean(url && url.length > 0)
+          )
+        )
+      )
+    : [];
+
+  const [srcIndex, setSrcIndex] = useState(0);
+
+  useEffect(() => {
+    setSrcIndex(0);
+    setImageLoaded(false);
+    setImageFailed(false);
+  }, [image?.id]);
+
+  const currentSrc = candidateUrls[srcIndex] || image?.imageUrl || "";
+
+  const handleImageError = () => {
+    setImageLoaded(false);
+    if (srcIndex + 1 < candidateUrls.length) {
+      setSrcIndex(srcIndex + 1);
+    } else {
+      setImageFailed(true);
     }
   };
 
@@ -212,22 +242,42 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
       <div className="flex h-full w-full max-w-6xl flex-col items-center justify-between pt-16 pb-2 sm:pb-4 overflow-y-auto">
         {/* Centered Image Container */}
         <div className="relative flex min-h-[50vh] max-h-[68vh] w-full flex-1 items-center justify-center">
-          {!imageLoaded ? (
+          {!imageLoaded && !imageFailed ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-astro-blue/30 border-t-astro-blue" />
             </div>
           ) : null}
 
           <div className="relative h-full w-full">
-            <Image
-              src={image.imageUrl}
-              alt={image.title}
-              fill
-              priority
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              onLoad={() => setImageLoaded(true)}
-              className={`object-contain transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-            />
+            {imageFailed ? (
+              <div className="flex h-full w-full flex-col items-center justify-center px-6 text-center text-astro-muted">
+                <svg className="mb-3 h-8 w-8 text-astro-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 8v4m0 4h.01" strokeLinecap="round" />
+                </svg>
+                <p className="text-sm font-medium text-astro-text">Capture temporarily unavailable</p>
+                <p className="mt-1 max-w-sm text-xs leading-5">
+                  Astroboat tried every verified rendition. You can still open the official source below.
+                </p>
+              </div>
+            ) : (
+              <Image
+                key={currentSrc}
+                src={currentSrc}
+                alt={image.title}
+                fill
+                priority
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                unoptimized
+                referrerPolicy="no-referrer"
+                onLoad={() => {
+                  setImageLoaded(true);
+                  setImageFailed(false);
+                }}
+                onError={handleImageError}
+                className={`object-contain transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+              />
+            )}
           </div>
         </div>
 

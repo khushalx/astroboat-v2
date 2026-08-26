@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { getGalleryData, getGalleryImageById } from "@/services/gallery-service";
+import { galleryCategories } from "@/lib/constants";
 import type { GalleryCategory } from "@/lib/types";
+
+function positiveInteger(value: string | null, fallback: number): number {
+  const parsed = Number.parseInt(value || "", 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
 
 export async function GET(request: Request) {
   try {
@@ -15,10 +21,11 @@ export async function GET(request: Request) {
       return NextResponse.json({ image });
     }
 
-    const category = (searchParams.get("category") || "All") as GalleryCategory;
+    const requestedCategory = searchParams.get("category") || "All";
+    const category = (galleryCategories.includes(requestedCategory) ? requestedCategory : "All") as GalleryCategory;
     const query = searchParams.get("q")?.toLowerCase().trim() || "";
-    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
-    const limit = Math.max(1, Math.min(60, parseInt(searchParams.get("limit") || "24", 10)));
+    const page = positiveInteger(searchParams.get("page"), 1);
+    const limit = Math.min(60, positiveInteger(searchParams.get("limit"), 24));
 
     const result = await getGalleryData();
     let filtered = result.images;

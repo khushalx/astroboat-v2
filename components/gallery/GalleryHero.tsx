@@ -12,6 +12,27 @@ type GalleryHeroProps = {
 
 export function GalleryHero({ image, onSelect }: GalleryHeroProps) {
   const [loaded, setLoaded] = useState(false);
+  const [srcIndex, setSrcIndex] = useState(0);
+  const [error, setError] = useState(false);
+
+  const candidateUrls = Array.from(
+    new Set(
+      [image.imageUrl, image.thumbnailUrl, image.hdImageUrl].filter(
+        (url): url is string => Boolean(url && url.length > 0)
+      )
+    )
+  );
+
+  const currentSrc = candidateUrls[srcIndex] || image.imageUrl;
+
+  const handleImageError = () => {
+    setLoaded(false);
+    if (srcIndex + 1 < candidateUrls.length) {
+      setSrcIndex(srcIndex + 1);
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <section className="relative mb-10 overflow-hidden rounded-2xl border border-astro-border/80 bg-astro-surface/60 shadow-astro sm:mb-14">
@@ -29,18 +50,35 @@ export function GalleryHero({ image, onSelect }: GalleryHeroProps) {
           }
         }}
       >
-        <Image
-          src={image.imageUrl}
-          alt={image.title}
-          fill
-          priority
-          sizes="(max-width: 1200px) 100vw, 1180px"
-          onLoad={() => setLoaded(true)}
-          className={cn(
-            "object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105",
-            loaded ? "opacity-100" : "opacity-0"
-          )}
-        />
+        {!loaded && !error ? (
+          <div className="absolute inset-0 animate-pulse bg-white/[0.03]" aria-hidden="true" />
+        ) : null}
+
+        {error ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-astro-base px-6 text-center text-sm text-astro-muted">
+            This capture is temporarily unavailable. Its title, context, and original source are still preserved below.
+          </div>
+        ) : (
+          <Image
+            key={currentSrc}
+            src={currentSrc}
+            alt={image.title}
+            fill
+            priority
+            sizes="(max-width: 1200px) 100vw, 1180px"
+            unoptimized
+            referrerPolicy="no-referrer"
+            onLoad={() => {
+              setLoaded(true);
+              setError(false);
+            }}
+            onError={handleImageError}
+            className={cn(
+              "object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105",
+              loaded ? "opacity-100" : "opacity-0"
+            )}
+          />
+        )}
 
         {/* Cinematic Vignette & Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-astro-bg via-astro-bg/40 to-transparent opacity-95 sm:opacity-85" />

@@ -70,7 +70,8 @@ export default async function GalleryPage() {
 
       {result.isFallback ? (
         <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
-          Live external astronomy streams are temporarily refreshing. Showing curated observatory captures.
+          Live astronomy image sources are temporarily unavailable. Astroboat will retry them automatically; no
+          unrelated substitute photos are shown.
         </div>
       ) : null}
 
