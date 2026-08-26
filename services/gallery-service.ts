@@ -1,6 +1,14 @@
 import { GALLERY_REVALIDATE_SECONDS, NASA_APOD_API_URL, NASA_IMAGE_LIBRARY_API_BASE } from "@/lib/constants";
 import type { GalleryCategory, GalleryImage, GalleryResult, GallerySource } from "@/lib/types";
 
+// Comprehensive negative pattern for non-space, people, portraits, press events, and administrative imagery
+export const REJECTED_CONTENT_PATTERN =
+  /\b(person|people|portrait|portraits|headshot|selfie|standing|sitting|smiles|smiling|handshake|speaks|speaking|speaker|speakers|podium|speech|speeches|talk|talks|interview|interviews|administrator|director|directors|manager|managers|engineer|engineers|technician|technicians|worker|workers|crew member|crew members|crew portrait|astronaut portrait|official portrait|team photo|group photo|panelist|panelists|audience|audiences|crowd|crowds|spectator|spectators|visitor|visitors|student|students|children|child|kid|kids|family|families|classroom|school|schools|tour|tours|intern|interns|internship|fellow|fellows|honoree|honorees|recipient|recipients|retiree|retirees|hall of fame|signing ceremony|press conference|media briefing|news briefing|town hall|keynote|celebration|reception|symposium|meeting|meetings|briefing|briefings|conference|conferences|gathering|gatherings|discussion|roundtable|workshop|workshops|logo|logos|patch|patches|emblem|emblems|insignia|poster|posters|flyer|flyers|diagram|diagrams|schematic|schematics|infographic|infographics|flowchart|flowcharts|chart|charts|graph|graphs|table|tables|slide|slides|presentation|certificate|certificates|award|awards|trophy|trophies|coin|coins|stamp|stamps|pin|pins|badge|badges|mockup|mockups|model of|miniature|scale model|toy|toys|cake|exhibit|booth|hallway|lobby|auditorium|conference room|office|desk|building exterior|building interior|headquarters|facility exterior|gate|road|roads|fence|parking lot|bus|van|truck|crane|forklift|scaffolding|clean room|cleanroom|fabrication|machining|welding|assembly line|inspection|installing|installation|testing in chamber|lifted into|transporting|rollout onto|unloading|shipping container|crate|crates|screenshot|screengrab|document|paper|report|whitepaper|book cover|magazine|newspaper|receipt|memo|history of|commemoration|anniversary of|commemorative)\b/i;
+
+// Strong positive astronomy and space-exploration signals
+export const POSITIVE_SPACE_SIGNALS =
+  /\b(galaxy|galaxies|spiral galaxy|elliptical galaxy|barred spiral|andromeda|milky way|sombrero galaxy|cartwheel galaxy|whirlpool galaxy|pinwheel galaxy|deep field|hubble ultra deep|smacs 0723|stephan'?s quintet|ngc\s*\d+|messier\s*\d+|m\d+|ic\s*\d+|nebula|nebulae|planetary nebula|emission nebula|reflection nebula|dark nebula|supernova remnant|crab nebula|eagle nebula|carina nebula|orion nebula|pillars of creation|ring nebula|veil nebula|tarantula nebula|helix nebula|horsehead nebula|bubble nebula|star cluster|globular cluster|open cluster|pleiades|protostar|binary star|red giant|white dwarf|pulsar|magnetar|black hole|event horizon|gravitational lens|jupiter|saturn|mars|venus|mercury|uranus|neptune|pluto|titan|europa|io|ganymede|enceladus|callisto|ceres|gas giant|rings of saturn|great red spot|jovian|martian|olympus mons|valles marineris|jezero crater|gale crater|lunar surface|moon crater|tycho crater|mare |apollo landing|lunar horizon|earthrise|earth from orbit|earth from space|blue marble|aurora australis|aurora borealis|atmospheric limb|the sun|solar flare|coronal loop|coronal mass ejection|prominence|sunspot|solar dynamics observatory|rocket launch|liftoff|night launch|launch pad|pad 39a|spacecraft in orbit|space station|international space station|iss cupola|satellite in orbit|hubble space telescope|james webb space telescope|jwst|chandra x-ray|spitzer|voyager|cassini|juno spacecraft|perseverance rover|curiosity rover|rosetta|solar orbiter)\b/i;
+
 export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
   {
     id: "jwst-cosmic-cliffs-carina",
@@ -344,19 +352,303 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     distance: "2,570 light-years",
     aspectRatio: 1.02,
     isFallback: true
+  },
+  {
+    id: "jwst-phantom-galaxy-m74",
+    title: "The Phantom Galaxy — Messier 74 in Mid-Infrared",
+    description:
+      "A grand design spiral galaxy showcasing Webb's MIRI instrument penetrating through interstellar dust lanes to map glowing polycyclic aromatic hydrocarbon filaments.",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~orig.jpg",
+    source: "ESA / Webb",
+    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/046/01GAE845KGB5W3550M9QJ1QJ7N",
+    credit: "ESA/Webb, NASA & CSA, J. Lee and the PHANGS-JWST Team",
+    date: "2022-08-29",
+    category: "Galaxies",
+    objectName: "Messier 74 (NGC 628)",
+    observatory: "James Webb Space Telescope (MIRI)",
+    distance: "32 million light-years",
+    aspectRatio: 1.0,
+    isFallback: true
+  },
+  {
+    id: "hubble-whirlpool-galaxy-m51",
+    title: "The Whirlpool Galaxy — Messier 51",
+    description:
+      "The graceful, curving arms of the majestic spiral galaxy NGC 5194 colliding and gravitationally interacting with its smaller companion NGC 5195.",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~orig.jpg",
+    source: "Hubble",
+    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA04223",
+    credit: "NASA, ESA, S. Beckwith (STScI), and The Hubble Heritage Team (STScI/AURA)",
+    date: "2005-04-25",
+    category: "Galaxies",
+    objectName: "Messier 51 (NGC 5194)",
+    observatory: "Hubble Space Telescope (ACS)",
+    distance: "23 million light-years",
+    aspectRatio: 1.25,
+    isFallback: true
+  },
+  {
+    id: "hubble-pleiades-seven-sisters",
+    title: "Reflection Nebula in the Pleiades Star Cluster",
+    description:
+      "Wispy filaments of interstellar dust passing close to star Merope in the Pleiades (Seven Sisters), reflecting brilliant blue light from the hot young stars.",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~orig.jpg",
+    source: "Hubble",
+    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA02298",
+    credit: "NASA and The Hubble Heritage Team (STScI/AURA)",
+    date: "2000-12-06",
+    category: "Stars",
+    objectName: "Messier 45 (The Pleiades)",
+    observatory: "Hubble Space Telescope (WFPC2)",
+    distance: "444 light-years",
+    aspectRatio: 1.0,
+    isFallback: true
+  },
+  {
+    id: "artemis-orion-earth-moon-voyage",
+    title: "Orion Spacecraft Captures Earth and Moon",
+    description:
+      "Taken from a camera mounted on the Orion spacecraft's solar array wing on flight day 20 of the uncrewed Artemis I mission, capturing Earth and the Moon together in deep space.",
+    imageUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~orig.jpg",
+    source: "NASA Image Library",
+    sourceUrl: "https://images.nasa.gov/details/art001e002047",
+    credit: "NASA / Artemis I Mission",
+    date: "2022-12-05",
+    category: "Missions",
+    objectName: "Orion Spacecraft & Cislunar Space",
+    observatory: "Artemis I Optical Navigation Camera",
+    distance: "432,210 km from Earth",
+    aspectRatio: 1.5,
+    isFallback: true
+  },
+  {
+    id: "apollo17-blue-marble",
+    title: "The Blue Marble — Earth from Apollo 17",
+    description:
+      "One of the most famous photographs in human history, capturing the fully illuminated Earth from a distance of about 29,000 kilometers as Apollo 17 traveled to the Moon.",
+    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.jpg",
+    source: "NASA Image Library",
+    sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000496",
+    credit: "NASA / Apollo 17 Crew",
+    date: "1972-12-07",
+    category: "Earth",
+    objectName: "Planet Earth",
+    observatory: "Hasselblad 500EL (70mm Zeiss lens)",
+    distance: "29,000 km",
+    aspectRatio: 1.0,
+    isFallback: true
+  },
+  {
+    id: "hubble-westerlund-2-star-cluster",
+    title: "Westerlund 2 Star Cluster in Gum 29",
+    description:
+      "Hubble’s 25th anniversary image featuring a brilliant tapestry of roughly 3,000 young stars in the giant star-forming region Gum 29 in the constellation Carina.",
+    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~orig.jpg",
+    source: "Hubble",
+    sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000742",
+    credit: "NASA, ESA, the Hubble Heritage Team (STScI/AURA), A. Nota, and the Westerlund 2 Science Team",
+    date: "2015-04-23",
+    category: "Stars",
+    objectName: "Westerlund 2 (Gum 29)",
+    observatory: "Hubble Space Telescope (WFC3 & ACS)",
+    distance: "20,000 light-years",
+    aspectRatio: 1.25,
+    isFallback: true
+  },
+  {
+    id: "artemis-sls-liftoff-pad-39b",
+    title: "Artemis I SLS Moon Rocket Night Liftoff",
+    description:
+      "NASA's Space Launch System rocket, carrying the Orion spacecraft, roars into the night sky from Launch Pad 39B at Kennedy Space Center on its maiden lunar voyage.",
+    imageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~orig.jpg",
+    source: "NASA Image Library",
+    sourceUrl: "https://images.nasa.gov/details/KSC-20221116-PH-ILW01_0008",
+    credit: "NASA / Joel Kowsky",
+    date: "2022-11-16",
+    category: "Missions",
+    objectName: "Space Launch System (SLS) & Orion",
+    observatory: "Kennedy Space Center Pad 39B",
+    aspectRatio: 1.5,
+    isFallback: true
+  },
+  {
+    id: "jwst-southern-ring-nebula",
+    title: "Southern Ring Nebula — NGC 3132 in Infrared",
+    description:
+      "Webb’s infrared vision reveals the intricate expanding shells of gas and dust ejected by a dying binary star system in the Southern Ring planetary nebula.",
+    imageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~orig.jpg",
+    source: "ESA / Webb",
+    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/033/01G70BGTTF89PNT6W5NDMD1S68",
+    credit: "NASA, ESA, CSA, STScI",
+    date: "2022-07-12",
+    category: "Nebulae",
+    objectName: "NGC 3132",
+    observatory: "James Webb Space Telescope (NIRCam & MIRI)",
+    distance: "2,500 light-years",
+    aspectRatio: 1.0,
+    isFallback: true
+  },
+  {
+    id: "iss-night-earth-city-lights",
+    title: "Earth Atmospheric Limb and Aurora from ISS",
+    description:
+      "Photographed from the International Space Station, Earth’s curved atmospheric limb glows with green airglow as night lights trace geography across the planet below.",
+    imageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~large.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~medium.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~orig.jpg",
+    source: "NASA Image Library",
+    sourceUrl: "https://images.nasa.gov/details/iss039e005387",
+    credit: "NASA / ISS Expedition 39 Crew",
+    date: "2014-04-02",
+    category: "Earth",
+    objectName: "Earth's Atmospheric Limb",
+    observatory: "International Space Station (Low Earth Orbit)",
+    distance: "415 km altitude",
+    aspectRatio: 1.5,
+    isFallback: true
   }
 ];
+
+export const RAW_CODE_TITLE_REGEX =
+  /^([A-Z]{2,6}[-_]?[0-9a-z]{4,}[\w-]*|\d{4}[-_]\w+|DSC_\d+|IMG_\d+|PIA\d+|NHQ\d+|KSC\w+|JSC\w+|MSFC\w+|GSFC\w+|ARC\w+|GRC\w+)$/i;
+
+export function containsRejectedKeywords(text: string): boolean {
+  if (!text || typeof text !== "string") return false;
+  return REJECTED_CONTENT_PATTERN.test(text);
+}
+
+export function hasPositiveSpaceSignals(text: string): boolean {
+  if (!text || typeof text !== "string") return false;
+  return POSITIVE_SPACE_SIGNALS.test(text);
+}
+
+export type CandidateScoreResult = {
+  score: number;
+  verdict: "include" | "reject";
+  reasons: string[];
+};
+
+export function scoreGalleryCandidate(candidate: {
+  title: string;
+  description: string;
+  url: string;
+  keywords?: string[];
+  credit?: string;
+  observatory?: string;
+  source?: string;
+}): CandidateScoreResult {
+  const reasons: string[] = [];
+  let score = 50;
+
+  // Reject raw archival code titles (e.g. KSC-2009-3793, NHQ202207120012)
+  if (RAW_CODE_TITLE_REGEX.test(candidate.title.trim())) {
+    reasons.push("Title is an internal archival code rather than descriptive astronomy title");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  const combined = `${candidate.title} ${candidate.description} ${(candidate.keywords || []).join(" ")} ${candidate.credit || ""} ${candidate.observatory || ""}`;
+
+  // 1. Hard Rejection Checks
+  if (containsRejectedKeywords(combined)) {
+    reasons.push("Matches excluded keyword (person/portrait/press/event/cleanroom/diagram)");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  // Reject videos / documents / audio
+  if (/\.(mp4|webm|avi|mov|mp3|wav|pdf|doc|zip|eps|ai)(\?|$)/i.test(candidate.url)) {
+    reasons.push("Invalid media format (video/audio/document)");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  // Reject extremely short or non-descriptive entries
+  if (candidate.title.length < 5 || candidate.description.length < 15) {
+    score -= 25;
+    reasons.push("Insufficient metadata depth");
+  }
+
+  // 2. Positive Space and Astronomical Signals
+  if (hasPositiveSpaceSignals(candidate.title)) {
+    score += 25;
+    reasons.push("Strong astronomy subject in title");
+  } else if (hasPositiveSpaceSignals(combined)) {
+    score += 15;
+    reasons.push("Astronomy subject in metadata");
+  } else {
+    // If neither title nor metadata contains positive space signals, it's not a gallery candidate
+    score -= 30;
+    reasons.push("Lacks recognized space/astronomy signals");
+  }
+
+  // 3. High-Value Scientific Observatories / Instruments
+  if (/(james webb|jwst|hubble|hst|chandra|spitzer|juno|cassini|perseverance|curiosity|solar dynamics observatory|sdo|soho|lroc|iss cupola|vlt|alma)/i.test(combined)) {
+    score += 15;
+    reasons.push("Reputable scientific observatory or space mission instrument");
+  }
+
+  // 4. Reputable Scientific Centers & Archives
+  if (/(stsci|jpl-caltech|jpl|goddard|esa\/webb|esa\/hubble|cxc|eso|nasa)/i.test(candidate.credit || combined)) {
+    score += 10;
+    reasons.push("Primary astronomical science institution credit");
+  }
+
+  // 5. Catalog Identification (NGC, Messier, etc.)
+  if (/(messier\s*\d+|m\d+|ngc\s*\d+|ic\s*\d+|smacs\s*\d+|30 doradus)/i.test(candidate.title)) {
+    score += 10;
+    reasons.push("Standard celestial catalog designation");
+  }
+
+  const verdict = score >= 65 ? "include" : "reject";
+  return { score: Math.min(100, Math.max(0, score)), verdict, reasons };
+}
+
+export function isRelevantSpaceImage(
+  title: string,
+  description: string,
+  url: string,
+  keywords: string[] = [],
+  credit: string = ""
+): boolean {
+  if (!url || (!url.startsWith("http://") && !url.startsWith("https://"))) return false;
+
+  const result = scoreGalleryCandidate({
+    title,
+    description,
+    url,
+    keywords,
+    credit
+  });
+
+  return result.verdict === "include";
+}
 
 function normalizeTitle(rawTitle: string): string {
   let title = rawTitle.replace(/\s+/g, " ").trim();
   title = title.replace(/\s*\([^)]*(NIRCam|WFC3|ACS|MIRI|Composite|Artist|Illustration)[^)]*\)/gi, "");
   title = title.replace(/^NASA's\s+/i, "");
-  title = title.replace(/^Hubble\s+Sees\s+/i, "");
-  title = title.replace(/^Webb\s+Captures\s+/i, "");
+  title = title.replace(/^Hubble\s+Sees\s+(a\s+)?/i, "");
+  title = title.replace(/^Webb\s+Captures\s+(a\s+)?/i, "");
+  title = title.replace(/^Webb\s+Images\s+(a\s+)?/i, "");
+  title = title.replace(/^Hubble\s+Images\s+(a\s+)?/i, "");
   return title.trim() || rawTitle;
 }
 
-function detectCategory(title: string, keywords: string[] = [], description: string = ""): GalleryCategory {
+export function detectCategory(title: string, keywords: string[] = [], description: string = ""): GalleryCategory {
   const combined = `${title} ${keywords.join(" ")} ${description}`.toLowerCase();
 
   if (/(\bgalaxy\b|\bgalaxies\b|spiral galaxy|andromeda|milky way|m31|m51|m81|m82|m101|m104|m74|sombrero|stephan|cartwheel|whirlpool|pinwheel|smacs|deep field|cluster of galaxies)/i.test(combined)) {
@@ -387,7 +679,7 @@ function detectCategory(title: string, keywords: string[] = [], description: str
     return "Stars";
   }
 
-  if (/(\bspacecraft\b|\brover\b|\bvoyager\b|\bperseverance\b|\bcuriosity\b|\bartemis\b|\bjwst deployment\b|\bobservatory\b|\btelescope mirror\b|\blaunch\b)/i.test(combined)) {
+  if (/(\bspacecraft\b|\brover\b|\bvoyager\b|\bperseverance\b|\bcuriosity\b|\bartemis\b|\bjwst deployment\b|\bobservatory\b|\btelescope mirror\b|\blaunch\b|\bliftoff\b|\brockets?\b)/i.test(combined)) {
     return "Missions";
   }
 
@@ -395,7 +687,7 @@ function detectCategory(title: string, keywords: string[] = [], description: str
 }
 
 function extractObjectName(title: string, description: string): string | undefined {
-  const match = title.match(/(Messier\s*\d+|M\d+|NGC\s*\d+|IC\s*\d+|Pillars of Creation|Carina Nebula|Orion Nebula|Andromeda|Jupiter|Saturn|Mars|The Sun|The Moon|Cartwheel Galaxy|Stephan's Quintet|Cassiopeia A|Ring Nebula|Tarantula Nebula|Crab Nebula|Sombrero Galaxy)/i);
+  const match = title.match(/(Messier\s*\d+|M\d+|NGC\s*\d+|IC\s*\d+|Pillars of Creation|Carina Nebula|Orion Nebula|Andromeda|Jupiter|Saturn|Mars|The Sun|The Moon|Cartwheel Galaxy|Stephan's Quintet|Cassiopeia A|Ring Nebula|Tarantula Nebula|Crab Nebula|Sombrero Galaxy|Whirlpool Galaxy|Phantom Galaxy|Pleiades)/i);
   if (match) return match[0];
   return undefined;
 }
@@ -416,26 +708,9 @@ function extractObservatory(title: string, description: string, center?: string)
   return undefined;
 }
 
-function isValidAstronomyImage(title: string, description: string, url: string): boolean {
-  if (!url || typeof url !== "string") return false;
-  if (!url.startsWith("http://") && !url.startsWith("https://")) return false;
-
-  const lower = `${title} ${description} ${url}`.toLowerCase();
-
-  // Reject videos, audio, documents
-  if (/\.(mp4|webm|avi|mov|mp3|wav|pdf|doc|zip|eps|ai)(\?|$)/i.test(url)) return false;
-
-  // Reject logos, infographics, press charts, generic icons, personnel portraits
-  if (/(logo|patch|insignia|emblem|poster|diagram|schematic|infographic|flowchart|chart|certificate|group photo|portrait of|headshot|press conference|administrator|audience|handshake|award)/i.test(lower)) {
-    return false;
-  }
-
-  return true;
-}
-
 async function fetchNasaApodImages(): Promise<GalleryImage[]> {
   const apiKey = process.env.NASA_API_KEY || "DEMO_KEY";
-  const url = `${NASA_APOD_API_URL}?api_key=${encodeURIComponent(apiKey)}&count=24`;
+  const url = `${NASA_APOD_API_URL}?api_key=${encodeURIComponent(apiKey)}&count=30`;
 
   try {
     const res = await fetch(url, {
@@ -469,8 +744,12 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
       const description = item.explanation || "";
       const imageUrl = item.hdurl || item.url;
       const thumbnailUrl = item.url;
+      const credit = item.copyright ? item.copyright.trim().replace(/\n/g, " ") : "NASA / APOD";
 
-      if (!isValidAstronomyImage(title, description, imageUrl)) continue;
+      // Apply strict space and exclusion filtering
+      if (!isRelevantSpaceImage(title, description, imageUrl, [], credit)) {
+        continue;
+      }
 
       const category = detectCategory(title, [], description);
       const objectName = extractObjectName(title, description);
@@ -485,7 +764,7 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
         hdImageUrl: item.hdurl ? item.hdurl.replace(/^http:\/\//i, "https://") : undefined,
         source: "NASA APOD",
         sourceUrl: `https://apod.nasa.gov/apod/ap${(item.date || "").replace(/-/g, "").slice(2)}.html`,
-        credit: item.copyright ? item.copyright.trim().replace(/\n/g, " ") : "NASA / APOD",
+        credit,
         date: item.date || new Date().toISOString().slice(0, 10),
         category,
         objectName,
@@ -502,13 +781,18 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
 }
 
 async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
+  // Tightly targeted astronomy and space-flight queries focused strictly on cosmic photography
   const curatedQueries = [
-    { q: "James Webb Space Telescope galaxy", source: "ESA / Webb" as const },
-    { q: "Hubble Space Telescope nebula", source: "Hubble" as const },
-    { q: "Jupiter Juno Cassini Saturn", source: "NASA Image Library" as const },
-    { q: "Solar Dynamics Observatory Sun flare", source: "NASA Image Library" as const },
-    { q: "Earth atmospheric limb ISS", source: "NASA Image Library" as const },
-    { q: "Chandra supernova remnant", source: "Observatory Archive" as const }
+    { q: "James Webb Space Telescope NIRCam galaxy nebula", source: "ESA / Webb" as const },
+    { q: "Hubble Space Telescope galaxy spiral cluster nebula", source: "Hubble" as const },
+    { q: "JPL Cassini Saturn rings atmosphere", source: "NASA Image Library" as const },
+    { q: "JPL Juno Jupiter Great Red Spot perijove", source: "NASA Image Library" as const },
+    { q: "Solar Dynamics Observatory AIA coronal flare Sun", source: "NASA Image Library" as const },
+    { q: "ISS Earth observation atmospheric limb aurora night", source: "NASA Image Library" as const },
+    { q: "Chandra X-ray Observatory supernova remnant", source: "Observatory Archive" as const },
+    { q: "Perseverance Mastcam-Z Mars panorama crater", source: "NASA Image Library" as const },
+    { q: "Lunar Reconnaissance Orbiter LROC Moon crater", source: "NASA Image Library" as const },
+    { q: "rocket liftoff night launch pad space", source: "NASA Image Library" as const }
   ];
 
   const results: GalleryImage[] = [];
@@ -535,6 +819,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
         const title = normalizeTitle(itemData.title || "");
         const description = itemData.description || itemData.description_508 || "";
         const keywords = Array.isArray(itemData.keywords) ? itemData.keywords : [];
+        const credit = itemData.secondary_creator || (itemData.center ? `NASA / ${itemData.center}` : "NASA");
 
         if (!title || !nasaId) continue;
 
@@ -544,12 +829,14 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
         const thumbnailUrl = `${baseUrl}~medium.jpg`;
         const hdImageUrl = `${baseUrl}~orig.jpg`;
 
-        if (!isValidAstronomyImage(title, description, imageUrl)) continue;
+        // Apply strict space and exclusion filtering
+        if (!isRelevantSpaceImage(title, description, imageUrl, keywords, credit)) {
+          continue;
+        }
 
         const category = detectCategory(title, keywords, description);
         const objectName = extractObjectName(title, description);
         const observatory = extractObservatory(title, description, itemData.center);
-        const credit = itemData.secondary_creator || (itemData.center ? `NASA / ${itemData.center}` : "NASA");
         const date = itemData.date_created ? itemData.date_created.slice(0, 10) : new Date().toISOString().slice(0, 10);
 
         queryImages.push({
@@ -590,7 +877,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[] {
   const seenIds = new Set<string>();
   const seenTitles = new Set<string>();
-  const unique: GalleryImage[] = [];
+  const scoredImages: Array<{ image: GalleryImage; score: number }> = [];
 
   for (const img of images) {
     if (!img || !img.id || !img.imageUrl) continue;
@@ -604,19 +891,33 @@ export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[
 
     if (titleKey.length > 5 && seenTitles.has(titleKey)) continue;
 
+    // Evaluate relevance score
+    const scoreResult = scoreGalleryCandidate({
+      title: img.title,
+      description: img.description,
+      url: img.imageUrl,
+      credit: img.credit,
+      observatory: img.observatory,
+      source: img.source
+    });
+
+    if (scoreResult.verdict === "reject") continue;
+
     seenIds.add(img.id);
     if (titleKey.length > 5) seenTitles.add(titleKey);
 
-    unique.push(img);
+    scoredImages.push({ image: img, score: scoreResult.score });
   }
 
-  unique.sort((a, b) => {
-    if (a.featured && !b.featured) return -1;
-    if (!a.featured && b.featured) return 1;
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  // Sort by featured priority, then highest quality/relevance score, then recency
+  scoredImages.sort((a, b) => {
+    if (a.image.featured && !b.image.featured) return -1;
+    if (!a.image.featured && b.image.featured) return 1;
+    if (b.score !== a.score) return b.score - a.score;
+    return new Date(b.image.date).getTime() - new Date(a.image.date).getTime();
   });
 
-  return unique;
+  return scoredImages.map((item) => item.image);
 }
 
 export async function getGalleryData(): Promise<GalleryResult> {
