@@ -1,4 +1,4 @@
-export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant";
+export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant" | "Gallery";
 
 export type SearchIndexItem = {
   title: string;
@@ -15,6 +15,13 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/",
     kind: "Home",
     keywords: ["overview", "observatory", "dashboard", "today", "astroboat"]
+  },
+  {
+    title: "Astronomy Gallery",
+    description: "High-resolution imagery of galaxies, nebulae, planets, and deep-space missions from NASA, JWST, and Hubble",
+    url: "/gallery",
+    kind: "Gallery",
+    keywords: ["gallery", "images", "photos", "jwst", "hubble", "apod", "galaxies", "nebulae", "planets", "deep space", "spacecraft", "astrophotography"]
   },
   {
     title: "Astronomy Briefs",
@@ -54,5 +61,6 @@ export const searchIndex: SearchIndexItem[] = [
 ];
 
 export const quickSearchItems = searchIndex.filter((item) =>
-  ["Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch", "Ask Astroboat"].includes(item.title)
+  ["Astronomy Gallery", "Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch", "Ask Astroboat"].includes(item.title)
 );
+
