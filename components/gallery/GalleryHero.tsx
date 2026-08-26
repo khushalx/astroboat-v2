@@ -12,6 +12,21 @@ type GalleryHeroProps = {
 
 export function GalleryHero({ image, onSelect }: GalleryHeroProps) {
   const [loaded, setLoaded] = useState(false);
+  const [srcIndex, setSrcIndex] = useState(0);
+
+  const candidateUrls = [
+    image.imageUrl,
+    image.thumbnailUrl,
+    image.hdImageUrl
+  ].filter((url): url is string => Boolean(url && url.length > 0));
+
+  const currentSrc = candidateUrls[srcIndex] || image.imageUrl;
+
+  const handleImageError = () => {
+    if (srcIndex + 1 < candidateUrls.length) {
+      setSrcIndex(srcIndex + 1);
+    }
+  };
 
   return (
     <section className="relative mb-10 overflow-hidden rounded-2xl border border-astro-border/80 bg-astro-surface/60 shadow-astro sm:mb-14">
@@ -30,12 +45,15 @@ export function GalleryHero({ image, onSelect }: GalleryHeroProps) {
         }}
       >
         <Image
-          src={image.imageUrl}
+          key={currentSrc}
+          src={currentSrc}
           alt={image.title}
           fill
           priority
           sizes="(max-width: 1200px) 100vw, 1180px"
+          unoptimized={currentSrc.includes("apod.nasa.gov")}
           onLoad={() => setLoaded(true)}
+          onError={handleImageError}
           className={cn(
             "object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105",
             loaded ? "opacity-100" : "opacity-0"

@@ -9,6 +9,9 @@ export const REJECTED_CONTENT_PATTERN =
 export const POSITIVE_SPACE_SIGNALS =
   /\b(galaxy|galaxies|spiral galaxy|elliptical galaxy|barred spiral|andromeda|milky way|sombrero galaxy|cartwheel galaxy|whirlpool galaxy|pinwheel galaxy|deep field|hubble ultra deep|smacs 0723|stephan'?s quintet|ngc\s*\d+|messier\s*\d+|m\d+|ic\s*\d+|nebula|nebulae|planetary nebula|emission nebula|reflection nebula|dark nebula|supernova remnant|crab nebula|eagle nebula|carina nebula|orion nebula|pillars of creation|ring nebula|veil nebula|tarantula nebula|helix nebula|horsehead nebula|bubble nebula|star cluster|globular cluster|open cluster|pleiades|protostar|binary star|red giant|white dwarf|pulsar|magnetar|black hole|event horizon|gravitational lens|jupiter|saturn|mars|venus|mercury|uranus|neptune|pluto|titan|europa|io|ganymede|enceladus|callisto|ceres|gas giant|rings of saturn|great red spot|jovian|martian|olympus mons|valles marineris|jezero crater|gale crater|lunar surface|moon crater|tycho crater|mare |apollo landing|lunar horizon|earthrise|earth from orbit|earth from space|blue marble|aurora australis|aurora borealis|atmospheric limb|the sun|solar flare|coronal loop|coronal mass ejection|prominence|sunspot|solar dynamics observatory|rocket launch|liftoff|night launch|launch pad|pad 39a|spacecraft in orbit|space station|international space station|iss cupola|satellite in orbit|hubble space telescope|james webb space telescope|jwst|chandra x-ray|spitzer|voyager|cassini|juno spacecraft|perseverance rover|curiosity rover|rosetta|solar orbiter)\b/i;
 
+export const RAW_CODE_TITLE_REGEX =
+  /^([A-Z]{2,6}[-_]?[0-9a-z]{4,}[\w-]*|\d{4}[-_]\w+|DSC_\d+|IMG_\d+|PIA\d+|NHQ\d+|KSC\w+|JSC\w+|MSFC\w+|GSFC\w+|ARC\w+|GRC\w+)$/i;
+
 export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
   {
     id: "jwst-cosmic-cliffs-carina",
@@ -16,7 +19,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "Captured in infrared light by the James Webb Space Telescope, this landscape of 'mountains' and 'valleys' is the edge of a star-forming region named NGC 3324 in the Carina Nebula, revealing previously invisible areas of star birth.",
     imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/031/01G77PKGF7BM3HDNV20794MG1E",
@@ -36,7 +39,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "A three-dimensional panorama of dense columns of interstellar gas and dust in the Eagle Nebula (Messier 16), where newborn stars trigger energetic ejections from surrounding material.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/052/01GF423GBQSK6ANC89ED569PDG",
@@ -55,7 +58,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "The sharpest visible-light and ultraviolet composite of our nearest galactic spiral neighbor, containing over one trillion stars and orbiting satellite galaxies in the Local Group.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://images.nasa.gov/details/PIA04921",
@@ -74,7 +77,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "An enormous mosaic of five galaxies, four of which are locked in a gravitational dance of repeated close encounters, triggering massive shockwaves as galaxy NGC 7318B smashes through the cluster gas.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/034/01G79R0A3FPKYFDV1F5E16W2RV",
@@ -93,7 +96,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "Perijove close-up by the Juno spacecraft capturing the turbulent Jovian cloud tops, ammonia ice crystals, and high-altitude storm belts churning in Jupiter's southern hemisphere.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA21972",
@@ -112,7 +115,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "Cassini slipped into Saturn's shadow and turned its cameras back toward the eclipsed Sun, capturing the outer E-ring illuminated and pinpointing Earth as a faint blue dot in the distance.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17172",
@@ -131,7 +134,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "An extreme ultraviolet perspective of an M-class solar flare observed by NASA's Solar Dynamics Observatory, tracing twisted magnetic field lines glowing in superheated plasma at millions of degrees.",
     imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e001427",
@@ -149,8 +152,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "Central Peak of Tycho Crater",
     description:
       "A dramatic low-sun angle oblique view across Tycho crater's central peak complex on the lunar near-side, revealing boulder-strewn volcanic and impact melt terraces.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA14421",
@@ -164,31 +167,12 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     isFallback: true
   },
   {
-    id: "iss-earth-aurora-limb",
-    title: "Aurora Australis Over the Southern Ocean",
-    description:
-      "Expedition crew members aboard the International Space Station photographed this vibrant atmospheric glow as energized solar wind particles collided with oxygen and nitrogen in Earth's upper atmosphere.",
-    imageUrl: "https://images-assets.nasa.gov/image/iss064e028445/iss064e028445~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/iss064e028445/iss064e028445~medium.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/iss064e028445/iss064e028445~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/iss064e028445",
-    credit: "NASA / ISS Expedition Crew",
-    date: "2021-01-29",
-    category: "Earth",
-    objectName: "Earth's Ionosphere & Aurora",
-    observatory: "International Space Station (Low Earth Orbit)",
-    distance: "418 km altitude",
-    aspectRatio: 1.5,
-    isFallback: true
-  },
-  {
     id: "chandra-cassiopeia-a-supernova",
     title: "Cassiopeia A Supernova Remnant",
     description:
       "A multi-wavelength composite combining X-rays from Chandra, optical data from Hubble, and infrared from Spitzer, showing the expanding wreckage and neutron star core of a massive star that exploded ~340 years ago.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17842",
@@ -207,7 +191,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "A rare ring galaxy formed following a high-speed collision between a large spiral galaxy and a smaller companion, showing spokes of intense star formation ignited by expanding shock rings.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/039/01G8N1PQ8CQH1H1X0QHQW97B2A",
@@ -226,7 +210,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "One of the sharpest astronomical views ever produced: the Orion Nebula star-birth stellar nursery, sculpted by fierce ultraviolet radiation from the massive young Trapezium cluster stars.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA08006",
@@ -245,7 +229,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "The largest and brightest star-forming region in the Local Group of galaxies, harboring the most massive stars known in the universe within the Large Magellanic Cloud.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/041/01GBQC0N9GCHV62EBEFHKPFFQZ",
@@ -264,7 +248,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "High-resolution panorama captured by the Mastcam-Z instrument on NASA's Perseverance Mars rover, revealing stratified sedimentary layers deposited by an ancient Martian river billions of years ago.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA24836",
@@ -282,8 +266,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "The Majestic Sombrero Galaxy — M104",
     description:
       "A landmark optical observation of Messier 104, distinguished by its brilliant white bulbous core encircled by thick lanes of cosmic dust carrying rich clusters of stars.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~thumb.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA04215",
@@ -302,7 +286,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "A sprawling mosaic of the expanding filamentary remnant of a supernova observed by earthly astronomers in the year 1054, powered by a rapidly spinning central neutron star.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA03606",
@@ -321,7 +305,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "The deepest and sharpest infrared image of the distant universe to date, showing galaxy cluster SMACS 0723 acting as a gravitational lens that magnifies extremely faint background galaxies from over 13 billion years ago.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/035/01G7DCWB7137MYJ05CSH1Q5Z1Z",
@@ -339,8 +323,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "The Ring Nebula — Messier 57",
     description:
       "A glowing barrel-shaped shroud of incandescent gas cast off by a dying Sun-like star, captured in visible and infrared light revealing intricate knotty outer halos.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17078",
@@ -359,7 +343,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "A grand design spiral galaxy showcasing Webb's MIRI instrument penetrating through interstellar dust lanes to map glowing polycyclic aromatic hydrocarbon filaments.",
     imageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~orig.jpg",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/046/01GAE845KGB5W3550M9QJ1QJ7N",
@@ -377,8 +361,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "The Whirlpool Galaxy — Messier 51",
     description:
       "The graceful, curving arms of the majestic spiral galaxy NGC 5194 colliding and gravitationally interacting with its smaller companion NGC 5195.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA04223",
@@ -396,8 +380,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "Reflection Nebula in the Pleiades Star Cluster",
     description:
       "Wispy filaments of interstellar dust passing close to star Merope in the Pleiades (Seven Sisters), reflecting brilliant blue light from the hot young stars.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~thumb.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA02298",
@@ -411,32 +395,13 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     isFallback: true
   },
   {
-    id: "artemis-orion-earth-moon-voyage",
-    title: "Orion Spacecraft Captures Earth and Moon",
-    description:
-      "Taken from a camera mounted on the Orion spacecraft's solar array wing on flight day 20 of the uncrewed Artemis I mission, capturing Earth and the Moon together in deep space.",
-    imageUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~medium.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/art001e002047/art001e002047~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/art001e002047",
-    credit: "NASA / Artemis I Mission",
-    date: "2022-12-05",
-    category: "Missions",
-    objectName: "Orion Spacecraft & Cislunar Space",
-    observatory: "Artemis I Optical Navigation Camera",
-    distance: "432,210 km from Earth",
-    aspectRatio: 1.5,
-    isFallback: true
-  },
-  {
     id: "apollo17-blue-marble",
     title: "The Blue Marble — Earth from Apollo 17",
     description:
       "One of the most famous photographs in human history, capturing the fully illuminated Earth from a distance of about 29,000 kilometers as Apollo 17 traveled to the Moon.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~medium.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.png",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~small.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.png",
     source: "NASA Image Library",
     sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000496",
     credit: "NASA / Apollo 17 Crew",
@@ -453,8 +418,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     title: "Westerlund 2 Star Cluster in Gum 29",
     description:
       "Hubble’s 25th anniversary image featuring a brilliant tapestry of roughly 3,000 young stars in the giant star-forming region Gum 29 in the constellation Carina.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~medium.jpg",
+    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~orig.jpg",
     source: "Hubble",
     sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000742",
@@ -473,8 +438,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "NASA's Space Launch System rocket, carrying the Orion spacecraft, roars into the night sky from Launch Pad 39B at Kennedy Space Center on its maiden lunar voyage.",
     imageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~medium.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~small.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~orig.JPG",
     source: "NASA Image Library",
     sourceUrl: "https://images.nasa.gov/details/KSC-20221116-PH-ILW01_0008",
     credit: "NASA / Joel Kowsky",
@@ -491,8 +456,8 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "Webb’s infrared vision reveals the intricate expanding shells of gas and dust ejected by a dying binary star system in the Southern Ring planetary nebula.",
     imageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~medium.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~orig.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~small.jpg",
+    hdImageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~orig.png",
     source: "ESA / Webb",
     sourceUrl: "https://webbtelescope.org/contents/media/images/2022/033/01G70BGTTF89PNT6W5NDMD1S68",
     credit: "NASA, ESA, CSA, STScI",
@@ -510,7 +475,7 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     description:
       "Photographed from the International Space Station, Earth’s curved atmospheric limb glows with green airglow as night lights trace geography across the planet below.",
     imageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~medium.jpg",
+    thumbnailUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~small.jpg",
     hdImageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~orig.jpg",
     source: "NASA Image Library",
     sourceUrl: "https://images.nasa.gov/details/iss039e005387",
@@ -524,9 +489,6 @@ export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
     isFallback: true
   }
 ];
-
-export const RAW_CODE_TITLE_REGEX =
-  /^([A-Z]{2,6}[-_]?[0-9a-z]{4,}[\w-]*|\d{4}[-_]\w+|DSC_\d+|IMG_\d+|PIA\d+|NHQ\d+|KSC\w+|JSC\w+|MSFC\w+|GSFC\w+|ARC\w+|GRC\w+)$/i;
 
 export function containsRejectedKeywords(text: string): boolean {
   if (!text || typeof text !== "string") return false;
@@ -823,14 +785,29 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 
         if (!title || !nasaId) continue;
 
-        const encodedId = encodeURIComponent(nasaId);
-        const baseUrl = `https://images-assets.nasa.gov/image/${encodedId}/${encodedId}`;
-        const imageUrl = `${baseUrl}~large.jpg`;
-        const thumbnailUrl = `${baseUrl}~medium.jpg`;
-        const hdImageUrl = `${baseUrl}~orig.jpg`;
+        // Use real verified preview links returned by NASA API
+        const links = Array.isArray(item.links) ? item.links : [];
+        const previewLink =
+          links.find((l: { rel?: string; render?: string; href?: string }) => l.rel === "preview" || l.render === "image")?.href ||
+          links[0]?.href;
+
+        if (!previewLink) continue;
+
+        const cleanPreview = previewLink.replace(/^http:\/\//i, "https://");
+        const canonicalLink = links.find((l: { rel?: string; href?: string }) => l.rel === "canonical")?.href;
+        const cleanOrig = canonicalLink
+          ? canonicalLink.replace(/^http:\/\//i, "https://")
+          : cleanPreview.replace(/~(thumb|small|medium|large)\.jpg$/i, "~orig.jpg");
+
+        const thumbnailUrl = cleanPreview;
+        // If thumb is small 100px thumbnail, replace with orig for crisp lightbox presentation
+        const imageUrl = cleanPreview.includes("~thumb.jpg")
+          ? cleanPreview.replace("~thumb.jpg", "~orig.jpg")
+          : cleanPreview;
+        const hdImageUrl = cleanOrig;
 
         // Apply strict space and exclusion filtering
-        if (!isRelevantSpaceImage(title, description, imageUrl, keywords, credit)) {
+        if (!isRelevantSpaceImage(title, description, thumbnailUrl, keywords, credit)) {
           continue;
         }
 

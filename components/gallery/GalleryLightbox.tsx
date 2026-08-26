@@ -113,6 +113,25 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
     }
   };
 
+  const candidateUrls = image
+    ? [image.imageUrl, image.thumbnailUrl, image.hdImageUrl].filter((url): url is string => Boolean(url && url.length > 0))
+    : [];
+
+  const [srcIndex, setSrcIndex] = useState(0);
+
+  useEffect(() => {
+    setSrcIndex(0);
+    setImageLoaded(false);
+  }, [image?.id]);
+
+  const currentSrc = candidateUrls[srcIndex] || image?.imageUrl || "";
+
+  const handleImageError = () => {
+    if (srcIndex + 1 < candidateUrls.length) {
+      setSrcIndex(srcIndex + 1);
+    }
+  };
+
   if (!image) return null;
 
   return (
@@ -220,12 +239,15 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
 
           <div className="relative h-full w-full">
             <Image
-              src={image.imageUrl}
+              key={currentSrc}
+              src={currentSrc}
               alt={image.title}
               fill
               priority
               sizes="(max-width: 1200px) 100vw, 1200px"
+              unoptimized={currentSrc.includes("apod.nasa.gov")}
               onLoad={() => setImageLoaded(true)}
+              onError={handleImageError}
               className={`object-contain transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
             />
           </div>
