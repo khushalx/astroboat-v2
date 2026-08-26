@@ -17,15 +17,18 @@ export function GalleryCard({ image, onSelect, priority = false }: GalleryCardPr
   const [error, setError] = useState(false);
 
   // Candidate URLs in priority order
-  const candidateUrls = [
-    image.thumbnailUrl,
-    image.imageUrl,
-    image.hdImageUrl
-  ].filter((url): url is string => Boolean(url && url.length > 0));
+  const candidateUrls = Array.from(
+    new Set(
+      [image.thumbnailUrl, image.imageUrl, image.hdImageUrl].filter(
+        (url): url is string => Boolean(url && url.length > 0)
+      )
+    )
+  );
 
   const currentSrc = candidateUrls[srcIndex] || image.thumbnailUrl || image.imageUrl;
 
   const handleImageError = () => {
+    setLoaded(false);
     if (srcIndex + 1 < candidateUrls.length) {
       setSrcIndex(srcIndex + 1);
     } else {
@@ -72,8 +75,12 @@ export function GalleryCard({ image, onSelect, priority = false }: GalleryCardPr
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={priority}
             loading={priority ? "eager" : "lazy"}
-            unoptimized={currentSrc.includes("apod.nasa.gov")}
-            onLoad={() => setLoaded(true)}
+            unoptimized
+            referrerPolicy="no-referrer"
+            onLoad={() => {
+              setLoaded(true);
+              setError(false);
+            }}
             onError={handleImageError}
             className={cn(
               "object-cover transition-transform duration-500 ease-out group-hover:scale-105",

@@ -33,6 +33,18 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "cdn.esawebb.org"
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.esahubble.org"
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.eso.org"
+      },
+      {
+        protocol: "https",
         hostname: "upload.wikimedia.org"
       },
       {
@@ -48,4 +60,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-

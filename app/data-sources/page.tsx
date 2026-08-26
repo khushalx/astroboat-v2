@@ -13,8 +13,16 @@ const sources = [
     use: "Public high-resolution space photography, telescopic observations, and planetary mission archives."
   },
   {
-    name: "STScI / ESA",
-    use: "James Webb Space Telescope (JWST) and Hubble Space Telescope deep-sky imagery."
+    name: "ESA / Webb",
+    use: "Current James Webb Space Telescope observations from ESA's official image feed."
+  },
+  {
+    name: "ESA / Hubble",
+    use: "Current Hubble and observatory image releases from ESA's official image feed."
+  },
+  {
+    name: "ESO",
+    use: "Current deep-sky, stellar, planetary, and observatory imagery from the European Southern Observatory."
   },
   {
     name: "ESA",

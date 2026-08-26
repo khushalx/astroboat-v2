@@ -275,6 +275,7 @@ export type GallerySource =
   | "NASA Image Library"
   | "ESA / Webb"
   | "Hubble"
+  | "ESO"
   | "Observatory Archive";
 
 export type GalleryImage = {
@@ -306,4 +307,3 @@ export type GalleryResult = {
   isFallback: boolean;
   warnings: string[];
 };
-

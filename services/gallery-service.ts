@@ -1,494 +1,78 @@
+import { XMLParser } from "fast-xml-parser";
 import { GALLERY_REVALIDATE_SECONDS, NASA_APOD_API_URL, NASA_IMAGE_LIBRARY_API_BASE } from "@/lib/constants";
 import type { GalleryCategory, GalleryImage, GalleryResult, GallerySource } from "@/lib/types";
 
-// Comprehensive negative pattern for non-space, people, portraits, press events, and administrative imagery
+// Subject-level exclusions. This is intentionally evaluated against titles and
+// keywords, not full science descriptions: APOD explanations often mention
+// people or researchers even when the image itself is purely astronomical.
 export const REJECTED_CONTENT_PATTERN =
-  /\b(person|people|portrait|portraits|headshot|selfie|standing|sitting|smiles|smiling|handshake|speaks|speaking|speaker|speakers|podium|speech|speeches|talk|talks|interview|interviews|administrator|director|directors|manager|managers|engineer|engineers|technician|technicians|worker|workers|crew member|crew members|crew portrait|astronaut portrait|official portrait|team photo|group photo|panelist|panelists|audience|audiences|crowd|crowds|spectator|spectators|visitor|visitors|student|students|children|child|kid|kids|family|families|classroom|school|schools|tour|tours|intern|interns|internship|fellow|fellows|honoree|honorees|recipient|recipients|retiree|retirees|hall of fame|signing ceremony|press conference|media briefing|news briefing|town hall|keynote|celebration|reception|symposium|meeting|meetings|briefing|briefings|conference|conferences|gathering|gatherings|discussion|roundtable|workshop|workshops|logo|logos|patch|patches|emblem|emblems|insignia|poster|posters|flyer|flyers|diagram|diagrams|schematic|schematics|infographic|infographics|flowchart|flowcharts|chart|charts|graph|graphs|table|tables|slide|slides|presentation|certificate|certificates|award|awards|trophy|trophies|coin|coins|stamp|stamps|pin|pins|badge|badges|mockup|mockups|model of|miniature|scale model|toy|toys|cake|exhibit|booth|hallway|lobby|auditorium|conference room|office|desk|building exterior|building interior|headquarters|facility exterior|gate|road|roads|fence|parking lot|bus|van|truck|crane|forklift|scaffolding|clean room|cleanroom|fabrication|machining|welding|assembly line|inspection|installing|installation|testing in chamber|lifted into|transporting|rollout onto|unloading|shipping container|crate|crates|screenshot|screengrab|document|paper|report|whitepaper|book cover|magazine|newspaper|receipt|memo|history of|commemoration|anniversary of|commemorative)\b/i;
+  /\b(person|people|portrait|portraits|headshot|selfie|standing|sitting|smiles|smiling|handshake|speaks|speaking|speaker|podium|interview|administrator|director|manager|engineer|technician|scientist|astronomer|researcher|worker|crew member|crew portrait|astronaut portrait|official portrait|team photo|group photo|panelist|audience|crowd|spectator|visitor|student|children|child|family|classroom|school|intern|honoree|retiree|signing ceremony|press conference|media briefing|news briefing|town hall|keynote|celebration|reception|symposium|meeting|conference|roundtable|workshop|logo|patch|emblem|insignia|poster|flyer|diagram|schematic|infographic|flowchart|chart|graph|table|slide|presentation|certificate|award|trophy|stamp|badge|mockup|model of|miniature|scale model|toy|cake|exhibit|booth|hallway|lobby|auditorium|conference room|office|desk|building exterior|building interior|headquarters|facility exterior|gate|road|fence|parking lot|bus|van|truck|crane|forklift|scaffolding|clean room|cleanroom|fabrication|machining|welding|assembly line|assembly room|inspection|installing|installation|testing in chamber|lifted into|transporting|rollout onto|unloading|shipping container|crate|screenshot|screengrab|document|whitepaper|book cover|magazine|newspaper|memo|history of|commemoration|commemorative|prototype|prototyping|development kit|processor unit|antennas?|groundwork|tunnels?|main structure|welcome to|hotel|feature names|informal names|animation|artist[’']s (?:impression|concept)|illustration|rendering|locator|finding chart|context|comparison image|compass image|annotated|spectrum|spectra|simulation|square layout)\b/i;
+
+const DESCRIBED_HUMAN_SCENE_PATTERN =
+  /\b(pictured (?:at|with|from)|from left|poses? (?:with|for)|stands? (?:with|beside|in front)|sits? (?:with|beside)|speaks? (?:at|during|to)|participants?|attendees?|technicians? work|workers? (?:clear|install|prepare)|during (?:a|the) (?:ceremony|meeting|conference|briefing|event|visit|tour))\b/i;
+
+const DESCRIBED_HARDWARE_SCENE_PATTERN =
+  /\b(development kit|processor unit|instrument inside (?:a )?cleanroom|telescope mirror segments?|observatory construction|telescope construction|under construction|assembly (?:and|of)|group of antennas?|line of antennas?|\d+ antennas?)\b/i;
+
+const NON_PHOTOGRAPHIC_DESCRIPTION_PATTERN =
+  /\b(?:this\s+)?artist[’']s\s+(?:concept|impression)|\billustration of\b|\bcomputer-generated (?:image|view|rendering)\b/i;
+
+const ANNOTATED_SCIENCE_IMAGE_PATTERN =
+  /\b(?:solid|dashed) (?:curve|line)\b|\borbit is (?:shown|displayed)\b|\bmarked with (?:a |an )?(?:crosshair|circle|arrow)\b|\barrows? (?:in (?:this|the) image )?indicate\b/i;
 
 // Strong positive astronomy and space-exploration signals
 export const POSITIVE_SPACE_SIGNALS =
-  /\b(galaxy|galaxies|spiral galaxy|elliptical galaxy|barred spiral|andromeda|milky way|sombrero galaxy|cartwheel galaxy|whirlpool galaxy|pinwheel galaxy|deep field|hubble ultra deep|smacs 0723|stephan'?s quintet|ngc\s*\d+|messier\s*\d+|m\d+|ic\s*\d+|nebula|nebulae|planetary nebula|emission nebula|reflection nebula|dark nebula|supernova remnant|crab nebula|eagle nebula|carina nebula|orion nebula|pillars of creation|ring nebula|veil nebula|tarantula nebula|helix nebula|horsehead nebula|bubble nebula|star cluster|globular cluster|open cluster|pleiades|protostar|binary star|red giant|white dwarf|pulsar|magnetar|black hole|event horizon|gravitational lens|jupiter|saturn|mars|venus|mercury|uranus|neptune|pluto|titan|europa|io|ganymede|enceladus|callisto|ceres|gas giant|rings of saturn|great red spot|jovian|martian|olympus mons|valles marineris|jezero crater|gale crater|lunar surface|moon crater|tycho crater|mare |apollo landing|lunar horizon|earthrise|earth from orbit|earth from space|blue marble|aurora australis|aurora borealis|atmospheric limb|the sun|solar flare|coronal loop|coronal mass ejection|prominence|sunspot|solar dynamics observatory|rocket launch|liftoff|night launch|launch pad|pad 39a|spacecraft in orbit|space station|international space station|iss cupola|satellite in orbit|hubble space telescope|james webb space telescope|jwst|chandra x-ray|spitzer|voyager|cassini|juno spacecraft|perseverance rover|curiosity rover|rosetta|solar orbiter)\b/i;
+  /\b(galaxy|galaxies|spiral galaxy|elliptical galaxy|barred spiral|andromeda|milky way|sombrero galaxy|cartwheel galaxy|whirlpool galaxy|pinwheel galaxy|deep field|hubble ultra deep|smacs\s*\d+|stephan'?s quintet|ngc\s*\d+|messier\s*\d+|m\d+|ic\s*\d+|nebula|nebulae|planetary nebula|emission nebula|reflection nebula|dark nebula|supernova remnant|supernova|nova remnant|crab nebula|eagle nebula|carina nebula|orion nebula|pillars of creation|ring nebula|veil nebula|tarantula nebula|helix nebula|horsehead nebula|bubble nebula|star cluster|globular cluster|open cluster|stellar cluster|stellar nursery|star-forming|star field|pleiades|protostar|binary star|red giant|red supergiant|white dwarf|betelgeuse|pulsar|magnetar|quasar|black hole|sagittarius a\*?|event horizon|gravitational lens|cosmic web|interstellar|jupiter|saturn|mars|venus|mercury|uranus|neptune|pluto|titan|europa|io|ganymede|enceladus|callisto|ceres|asteroid|comet|exoplanet|gas giant|rings of saturn|great red spot|jovian|martian|olympus mons|valles marineris|jezero crater|gale crater|lunar surface|moon crater|tycho crater|mare |apollo landing|lunar horizon|earthrise|earth from orbit|earth from space|blue marble|aurora australis|aurora borealis|atmospheric limb|the sun|solar flare|coronal loop|coronal mass ejection|prominence|sunspot|solar dynamics observatory|rocket launch|liftoff|night launch|launch pad|spacecraft in orbit|space station|international space station|iss cupola|satellite in orbit|hubble space telescope|james webb space telescope|jwst|very large telescope|vlt|alma|chandra x-ray|spitzer|voyager|cassini|juno spacecraft|perseverance rover|curiosity rover|rosetta|solar orbiter)\b/i;
 
 export const RAW_CODE_TITLE_REGEX =
   /^([A-Z]{2,6}[-_]?[0-9a-z]{4,}[\w-]*|\d{4}[-_]\w+|DSC_\d+|IMG_\d+|PIA\d+|NHQ\d+|KSC\w+|JSC\w+|MSFC\w+|GSFC\w+|ARC\w+|GRC\w+)$/i;
 
-export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [
+type ObservatoryFeedConfig = {
+  id: string;
+  url: string;
+  source: GallerySource;
+  credit: string;
+  observatory: string;
+};
+
+const OBSERVATORY_IMAGE_FEEDS: ObservatoryFeedConfig[] = [
   {
-    id: "jwst-cosmic-cliffs-carina",
-    title: "Cosmic Cliffs in the Carina Nebula",
-    description:
-      "Captured in infrared light by the James Webb Space Telescope, this landscape of 'mountains' and 'valleys' is the edge of a star-forming region named NGC 3324 in the Carina Nebula, revealing previously invisible areas of star birth.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000356/GSFC_20171208_Archive_e000356~orig.jpg",
+    id: "esa-webb",
+    url: "https://esawebb.org/images/feed/",
     source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/031/01G77PKGF7BM3HDNV20794MG1E",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-07-12",
-    category: "Nebulae",
-    objectName: "NGC 3324 (Carina Nebula)",
-    observatory: "James Webb Space Telescope (NIRCam)",
-    distance: "7,600 light-years",
-    aspectRatio: 1.77,
-    featured: true,
-    isFallback: true
+    credit: "ESA/Webb, NASA & CSA",
+    observatory: "James Webb Space Telescope"
   },
   {
-    id: "jwst-pillars-of-creation",
-    title: "Pillars of Creation in Near-Infrared",
-    description:
-      "A three-dimensional panorama of dense columns of interstellar gas and dust in the Eagle Nebula (Messier 16), where newborn stars trigger energetic ejections from surrounding material.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25442/PIA25442~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/052/01GF423GBQSK6ANC89ED569PDG",
-    credit: "NASA, ESA, CSA, STScI, J. DePasquale, A. Pagan, A. M. Koekemoer",
-    date: "2022-10-19",
-    category: "Nebulae",
-    objectName: "Messier 16 (Eagle Nebula)",
-    observatory: "James Webb Space Telescope (NIRCam)",
-    distance: "6,500 light-years",
-    aspectRatio: 0.85,
-    isFallback: true
-  },
-  {
-    id: "hubble-andromeda-galaxy",
-    title: "Andromeda Galaxy — Messier 31",
-    description:
-      "The sharpest visible-light and ultraviolet composite of our nearest galactic spiral neighbor, containing over one trillion stars and orbiting satellite galaxies in the Local Group.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA04921/PIA04921~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/PIA04921",
-    credit: "NASA / JPL-Caltech",
-    date: "2003-12-10",
-    category: "Galaxies",
-    objectName: "Messier 31 (NGC 224)",
-    observatory: "GALEX & Space Telescopes",
-    distance: "2.537 million light-years",
-    aspectRatio: 1.05,
-    isFallback: true
-  },
-  {
-    id: "jwst-stephans-quintet",
-    title: "Stephan's Quintet Visual and Infrared Composite",
-    description:
-      "An enormous mosaic of five galaxies, four of which are locked in a gravitational dance of repeated close encounters, triggering massive shockwaves as galaxy NGC 7318B smashes through the cluster gas.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25381/PIA25381~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/034/01G79R0A3FPKYFDV1F5E16W2RV",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-07-12",
-    category: "Galaxies",
-    objectName: "HCG 92 (Stephan's Quintet)",
-    observatory: "James Webb Space Telescope (NIRCam & MIRI)",
-    distance: "290 million light-years",
-    aspectRatio: 1.15,
-    isFallback: true
-  },
-  {
-    id: "juno-jupiter-great-red-spot",
-    title: "Jupiter's Dynamic Atmosphere & Great Red Spot",
-    description:
-      "Perijove close-up by the Juno spacecraft capturing the turbulent Jovian cloud tops, ammonia ice crystals, and high-altitude storm belts churning in Jupiter's southern hemisphere.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA21972/PIA21972~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA21972",
-    credit: "NASA / JPL-Caltech / SwRI / MSSS / Gerald Eichstädt / Seán Doran",
-    date: "2017-09-01",
-    category: "Planets",
-    objectName: "Jupiter",
-    observatory: "Juno Spacecraft (JunoCam)",
-    distance: "628 million km from Earth",
-    aspectRatio: 0.82,
-    isFallback: true
-  },
-  {
-    id: "cassini-saturn-rings-backlit",
-    title: "The Day the Earth Smiled — Saturn & Rings Backlit",
-    description:
-      "Cassini slipped into Saturn's shadow and turned its cameras back toward the eclipsed Sun, capturing the outer E-ring illuminated and pinpointing Earth as a faint blue dot in the distance.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA17172/PIA17172~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17172",
-    credit: "NASA / JPL-Caltech / Space Science Institute",
-    date: "2013-11-12",
-    category: "Planets",
-    objectName: "Saturn & Ring System",
-    observatory: "Cassini Spacecraft (ISS)",
-    distance: "1.4 billion km from Earth",
-    aspectRatio: 1.85,
-    isFallback: true
-  },
-  {
-    id: "sdo-sun-coronal-flare",
-    title: "Magnificent Coronal Loop Eruption",
-    description:
-      "An extreme ultraviolet perspective of an M-class solar flare observed by NASA's Solar Dynamics Observatory, tracing twisted magnetic field lines glowing in superheated plasma at millions of degrees.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001427/GSFC_20171208_Archive_e001427~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e001427",
-    credit: "NASA / SDO / AIA Consortium",
-    date: "2012-07-20",
-    category: "Sun",
-    objectName: "The Sun (Active Region 1515)",
-    observatory: "Solar Dynamics Observatory (AIA 171Å)",
-    distance: "149.6 million km",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "lro-tycho-crater-moon",
-    title: "Central Peak of Tycho Crater",
-    description:
-      "A dramatic low-sun angle oblique view across Tycho crater's central peak complex on the lunar near-side, revealing boulder-strewn volcanic and impact melt terraces.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA14421/PIA14421~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA14421",
-    credit: "NASA / Goddard / Arizona State University",
-    date: "2011-06-29",
-    category: "Moon",
-    objectName: "Tycho Crater (Moon)",
-    observatory: "Lunar Reconnaissance Orbiter (LROC)",
-    distance: "384,400 km",
-    aspectRatio: 1.33,
-    isFallback: true
-  },
-  {
-    id: "chandra-cassiopeia-a-supernova",
-    title: "Cassiopeia A Supernova Remnant",
-    description:
-      "A multi-wavelength composite combining X-rays from Chandra, optical data from Hubble, and infrared from Spitzer, showing the expanding wreckage and neutron star core of a massive star that exploded ~340 years ago.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA17842/PIA17842~orig.jpg",
+    id: "esa-hubble",
+    url: "https://esahubble.org/images/feed/",
     source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17842",
-    credit: "NASA / CXC / SAO / STScI / JPL-Caltech",
-    date: "2013-12-19",
-    category: "Deep Space",
-    objectName: "Cassiopeia A (3C 461)",
-    observatory: "Chandra X-ray Observatory & Hubble",
-    distance: "11,000 light-years",
-    aspectRatio: 1.0,
-    isFallback: true
+    credit: "ESA/Hubble & NASA",
+    observatory: "Hubble Space Telescope"
   },
   {
-    id: "jwst-cartwheel-galaxy",
-    title: "The Cartwheel Galaxy Unveiled by Webb",
-    description:
-      "A rare ring galaxy formed following a high-speed collision between a large spiral galaxy and a smaller companion, showing spokes of intense star formation ignited by expanding shock rings.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25386/PIA25386~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/039/01G8N1PQ8CQH1H1X0QHQW97B2A",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-08-02",
-    category: "Galaxies",
-    objectName: "Cartwheel Galaxy (ESO 350-40)",
-    observatory: "James Webb Space Telescope (NIRCam & MIRI)",
-    distance: "500 million light-years",
-    aspectRatio: 1.12,
-    isFallback: true
-  },
-  {
-    id: "hubble-orion-nebula-m42",
-    title: "The Orion Nebula in High-Resolution",
-    description:
-      "One of the sharpest astronomical views ever produced: the Orion Nebula star-birth stellar nursery, sculpted by fierce ultraviolet radiation from the massive young Trapezium cluster stars.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA08006/PIA08006~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA08006",
-    credit: "NASA, ESA, M. Robberto (Space Telescope Science Institute/ESA) and the Hubble Space Telescope Orion Treasury Project Team",
-    date: "2006-01-11",
-    category: "Nebulae",
-    objectName: "Messier 42 (NGC 1976)",
-    observatory: "Hubble Space Telescope (ACS)",
-    distance: "1,344 light-years",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "jwst-tarantula-nebula",
-    title: "Tarantula Nebula 30 Doradus",
-    description:
-      "The largest and brightest star-forming region in the Local Group of galaxies, harboring the most massive stars known in the universe within the Large Magellanic Cloud.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25439/PIA25439~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/041/01GBQC0N9GCHV62EBEFHKPFFQZ",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-09-06",
-    category: "Nebulae",
-    objectName: "30 Doradus (NGC 2070)",
-    observatory: "James Webb Space Telescope (NIRCam)",
-    distance: "161,000 light-years",
-    aspectRatio: 1.48,
-    isFallback: true
-  },
-  {
-    id: "perseverance-mars-jezero-crater",
-    title: "Mars Jezero Crater Ancient River Delta",
-    description:
-      "High-resolution panorama captured by the Mastcam-Z instrument on NASA's Perseverance Mars rover, revealing stratified sedimentary layers deposited by an ancient Martian river billions of years ago.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA24836/PIA24836~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA24836",
-    credit: "NASA / JPL-Caltech / ASU / MSSS",
-    date: "2021-10-07",
-    category: "Missions",
-    objectName: "Mars (Jezero Crater)",
-    observatory: "Perseverance Mars Rover (Mastcam-Z)",
-    distance: "225 million km average",
-    aspectRatio: 2.1,
-    isFallback: true
-  },
-  {
-    id: "hubble-sombrero-galaxy-m104",
-    title: "The Majestic Sombrero Galaxy — M104",
-    description:
-      "A landmark optical observation of Messier 104, distinguished by its brilliant white bulbous core encircled by thick lanes of cosmic dust carrying rich clusters of stars.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~thumb.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA04215/PIA04215~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA04215",
-    credit: "NASA and The Hubble Heritage Team (STScI/AURA)",
-    date: "2003-10-02",
-    category: "Galaxies",
-    objectName: "Messier 104 (NGC 4594)",
-    observatory: "Hubble Space Telescope (ACS)",
-    distance: "29.3 million light-years",
-    aspectRatio: 1.77,
-    isFallback: true
-  },
-  {
-    id: "hubble-crab-nebula-pulsar",
-    title: "The Crab Nebula Supernova Debris Field",
-    description:
-      "A sprawling mosaic of the expanding filamentary remnant of a supernova observed by earthly astronomers in the year 1054, powered by a rapidly spinning central neutron star.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA03606/PIA03606~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA03606",
-    credit: "NASA, ESA, J. Hester and A. Loll (Arizona State University)",
-    date: "2005-12-01",
-    category: "Nebulae",
-    objectName: "Messier 1 (NGC 1952)",
-    observatory: "Hubble Space Telescope (WFPC2)",
-    distance: "6,500 light-years",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "jwst-deep-field-smacs-0723",
-    title: "Webb's First Deep Field — SMACS 0723",
-    description:
-      "The deepest and sharpest infrared image of the distant universe to date, showing galaxy cluster SMACS 0723 acting as a gravitational lens that magnifies extremely faint background galaxies from over 13 billion years ago.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25379/PIA25379~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/035/01G7DCWB7137MYJ05CSH1Q5Z1Z",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-07-11",
-    category: "Deep Space",
-    objectName: "SMACS J0723.3-7327",
-    observatory: "James Webb Space Telescope (NIRCam)",
-    distance: "4.6 billion light-years (lens cluster)",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "hubble-ring-nebula-m57",
-    title: "The Ring Nebula — Messier 57",
-    description:
-      "A glowing barrel-shaped shroud of incandescent gas cast off by a dying Sun-like star, captured in visible and infrared light revealing intricate knotty outer halos.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA17078/PIA17078~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA17078",
-    credit: "NASA, ESA, and C.R. O'Dell (Vanderbilt University)",
-    date: "2013-05-23",
-    category: "Nebulae",
-    objectName: "Messier 57 (NGC 6720)",
-    observatory: "Hubble Space Telescope (WFC3)",
-    distance: "2,570 light-years",
-    aspectRatio: 1.02,
-    isFallback: true
-  },
-  {
-    id: "jwst-phantom-galaxy-m74",
-    title: "The Phantom Galaxy — Messier 74 in Mid-Infrared",
-    description:
-      "A grand design spiral galaxy showcasing Webb's MIRI instrument penetrating through interstellar dust lanes to map glowing polycyclic aromatic hydrocarbon filaments.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA25440/PIA25440~orig.jpg",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/046/01GAE845KGB5W3550M9QJ1QJ7N",
-    credit: "ESA/Webb, NASA & CSA, J. Lee and the PHANGS-JWST Team",
-    date: "2022-08-29",
-    category: "Galaxies",
-    objectName: "Messier 74 (NGC 628)",
-    observatory: "James Webb Space Telescope (MIRI)",
-    distance: "32 million light-years",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "hubble-whirlpool-galaxy-m51",
-    title: "The Whirlpool Galaxy — Messier 51",
-    description:
-      "The graceful, curving arms of the majestic spiral galaxy NGC 5194 colliding and gravitationally interacting with its smaller companion NGC 5195.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA04223/PIA04223~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA04223",
-    credit: "NASA, ESA, S. Beckwith (STScI), and The Hubble Heritage Team (STScI/AURA)",
-    date: "2005-04-25",
-    category: "Galaxies",
-    objectName: "Messier 51 (NGC 5194)",
-    observatory: "Hubble Space Telescope (ACS)",
-    distance: "23 million light-years",
-    aspectRatio: 1.25,
-    isFallback: true
-  },
-  {
-    id: "hubble-pleiades-seven-sisters",
-    title: "Reflection Nebula in the Pleiades Star Cluster",
-    description:
-      "Wispy filaments of interstellar dust passing close to star Merope in the Pleiades (Seven Sisters), reflecting brilliant blue light from the hot young stars.",
-    imageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~thumb.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/PIA02298/PIA02298~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://photojournal.jpl.nasa.gov/catalog/PIA02298",
-    credit: "NASA and The Hubble Heritage Team (STScI/AURA)",
-    date: "2000-12-06",
-    category: "Stars",
-    objectName: "Messier 45 (The Pleiades)",
-    observatory: "Hubble Space Telescope (WFPC2)",
-    distance: "444 light-years",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "apollo17-blue-marble",
-    title: "The Blue Marble — Earth from Apollo 17",
-    description:
-      "One of the most famous photographs in human history, capturing the fully illuminated Earth from a distance of about 29,000 kilometers as Apollo 17 traveled to the Moon.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.png",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000496/GSFC_20171208_Archive_e000496~orig.png",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000496",
-    credit: "NASA / Apollo 17 Crew",
-    date: "1972-12-07",
-    category: "Earth",
-    objectName: "Planet Earth",
-    observatory: "Hasselblad 500EL (70mm Zeiss lens)",
-    distance: "29,000 km",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "hubble-westerlund-2-star-cluster",
-    title: "Westerlund 2 Star Cluster in Gum 29",
-    description:
-      "Hubble’s 25th anniversary image featuring a brilliant tapestry of roughly 3,000 young stars in the giant star-forming region Gum 29 in the constellation Carina.",
-    imageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~orig.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000742/GSFC_20171208_Archive_e000742~orig.jpg",
-    source: "Hubble",
-    sourceUrl: "https://images.nasa.gov/details/GSFC_20171208_Archive_e000742",
-    credit: "NASA, ESA, the Hubble Heritage Team (STScI/AURA), A. Nota, and the Westerlund 2 Science Team",
-    date: "2015-04-23",
-    category: "Stars",
-    objectName: "Westerlund 2 (Gum 29)",
-    observatory: "Hubble Space Telescope (WFC3 & ACS)",
-    distance: "20,000 light-years",
-    aspectRatio: 1.25,
-    isFallback: true
-  },
-  {
-    id: "artemis-sls-liftoff-pad-39b",
-    title: "Artemis I SLS Moon Rocket Night Liftoff",
-    description:
-      "NASA's Space Launch System rocket, carrying the Orion spacecraft, roars into the night sky from Launch Pad 39B at Kennedy Space Center on its maiden lunar voyage.",
-    imageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/KSC-20221116-PH-ILW01_0008/KSC-20221116-PH-ILW01_0008~orig.JPG",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/KSC-20221116-PH-ILW01_0008",
-    credit: "NASA / Joel Kowsky",
-    date: "2022-11-16",
-    category: "Missions",
-    objectName: "Space Launch System (SLS) & Orion",
-    observatory: "Kennedy Space Center Pad 39B",
-    aspectRatio: 1.5,
-    isFallback: true
-  },
-  {
-    id: "jwst-southern-ring-nebula",
-    title: "Southern Ring Nebula — NGC 3132 in Infrared",
-    description:
-      "Webb’s infrared vision reveals the intricate expanding shells of gas and dust ejected by a dying binary star system in the Southern Ring planetary nebula.",
-    imageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/southern_ring_nebula/southern_ring_nebula~orig.png",
-    source: "ESA / Webb",
-    sourceUrl: "https://webbtelescope.org/contents/media/images/2022/033/01G70BGTTF89PNT6W5NDMD1S68",
-    credit: "NASA, ESA, CSA, STScI",
-    date: "2022-07-12",
-    category: "Nebulae",
-    objectName: "NGC 3132",
-    observatory: "James Webb Space Telescope (NIRCam & MIRI)",
-    distance: "2,500 light-years",
-    aspectRatio: 1.0,
-    isFallback: true
-  },
-  {
-    id: "iss-night-earth-city-lights",
-    title: "Earth Atmospheric Limb and Aurora from ISS",
-    description:
-      "Photographed from the International Space Station, Earth’s curved atmospheric limb glows with green airglow as night lights trace geography across the planet below.",
-    imageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~large.jpg",
-    thumbnailUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~small.jpg",
-    hdImageUrl: "https://images-assets.nasa.gov/image/iss039e005387/iss039e005387~orig.jpg",
-    source: "NASA Image Library",
-    sourceUrl: "https://images.nasa.gov/details/iss039e005387",
-    credit: "NASA / ISS Expedition 39 Crew",
-    date: "2014-04-02",
-    category: "Earth",
-    objectName: "Earth's Atmospheric Limb",
-    observatory: "International Space Station (Low Earth Orbit)",
-    distance: "415 km altitude",
-    aspectRatio: 1.5,
-    isFallback: true
+    id: "eso",
+    url: "https://www.eso.org/public/images/feed/",
+    source: "ESO",
+    credit: "ESO",
+    observatory: "European Southern Observatory"
   }
 ];
+
+const APOD_RSS_URL = "https://apod.nasa.gov/apod.rss";
+const GALLERY_XML_PARSER = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+  textNodeName: "#text",
+  trimValues: true,
+  processEntities: false
+});
+
+// Live sources are deliberately preferred over a static photo archive. The
+// previous fallback paired hand-written astronomy captions with unrelated NASA
+// asset IDs, which produced convincing but incorrect cards. If every provider
+// is down, an honest empty state is safer than mislabeled imagery.
+export const CURATED_FALLBACK_GALLERY: GalleryImage[] = [];
 
 export function containsRejectedKeywords(text: string): boolean {
   if (!text || typeof text !== "string") return false;
@@ -524,11 +108,32 @@ export function scoreGalleryCandidate(candidate: {
     return { score: 0, verdict: "reject", reasons };
   }
 
-  const combined = `${candidate.title} ${candidate.description} ${(candidate.keywords || []).join(" ")} ${candidate.credit || ""} ${candidate.observatory || ""}`;
+  const subjectText = `${candidate.title} ${(candidate.keywords || []).join(" ")}`;
+  const scienceContext = `${candidate.title} ${candidate.description} ${(candidate.keywords || []).join(" ")} ${candidate.observatory || ""} ${candidate.source || ""}`;
 
   // 1. Hard Rejection Checks
-  if (containsRejectedKeywords(combined)) {
-    reasons.push("Matches excluded keyword (person/portrait/press/event/cleanroom/diagram)");
+  if (containsRejectedKeywords(subjectText)) {
+    reasons.push("Title or keywords describe people, events, facilities, or non-photographic media");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  if (DESCRIBED_HUMAN_SCENE_PATTERN.test(`${candidate.title} ${candidate.description.slice(0, 500)}`)) {
+    reasons.push("Description identifies a people-focused or administrative scene");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  if (DESCRIBED_HARDWARE_SCENE_PATTERN.test(`${candidate.title} ${candidate.description.slice(0, 700)}`)) {
+    reasons.push("Description identifies observatory hardware rather than an astronomical subject");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  if (NON_PHOTOGRAPHIC_DESCRIPTION_PATTERN.test(candidate.description.slice(0, 500))) {
+    reasons.push("Description identifies an illustration or artist concept rather than observed imagery");
+    return { score: 0, verdict: "reject", reasons };
+  }
+
+  if (ANNOTATED_SCIENCE_IMAGE_PATTERN.test(candidate.description.slice(0, 900))) {
+    reasons.push("Description identifies plotted or annotated scientific media rather than a clean observation");
     return { score: 0, verdict: "reject", reasons };
   }
 
@@ -548,7 +153,7 @@ export function scoreGalleryCandidate(candidate: {
   if (hasPositiveSpaceSignals(candidate.title)) {
     score += 25;
     reasons.push("Strong astronomy subject in title");
-  } else if (hasPositiveSpaceSignals(combined)) {
+  } else if (hasPositiveSpaceSignals(scienceContext)) {
     score += 15;
     reasons.push("Astronomy subject in metadata");
   } else {
@@ -558,13 +163,13 @@ export function scoreGalleryCandidate(candidate: {
   }
 
   // 3. High-Value Scientific Observatories / Instruments
-  if (/(james webb|jwst|hubble|hst|chandra|spitzer|juno|cassini|perseverance|curiosity|solar dynamics observatory|sdo|soho|lroc|iss cupola|vlt|alma)/i.test(combined)) {
+  if (/(james webb|jwst|hubble|hst|chandra|spitzer|juno|cassini|perseverance|curiosity|solar dynamics observatory|sdo|soho|lroc|iss cupola|vlt|alma)/i.test(scienceContext)) {
     score += 15;
     reasons.push("Reputable scientific observatory or space mission instrument");
   }
 
   // 4. Reputable Scientific Centers & Archives
-  if (/(stsci|jpl-caltech|jpl|goddard|esa\/webb|esa\/hubble|cxc|eso|nasa)/i.test(candidate.credit || combined)) {
+  if (/(stsci|jpl-caltech|jpl|goddard|esa\s*\/?\s*webb|esa\s*\/?\s*hubble|cxc|eso|nasa)/i.test(`${candidate.credit || ""} ${candidate.source || ""}`)) {
     score += 10;
     reasons.push("Primary astronomical science institution credit");
   }
@@ -601,7 +206,7 @@ export function isRelevantSpaceImage(
 
 function normalizeTitle(rawTitle: string): string {
   let title = rawTitle.replace(/\s+/g, " ").trim();
-  title = title.replace(/\s*\([^)]*(NIRCam|WFC3|ACS|MIRI|Composite|Artist|Illustration)[^)]*\)/gi, "");
+  title = title.replace(/\s*\([^)]*(NIRCam|WFC3|ACS|MIRI|Composite)[^)]*\)/gi, "");
   title = title.replace(/^NASA's\s+/i, "");
   title = title.replace(/^Hubble\s+Sees\s+(a\s+)?/i, "");
   title = title.replace(/^Webb\s+Captures\s+(a\s+)?/i, "");
@@ -611,21 +216,31 @@ function normalizeTitle(rawTitle: string): string {
 }
 
 export function detectCategory(title: string, keywords: string[] = [], description: string = ""): GalleryCategory {
+  const subject = `${title} ${keywords.join(" ")}`.toLowerCase();
   const combined = `${title} ${keywords.join(" ")} ${description}`.toLowerCase();
 
-  if (/(\bgalaxy\b|\bgalaxies\b|spiral galaxy|andromeda|milky way|m31|m51|m81|m82|m101|m104|m74|sombrero|stephan|cartwheel|whirlpool|pinwheel|smacs|deep field|cluster of galaxies)/i.test(combined)) {
-    return "Galaxies";
-  }
+  if (/(\bnebula\b|\bnebulae\b|\bbubbles?\b|\bbow shocks?\b|pillars of creation|supernova remnant|planetary nebula)/i.test(subject)) return "Nebulae";
+  if (/(\bgalaxy\b|\bgalaxies\b|\bspiral\b|andromeda|milky way|smacs|deep field|messier\s*(?:31|51|74|81|82|101|104)\b)/i.test(subject)) return "Galaxies";
+  if (/(\bjupiter\b|\bsaturn\b|\bmars\b|\bvenus\b|\bmercury\b|\buranus\b|\bneptune\b|\bpluto\b|\btitan\b|\beuropa\b|\basteroid\b|\bcomet\b|\bexoplanet\b)/i.test(subject)) return "Planets";
+  if (/(\bmoon\b|\blunar\b|\btycho crater\b)/i.test(subject)) return "Moon";
+  if (/(\bsun\b|\bsolar\b|\bcoronal?\b|\bsunspot\b)/i.test(subject)) return "Sun";
+  if (/(\bstar\b|\bstars\b|\bstarry\b|\bstellar\b|\bbetelgeuse\b|\birs\s*3\b|\bpleiades\b|\bprotostar\b|\bcluster\b)/i.test(subject)) return "Stars";
+  if (/(\bearth\b|\baurora\b|\bblue marble\b)/i.test(subject)) return "Earth";
+  if (/(\bspacecraft\b|\brover\b|\bvoyager\b|\bperseverance\b|\bcuriosity\b|\bartemis\b|\blaunch\b|\bliftoff\b|\brocket\b)/i.test(subject)) return "Missions";
 
   if (/(\bnebula\b|\bnebulae\b|pillars of creation|carina|orion nebula|crab nebula|ring nebula|veil nebula|tarantula|horsehead|helix nebula|bubble nebula|eagle nebula|supernova remnant|planetary nebula)/i.test(combined)) {
     return "Nebulae";
+  }
+
+  if (/(\bgalaxy\b|\bgalaxies\b|spiral galaxy|andromeda|milky way|m31|m51|m81|m82|m101|m104|m74|sombrero|stephan|cartwheel|whirlpool|pinwheel|smacs|deep field|cluster of galaxies)/i.test(combined)) {
+    return "Galaxies";
   }
 
   if (/(\bjupiter\b|\bsaturn\b|\bmars\b|\bvenus\b|\bmercury\b|\buranus\b|\bneptune\b|\bpluto\b|\bgas giant\b|jovian|martian|rings of saturn|great red spot)/i.test(combined)) {
     return "Planets";
   }
 
-  if (/(\bthe moon\b|\blunar\b|moon surface|crater tycho|mare |apollo landing|lroc|regolith)/i.test(combined)) {
+  if (/(\bmoon\b|\blunar\b|moon surface|crater tycho|mare |apollo landing|lroc|regolith)/i.test(combined)) {
     return "Moon";
   }
 
@@ -637,7 +252,7 @@ export function detectCategory(title: string, keywords: string[] = [], descripti
     return "Earth";
   }
 
-  if (/(\bstar cluster\b|\bglobular cluster\b|\bpleiades\b|\bprotostar\b|\bbinary star\b|\bred giant\b|\bwhite dwarf\b|\bbetelgeuse\b|\bstar birth\b)/i.test(combined)) {
+  if (/(\bstar cluster\b|\bglobular cluster\b|\bstellar cluster\b|\bpleiades\b|\bprotostar\b|\bbinary star\b|\bred (?:giant|supergiant)\b|\bwhite dwarf\b|\bbetelgeuse\b|\bstar birth\b|\bstar field\b)/i.test(combined)) {
     return "Stars";
   }
 
@@ -670,9 +285,289 @@ function extractObservatory(title: string, description: string, center?: string)
   return undefined;
 }
 
+function asArray<T>(value: T | T[] | undefined): T[] {
+  if (value === undefined) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : null;
+}
+
+function textValue(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number") return String(value).trim();
+  const record = asRecord(value);
+  if (!record) return "";
+  return textValue(record["#text"] ?? record["#cdata"] ?? "");
+}
+
+function decodeHtmlEntities(value: string): string {
+  const namedEntities: Record<string, string> = {
+    amp: "&",
+    apos: "'",
+    gt: ">",
+    lt: "<",
+    nbsp: " ",
+    quot: '"'
+  };
+
+  const decodeOnce = (input: string) =>
+    input
+      .replace(/&#x([0-9a-f]+);/gi, (_, code: string) => String.fromCodePoint(Number.parseInt(code, 16)))
+      .replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number.parseInt(code, 10)))
+      .replace(/&([a-z]+);/gi, (entity, name: string) => namedEntities[name.toLowerCase()] ?? entity);
+
+  return decodeOnce(decodeOnce(value));
+}
+
+function cleanMarkup(value: string): string {
+  return decodeHtmlEntities(value)
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<\/p>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function conciseScienceDescription(rawDescription: string): string {
+  let description = cleanMarkup(rawDescription)
+    .replace(/\[\s*Image description\s*:[\s\S]*$/i, "")
+    .replace(/\bLinks?\s+(?:Research paper|Pan video)[\s\S]*$/i, "")
+    .trim();
+
+  if (description.length <= 640) return description;
+
+  description = description.slice(0, 640);
+  const finalSentence = Math.max(description.lastIndexOf(". "), description.lastIndexOf("! "), description.lastIndexOf("? "));
+  return `${description.slice(0, finalSentence > 320 ? finalSentence + 1 : 637).trim()}…`;
+}
+
+function normalizeRemoteUrl(value: string, baseUrl?: string): string {
+  if (!value) return "";
+
+  try {
+    const url = new URL(decodeHtmlEntities(value.trim()), baseUrl);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+    if (url.protocol === "http:") url.protocol = "https:";
+    return url.toString();
+  } catch {
+    return "";
+  }
+}
+
+function firstImageFromMarkup(markup: string, baseUrl?: string): string {
+  const decoded = decodeHtmlEntities(markup);
+  const match = decoded.match(/<img\b[^>]+src=["']([^"']+)["']/i);
+  return match ? normalizeRemoteUrl(match[1], baseUrl) : "";
+}
+
+function toIsoDate(value: string): string {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "1970-01-01" : date.toISOString().slice(0, 10);
+}
+
+function stableFeedId(configId: string, sourceUrl: string, index: number): string {
+  try {
+    const slug = new URL(sourceUrl).pathname.split("/").filter(Boolean).pop();
+    if (slug) return `${configId}-${slug.toLowerCase().replace(/[^a-z0-9_-]/g, "-")}`;
+  } catch {
+    // The source URL is validated separately; the index is a deterministic fallback.
+  }
+
+  return `${configId}-${index + 1}`;
+}
+
+function feedEnclosureUrl(item: Record<string, unknown>, sourceUrl: string): string {
+  const enclosures = asArray(item.enclosure);
+
+  for (const enclosureValue of enclosures) {
+    const enclosure = asRecord(enclosureValue);
+    if (!enclosure) continue;
+    const mediaType = textValue(enclosure["@_type"]);
+    if (mediaType && !mediaType.startsWith("image/")) continue;
+    const url = normalizeRemoteUrl(textValue(enclosure["@_url"]), sourceUrl);
+    if (url) return url;
+  }
+
+  return "";
+}
+
+async function fetchObservatoryFeed(config: ObservatoryFeedConfig): Promise<GalleryImage[]> {
+  try {
+    const response = await fetch(config.url, {
+      headers: {
+        Accept: "application/rss+xml, application/xml, text/xml",
+        "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
+      },
+      next: { revalidate: GALLERY_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000)
+    });
+
+    if (!response.ok) {
+      console.warn(`${config.source} gallery feed returned HTTP ${response.status}`);
+      return [];
+    }
+
+    const parsed = asRecord(GALLERY_XML_PARSER.parse(await response.text()));
+    const rss = asRecord(parsed?.rss);
+    const channel = asRecord(rss?.channel);
+    const items = asArray(channel?.item);
+    const images: GalleryImage[] = [];
+
+    for (const [index, rawItem] of items.entries()) {
+      if (images.length >= 14) break;
+      const item = asRecord(rawItem);
+      if (!item) continue;
+
+      const sourceUrl = normalizeRemoteUrl(textValue(item.link) || textValue(item.guid), config.url);
+      const rawDescription = textValue(item.description);
+      const enclosureUrl = feedEnclosureUrl(item, sourceUrl || config.url);
+      const previewUrl = firstImageFromMarkup(rawDescription, sourceUrl || config.url);
+      const imageUrl = enclosureUrl || previewUrl;
+      const title = normalizeTitle(cleanMarkup(textValue(item.title)));
+      const description = conciseScienceDescription(rawDescription);
+
+      if (!sourceUrl || !imageUrl || !title || !description) continue;
+
+      const score = scoreGalleryCandidate({
+        title,
+        description,
+        url: imageUrl,
+        credit: config.credit,
+        observatory: config.observatory,
+        source: config.source
+      });
+
+      if (score.verdict === "reject") continue;
+
+      images.push({
+        id: stableFeedId(config.id, sourceUrl, index),
+        title,
+        description,
+        imageUrl,
+        thumbnailUrl: previewUrl || imageUrl,
+        source: config.source,
+        sourceUrl,
+        credit: config.credit,
+        date: toIsoDate(textValue(item.pubDate)),
+        category: detectCategory(title, [], description),
+        objectName: extractObjectName(title, description),
+        observatory: extractObservatory(title, description) || config.observatory,
+        aspectRatio: 1.5
+      });
+    }
+
+    return images;
+  } catch (error) {
+    console.warn(`${config.source} gallery feed failed:`, error);
+    return [];
+  }
+}
+
+function apodDateFromUrl(sourceUrl: string): string {
+  const match = sourceUrl.match(/\/ap(\d{2})(\d{2})(\d{2})\.html/i);
+  if (!match) return "";
+  const year = Number(match[1]) >= 90 ? `19${match[1]}` : `20${match[1]}`;
+  return `${year}-${match[2]}-${match[3]}`;
+}
+
+async function fetchNasaApodRssImages(): Promise<GalleryImage[]> {
+  try {
+    const response = await fetch(APOD_RSS_URL, {
+      headers: { "User-Agent": "Astroboat/1.0 (+https://astroboat.in)" },
+      next: { revalidate: GALLERY_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000)
+    });
+
+    if (!response.ok) return [];
+
+    const parsed = asRecord(GALLERY_XML_PARSER.parse(await response.text()));
+    const rss = asRecord(parsed?.rss);
+    const channel = asRecord(rss?.channel);
+    const items = asArray(channel?.item)
+      .map(asRecord)
+      .filter((item): item is Record<string, unknown> => Boolean(item))
+      .map((item) => ({
+        item,
+        sourceUrl: normalizeRemoteUrl(textValue(item.link), APOD_RSS_URL)
+      }))
+      .filter(({ sourceUrl }) => Boolean(apodDateFromUrl(sourceUrl)))
+      .slice(0, 10);
+
+    const pageResults = await Promise.allSettled(
+      items.map(async ({ item, sourceUrl }) => {
+        const pageResponse = await fetch(sourceUrl, {
+          headers: { "User-Agent": "Astroboat/1.0 (+https://astroboat.in)" },
+          next: { revalidate: GALLERY_REVALIDATE_SECONDS },
+          signal: AbortSignal.timeout(6000)
+        });
+
+        if (!pageResponse.ok) return null;
+        const html = await pageResponse.text();
+        const linkedImage = html.match(/<a\b[^>]+href=["']([^"']+\.(?:jpe?g|png|webp))["'][^>]*>\s*<img/i)?.[1];
+        const displayedImage = html.match(/<img\b[^>]+src=["']([^"']+\.(?:jpe?g|png|webp))["']/i)?.[1];
+        const hdImageUrl = linkedImage ? normalizeRemoteUrl(linkedImage, sourceUrl) : "";
+        const imageUrl = displayedImage ? normalizeRemoteUrl(displayedImage, sourceUrl) : hdImageUrl;
+        const rssPreview = firstImageFromMarkup(textValue(item.description), sourceUrl);
+        if (!imageUrl) return null;
+
+        const titleMatch =
+          html.match(/<b>\s*([^<]+?)\s*<\/b>\s*<br>\s*<b>\s*Image Credit/i) ||
+          html.match(/<title>\s*APOD:\s*\d{4}\s+[A-Za-z]+\s+\d{1,2}\s*[–—-]\s*([\s\S]*?)<\/title>/i);
+        const title = normalizeTitle(cleanMarkup(titleMatch?.[1] || "Astronomical Observation"));
+        const explanationMatch = html.match(/<b>\s*Explanation:\s*<\/b>([\s\S]*?)(?:<p>\s*<center>|<center>\s*<b>\s*Tomorrow)/i);
+        const description = conciseScienceDescription(explanationMatch?.[1] || textValue(item.description));
+        const creditMatch = html.match(/<b>\s*Image Credit(?:\s*(?:&amp;|&)\s*Copyright)?:\s*<\/b>([\s\S]*?)<\/center>/i);
+        const credit = cleanMarkup(creditMatch?.[1] || "NASA / APOD").slice(0, 180) || "NASA / APOD";
+        const date = apodDateFromUrl(sourceUrl);
+
+        const score = scoreGalleryCandidate({
+          title,
+          description,
+          url: imageUrl,
+          credit,
+          source: "NASA APOD"
+        });
+        if (score.verdict === "reject") return null;
+
+        return {
+          id: `apod-${date}`,
+          title,
+          description,
+          imageUrl,
+          thumbnailUrl: rssPreview || imageUrl,
+          hdImageUrl: hdImageUrl || undefined,
+          source: "NASA APOD" as const,
+          sourceUrl,
+          credit,
+          date,
+          category: detectCategory(title, [], description),
+          objectName: extractObjectName(title, description),
+          observatory: extractObservatory(title, description),
+          aspectRatio: 1.33
+        } satisfies GalleryImage;
+      })
+    );
+
+    return pageResults.flatMap((result) =>
+      result.status === "fulfilled" && result.value ? [result.value] : []
+    );
+  } catch (error) {
+    console.warn("NASA APOD RSS fallback failed:", error);
+    return [];
+  }
+}
+
 async function fetchNasaApodImages(): Promise<GalleryImage[]> {
   const apiKey = process.env.NASA_API_KEY || "DEMO_KEY";
-  const url = `${NASA_APOD_API_URL}?api_key=${encodeURIComponent(apiKey)}&count=30`;
+  const endDate = new Date();
+  const startDate = new Date(endDate);
+  startDate.setUTCDate(startDate.getUTCDate() - 44);
+  const url = `${NASA_APOD_API_URL}?api_key=${encodeURIComponent(apiKey)}&start_date=${startDate.toISOString().slice(0, 10)}&end_date=${endDate.toISOString().slice(0, 10)}&thumbs=false`;
 
   try {
     const res = await fetch(url, {
@@ -681,7 +576,9 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
     });
 
     if (!res.ok) {
-      console.warn(`NASA APOD API returned HTTP ${res.status}`);
+      if (res.status !== 403 && res.status !== 429) {
+        console.warn(`NASA APOD API returned HTTP ${res.status}`);
+      }
       return [];
     }
 
@@ -704,7 +601,7 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
 
       const title = normalizeTitle(item.title || "Astronomical Observation");
       const description = item.explanation || "";
-      const imageUrl = item.hdurl || item.url;
+      const imageUrl = item.url;
       const thumbnailUrl = item.url;
       const credit = item.copyright ? item.copyright.trim().replace(/\n/g, " ") : "NASA / APOD";
 
@@ -721,9 +618,9 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
         id: `apod-${item.date || Math.random().toString(36).slice(2, 8)}`,
         title,
         description,
-        imageUrl: imageUrl.replace(/^http:\/\//i, "https://"),
-        thumbnailUrl: thumbnailUrl.replace(/^http:\/\//i, "https://"),
-        hdImageUrl: item.hdurl ? item.hdurl.replace(/^http:\/\//i, "https://") : undefined,
+        imageUrl: normalizeRemoteUrl(imageUrl),
+        thumbnailUrl: normalizeRemoteUrl(thumbnailUrl),
+        hdImageUrl: item.hdurl ? normalizeRemoteUrl(item.hdurl) : undefined,
         source: "NASA APOD",
         sourceUrl: `https://apod.nasa.gov/apod/ap${(item.date || "").replace(/-/g, "").slice(2)}.html`,
         credit,
@@ -735,7 +632,7 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
       });
     }
 
-    return results;
+    return results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 30);
   } catch (error) {
     console.warn("NASA APOD fetch failed:", error);
     return [];
@@ -745,13 +642,19 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
 async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
   // Tightly targeted astronomy and space-flight queries focused strictly on cosmic photography
   const curatedQueries = [
-    { q: "James Webb Space Telescope NIRCam galaxy nebula", source: "ESA / Webb" as const },
-    { q: "Hubble Space Telescope galaxy spiral cluster nebula", source: "Hubble" as const },
+    { q: "James Webb Space Telescope NIRCam MIRI galaxy deep field", source: "ESA / Webb" as const },
+    { q: "James Webb Space Telescope NIRCam MIRI nebula star formation", source: "ESA / Webb" as const },
+    { q: "Hubble Space Telescope interacting galaxies Messier NGC", source: "Hubble" as const },
+    { q: "Hubble Space Telescope emission planetary nebula star cluster", source: "Hubble" as const },
+    { q: "Chandra X-ray black hole galaxy cluster supernova remnant", source: "Observatory Archive" as const },
+    { q: "Spitzer infrared galaxy nebula star formation", source: "Observatory Archive" as const },
     { q: "JPL Cassini Saturn rings atmosphere", source: "NASA Image Library" as const },
     { q: "JPL Juno Jupiter Great Red Spot perijove", source: "NASA Image Library" as const },
+    { q: "JPL Voyager Uranus Neptune moons", source: "NASA Image Library" as const },
+    { q: "JPL Galileo Europa Io Ganymede", source: "NASA Image Library" as const },
+    { q: "New Horizons Pluto Charon", source: "NASA Image Library" as const },
     { q: "Solar Dynamics Observatory AIA coronal flare Sun", source: "NASA Image Library" as const },
     { q: "ISS Earth observation atmospheric limb aurora night", source: "NASA Image Library" as const },
-    { q: "Chandra X-ray Observatory supernova remnant", source: "Observatory Archive" as const },
     { q: "Perseverance Mastcam-Z Mars panorama crater", source: "NASA Image Library" as const },
     { q: "Lunar Reconnaissance Orbiter LROC Moon crater", source: "NASA Image Library" as const },
     { q: "rocket liftoff night launch pad space", source: "NASA Image Library" as const }
@@ -761,7 +664,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 
   const promises = curatedQueries.map(async ({ q, source }) => {
     try {
-      const url = `${NASA_IMAGE_LIBRARY_API_BASE}/search?q=${encodeURIComponent(q)}&media_type=image&page_size=8`;
+      const url = `${NASA_IMAGE_LIBRARY_API_BASE}/search?q=${encodeURIComponent(q)}&media_type=image&page_size=14`;
       const res = await fetch(url, {
         next: { revalidate: GALLERY_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(8000)
@@ -779,7 +682,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 
         const nasaId = itemData.nasa_id;
         const title = normalizeTitle(itemData.title || "");
-        const description = itemData.description || itemData.description_508 || "";
+        const description = conciseScienceDescription(itemData.description || itemData.description_508 || "");
         const keywords = Array.isArray(itemData.keywords) ? itemData.keywords : [];
         const credit = itemData.secondary_creator || (itemData.center ? `NASA / ${itemData.center}` : "NASA");
 
@@ -793,18 +696,13 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 
         if (!previewLink) continue;
 
-        const cleanPreview = previewLink.replace(/^http:\/\//i, "https://");
+        const cleanPreview = normalizeRemoteUrl(previewLink);
         const canonicalLink = links.find((l: { rel?: string; href?: string }) => l.rel === "canonical")?.href;
-        const cleanOrig = canonicalLink
-          ? canonicalLink.replace(/^http:\/\//i, "https://")
-          : cleanPreview.replace(/~(thumb|small|medium|large)\.jpg$/i, "~orig.jpg");
+        const cleanOrig = canonicalLink ? normalizeRemoteUrl(canonicalLink) : "";
 
         const thumbnailUrl = cleanPreview;
-        // If thumb is small 100px thumbnail, replace with orig for crisp lightbox presentation
-        const imageUrl = cleanPreview.includes("~thumb.jpg")
-          ? cleanPreview.replace("~thumb.jpg", "~orig.jpg")
-          : cleanPreview;
-        const hdImageUrl = cleanOrig;
+        const imageUrl = cleanPreview;
+        const hdImageUrl = cleanOrig || undefined;
 
         // Apply strict space and exclusion filtering
         if (!isRelevantSpaceImage(title, description, thumbnailUrl, keywords, credit)) {
@@ -854,7 +752,8 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[] {
   const seenIds = new Set<string>();
   const seenTitles = new Set<string>();
-  const scoredImages: Array<{ image: GalleryImage; score: number }> = [];
+  const releaseCounts = new Map<string, number>();
+  const scoredImages: Array<{ image: GalleryImage; score: number; freshness: number; timestamp: number }> = [];
 
   for (const img of images) {
     if (!img || !img.id || !img.imageUrl) continue;
@@ -867,6 +766,12 @@ export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[
       .slice(0, 24);
 
     if (titleKey.length > 5 && seenTitles.has(titleKey)) continue;
+
+    const releaseMatch = img.id.match(/(?:weic|heic|potm|potw|eso)\d{4,}[a-z]?/i)?.[0];
+    const releaseKey = releaseMatch
+      ? `${img.source}-${releaseMatch.replace(/[a-z]$/i, "")}`.toLowerCase()
+      : undefined;
+    if (releaseKey && (releaseCounts.get(releaseKey) || 0) >= 2) continue;
 
     // Evaluate relevance score
     const scoreResult = scoreGalleryCandidate({
@@ -882,16 +787,21 @@ export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[
 
     seenIds.add(img.id);
     if (titleKey.length > 5) seenTitles.add(titleKey);
+    if (releaseKey) releaseCounts.set(releaseKey, (releaseCounts.get(releaseKey) || 0) + 1);
 
-    scoredImages.push({ image: img, score: scoreResult.score });
+    const timestamp = new Date(img.date).getTime();
+    const ageInDays = Number.isFinite(timestamp) ? (Date.now() - timestamp) / 86_400_000 : Number.POSITIVE_INFINITY;
+    const freshness = ageInDays <= 550 ? 3 : ageInDays <= 1_825 ? 2 : ageInDays <= 4_380 ? 1 : 0;
+    scoredImages.push({ image: img, score: scoreResult.score, freshness, timestamp });
   }
 
-  // Sort by featured priority, then highest quality/relevance score, then recency
+  // Recent observatory releases lead the experience. Curated archive anchors
+  // remain available, but no longer pin a four-year-old image to the hero.
   scoredImages.sort((a, b) => {
-    if (a.image.featured && !b.image.featured) return -1;
-    if (!a.image.featured && b.image.featured) return 1;
+    if (b.freshness !== a.freshness) return b.freshness - a.freshness;
+    if (a.image.isFallback !== b.image.isFallback) return a.image.isFallback ? 1 : -1;
     if (b.score !== a.score) return b.score - a.score;
-    return new Date(b.image.date).getTime() - new Date(a.image.date).getTime();
+    return b.timestamp - a.timestamp;
   });
 
   return scoredImages.map((item) => item.image);
@@ -900,31 +810,61 @@ export function deduplicateAndRankGallery(images: GalleryImage[]): GalleryImage[
 export async function getGalleryData(): Promise<GalleryResult> {
   const warnings: string[] = [];
 
-  const [apodResult, libResult] = await Promise.allSettled([
+  const [apodResult, apodRssResult, libResult, ...observatoryResults] = await Promise.allSettled([
     fetchNasaApodImages(),
-    fetchNasaImageLibraryQueries()
+    fetchNasaApodRssImages(),
+    fetchNasaImageLibraryQueries(),
+    ...OBSERVATORY_IMAGE_FEEDS.map(fetchObservatoryFeed)
   ]);
 
-  let liveImages: GalleryImage[] = [];
+  const liveImages: GalleryImage[] = [];
+  const apodImages = [
+    ...(apodResult.status === "fulfilled" ? apodResult.value : []),
+    ...(apodRssResult.status === "fulfilled" ? apodRssResult.value : [])
+  ];
 
-  if (apodResult.status === "fulfilled" && apodResult.value.length > 0) {
-    liveImages.push(...apodResult.value);
+  if (apodImages.length > 0) {
+    liveImages.push(...apodImages);
   } else {
-    warnings.push("Live NASA APOD stream is temporarily resting; showing archive selection.");
+    warnings.push("NASA APOD is temporarily unavailable; other observatory sources remain live.");
   }
 
   if (libResult.status === "fulfilled" && libResult.value.length > 0) {
     liveImages.push(...libResult.value);
+  } else {
+    warnings.push("NASA Image Library search is temporarily unavailable.");
+  }
+
+  const unavailableObservatories: string[] = [];
+  observatoryResults.forEach((result, index) => {
+    if (result.status === "fulfilled" && result.value.length > 0) {
+      liveImages.push(...result.value);
+    } else {
+      unavailableObservatories.push(OBSERVATORY_IMAGE_FEEDS[index].source);
+    }
+  });
+
+  if (unavailableObservatories.length > 0) {
+    warnings.push(`${unavailableObservatories.join(", ")} image feed${unavailableObservatories.length > 1 ? "s are" : " is"} temporarily unavailable.`);
   }
 
   const allImages = [...liveImages, ...CURATED_FALLBACK_GALLERY];
-  const deduplicated = deduplicateAndRankGallery(allImages);
+  const deduplicated = deduplicateAndRankGallery(allImages).slice(0, 120);
 
   const isFallback = liveImages.length === 0;
-  const featuredImage = deduplicated.find((img) => img.featured) || deduplicated[0] || null;
+  const heroCategories: GalleryCategory[] = ["Galaxies", "Nebulae", "Deep Space", "Planets", "Moon", "Sun", "Stars"];
+  const featuredImage =
+    deduplicated.find(
+      (img) =>
+        !img.isFallback &&
+        heroCategories.includes(img.category) &&
+        !/\b(antenna|telescope|observatory|instrument|launch pad|rocket)\b/i.test(img.title)
+    ) ||
+    deduplicated.find((img) => !img.isFallback) ||
+    deduplicated[0] ||
+    null;
 
-  const categories = [
-    "All",
+  const categoryOrder: GalleryCategory[] = [
     "Galaxies",
     "Nebulae",
     "Deep Space",
@@ -935,6 +875,8 @@ export async function getGalleryData(): Promise<GalleryResult> {
     "Stars",
     "Missions"
   ];
+  const populatedCategories = new Set(deduplicated.map((image) => image.category));
+  const categories = ["All", ...categoryOrder.filter((category) => populatedCategories.has(category))];
 
   return {
     images: deduplicated,

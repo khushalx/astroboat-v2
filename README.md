@@ -8,7 +8,7 @@
 
 <p align="center">
   <strong>Your calm observatory for a busy universe.</strong><br />
-  Live astronomy briefs, launch and sky events, Moon intelligence, near-Earth-object tracking, and an astronomy-focused AI assistant—brought together in one cinematic interface.
+  Live observatory imagery, astronomy briefs, launch and sky events, Moon intelligence, near-Earth-object tracking, and an astronomy-focused AI assistant—brought together in one cinematic interface.
 </p>
 
 <p align="center">
@@ -37,6 +37,7 @@ The product is built around three ideas: **source transparency**, **graceful fai
 
 | Module | What it does | Powered by |
 | --- | --- | --- |
+| **Astronomy Gallery** | Curates current, high-resolution observed imagery while filtering portraits, events, hardware, and illustrations | NASA APOD, NASA Images, ESA/Webb, ESA/Hubble, ESO |
 | **Astronomy Briefs** | Aggregates, searches, filters, enriches, and de-duplicates current astronomy stories | NASA, ESA, arXiv, Space.com, Universe Today |
 | **Launch & Sky Events** | Tracks upcoming launches, mission events, eclipses, meteor activity, conjunctions, and recent events | The Space Devs + curated sky-event data |
 | **Moon Dashboard** | Shows the current phase, illumination, rise/set times, observing guidance, and upcoming primary phases | U.S. Naval Observatory |
@@ -48,12 +49,25 @@ The product is built around three ideas: **source transparency**, **graceful fai
 
 | Status | Capability |
 | --- | --- |
-| 🟢 **Live** | Home observatory, Briefs, Events, Moon, Asteroid Watch, global search, information and policy pages |
+| 🟢 **Live** | Home observatory, Gallery, Briefs, Events, Moon, Asteroid Watch, global search, information and policy pages |
 | 🟡 **Key required** | Ask Astroboat requires `GROQ_API_KEY`; NASA NeoWs is an optional asteroid fallback via `NASA_API_KEY` |
 | ⏸️ **Paused in the UI** | Satellites, Articles, and Learn currently show intentional notice pages |
 | 🧪 **Experimental** | The repository includes a standalone Vertex AI / Cloud Run assistant example; it is not connected to the production Next.js route |
 
 ## Inside Astroboat
+
+### 🔭 Astronomy gallery
+
+The Gallery is a current-first visual archive built from official astronomy sources:
+
+- Combines recent NASA APOD images, targeted NASA Image Library results, ESA/Webb releases, ESA/Hubble releases, and European Southern Observatory image feeds.
+- Uses the latest 45-day APOD window instead of a random historical sample, with the official APOD RSS archive as a keyless fallback.
+- Rejects people, portraits, press events, facility hardware, diagrams, artist concepts, and other non-observational media before they reach the interface.
+- De-duplicates repeated titles and multi-image release sets, then ranks current observatory releases ahead of older archive anchors.
+- Organizes images across galaxies, nebulae, deep space, planets, the Moon, the Sun, Earth, stars, and missions.
+- Provides search, category filters, progressive loading, a randomized discovery action, shareable deep links, keyboard/swipe navigation, source attribution, and an immersive lightbox.
+- Tries verified preview, display, and HD renditions in sequence. If every rendition fails, the UI shows a proper unavailable state while preserving the official source link.
+- Shows an honest empty state if every independent provider is unreachable rather than substituting unrelated or mislabeled photography.
 
 ### 🌌 Astronomy briefs
 
@@ -125,6 +139,7 @@ Search is intentionally a **route launcher**, not a full-text search across live
 
 | Domain | Live source | Cache | Failure behavior |
 | --- | --- | ---: | --- |
+| Gallery | NASA APOD/Images, ESA/Webb, ESA/Hubble, ESO | 6 hours | Preserve healthy sources → APOD RSS fallback → honest empty state if all fail |
 | Briefs | 9 NASA, ESA, arXiv, Space.com, and Universe Today feeds | 1 hour | Preserve healthy feeds → warn on partial data → bundled briefs if all fail |
 | Brief artwork | Feed media + trusted original article pages | 1 hour | Advance through candidates → generated source/category visual |
 | Launches & events | The Space Devs Launch Library 2 | 6 hours | Per-source fallback with rate-limit and stale-data messaging |
@@ -144,7 +159,7 @@ flowchart LR
     R --> C["Client islands"]
     S --> V["Server-side services"]
     V --> N["Normalize · validate · enrich · de-duplicate"]
-    N --> D["NASA · ESA · arXiv · JPL · USNO · The Space Devs"]
+    N --> D["NASA · ESA · ESO · arXiv · JPL · USNO · The Space Devs"]
     S --> C
     C --> UI["Filters · search · chat · progressive reveal"]
     C --> A["POST /api/astrobot"]
@@ -168,6 +183,7 @@ Astroboat uses React Server Components by default and adds small client-side isl
 | Route | Rendering / behavior |
 | --- | --- |
 | `/` | Server-rendered observatory overview with current Moon and next event |
+| `/gallery` | Live multi-source astronomy image archive with search, filters, and lightbox |
 | `/briefs` | Live aggregated brief feed with client search, filters, and progressive loading |
 | `/briefs/[slug]` | Dynamic story detail with source-aware metadata and 404 handling |
 | `/events` | Live launch and sky-event stream with client filters |
@@ -259,7 +275,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 # N2YO_API_KEY=your_n2yo_api_key
 ```
 
-The core Briefs, Events, Moon, and primary JPL asteroid experiences work without API keys. Never commit `.env.local`.
+The core Gallery, Briefs, Events, Moon, and primary JPL asteroid experiences work without API keys. Never commit `.env.local`.
 
 ### 3. Launch
 
@@ -285,6 +301,7 @@ app/
 ├── api/astrobot/       # Server-only Groq route
 ├── briefs/[slug]/      # Dynamic brief detail
 ├── briefs/             # Aggregated astronomy news
+├── gallery/            # Multi-source astronomy image archive
 ├── events/             # Launch and sky-event stream
 ├── moon/               # Lunar dashboard
 ├── asteroids/          # Near-Earth-object watch
@@ -295,6 +312,7 @@ app/
 └── robots.ts           # Generated robots rules
 
 components/
+├── gallery/            # Gallery hero, cards, filters, grid, lightbox
 ├── briefs/             # Brief cards, images, filters, fallbacks
 ├── events/             # Event client and resilient imagery
 ├── asteroids/          # NEO filters, metrics, approach visual
