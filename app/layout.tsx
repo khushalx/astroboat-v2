@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./discovery.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -125,9 +126,10 @@ export default function RootLayout({
         />
         <SkyGridBackground />
         <div className="relative flex min-h-screen flex-col">
+          <a href="#main-content" className="skip-link">Skip to content</a>
           <MobileNav />
           <Header />
-          <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">{children}</main>
+          <main id="main-content" className="site-container page-main flex-1" tabIndex={-1}>{children}</main>
           <Footer />
         </div>
         <GlobalSearch />

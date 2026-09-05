@@ -75,6 +75,14 @@ export default function DataSourcesPage() {
         </dl>
 
         <section className="p-5 sm:p-7">
+          <h2 className="font-display text-2xl font-normal text-astro-text">Visual credits</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">
+            Earth textures by <a className="text-astro-gold underline underline-offset-4" href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">Solar System Scope</a>, licensed under <a className="text-astro-gold underline underline-offset-4" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Textures are resized and compressed; the cloud channel is extracted from the combined texture distributed by Three.js. The static Earth image is NASA Earth Observatory’s <a className="text-astro-gold underline underline-offset-4" href="https://science.nasa.gov/resource/blue-marble-2002/" target="_blank" rel="noreferrer">Blue Marble (2002)</a>. The globe is an illustration; its lighting and orbital ring do not represent live conditions or scale.
+          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">The gallery preview shows the <a className="text-astro-gold underline underline-offset-4" href="https://science.nasa.gov/missions/hubble/nasas-hubble-spies-superbubble-scene/" target="_blank" rel="noreferrer">N44 superbubble</a>, credited to NASA, ESA/Hubble, D. Gouliermis. The image is resized and compressed for this site.</p>
+        </section>
+
+        <section className="p-5 sm:p-7">
           <h2 className="font-display text-2xl font-normal text-astro-text">Source transparency</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">
             Astroboat links back to original sources whenever possible and does not republish full articles. Briefs

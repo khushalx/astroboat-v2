@@ -2,42 +2,85 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Brand } from "@/components/layout/Brand";
+import { NavIcon } from "@/components/layout/NavIcon";
 import { SearchTrigger } from "@/components/search/GlobalSearch";
-import { navItems } from "@/lib/constants";
+import { ArrowIcon } from "@/components/ui/ArrowIcon";
+import { skyToolItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+const primaryLinks = [
+  { label: "Discover", href: "/" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Briefs", href: "/briefs" },
+  { label: "Events", href: "/events" }
+];
 
 export function Header() {
   const pathname = usePathname();
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => setToolsOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!toolsOpen) return;
+    function dismiss(event: PointerEvent) {
+      if (!toolsRef.current?.contains(event.target as Node)) setToolsOpen(false);
+    }
+    function escape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setToolsOpen(false);
+        triggerRef.current?.focus();
+      }
+    }
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [toolsOpen]);
 
   return (
-    <header className="desktop-header sticky top-0 z-40 hidden border-b xl:block">
-      <div className="mx-auto flex h-16 max-w-[1180px] items-center gap-8 px-8">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-astro-blue/35">
-          <span className="brand-core h-8 w-8 rounded-lg" aria-hidden="true" />
-          <span className="font-display text-xl text-astro-text">Astroboat</span>
-        </Link>
-
-        <nav aria-label="Primary navigation" className="flex min-w-0 flex-1 items-center gap-1">
-          {navItems.map((item) => {
+    <header className="desktop-header sticky top-0 z-40 hidden border-b lg:block">
+      <div className="site-container flex h-[84px] items-center justify-between gap-5">
+        <Link href="/" aria-label="Astroboat home" className="rounded-md"><Brand /></Link>
+        <nav aria-label="Primary navigation" className="flex items-center gap-1 xl:gap-3">
+          {primaryLinks.map((item) => {
             const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "relative whitespace-nowrap rounded-lg px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-astro-blue/35",
-                  active ? "bg-white/[0.045] text-astro-text" : "text-astro-muted hover:bg-white/[0.025] hover:text-astro-text"
-                )}
-              >
+              <Link key={item.href} href={item.href} aria-current={active ? "page" : undefined} className={cn("header-link", active && "is-active")}>
                 {item.label}
-                {active ? <span className="absolute inset-x-3 -bottom-[13px] h-px bg-astro-blue" aria-hidden="true" /> : null}
               </Link>
             );
           })}
+          <div className="relative" ref={toolsRef} onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setToolsOpen(false);
+          }}>
+            <button ref={triggerRef} type="button" onClick={() => setToolsOpen(!toolsOpen)} aria-expanded={toolsOpen} aria-controls="sky-tools-menu" className={cn("header-link flex items-center gap-2", skyToolItems.some((item) => pathname.startsWith(item.href)) && "is-active")}>
+              Sky tools
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" className={cn("transition-transform", toolsOpen && "rotate-180")}><path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
+            </button>
+            {toolsOpen && (
+              <div id="sky-tools-menu" className="sky-tools-menu">
+                <p className="eyebrow mb-3 px-3">Your personal observatory</p>
+                {skyToolItems.map((item) => (
+                  <Link href={item.href} key={item.href} onClick={() => setToolsOpen(false)} aria-current={pathname.startsWith(item.href) ? "page" : undefined} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-astro-muted transition hover:bg-white/5 hover:text-astro-text">
+                    <NavIcon label={item.label} className="h-5 w-5 text-astro-gold" />
+                    <span>{item.label}</span><ArrowIcon className="ml-auto opacity-50" />
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
-
-        <SearchTrigger showShortcut className="shrink-0" />
+        <div className="flex items-center gap-3">
+          <SearchTrigger compact showShortcut />
+          <Link href="/ask" className="cosmic-primary inline-flex min-h-10 items-center gap-3 rounded-full px-4 text-sm font-semibold">Ask Astroboat <ArrowIcon diagonal /></Link>
+        </div>
       </div>
     </header>
   );
