@@ -277,6 +277,10 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 The core Gallery, Briefs, Events, Moon, and primary JPL asteroid experiences work without API keys. Never commit `.env.local`.
 
+For GPT-OSS on Groq, use `GROQ_MODEL=openai/gpt-oss-120b` (or `openai/gpt-oss-20b`). These model IDs need the `openai/` prefix; the assistant also normalizes the two shorthand names. Keep `GROQ_API_KEY` server-only, without a `NEXT_PUBLIC_` prefix.
+
+After changing environment variables, restart the running server. For a hosted deployment, update the variables in the hosting environment and redeploy/restart the application. Changing your local `.env.local` does not update a hosted instance. If the assistant fails, inspect the server's `[Astrobot]` status/code/model diagnostic: `model_not_found` indicates the model ID or access, 401 indicates authentication, and 429 indicates a request limit. Provider error messages and API keys are not logged or returned to the browser.
+
 ### 3. Launch
 
 ```bash
@@ -293,6 +297,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Create an optimized production build and validate types/routes |
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run the configured Next.js lint command |
+| `npm run test:assistant` | Verify assistant configuration, provider errors, timeouts, and secret-safe diagnostics without live API calls |
 
 ## Project map
 
