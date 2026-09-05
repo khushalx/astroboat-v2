@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const GROQ_CHAT_COMPLETIONS_URL = "https://api.groq.com/openai/v1/chat/completions";
 const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
 const MAX_MESSAGE_LENGTH = 1000;
+const REQUEST_TIMEOUT_MS = 30_000;
 const TEMPORARY_UNAVAILABLE_ERROR =
   "Astroboat Assistant is temporarily unavailable. Please try again later.";
 
@@ -38,6 +39,31 @@ type GroqChatCompletionResponse = {
   }>;
 };
 
+function resolveGroqModel(value: string | undefined) {
+  const model = value?.trim() || DEFAULT_GROQ_MODEL;
+  // Groq's GPT-OSS model IDs include their provider namespace.
+  return model === "gpt-oss-120b" || model === "gpt-oss-20b" ? `openai/${model}` : model;
+}
+
+async function upstreamFailure(response: Response, model: string) {
+  const data = await response.json().catch(() => null) as { error?: { code?: unknown } } | null;
+  // Do not log provider messages, headers, or request bodies: they may contain secrets.
+  const rawCode = data?.error?.code;
+  const code = typeof rawCode === "string" && /^[a-z_]{1,64}$/.test(rawCode) ? rawCode : "upstream_error";
+  console.warn("[Astrobot] Groq request failed", { status: response.status, code, model });
+
+  if (response.status === 401) {
+    return NextResponse.json({ error: "Astroboat’s AI connection needs to be updated. Please try again later.", code: "ASSISTANT_AUTH_ERROR" }, { status: 503 });
+  }
+  if (response.status === 404 || code === "model_not_found" || code === "model_decommissioned") {
+    return NextResponse.json({ error: "Astroboat’s AI model is unavailable. Please try again later.", code: "ASSISTANT_MODEL_ERROR" }, { status: 503 });
+  }
+  if (response.status === 429) {
+    return NextResponse.json({ error: "Astroboat has reached its AI request limit. Please try again in a little while.", code: "ASSISTANT_RATE_LIMITED" }, { status: 429 });
+  }
+  return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR, code: "ASSISTANT_UPSTREAM_ERROR" }, { status: 502 });
+}
+
 export async function POST(request: NextRequest) {
   const message = await readValidatedMessage(request);
 
@@ -45,11 +71,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message.error }, { status: 400 });
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY?.trim();
+  const model = resolveGroqModel(process.env.GROQ_MODEL);
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: "Astroboat Assistant is not configured yet." },
+      { error: "Astroboat Assistant is not configured yet.", code: "ASSISTANT_NOT_CONFIGURED" },
       { status: 503 }
     );
   }
@@ -62,7 +89,7 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+        model,
         messages: [
           {
             role: "system",
@@ -76,16 +103,12 @@ export async function POST(request: NextRequest) {
         temperature: 0.5,
         max_tokens: 500
       }),
-      cache: "no-store"
+      cache: "no-store",
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {
-      console.warn("[Astrobot] Groq request failed", {
-        status: response.status,
-        statusText: response.statusText
-      });
-
-      return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
+      return await upstreamFailure(response, model);
     }
 
     const data = (await response.json()) as GroqChatCompletionResponse;
@@ -98,9 +121,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ answer: answer.trim() });
   } catch (error) {
-    console.warn("[Astrobot] Groq request could not be completed", {
-      message: error instanceof Error ? error.message : "Unknown error"
-    });
+    const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
+    console.warn("[Astrobot] Groq request could not be completed", { code: timedOut ? "timeout" : "network_error" });
+
+    if (timedOut) {
+      return NextResponse.json({ error: "Astroboat took too long to respond. Please try again.", code: "ASSISTANT_TIMEOUT" }, { status: 504 });
+    }
 
     return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
   }
