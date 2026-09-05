@@ -67,13 +67,18 @@ export const NASA_IMAGE_LIBRARY_API_BASE = "https://images-api.nasa.gov";
 export const NASA_APOD_API_URL = "https://api.nasa.gov/planetary/apod";
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
+  { label: "Discover", href: "/" },
   { label: "Gallery", href: "/gallery" },
   { label: "Briefs", href: "/briefs" },
   { label: "Events", href: "/events" },
   { label: "Moon", href: "/moon" },
   { label: "Asteroid Watch", href: "/asteroids" },
   { label: "Ask Astroboat", href: "/ask" }
+];
+
+export const skyToolItems: NavItem[] = [
+  { label: "Moon", href: "/moon" },
+  { label: "Asteroid Watch", href: "/asteroids" }
 ];
 
 export const galleryCategories = [
@@ -92,4 +97,3 @@ export const galleryCategories = [
 export const eventFilters = ["All", "Launches", "Space Events", "Sky Events", "This Week", "This Month", "Online", "Worldwide"];
 
 export const articleCategories = ["All", "Sky Watching", "Moon", "Asteroids", "Missions", "Cosmology", "Basics"];
-

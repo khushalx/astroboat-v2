@@ -1,37 +1,32 @@
 import Link from "next/link";
+import { Brand } from "@/components/layout/Brand";
+import { ArrowIcon } from "@/components/ui/ArrowIcon";
+
+const links = [
+  { label: "About", href: "/about" },
+  { label: "Data sources", href: "/data-sources" },
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" }
+];
 
 export function Footer() {
-  const links = [
-    { label: "Gallery", href: "/gallery" },
-    { label: "Briefs", href: "/briefs" },
-    { label: "Events", href: "/events" },
-    { label: "Moon", href: "/moon" },
-    { label: "Asteroid Watch", href: "/asteroids" },
-    { label: "Ask Astroboat", href: "/ask" },
-    { label: "About", href: "/about" },
-    { label: "Privacy", href: "/privacy" },
-    { label: "Terms", href: "/terms" },
-    { label: "Data Sources", href: "/data-sources" },
-    { label: "Contact", href: "/contact" }
-  ];
-
   return (
-    <footer className="border-t border-astro-border/60 bg-astro-bg/45">
-      <div className="mx-auto grid max-w-[1180px] gap-8 px-4 py-9 text-sm text-[color:var(--text-dim)] sm:px-6 lg:grid-cols-[minmax(16rem,1fr)_minmax(0,2fr)] lg:px-8">
-        <div>
-          <div className="mb-3 flex items-center gap-2.5">
-            <span className="brand-core h-8 w-8 rounded-lg border border-astro-gold/20" aria-hidden="true" />
-            <p className="font-display text-xl text-astro-text">Astroboat</p>
+    <footer className="site-footer">
+      <div className="site-container">
+        <div className="footer-top">
+          <div>
+            <Link href="/" aria-label="Astroboat home"><Brand /></Link>
+            <p className="mt-4 text-sm text-astro-muted">For the endlessly curious.</p>
           </div>
-          <p className="max-w-md text-sm leading-6 text-astro-muted">Astronomy intelligence and sky tools for curious readers.</p>
-          <p className="mt-3 text-xs">© 2026 Astroboat</p>
+          <Link href="/ask" className="footer-invitation">There’s a whole universe to ask about.<ArrowIcon diagonal /></Link>
         </div>
-        <div className="grid grid-cols-2 content-start gap-x-6 gap-y-2 text-astro-muted sm:grid-cols-3 lg:justify-self-end">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="py-1 transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/25">
-              {link.label}
-            </Link>
-          ))}
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} Astroboat</p>
+          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
+            {links.map((link) => <Link key={link.href} href={link.href} className="transition hover:text-astro-text">{link.label}</Link>)}
+          </nav>
+          <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-astro-gold" />Made for discovery</span>
         </div>
       </div>
     </footer>

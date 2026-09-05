@@ -10,9 +10,10 @@ const searchEventName = "astroboat:open-search";
 type SearchTriggerProps = {
   className?: string;
   showShortcut?: boolean;
+  compact?: boolean;
 };
 
-export function SearchTrigger({ className, showShortcut = false }: SearchTriggerProps) {
+export function SearchTrigger({ className, showShortcut = false, compact = false }: SearchTriggerProps) {
   return (
     <button
       type="button"
@@ -26,9 +27,9 @@ export function SearchTrigger({ className, showShortcut = false }: SearchTrigger
       <span className="relative h-3 w-3 rounded-full border border-current" aria-hidden="true">
         <span className="absolute -right-1 -bottom-1 h-1.5 w-px rotate-[-45deg] bg-current" />
       </span>
-      <span>{showShortcut ? "Search Astroboat..." : "Search"}</span>
+      {!compact && <span>{showShortcut ? "Search Astroboat..." : "Search"}</span>}
       {showShortcut ? (
-        <span className="hidden rounded border border-astro-border/80 bg-white/[0.025] px-1.5 py-0.5 text-[10px] text-[color:var(--text-dim)] xl:inline">
+        <span className="hidden rounded px-1 py-0.5 font-mono text-xs text-astro-muted xl:inline">
           ⌘K
         </span>
       ) : null}
@@ -124,7 +125,19 @@ export function GlobalSearch() {
         aria-label="Close search"
         onClick={closeSearch}
       />
-      <div className="astro-card relative w-full max-w-xl overflow-hidden rounded-xl border">
+      <div className="astro-card relative w-full max-w-xl overflow-hidden rounded-xl border" onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not([disabled]), input, a[href], [tabindex="0"]'));
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }}>
         <div className="border-b border-astro-border/70 p-4 sm:p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>

@@ -4,25 +4,25 @@
 
 :root {
   color-scheme: dark;
-  --bg-base: #070a11;
-  --bg-base-rgb: 7 10 17;
-  --bg-surface: #111824;
-  --bg-surface-rgb: 17 24 36;
-  --bg-elevated: #172131;
-  --bg-elevated-rgb: 23 33 49;
-  --border-subtle: #263244;
-  --border-subtle-rgb: 38 50 68;
+  --bg-base: #0b0e10;
+  --bg-base-rgb: 11 14 16;
+  --bg-surface: #14191c;
+  --bg-surface-rgb: 20 25 28;
+  --bg-elevated: #1b2225;
+  --bg-elevated-rgb: 27 34 37;
+  --border-subtle: #2c3436;
+  --border-subtle-rgb: 44 52 54;
   --border-accent: #3b4c63;
-  --text-primary: #f3f5f8;
-  --text-primary-rgb: 243 245 248;
-  --text-secondary: #aab3c1;
-  --text-secondary-rgb: 170 179 193;
-  --text-dim: #737e8f;
-  --accent-gold: #d8b46a;
-  --accent-gold-rgb: 216 180 106;
+  --text-primary: #f2f3ee;
+  --text-primary-rgb: 242 243 238;
+  --text-secondary: #a3ada9;
+  --text-secondary-rgb: 163 173 169;
+  --text-dim: #87938e;
+  --accent-gold: #d4eca5;
+  --accent-gold-rgb: 212 236 165;
   --accent-gold-muted: #4f4228;
-  --accent-blue: #8ecbe4;
-  --accent-blue-rgb: 142 203 228;
+  --accent-blue: #a4c9c6;
+  --accent-blue-rgb: 164 201 198;
   --accent-blue-muted: #173444;
   --accent-violet: #aaa6ca;
   --accent-violet-rgb: 170 166 202;
@@ -103,7 +103,8 @@ a {
 
 .font-display,
 h1 {
-  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.035em;
 }
 
 .font-mono {
@@ -119,7 +120,7 @@ h1 {
   background:
     radial-gradient(circle at 72% -12%, rgba(58, 91, 123, 0.14), transparent 34rem),
     radial-gradient(circle at 10% 72%, rgba(73, 84, 112, 0.08), transparent 30rem),
-    linear-gradient(180deg, #090d15 0%, #070a11 52%, #080b12 100%);
+    linear-gradient(180deg, #0b0f11 0%, #0b0e10 52%, #0b0e10 100%);
 }
 
 .star-field-distant,
@@ -136,7 +137,7 @@ h1 {
     radial-gradient(circle at 96px 58px, rgba(142, 203, 228, 0.34) 0 0.6px, transparent 1px),
     radial-gradient(circle at 150px 116px, rgba(255, 255, 255, 0.24) 0 0.5px, transparent 1px);
   background-size: 180px 158px;
-  opacity: 0.22;
+  opacity: 0.1;
 }
 
 .star-field-near {
@@ -145,7 +146,7 @@ h1 {
     radial-gradient(circle at 214px 122px, rgba(216, 180, 106, 0.58) 0 0.7px, transparent 1.2px),
     radial-gradient(circle at 310px 36px, rgba(142, 203, 228, 0.58) 0 0.7px, transparent 1.2px);
   background-size: 440px 250px;
-  opacity: 0.17;
+  opacity: 0.1;
   animation: star-drift 150s linear infinite;
 }
 
@@ -162,7 +163,7 @@ h1 {
 .astro-card {
   isolation: isolate;
   border-color: rgba(255, 255, 255, 0.085);
-  background: rgba(15, 22, 34, 0.72);
+  background: rgba(20, 25, 28, 0.85);
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.035);
@@ -179,13 +180,13 @@ h1 {
 
 .astro-card-interactive:hover {
   border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(18, 27, 41, 0.8);
+  background: rgba(26, 33, 35, 0.95);
   transform: translateY(-1px);
 }
 
 .glass-control {
   border: 1px solid rgba(255, 255, 255, 0.085);
-  background: rgba(12, 18, 28, 0.68);
+  background: rgba(21, 27, 29, 0.75);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
   backdrop-filter: blur(12px);
 }
@@ -218,15 +219,15 @@ h1 {
 
 /* Buttons */
 .cosmic-primary {
-  border: 1px solid #dfc181;
-  background: #d8b46a;
+  border: 1px solid #d4eca5;
+  background: #d4eca5;
   color: #101116;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
   transition: background-color 180ms ease, transform 180ms ease;
 }
 
 .cosmic-primary:hover {
-  background: #e1c17f;
+  background: #e2f5bd;
   transform: translateY(-1px);
 }
 
@@ -248,7 +249,7 @@ h1 {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: radial-gradient(circle at 34% 30%, #f7e8bd 0 4%, #d8b46a 10%, #8d6c38 42%, #192130 44% 100%);
+  background: radial-gradient(circle at 34% 30%, #f7e8bd 0 4%, #d4eca5 10%, #8d6c38 42%, #192130 44% 100%);
   box-shadow: inset -4px -5px 9px rgba(0, 0, 0, 0.42);
 }
 
@@ -265,13 +266,13 @@ h1 {
 .nav-shell,
 .desktop-header {
   border-color: rgba(255, 255, 255, 0.075);
-  background: rgba(7, 10, 17, 0.82);
+  background: rgba(11, 14, 16, 0.88);
   backdrop-filter: blur(16px);
 }
 
 .mobile-menu-panel {
   border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(12, 18, 28, 0.97);
+  background: rgba(20, 25, 28, 0.98);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
   backdrop-filter: blur(16px);
 }

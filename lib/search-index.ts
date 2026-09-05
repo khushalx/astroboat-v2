@@ -10,11 +10,11 @@ export type SearchIndexItem = {
 
 export const searchIndex: SearchIndexItem[] = [
   {
-    title: "Home",
-    description: "Astroboat overview and today's observatory board",
+    title: "Discover Astroboat",
+    description: "Explore astronomy, space imagery, and your sky at a glance",
     url: "/",
     kind: "Home",
-    keywords: ["overview", "observatory", "dashboard", "today", "astroboat"]
+    keywords: ["home", "discover", "overview", "observatory", "dashboard", "today", "astroboat"]
   },
   {
     title: "Astronomy Gallery",
@@ -63,4 +63,3 @@ export const searchIndex: SearchIndexItem[] = [
 export const quickSearchItems = searchIndex.filter((item) =>
   ["Astronomy Gallery", "Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch", "Ask Astroboat"].includes(item.title)
 );
-
