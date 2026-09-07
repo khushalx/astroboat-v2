@@ -54,7 +54,7 @@ The product is built around three ideas: **source transparency**, **graceful fai
 | ⏸️ **Paused in the UI** | Satellites, Articles, and Learn currently show intentional notice pages |
 | 🧪 **Experimental** | The repository includes a standalone Vertex AI / Cloud Run assistant example; it is not connected to the production Next.js route |
 
-## Inside Astroboat
+
 
 ### 🔭 Astronomy gallery
 
