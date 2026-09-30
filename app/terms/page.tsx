@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Terms of Use — Astroboat",
-  description: "Read Astroboat's terms for educational use, data accuracy, AI assistant limitations, and acceptable usage."
-};
+export const metadata = pageMetadata({
+  title: 'Terms of Use',
+  description: 'Read the terms and data limitations for using Astroboat astronomy tools and information.',
+  path: '/terms',
+  noindex: false
+})
 
 export default function TermsPage() {
   return (

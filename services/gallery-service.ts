@@ -264,7 +264,7 @@ export function detectCategory(title: string, keywords: string[] = [], descripti
 }
 
 function extractObjectName(title: string, description: string): string | undefined {
-  const match = title.match(/(Messier\s*\d+|M\d+|NGC\s*\d+|IC\s*\d+|Pillars of Creation|Carina Nebula|Orion Nebula|Andromeda|Jupiter|Saturn|Mars|The Sun|The Moon|Cartwheel Galaxy|Stephan's Quintet|Cassiopeia A|Ring Nebula|Tarantula Nebula|Crab Nebula|Sombrero Galaxy|Whirlpool Galaxy|Phantom Galaxy|Pleiades)/i);
+  const match = `${title} ${description}`.match(/(Messier\s*\d+|M\d+|NGC\s*\d+|IC\s*\d+|Pillars of Creation|Carina Nebula|Orion Nebula|Andromeda|Jupiter|Saturn|Mars|The Sun|The Moon|Cartwheel Galaxy|Stephan's Quintet|Cassiopeia A|Ring Nebula|Tarantula Nebula|Crab Nebula|Sombrero Galaxy|Whirlpool Galaxy|Phantom Galaxy|Pleiades)/i);
   if (match) return match[0];
   return undefined;
 }

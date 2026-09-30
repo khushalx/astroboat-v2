@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Satellite Finder — Astroboat",
-  description: "Satellite Finder is temporarily paused while Astroboat focuses on core astronomy tools."
-};
+export const metadata = pageMetadata({
+  title: 'Satellite Finder',
+  description: 'Astroboat satellite tracking is currently paused.',
+  path: '/satellites',
+  noindex: true
+})
 
 export default function SatellitesPausedPage() {
   return (

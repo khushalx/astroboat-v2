@@ -1,13 +1,15 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import type { Metadata } from "next";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Learning Paths Coming Later — Astroboat",
-  description: "Astroboat learning paths are paused while the core astronomy tools are stabilized."
-};
+export const metadata = pageMetadata({
+  title: 'Learning Paths',
+  description: 'Astroboat learning paths are currently paused while the editorial system is developed.',
+  path: '/learn',
+  noindex: true
+})
 
 export default function LearnPage() {
   return (

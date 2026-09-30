@@ -4,6 +4,7 @@ import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { AstronomyBrief } from "@/lib/types";
 import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
+import { TrackedLink } from "@/components/analytics/EditorialActions";
 
 type BriefCardProps = {
   brief: AstronomyBrief;
@@ -17,7 +18,7 @@ export function BriefCard({ brief }: BriefCardProps) {
     <article className="group grid min-h-36 grid-cols-[6.5rem_minmax(0,1fr)] gap-4 p-3 transition-colors hover:bg-white/[0.018] sm:grid-cols-[10rem_minmax(0,1fr)] sm:p-4">
       <BriefImage
         src={brief.imageUrl}
-        alt={`${brief.title} source image`}
+        alt={brief.title}
         source={brief.source.name}
         category={category}
         tags={brief.tags}
@@ -38,14 +39,12 @@ export function BriefCard({ brief }: BriefCardProps) {
         <p className="mt-1.5 hidden line-clamp-2 text-sm leading-6 text-astro-muted sm:block">{getBriefSummary(brief, 1)}</p>
 
         {originalHref ? (
-          <Link
+          <TrackedLink event="original_source_clicked"
             href={originalHref}
-            target={originalHref.startsWith("http") ? "_blank" : undefined}
-            rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
             className="mt-auto w-fit pt-3 text-xs font-medium text-astro-blue transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
           >
             Original source <span aria-hidden="true">↗</span>
-          </Link>
+          </TrackedLink>
         ) : null}
       </div>
     </article>

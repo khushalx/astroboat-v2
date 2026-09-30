@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -82,7 +83,7 @@ export function AsteroidWatchClient({ objects }: AsteroidWatchClientProps) {
         <MetricCard label="Data source" value={sourceLabel} />
       </div>
 
-      <FilterBar filters={asteroidFilters} activeFilter={activeFilter} ariaLabel="Asteroid filters" onFilterChange={setActiveFilter} />
+      <FilterBar filters={asteroidFilters} activeFilter={activeFilter} ariaLabel="Asteroid filters" onFilterChange={(filter) => { setActiveFilter(filter); trackEvent("tool_used", { tool: "asteroids", action: "filter" }); }} />
 
       {filteredObjects.length > 0 ? (
         <section aria-label="Near-Earth object approaches">

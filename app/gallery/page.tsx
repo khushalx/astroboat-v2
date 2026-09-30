@@ -1,35 +1,20 @@
+import { pageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
-import type { Metadata } from "next";
 import { GalleryClient } from "@/components/gallery/GalleryClient";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
-import { GALLERY_REVALIDATE_SECONDS } from "@/lib/constants";
 import { getGalleryData } from "@/services/gallery-service";
+import { absoluteUrl, safeJsonLd } from "@/lib/seo";
 
+// Next.js requires a literal segment config value.
 export const revalidate = 21600;
 
-export const metadata: Metadata = {
-  title: "Astronomy Image Gallery",
-  description:
-    "Explore high-resolution images of galaxies, nebulae, planets, stars and space missions from NASA and leading astronomical observatories.",
-  alternates: {
-    canonical: "/gallery"
-  },
-  openGraph: {
-    title: "Astronomy Image Gallery — Astroboat",
-    description:
-      "Explore high-resolution images of galaxies, nebulae, planets, stars and space missions from NASA and leading astronomical observatories.",
-    url: "/gallery",
-    images: ["/og-image.png"]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Astronomy Image Gallery — Astroboat",
-    description:
-      "Explore high-resolution images of galaxies, nebulae, planets, stars and space missions from NASA and leading astronomical observatories.",
-    images: ["/og-image.png"]
-  }
-};
+export const metadata = pageMetadata({
+  title: 'Astronomy Image Gallery from Space Observatories',
+  description: 'Explore astronomy images from NASA, ESA, Hubble, Webb, and ESO, with original source links and image credits.',
+  path: '/gallery',
+  noindex: false
+})
 
 export default async function GalleryPage() {
   const result = await getGalleryData();
@@ -40,18 +25,15 @@ export default async function GalleryPage() {
     name: "Astroboat Astronomy Image Gallery",
     description:
       "Explore high-resolution images of galaxies, nebulae, planets, stars and space missions from NASA and leading astronomical observatories.",
-    url: "https://astroboat.in/gallery",
+    url: absoluteUrl("/gallery"),
     hasPart: result.images.slice(0, 12).map((image) => ({
       "@type": "ImageObject",
       name: image.title,
       description: image.description,
       contentUrl: image.imageUrl,
       thumbnailUrl: image.thumbnailUrl,
-      creator: {
-        "@type": "Organization",
-        name: image.credit
-      },
-      datePublished: image.date
+      creditText: image.credit,
+      ...(image.date ? { datePublished: image.date } : {})
     }))
   };
 
@@ -59,7 +41,7 @@ export default async function GalleryPage() {
     <PageShell>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(structuredData) }}
       />
 
       <PageHeader

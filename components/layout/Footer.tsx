@@ -3,11 +3,14 @@ import { Brand } from "@/components/layout/Brand";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 
 const links = [
+  { label: "Guides", href: "/guides" },
   { label: "About", href: "/about" },
+  { label: "Editorial policy", href: "/editorial-policy" },
   { label: "Data sources", href: "/data-sources" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy", href: "/privacy" },
-  { label: "Terms", href: "/terms" }
+  { label: "Terms", href: "/terms" },
+  { label: "RSS", href: "/feed.xml" }
 ];
 
 export function Footer() {

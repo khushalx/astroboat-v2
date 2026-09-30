@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -41,7 +42,7 @@ export function EventsCalendarClient({ events, warnings, lastUpdated }: EventsCa
         </div>
       ))}
 
-      <FilterBar filters={eventFilters} activeFilter={activeFilter} ariaLabel="Event filters" onFilterChange={setActiveFilter} />
+      <FilterBar filters={eventFilters} activeFilter={activeFilter} ariaLabel="Event filters" onFilterChange={(filter) => { setActiveFilter(filter); trackEvent("tool_used", { tool: "events", action: "filter" }); }} />
 
       {filteredEvents.length > 0 ? (
         <AstroCard className="divide-y divide-astro-border/70 p-0">
@@ -66,7 +67,7 @@ function EventCard({ event }: { event: SpaceEvent }) {
   return (
     <article className="group p-3 transition-colors hover:bg-white/[0.018] sm:p-4">
       <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 sm:grid-cols-[9.5rem_minmax(0,1fr)]">
-        <EventImage src={event.imageUrl} alt={`${event.title} event image`} category={event.category} className="!h-full min-h-28" />
+        <EventImage src={event.imageUrl} alt={event.title} category={event.category} className="!h-full min-h-28" />
 
         <div className="flex min-w-0 flex-col">
           <div className="flex flex-wrap items-center justify-between gap-2">

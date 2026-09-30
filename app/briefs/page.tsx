@@ -1,23 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { BriefsClient } from "@/components/briefs/BriefsClient";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 import { getAstronomyBriefs } from "@/services/briefs-service";
 
-export const metadata: Metadata = {
-  title: "Astronomy Briefs",
-  description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
-  alternates: {
-    canonical: "/briefs"
-  },
-  openGraph: {
-    title: "Astronomy Briefs — Astroboat",
-    description: "Read concise astronomy summaries from trusted space science sources, with links back to the original updates.",
-    url: "/briefs",
-    images: ["/og-image.png"]
-  }
-};
+export const metadata = pageMetadata({
+  title: 'Astronomy Briefs & Space Science Updates',
+  description: 'Browse recent astronomy and space science updates with concise context and direct links to original sources.',
+  path: '/briefs',
+  noindex: false
+})
 
 export default async function BriefsPage() {
   const result = await getAstronomyBriefs();

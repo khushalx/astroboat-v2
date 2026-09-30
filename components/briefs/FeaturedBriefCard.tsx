@@ -5,6 +5,7 @@ import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { AstronomyBrief } from "@/lib/types";
 import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
+import { TrackedLink } from "@/components/analytics/EditorialActions";
 
 type FeaturedBriefCardProps = {
   brief: AstronomyBrief;
@@ -19,7 +20,7 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
       <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
         <BriefImage
           src={brief.imageUrl}
-          alt={`${brief.title} source image`}
+          alt={brief.title}
           source={brief.source.name}
           category={category}
           tags={brief.tags}
@@ -45,14 +46,12 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
           <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-6">
             <Link href={`/briefs/${brief.slug}`} className="text-sm font-medium text-astro-blue hover:text-astro-text">Read summary →</Link>
             {originalHref ? (
-              <Link
+              <TrackedLink event="original_source_clicked"
                 href={originalHref}
-                target={originalHref.startsWith("http") ? "_blank" : undefined}
-                rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="text-sm text-astro-muted hover:text-astro-text"
               >
                 Original source ↗
-              </Link>
+              </TrackedLink>
             ) : null}
           </div>
         </div>

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://astroboat.in">
+  <a href="https://www.astroboat.in">
     <img src="./public/astroboat-search-banner.png" alt="Astroboat — astronomy intelligence and sky tools" width="100%" />
   </a>
 </p>
@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://astroboat.in"><strong>Launch Astroboat ↗</strong></a>
+  <a href="https://www.astroboat.in"><strong>Launch Astroboat ↗</strong></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="#mission-control">Explore the features</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -76,14 +76,14 @@ The Briefs pipeline is more than a feed reader:
 - Collects nine RSS/Atom sources concurrently: NASA News, NASA Science, NASA Artemis, ESA Space Science, ESA Exploration, arXiv astro-ph, NASA APOD, Space.com, and Universe Today.
 - Normalizes inconsistent XML, HTML, CDATA links, dates, authors, categories, and media into one `Brief` model.
 - De-duplicates stories by normalized URL and title, orders them newest-first, and returns up to 40 current items.
-- Produces deterministic short summaries, tags, reading-time estimates, categories, and “why it matters” context. These are code-generated—not AI-written.
+- Produces deterministic short summaries, tags, reading-time estimates, categories, and general topic context. These are code-generated—not AI-written.
 - Enriches missing artwork from trusted article metadata, responsive image sets, APOD high-resolution media, and arXiv article figures.
 - Uses source-aware generated SVG artwork when an article has no usable image.
-- Supports instant text search, six editorial filters, a featured lead story, and progressive “load more” presentation.
+- Supports instant text search, six editorial filters, a featured lead story, and crawlable links to all current briefs.
 - Links every story to the original publisher and exposes partial-source warnings rather than hiding degraded data.
 - Falls back to bundled sample briefs only when every live feed is unavailable.
 
-Individual brief pages include source, category, publication date, read time, summary, importance, optional beginner context, tags, original-source CTA, and route-aware metadata.
+Individual brief pages include source, category, publication date, read time, summary, topic context, optional beginner context, tags, original-source CTA, and route-aware metadata. Machine-ingested source digests are `noindex,follow`.
 
 ### 🚀 Launches and astronomical events
 
@@ -129,7 +129,7 @@ The visible conversation is in-memory browser state: it resets on reload, is not
 ### ⌘ Command search and navigation
 
 - Opens from the header or with <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>K</kbd>; <kbd>/</kbd> is also supported outside text fields.
-- Searches a curated six-destination index by title, description, type, and keywords.
+- Searches a curated route and guide index by title, description, type, and keywords.
 - Supports escape-to-close, focus restoration, scroll locking, empty states, and fast keyboard access.
 - Uses a full desktop navigation at `xl` widths and a disclosure-style mobile/tablet menu below it.
 
@@ -184,7 +184,7 @@ Astroboat uses React Server Components by default and adds small client-side isl
 | --- | --- |
 | `/` | Server-rendered observatory overview with current Moon and next event |
 | `/gallery` | Live multi-source astronomy image archive with search, filters, and lightbox |
-| `/briefs` | Live aggregated brief feed with client search, filters, and progressive loading |
+| `/briefs` | Live aggregated brief feed with client search and filters |
 | `/briefs/[slug]` | Dynamic story detail with source-aware metadata and 404 handling |
 | `/events` | Live launch and sky-event stream with client filters |
 | `/moon` | Server-rendered current Moon dashboard |
@@ -194,9 +194,11 @@ Astroboat uses React Server Components by default and adds small client-side isl
 | `/about`, `/data-sources`, `/contact` | Product, provenance, and contact information |
 | `/privacy`, `/terms` | Policy pages |
 | `/articles`, `/learn`, `/satellites` | Intentional paused-feature notices |
-| `/robots.txt`, `/sitemap.xml` | Generated crawler and discoverability files |
+| `/guides`, `/guides/[slug]` | Source-linked astronomy explainers |
+| `/editorial-policy` | Sourcing, automation, credits, and corrections |
+| `/feed.xml`, `/robots.txt`, `/sitemap.xml` | Editorial RSS and generated crawler files |
 
-A global loading state is provided by the App Router. Astroboat currently relies on framework-level error/not-found handling except for explicit dynamic brief 404s.
+A custom 404 is provided by the App Router. Invalid dynamic brief and guide URLs return 404.
 
 ## Technical stack
 
@@ -230,12 +232,12 @@ Accessibility-minded details include semantic regions, visible focus states, key
 
 ## Reliability and security notes
 
-- API keys and upstream data fetching stay server-side; only `NEXT_PUBLIC_SITE_URL` is intentionally public.
+- API keys and upstream data fetching stay server-side; only the optional GA4 Measurement ID is intentionally public.
 - Brief image enrichment is restricted to trusted publisher hostnames, validates redirects manually, limits redirect depth, bounds concurrency, and checks response content.
 - XML and article content are normalized into plain typed data rather than injecting publisher HTML into the interface.
 - Partial upstream failures remain visible and do not discard healthy provider results.
 - Assistant input is validated and capped; upstream error details are not exposed directly to the client.
-- The app has no authentication, persistent user storage, analytics, or application database.
+- The app has no authentication, persistent user storage, or application database. GA4 is optional through an environment variable.
 - The assistant endpoint does not currently include per-user rate limiting; production operators should add platform-level abuse protection where appropriate.
 
 ## Run it locally
@@ -268,8 +270,10 @@ GROQ_MODEL=llama-3.3-70b-versatile
 # Optional: enables NASA NeoWs as the asteroid fallback
 NASA_API_KEY=your_nasa_api_key
 
-# Optional: canonical site origin; defaults to https://astroboat.in
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# Optional SEO verification and analytics; canonical is fixed to https://www.astroboat.in
+GOOGLE_SITE_VERIFICATION=
+BING_SITE_VERIFICATION=
+NEXT_PUBLIC_GA_ID=
 
 # Dormant satellite service only; the /satellites UI is currently paused
 # N2YO_API_KEY=your_n2yo_api_key
@@ -296,7 +300,9 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run dev` | Start the local Next.js development server |
 | `npm run build` | Create an optimized production build and validate types/routes |
 | `npm run start` | Serve the production build |
-| `npm run lint` | Run the configured Next.js lint command |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run the TypeScript checker |
+| `npm run seo:audit` | Scan local production routes after starting the server |
 | `npm run test:assistant` | Verify assistant configuration, provider errors, timeouts, and secret-safe diagnostics without live API calls |
 
 ## Project map
@@ -349,9 +355,9 @@ Some code is intentionally retained but not mounted in the active product:
 - Global search launches core routes; it does not index every story or live object.
 - Moon calculations are currently presented for one fixed location.
 - Event discovery is chronological, not a month-grid calendar.
-- Briefs are limited to the newest normalized set; dynamic brief URLs are not currently emitted in the sitemap.
+- Briefs are limited to the newest normalized set; source digests are `noindex` and dynamic brief URLs are not emitted in the sitemap. Reviewed guides are indexable and included.
 - Chat history is temporary and single-turn at the model layer.
-- No account system, saved items, notifications, database, automated test suite, analytics integration, or CI workflow is currently included.
+- No account system, saved items, notifications, database, or CI workflow is currently included. GA4 and search verification are optional.
 - The repository currently has no license file; source availability should not be interpreted as a grant of reuse rights.
 
 ## Build and deployment
@@ -363,7 +369,7 @@ npm run build
 npm run start
 ```
 
-Deploy it to any Node-compatible Next.js host with outbound access to the listed data providers. A pure static export is not supported because the application uses server-side external fetches and an API route. Set `NEXT_PUBLIC_SITE_URL` to the production origin so canonical metadata, the sitemap, and robots output use the correct host.
+Deploy it to any Node-compatible Next.js host with outbound access to the listed data providers. A pure static export is not supported because the application uses server-side external fetches and an API route. The canonical origin is `https://www.astroboat.in`; see `SEO_MANUAL_ACTIONS.md` for Search Console, Bing, and optional analytics setup.
 
 ---
 

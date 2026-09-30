@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint app components lib services --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "seo:audit": "node scripts/seo-audit.mjs",
     "test:assistant": "node --test tests/astrobot-route.test.cjs"
   },
   "dependencies": {

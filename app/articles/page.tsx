@@ -1,13 +1,15 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import type { Metadata } from "next";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Articles Coming Later — Astroboat",
-  description: "Astroboat long-form articles are paused while the core astronomy tools are stabilized."
-};
+export const metadata = pageMetadata({
+  title: 'Articles',
+  description: 'Astroboat long-form articles are currently paused while the editorial system is developed.',
+  path: '/articles',
+  noindex: true
+})
 
 export default function ArticlesPage() {
   return (

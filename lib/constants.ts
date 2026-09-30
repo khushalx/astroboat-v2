@@ -70,6 +70,7 @@ export const navItems: NavItem[] = [
   { label: "Discover", href: "/" },
   { label: "Gallery", href: "/gallery" },
   { label: "Briefs", href: "/briefs" },
+  { label: "Guides", href: "/guides" },
   { label: "Events", href: "/events" },
   { label: "Moon", href: "/moon" },
   { label: "Asteroid Watch", href: "/asteroids" },

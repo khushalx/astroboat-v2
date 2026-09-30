@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
@@ -50,10 +50,12 @@ const sources = [
   }
 ];
 
-export const metadata: Metadata = {
-  title: "Data Sources — Astroboat",
-  description: "Review the public astronomy data sources and AI services used by Astroboat."
-};
+export const metadata = pageMetadata({
+  title: 'Astronomy Data Sources & Attribution',
+  description: 'See the astronomy data providers, image archives, and source attribution used throughout Astroboat.',
+  path: '/data-sources',
+  noindex: false
+})
 
 export default function DataSourcesPage() {
   return (

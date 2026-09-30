@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
@@ -6,20 +6,14 @@ import { SourceBadge } from "@/components/ui/SourceBadge";
 import { MoonPhaseVisual } from "@/components/visuals/MoonPhaseVisual";
 import type { MoonEvent, PrimaryMoonPhase } from "@/lib/types";
 import { getCurrentMoonData } from "@/services/moon-service";
+import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Moon Phase Dashboard",
-  description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
-  alternates: {
-    canonical: "/moon"
-  },
-  openGraph: {
-    title: "Moon Phase Dashboard — Astroboat",
-    description: "Track the current Moon phase, illumination, moonrise, moonset, and upcoming lunar phases.",
-    url: "/moon",
-    images: ["/og-image.png"]
-  }
-};
+export const metadata = pageMetadata({
+  title: "Today's Moon Phase, Illumination & Rise Times",
+  description: 'See the current Moon phase and illumination, rise and set times for Ahmedabad, and the next full and new Moon.',
+  path: '/moon',
+  noindex: false
+})
 
 export default async function MoonPage() {
   const moon = await getCurrentMoonData();
@@ -36,6 +30,7 @@ export default async function MoonPage() {
         title="Moon"
         subtitle="Current phase, illumination, rise/set times, and the next lunar milestones."
       />
+      <p className="max-w-3xl text-sm leading-7 text-astro-muted">Rise and set times are for Ahmedabad, India (UTC+05:30). The phase and illumination describe the Moon on the displayed date; conditions elsewhere may differ. <Link href="/data-sources" className="text-astro-blue underline">See the lunar data source</Link>.</p>
 
       {moon.isFallback ? (
         <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">

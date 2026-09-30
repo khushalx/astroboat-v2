@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { searchIndex, quickSearchItems, type SearchIndexItem } from "@/lib/search-index";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 const searchEventName = "astroboat:open-search";
 
@@ -38,7 +39,6 @@ export function SearchTrigger({ className, showShortcut = false, compact = false
 }
 
 export function GlobalSearch() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -109,8 +109,8 @@ export function GlobalSearch() {
   }, [open]);
 
   function navigateTo(item: SearchIndexItem) {
+    trackEvent("search_performed", { destination: item.url });
     closeSearch();
-    router.push(item.url);
   }
 
   if (!open) {
@@ -187,9 +187,9 @@ export function GlobalSearch() {
           {visibleResults.length > 0 ? (
             <div>
               {visibleResults.map((item) => (
-                <button
+                <Link
                   key={item.url}
-                  type="button"
+                  href={item.url}
                   onClick={() => navigateTo(item)}
                   className="group block w-full rounded-lg border border-transparent p-3 text-left transition hover:bg-white/[0.035] focus:outline-none focus:ring-2 focus:ring-astro-blue/30"
                 >
@@ -202,7 +202,7 @@ export function GlobalSearch() {
                       {item.kind}
                     </span>
                   </span>
-                </button>
+                </Link>
               ))}
             </div>
           ) : (
