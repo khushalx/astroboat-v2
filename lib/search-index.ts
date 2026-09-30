@@ -1,4 +1,4 @@
-export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant" | "Gallery";
+export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant" | "Gallery" | "Guide";
 
 export type SearchIndexItem = {
   title: string;
@@ -29,6 +29,20 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/briefs",
     kind: "Feed",
     keywords: ["news", "summaries", "nasa", "esa", "arxiv", "apod", "research", "astronomy updates"]
+  },
+  {
+    title: "Astronomy Guides",
+    description: "Source-linked explainers for the ideas behind Astroboat's live tools",
+    url: "/guides",
+    kind: "Guide",
+    keywords: ["guides", "learn", "explainers", "astronomy basics", "asteroids", "near-earth objects"]
+  },
+  {
+    title: "What Is a Near-Earth Object?",
+    description: "Understand near-Earth asteroids, close approaches, and hazard labels",
+    url: "/guides/what-is-a-near-earth-object",
+    kind: "Guide",
+    keywords: ["neo", "asteroid", "comet", "close approach", "planetary defense"]
   },
   {
     title: "Space Events Calendar",

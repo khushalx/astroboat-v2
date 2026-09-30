@@ -7,12 +7,13 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
+import { DEFAULT_OG_IMAGE, SITE_URL, safeJsonLd } from "@/lib/seo";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://astroboat.in";
 const siteDescription =
   "Astroboat helps you explore astronomy briefs, global space events, Moon phase data, and near-Earth object tracking through a clean observatory-style platform.";
 const siteTitle = "Astroboat — Astronomy Intelligence & Sky Tools";
-const previewImage = "/og-image.png";
+const previewImage = DEFAULT_OG_IMAGE;
 const previewImageAlt = "Astroboat astronomy intelligence and sky tools";
 
 const displayFont = DM_Serif_Display({
@@ -34,7 +35,7 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: siteTitle,
     template: "%s — Astroboat"
@@ -51,13 +52,11 @@ export const metadata: Metadata = {
     "sky tools",
     "space science"
   ],
-  alternates: {
-    canonical: "/"
-  },
+  alternates: { types: { "application/rss+xml": `${SITE_URL}/feed.xml` } },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://astroboat.in",
+    url: SITE_URL,
     siteName: "Astroboat",
     title: siteTitle,
     description: siteDescription,
@@ -90,6 +89,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1
     }
+  },
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {})
   }
 };
 
@@ -98,17 +101,17 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Astroboat",
-    url: "https://astroboat.in",
+    url: SITE_URL,
     description: siteDescription,
-    image: "https://astroboat.in/og-image.png"
+    image: DEFAULT_OG_IMAGE
   },
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Astroboat",
-    url: "https://astroboat.in",
-    logo: "https://astroboat.in/icon.svg",
-    image: "https://astroboat.in/og-image.png"
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon.svg`,
+    image: DEFAULT_OG_IMAGE
   }
 ];
 
@@ -122,7 +125,7 @@ export default function RootLayout({
       <body className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(structuredData) }}
         />
         <SkyGridBackground />
         <div className="relative flex min-h-screen flex-col">
@@ -133,6 +136,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <GlobalSearch />
+        {process.env.NEXT_PUBLIC_GA_ID ? <GoogleAnalytics id={process.env.NEXT_PUBLIC_GA_ID} /> : null}
       </body>
     </html>
   );

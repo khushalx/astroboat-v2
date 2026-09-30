@@ -32,6 +32,7 @@ export type VisibilityRegion = "Worldwide" | "Region-specific" | "Online" | "Ind
 export type AstronomyBrief = {
   id: string;
   slug: string;
+  legacySlug?: string;
   source: SourceInfo;
   originalUrl: string;
   title: string;
@@ -44,6 +45,14 @@ export type AstronomyBrief = {
   difficulty?: "Beginner" | "Intermediate" | "Research";
   imageUrl?: string;
   beginnerExplanation?: string;
+  // Machine summaries are source digests; only reviewed, original analysis can be indexed.
+  quality?: "source_digest" | "original_analysis";
+  takeaway?: string;
+  context?: string;
+  whatNext?: string;
+  importantNumbers?: string[];
+  updatedAt?: string;
+  author?: string;
   isFallback?: boolean;
 };
 

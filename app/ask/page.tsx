@@ -1,22 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstrobotClient } from "@/components/ask/AstrobotClient";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Ask Astroboat",
-  description:
-    "Ask simple questions about astronomy, space events, Moon phases, asteroids, and space science.",
-  alternates: {
-    canonical: "/ask"
-  },
-  openGraph: {
-    title: "Ask Astroboat",
-    description:
-      "Ask simple questions about astronomy, space events, Moon phases, asteroids, and space science.",
-    url: "https://astroboat.in/ask"
-  }
-};
+export const metadata = pageMetadata({
+  title: 'Ask Astroboat Astronomy Questions',
+  description: 'Ask the Astroboat assistant astronomy questions and explore related live sky tools.',
+  path: '/ask',
+  noindex: true
+})
 
 export default function AskPage() {
   return (

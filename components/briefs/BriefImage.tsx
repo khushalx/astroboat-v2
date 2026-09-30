@@ -35,7 +35,10 @@ export function BriefImage({
         <img
           src={src}
           alt={alt}
-          loading="lazy"
+          width={1200}
+          height={675}
+          loading={featured ? "eager" : "lazy"}
+          fetchPriority={featured ? "high" : "auto"}
           referrerPolicy="no-referrer"
           className="h-full w-full object-cover transition duration-500 hover:scale-[1.025]"
           onError={() => setFailedSrc(src)}

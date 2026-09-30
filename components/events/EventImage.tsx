@@ -25,6 +25,8 @@ export function EventImage({ src, alt, category, className }: EventImageProps) {
       <img
         src={src}
         alt={alt}
+        width={320}
+        height={180}
         className="h-full w-full object-cover transition duration-300 hover:scale-[1.02]"
         loading="lazy"
         referrerPolicy="no-referrer"

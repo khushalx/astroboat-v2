@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Astroboat",
-  description: "Read Astroboat's privacy policy for analytics, chatbot messages, third-party services, and data handling."
-};
+export const metadata = pageMetadata({
+  title: 'Privacy Policy',
+  description: 'Read how Astroboat handles assistant messages, analytics, and website privacy.',
+  path: '/privacy',
+  noindex: false
+})
 
 export default function PrivacyPage() {
   return (
@@ -21,8 +23,9 @@ export default function PrivacyPage() {
         <section className="p-5 sm:p-6">
           <h2 className="font-display text-xl font-normal text-astro-text">Information Astroboat May Use</h2>
           <p className="mt-2">
-            Astroboat may use basic analytics to understand page visits, general usage patterns, performance, and
-            product reliability. This helps improve the platform without selling personal data.
+            Astroboat can use Google Analytics 4 when configured by the site owner to understand page visits and
+            general use. Its script is not loaded when the analytics ID is unset. Event tracking does not send search
+            queries or assistant messages. Google may process technical information under its own policies.
           </p>
         </section>
 

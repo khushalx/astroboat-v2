@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
@@ -11,11 +11,12 @@ const offers = [
   "Ask Astroboat for astronomy explanations"
 ];
 
-export const metadata: Metadata = {
-  title: "About Astroboat — Astronomy Intelligence & Sky Tools",
-  description:
-    "Learn about Astroboat, an astronomy intelligence and sky tools platform for briefs, space events, Moon data, asteroid tracking, and astronomy assistance."
-};
+export const metadata = pageMetadata({
+  title: 'About Astroboat',
+  description: 'Learn who runs Astroboat, what the astronomy platform offers, and how its data and summaries are sourced.',
+  path: '/about',
+  noindex: false
+})
 
 export default function AboutPage() {
   return (
@@ -59,9 +60,14 @@ export default function AboutPage() {
         <section className="p-5 sm:p-7">
           <h2 className="font-display text-2xl font-normal text-astro-text">Founder note</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">
-            Astroboat is built by Khushal Dangar, an 18-year-old Computer Science and AI student with a strong
+            Astroboat is built by Khushal Dangar, a Computer Science and AI student with a strong
             interest in astronomy, space technology, and building useful digital products.
           </p>
+        </section>
+
+        <section className="p-5 sm:p-7">
+          <h2 className="font-display text-2xl font-normal text-astro-text">How Astroboat works</h2>
+          <p className="mt-3 text-sm leading-7 text-astro-muted">Live tools use named astronomy providers, while most brief summaries are generated from external feeds. Read the <a href="/editorial-policy" className="text-astro-blue underline">editorial methodology</a> for sourcing, automation, image credits, and corrections.</p>
         </section>
 
         <section className="p-5 sm:p-7">

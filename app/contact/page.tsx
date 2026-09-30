@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 
-export const metadata: Metadata = {
-  title: "Contact — Astroboat",
-  description: "Contact Astroboat for feedback, bug reports, collaboration, or astronomy platform suggestions."
-};
+export const metadata = pageMetadata({
+  title: 'Contact Astroboat',
+  description: 'Contact Astroboat with corrections, source questions, feedback, or collaboration enquiries.',
+  path: '/contact',
+  noindex: false
+})
 
 export default function ContactPage() {
   return (

@@ -17,7 +17,8 @@ const filters = [
   "Solar",
   "Near-Earth"
 ];
-const pageSize = 12;
+// The feed is capped at 40; render every current brief as an ordinary link in HTML.
+const pageSize = 40;
 
 type BriefsClientProps = {
   result: BriefsResult;

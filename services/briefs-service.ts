@@ -160,7 +160,7 @@ export async function getLatestBriefs(limit?: number): Promise<AstronomyBrief[]>
 export async function getBriefBySlug(slug: string): Promise<AstronomyBrief | undefined> {
   const result = await getAstronomyBriefs();
 
-  return result.briefs.find((brief) => brief.slug === slug) ?? mockBriefs.find((brief) => brief.slug === slug);
+  return result.briefs.find((brief) => brief.slug === slug || brief.legacySlug === slug) ?? mockBriefs.find((brief) => brief.slug === slug);
 }
 
 async function fetchBriefSource(config: BriefSourceConfig): Promise<SourceFetchResult> {
@@ -268,11 +268,13 @@ function mapFeedItemToBrief(item: ParsedFeedItem, config: BriefSourceConfig, ind
   const summary = createSummaryLines(rawSummary);
   const tags = createTags(item, title, rawSummary, config);
   const category = inferCategory(tags, title, rawSummary, config.categoryHint);
-  const idBase = `${config.id}-${index}-${hashString(`${title}-${originalUrl}`)}`;
+  const legacyId = `${config.id}-${index}-${hashString(`${title}-${originalUrl}`)}`;
+  const idBase = `${config.id}-${hashString(normalizeUrlKey(originalUrl))}`;
 
   return {
     id: idBase,
-    slug: createBriefSlug(title, idBase),
+    slug: idBase,
+    legacySlug: createBriefSlug(title, legacyId),
     source: config.source,
     originalUrl,
     title,
@@ -282,6 +284,7 @@ function mapFeedItemToBrief(item: ParsedFeedItem, config: BriefSourceConfig, ind
     readingTime: estimateReadingTime(rawSummary),
     publishedAt,
     category,
+    quality: "source_digest",
     imageUrl: extractImageUrlFromFeedItem(item, {
       baseUrl: originalUrl || config.url,
       sourceId: config.id
@@ -612,6 +615,7 @@ function latestPublishedDate(items: AstronomyBrief[]) {
 function markFallbackBriefs(items: AstronomyBrief[]) {
   return items.map((brief) => ({
     ...brief,
+    quality: "source_digest" as const,
     originalUrl: brief.originalUrl === "#" ? "" : brief.originalUrl,
     isFallback: true
   }));
@@ -759,10 +763,6 @@ function textValue(value: unknown): string {
   }
 
   return "";
-}
-
-function firstRecord(value: unknown) {
-  return asArray(value).find(isRecord);
 }
 
 function asArray(value: unknown): unknown[] {
