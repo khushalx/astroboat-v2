@@ -2,6 +2,12 @@ import type { NavItem } from "@/lib/types";
 
 export const SITE_NAME = "Astroboat";
 
+export const BRIEFS_REVALIDATE_SECONDS = 3600;
+
+export const MAX_BRIEFS_PER_SOURCE = 15;
+
+export const FINAL_BRIEFS_LIMIT = 40;
+
 export const SPACE_DEVS_API_BASE = "https://ll.thespacedevs.com/2.3.0";
 
 export const EVENTS_REVALIDATE_SECONDS = 21600;
@@ -54,12 +60,39 @@ export const DEFAULT_PASS_DAYS = 5;
 
 export const DEFAULT_MIN_VISIBILITY_SECONDS = 120;
 
+export const GALLERY_REVALIDATE_SECONDS = 21600;
+
+export const NASA_IMAGE_LIBRARY_API_BASE = "https://images-api.nasa.gov";
+
+export const NASA_APOD_API_URL = "https://api.nasa.gov/planetary/apod";
+
 export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
+  { label: "Discover", href: "/" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Briefs", href: "/briefs" },
+  { label: "Guides", href: "/guides" },
   { label: "Events", href: "/events" },
   { label: "Moon", href: "/moon" },
+  { label: "Asteroid Watch", href: "/asteroids" },
+  { label: "Ask Astroboat", href: "/ask" }
+];
+
+export const skyToolItems: NavItem[] = [
+  { label: "Moon", href: "/moon" },
   { label: "Asteroid Watch", href: "/asteroids" }
+];
+
+export const galleryCategories = [
+  "All",
+  "Galaxies",
+  "Nebulae",
+  "Deep Space",
+  "Planets",
+  "Moon",
+  "Sun",
+  "Earth",
+  "Stars",
+  "Missions"
 ];
 
 export const eventFilters = ["All", "Launches", "Space Events", "Sky Events", "This Week", "This Month", "Online", "Worldwide"];

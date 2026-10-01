@@ -1,0 +1,235 @@
+/* Shared observatory design system. */
+.site-container { width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: 48px; }
+.page-main { padding-block: 48px 0; }
+.page-main:has(.discovery-hero) { padding-top: 0; }
+.skip-link { position: fixed; top: 12px; left: 20px; z-index: 100; padding: 12px 20px; border-radius: 8px; background: var(--accent-gold); color: var(--bg-base); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.eyebrow { color: var(--text-dim); font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 400; letter-spacing: 0.13em; line-height: 1.7; text-transform: uppercase; }
+.brand-lockup { display: inline-flex; align-items: center; gap: 10px; color: var(--text-primary); font-size: 25px; font-weight: 600; line-height: 1; letter-spacing: -1.2px; }
+.brand-mark { width: 38px; height: 38px; color: var(--accent-gold); }
+.brand-period { color: var(--accent-gold); }
+.header-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 12px; border-radius: 8px; color: var(--text-secondary); font-size: 14px; transition: color 180ms, background 180ms; }
+.header-link:hover { background: #ffffff05; color: var(--text-primary); }
+.header-link.is-active { color: var(--text-primary); }
+.header-link.is-active::after { content: ''; position: absolute; width: 4px; height: 4px; border-radius: 50%; left: calc(50% - 2px); bottom: 0; background: var(--accent-gold); }
+.sky-tools-menu { position: absolute; top: calc(100% + 16px); left: -40px; width: 280px; padding: 16px 10px 10px; border: 1px solid var(--border-subtle); border-radius: 16px; background: #14191c; box-shadow: 0 20px 60px #0007; }
+.cosmic-primary { box-shadow: none; }
+.astro-card { box-shadow: inset 0 1px 0 #ffffff03; backdrop-filter: none; }
+.glass-control { box-shadow: none; }
+.page-heading { padding-bottom: 8px; }
+.page-heading h1 { font-size: clamp(2.6rem, 5vw, 4rem); font-weight: 500; letter-spacing: -0.05em; }
+.page-heading::before { content: ''; display: block; height: 2px; width: 32px; background: var(--accent-gold); margin-bottom: 24px; }
+
+/* Discovery: an open composition, with one spatial focal point. */
+.discovery-hero { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 578px; }
+.hero-copy { position: relative; z-index: 2; padding-block: 55px 45px; }
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; color: #bdc8bb; font-size: 10px; letter-spacing: 0.12em; }
+.discovery-title { margin: 0; font-family: var(--font-body), sans-serif; font-size: clamp(3.4rem, 5.5vw, 5.2rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.065em; white-space: nowrap; }
+.discovery-title em { display: inline-block; margin-top: 3px; font-family: var(--font-display), Georgia, serif; color: var(--accent-gold); font-weight: 400; letter-spacing: -0.055em; }
+.hero-description { margin-top: 26px; color: var(--text-secondary); font-size: 16px; line-height: 1.9; }
+.hero-actions { display: flex; align-items: center; gap: 27px; margin-top: 30px; }
+.hero-button { display: inline-flex; align-items: center; justify-content: center; gap: 26px; min-height: 48px; padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+.hero-secondary { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; color: #c7cfca; transition: color 150ms; }
+.hero-secondary:hover { color: var(--accent-gold); }
+.hero-source-note { display: flex; align-items: center; gap: 12px; margin-top: 42px; font-size: 11px; line-height: 1.85; color: var(--text-dim); }
+.hero-source-note a { color: #aeb8b1; }
+.hero-source-note a:hover { color: var(--accent-gold); }
+.source-lines { display: flex; align-items: center; gap: 3px; height: 27px; }
+.source-lines span { width: 2px; height: 17px; background: #849474; }
+.source-lines span:nth-child(2) { height: 27px; background: #d4eca5; }
+.source-lines span:nth-child(3) { height: 10px; }
+
+/* The interactive scene stays isolated from the rest of the UI. */
+.earth-stage { position: relative; min-width: 0; height: 550px; width: calc(100% + 45px); margin-left: -15px; }
+.earth-stage-glow { position: absolute; inset: 5% -4% 7%; background: radial-gradient(ellipse at 50% 45%, #40686a18, transparent 64%); pointer-events: none; }
+.earth-canvas { position: absolute; inset: 0; z-index: 1; touch-action: pan-y; cursor: grab; opacity: 0; transition: opacity 800ms; }
+.earth-canvas:active { cursor: grabbing; }
+.earth-canvas canvas { display: block; width: 100%; height: 100%; }
+.earth-ready .earth-canvas { opacity: 1; }
+.earth-fallback { position: absolute; inset: 17% 18%; border-radius: 50%; background: url('/textures/earth-fallback.webp') center / contain no-repeat; mix-blend-mode: screen; opacity: 0.8; transition: opacity 600ms; }
+.earth-ready .earth-fallback { opacity: 0; }
+.earth-coordinate { position: absolute; top: 51px; right: 34px; display: flex; align-items: center; gap: 14px; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.13em; color: #7e918b; }
+.coordinate-cross { font-family: sans-serif; font-size: 25px; font-weight: 200; color: #c5dcb4; }
+.earth-caption { position: absolute; bottom: 112px; left: 10px; z-index: 2; display: flex; align-items: flex-start; gap: 13px; pointer-events: none; }
+.earth-caption-line { height: 1px; width: 37px; margin-top: 8px; background: #9caf93; transform: rotate(-30deg); transform-origin: right; }
+.earth-caption .eyebrow { font-size: 9px; color: #cfddc3; }
+.earth-caption p { margin-top: 3px; color: #84918c; font-size: 10px; }
+.earth-controls { position: absolute; z-index: 3; bottom: 47px; right: 35px; display: flex; align-items: center; gap: 12px; min-height: 32px; }
+.earth-interaction-hint { color: #91a099; font-size: 10px; }
+.earth-control-buttons { display: flex; gap: 2px; padding: 3px; border: 1px solid #ffffff12; border-radius: 30px; background: #0d1316b3; }
+.earth-control-buttons button { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: #c7d5ce; font-size: 14px; transition: background 150ms; }
+.earth-control-buttons button:hover { background: #d4eca516; color: var(--accent-gold); }
+.earth-credit { position: absolute; z-index: 3; bottom: 24px; right: 39px; color: #829189; font-size: 8px; }
+.earth-credit:hover { color: #c7d5ce; }
+
+/* Useful, source-backed data takes one compact strip. */
+.sky-snapshot { display: grid; grid-template-columns: 0.8fr 1fr 1.35fr; border: 1px solid #ffffff12; border-radius: 16px; background: linear-gradient(110deg, #171e20b3, #12181aa8); }
+.snapshot-heading { display: flex; justify-content: center; flex-direction: column; gap: 9px; padding: 25px 28px; }
+.snapshot-heading .eyebrow { font-size: 9px; color: #c5cec7; }
+.snapshot-location { display: flex; align-items: center; gap: 6px; color: var(--text-dim); font-size: 11px; }
+.snapshot-item { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 22px 26px; border-left: 1px solid #ffffff0d; transition: background 180ms; }
+.snapshot-item:hover { background: #ffffff03; }
+.snapshot-item:last-child { border-radius: 0 16px 16px 0; }
+.snapshot-label { display: block; font-size: 12px; color: var(--text-dim); }
+.snapshot-item strong { display: block; margin-top: 4px; color: #e4e9e1; font-size: 14px; font-weight: 500; }
+.snapshot-detail { display: block; margin-top: 3px; color: #98a49c; font-size: 12px; }
+.snapshot-icon { display: grid; place-items: center; flex-shrink: 0; width: 38px; height: 38px; border: 1px solid #ffffff0b; border-radius: 11px; color: #bfd2b0; }
+.snapshot-arrow { flex-shrink: 0; margin-left: auto; color: #8b9a91; width: 15px; }
+.snapshot-moon figure { flex-shrink: 0; }
+
+/* Tool cards share a rhythm without competing with the hero. */
+.explore-section { padding: 72px 0 76px; scroll-margin-top: 110px; }
+.explore-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.explore-heading h2 { font-size: clamp(1.9rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.045em; line-height: 1.15; }
+.explore-heading > p { color: #94a099; font-size: 12px; line-height: 1.8; }
+.discovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.discovery-card { position: relative; display: flex; flex-direction: column; overflow: hidden; min-height: 300px; padding: 25px; border: 1px solid #ffffff12; border-radius: 16px; background: #13191be6; transition: border-color 220ms, transform 220ms, background 220ms, box-shadow 220ms; }
+.discovery-card:hover { transform: translateY(-5px); border-color: #d4eca544; background-color: #182021; box-shadow: 0 18px 30px #0002; }
+.discovery-card-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.tool-icon { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid #ffffff0a; border-radius: 10px; background: #ffffff03; color: #c2d9bf; }
+.tool-number { font-family: var(--font-mono), monospace; color: #7f8c85; font-size: 10px; }
+.discovery-card-content { position: relative; z-index: 1; }
+.tool-category { color: #b1bba9; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.12em; }
+.discovery-card h3 { margin-top: 10px; color: #edf0e8; font-size: 19px; font-weight: 500; letter-spacing: -0.035em; line-height: 1.3; }
+.tool-description { max-width: 290px; margin-top: 10px; color: #a3ada9; font-size: 14px; line-height: 1.8; }
+.tool-action { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 24px; font-size: 13px; color: #c9d7bc; }
+.tool-arrow { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #ffffff12; border-radius: 50%; transition: background 180ms, color 180ms; }
+.tool-arrow svg { width: 13px; height: 13px; }
+.discovery-card:hover .tool-arrow { background: var(--accent-gold); color: #11180e; border-color: var(--accent-gold); }
+.discovery-card-gallery { grid-column: span 2; background: #131a1d; }
+.discovery-card-gallery::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #10181bef 5%, #10181ba8 55%, #10181b12), url('/textures/nebula.webp') center 44% / cover; transition: transform 650ms; }
+.discovery-card-gallery:hover::before { transform: scale(1.035); }
+.discovery-card-gallery .tool-description { max-width: 330px; color: #c0c8c6; }
+.discovery-card-gallery h3 { font-size: 28px; }
+.discovery-card-gallery .tool-number { color: #d3dcd8; }
+.discovery-card-gallery .tool-icon { background: #0b111766; border-color: #ffffff1a; }
+.discovery-card-gallery .tool-action { color: #e3efd5; }
+.gallery-card-credit { position: absolute; bottom: 24px; right: 64px; z-index: 1; max-width: 170px; color: #cfdbd0; font-size: 8px; text-align: right; }
+.discovery-card-briefs .tool-icon { color: #bccde7; }
+.discovery-card-events .tool-icon { color: #d7c7a9; }
+.discovery-card-moon { background: radial-gradient(ellipse at 100% 0%, #89978516, transparent 65%), #141b1c; }
+.tool-moon { position: absolute; right: 38px; top: 26px; opacity: 0.65; transform: rotate(-20deg); pointer-events: none; }
+.discovery-card-asteroids .tool-icon { color: #d7bca6; }
+.ask-invitation { position: relative; display: flex; align-items: center; gap: 28px; padding: 34px 36px; margin-top: 24px; border: 1px solid #d4eca520; border-radius: 16px; background: radial-gradient(ellipse at 5% 80%, #75914812, transparent 58%), #151d1b; transition: border-color 180ms; }
+.ask-invitation:hover { border-color: #d4eca550; }
+.ask-symbol { display: grid; place-items: center; flex-shrink: 0; width: 62px; height: 62px; border-radius: 50%; border: 1px solid #d4eca52b; background: #d4eca508; color: var(--accent-gold); font-size: 42px; }
+.ask-invitation-copy { flex: 1; }
+.ask-invitation h3 { font-size: 21px; font-weight: 500; letter-spacing: -0.035em; }
+.ask-invitation-copy > p:last-child { margin-top: 7px; font-size: 14px; color: #a3ada9; }
+.ask-invitation .eyebrow { font-size: 9px; color: #b9caaa; }
+
+.site-footer { border-top: 1px solid #ffffff0d; background: #0a0d0f80; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 43px 37px; }
+.footer-top .brand-lockup { font-size: 23px; }
+.footer-invitation { display: flex; align-items: center; gap: 25px; color: #b7c3b7; font-size: 15px; letter-spacing: -0.02em; }
+.footer-invitation:hover { color: var(--accent-gold); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 22px; border-top: 1px solid #ffffff0a; color: #94a197; font-size: 12px; }
+
+@media (min-width: 1440px) {
+  .discovery-hero { min-height: 620px; }
+  .earth-stage { height: 590px; }
+}
+@media (max-width: 1199px) {
+  .site-container { padding-inline: 32px; }
+  .brand-lockup { font-size: 22px; gap: 8px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .header-link { padding-inline: 10px; }
+  .hero-actions { gap: 18px; }
+  .hero-button { gap: 18px; }
+  .snapshot-heading { padding-inline: 22px; }
+  .snapshot-item { padding-inline: 20px; gap: 12px; }
+  .earth-stage { width: 100%; margin-left: 0; }
+  .earth-coordinate { right: 14px; }
+  .earth-caption { left: 0; }
+  .earth-controls { right: 10px; }
+  .earth-credit { right: 14px; }
+  .discovery-card { padding: 23px; }
+}
+@media (max-width: 1023px) {
+  .discovery-hero { min-height: 510px; }
+  .discovery-title { font-size: clamp(2.8rem, 5.8vw, 4rem); }
+  .hero-eyebrow { font-size: 8px; letter-spacing: 0.1em; }
+  .hero-description { font-size: 15px; }
+  .hero-actions { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .hero-source-note { margin-top: 25px; font-size: 11px; }
+  .earth-stage { height: 470px; }
+  .earth-caption { bottom: 93px; }
+  .earth-coordinate { top: 55px; font-size: 8px; }
+  .earth-caption-line { width: 18px; }
+  .sky-snapshot { grid-template-columns: 0.85fr 1fr; }
+  .snapshot-heading { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; padding-block: 14px; border-bottom: 1px solid #ffffff0d; }
+  .snapshot-moon { border-left: 0; }
+  .discovery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .discovery-card { min-height: 290px; }
+  .discovery-card-gallery { min-height: 310px; }
+  .discovery-card h3 { font-size: 21px; }
+  .tool-description { font-size: 14px; }
+  .ask-invitation { padding: 28px; gap: 20px; }
+  .ask-invitation h3 { font-size: 18px; }
+  .ask-symbol { width: 50px; height: 50px; font-size: 32px; }
+  .ask-invitation > .cosmic-primary { gap: 12px; padding-inline: 18px; font-size: 12px; }
+  .footer-bottom { flex-wrap: wrap; }
+  .footer-bottom > span { display: none; }
+}
+@media (max-width: 639px) {
+  .site-container { padding-inline: 22px; }
+  .page-main { padding-top: 30px; }
+  .brand-lockup { font-size: 23px; }
+  .discovery-hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-copy { padding-top: 48px; padding-bottom: 0; }
+  .hero-eyebrow { font-size: 8px; margin-bottom: 23px; }
+  .discovery-title { font-size: clamp(2.7rem, 10.7vw, 4.5rem); }
+  .hero-description { max-width: 330px; margin-top: 22px; font-size: 15px; line-height: 1.8; }
+  .hero-actions { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 14px 21px; margin-top: 24px; }
+  .hero-button { min-height: 47px; padding-inline: 20px; font-size: 13px; gap: 18px; }
+  .hero-secondary { font-size: 12px; gap: 7px; }
+  .hero-secondary svg { width: 15px; }
+  .hero-source-note { margin-top: 24px; font-size: 11px; }
+  .earth-stage { height: auto; aspect-ratio: 1.08; margin-block: 8px 20px; }
+  .earth-coordinate { top: 16px; right: 3px; font-size: 8px; }
+  .earth-caption { bottom: 65px; left: 0; gap: 9px; }
+  .earth-caption .eyebrow { font-size: 8px; }
+  .earth-caption p { font-size: 8px; }
+  .earth-controls { bottom: 20px; right: 4px; gap: 8px; }
+  .earth-control-buttons button { width: 36px; height: 36px; }
+  .earth-interaction-hint { font-size: 9px; }
+  .earth-credit { bottom: 2px; right: 8px; font-size: 7px; }
+  .sky-snapshot { grid-template-columns: 1fr; border-radius: 14px; }
+  .snapshot-heading { align-items: flex-start; flex-direction: column; gap: 5px; padding: 17px 20px; }
+  .snapshot-heading .eyebrow { font-size: 9px; }
+  .snapshot-item { border-left: 0; padding: 18px 20px; }
+  .snapshot-item + .snapshot-item { border-top: 1px solid #ffffff0d; }
+  .snapshot-item:last-child { border-radius: 0 0 14px 14px; }
+  .snapshot-label { font-size: 11px; }
+  .snapshot-item strong { font-size: 14px; }
+  .snapshot-detail { font-size: 11px; }
+  .snapshot-moon figure { margin-inline: -7px 2px; }
+  .explore-section { padding-top: 49px; padding-bottom: 48px; scroll-margin-top: 95px; }
+  .explore-heading { margin-bottom: 24px; }
+  .explore-heading h2 { font-size: 29px; }
+  .explore-heading > p { display: none; }
+  .discovery-grid { grid-template-columns: 1fr; gap: 12px; }
+  .discovery-card-gallery { grid-column: auto; }
+  .discovery-card-gallery h3 { font-size: 25px; }
+  .gallery-card-credit { position: relative; right: auto; bottom: auto; margin-top: 10px; max-width: none; text-align: left; font-size: 8px; }
+  .discovery-card { min-height: 267px; padding: 25px; }
+  .discovery-card-top { margin-bottom: 24px; }
+  .tool-category { font-size: 10px; }
+  .tool-action { font-size: 13px; }
+  .tool-number { font-size: 11px; }
+  .ask-invitation { flex-wrap: wrap; padding: 25px; gap: 18px; }
+  .ask-symbol { width: 44px; height: 44px; font-size: 28px; }
+  .ask-invitation-copy { flex-basis: calc(100% - 62px); }
+  .ask-invitation h3 { font-size: 20px; line-height: 1.25; }
+  .ask-invitation .eyebrow { font-size: 8px; }
+  .ask-invitation-copy > p:last-child { font-size: 14px; line-height: 1.75; }
+  .ask-invitation > .cosmic-primary { width: 100%; margin-top: 5px; }
+  .footer-top { align-items: flex-start; flex-direction: column; gap: 24px; padding-block: 32px; }
+  .footer-invitation { font-size: 14px; gap: 16px; }
+  .footer-bottom { align-items: flex-start; flex-direction: column-reverse; gap: 22px; font-size: 11px; }
+  .footer-bottom nav { column-gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .discovery-card:hover { transform: none; }
+  .earth-canvas, .earth-fallback { transition: none; }
+}

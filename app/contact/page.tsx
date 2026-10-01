@@ -1,0 +1,36 @@
+import { pageMetadata } from "@/lib/seo";
+import { AstroCard } from "@/components/ui/AstroCard";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { PageShell } from "@/components/ui/PageShell";
+
+export const metadata = pageMetadata({
+  title: 'Contact Astroboat',
+  description: 'Contact Astroboat with corrections, source questions, feedback, or collaboration enquiries.',
+  path: '/contact',
+  noindex: false
+})
+
+export default function ContactPage() {
+  return (
+    <PageShell className="max-w-3xl">
+      <PageHeader
+        eyebrow="Contact"
+        title="Contact Astroboat"
+        subtitle="For feedback, bug reports, collaboration, or suggestions, contact Astroboat directly."
+      />
+
+      <AstroCard className="p-5 sm:p-6">
+        <h2 className="font-display text-2xl font-normal text-astro-text">Email</h2>
+        <p className="mt-3 text-sm leading-7 text-astro-muted">
+          Send a clear note with the page, issue, or idea you want to discuss.
+        </p>
+        <a
+          href="mailto:khushaldangar29@gmail.com"
+          className="cosmic-secondary mt-5 inline-flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-astro-blue/25"
+        >
+          khushaldangar29@gmail.com
+        </a>
+      </AstroCard>
+    </PageShell>
+  );
+}

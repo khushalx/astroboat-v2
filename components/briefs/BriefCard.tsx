@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { AstroCard } from "@/components/ui/AstroCard";
+import { BriefImage } from "@/components/briefs/BriefImage";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { AstronomyBrief } from "@/lib/types";
 import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
+import { TrackedLink } from "@/components/analytics/EditorialActions";
 
 type BriefCardProps = {
   brief: AstronomyBrief;
@@ -14,45 +15,39 @@ export function BriefCard({ brief }: BriefCardProps) {
   const originalHref = getOriginalHref(brief.originalUrl);
 
   return (
-    <AstroCard as="article" className="flex h-full flex-col p-6 sm:p-7" interactive>
-      <div className="flex flex-wrap items-center gap-2">
-        <SourceBadge source={brief.source.name} />
-        <DataBadge label={category} />
-        <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
-        <span className="font-mono text-xs text-astro-muted">{brief.readingTime}</span>
-      </div>
+    <article className="group grid min-h-36 grid-cols-[6.5rem_minmax(0,1fr)] gap-4 p-3 transition-colors hover:bg-white/[0.018] sm:grid-cols-[10rem_minmax(0,1fr)] sm:p-4">
+      <BriefImage
+        src={brief.imageUrl}
+        alt={brief.title}
+        source={brief.source.name}
+        category={category}
+        tags={brief.tags}
+        title={brief.title}
+        className="!h-full min-h-28"
+      />
 
-      <Link href={`/briefs/${brief.slug}`} className="group mt-5 block focus:outline-none focus:ring-2 focus:ring-astro-blue/40">
-        <h2 className="text-xl font-semibold leading-8 text-astro-text transition group-hover:text-astro-blue">{brief.title}</h2>
-      </Link>
-      <p className="mt-4 text-base leading-8 text-astro-muted">{getBriefSummary(brief, 2)}</p>
-
-      <div className="mt-6 rounded-lg border border-astro-border bg-astro-bg/35 p-4">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-astro-gold">Why it matters</p>
-        <p className="mt-2 text-sm leading-7 text-astro-muted">{brief.why}</p>
-      </div>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {brief.tags.map((tag) => (
-          <span key={tag} className="rounded-full border border-astro-border bg-astro-bg/30 px-2.5 py-1 text-xs text-astro-muted">
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {originalHref ? (
-        <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row">
-          <Link
-            href={originalHref}
-            target={originalHref.startsWith("http") ? "_blank" : undefined}
-            rel={originalHref.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="inline-flex justify-center rounded-md border border-astro-border bg-astro-bg/20 px-3 py-2 text-sm font-medium text-astro-text transition hover:border-astro-blue/45 hover:text-astro-blue focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
-          >
-            Read original
-          </Link>
+      <div className="flex min-w-0 flex-col">
+        <div className="flex flex-wrap items-center gap-2">
+          <SourceBadge source={brief.source.name} />
+          <DataBadge label={category} />
+          <span className="font-mono text-[11px] text-[color:var(--text-dim)] sm:ml-auto">{formatBriefDate(brief.publishedAt)}</span>
         </div>
-      ) : null}
-    </AstroCard>
+
+        <Link href={`/briefs/${brief.slug}`} className="mt-3 block focus:outline-none focus:ring-2 focus:ring-astro-blue/35">
+          <h2 className="line-clamp-2 font-display text-lg font-normal leading-6 tracking-[-0.01em] text-astro-text transition group-hover:text-astro-blue sm:text-xl sm:leading-7">{brief.title}</h2>
+        </Link>
+        <p className="mt-1.5 hidden line-clamp-2 text-sm leading-6 text-astro-muted sm:block">{getBriefSummary(brief, 1)}</p>
+
+        {originalHref ? (
+          <TrackedLink event="original_source_clicked"
+            href={originalHref}
+            className="mt-auto w-fit pt-3 text-xs font-medium text-astro-blue transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
+          >
+            Original source <span aria-hidden="true">↗</span>
+          </TrackedLink>
+        ) : null}
+      </div>
+    </article>
   );
 }
 

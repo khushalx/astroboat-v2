@@ -1,4 +1,4 @@
-export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home";
+export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant" | "Gallery" | "Guide";
 
 export type SearchIndexItem = {
   title: string;
@@ -10,11 +10,18 @@ export type SearchIndexItem = {
 
 export const searchIndex: SearchIndexItem[] = [
   {
-    title: "Home",
-    description: "Astroboat overview and today's observatory board",
+    title: "Discover Astroboat",
+    description: "Explore astronomy, space imagery, and your sky at a glance",
     url: "/",
     kind: "Home",
-    keywords: ["overview", "observatory", "dashboard", "today", "astroboat"]
+    keywords: ["home", "discover", "overview", "observatory", "dashboard", "today", "astroboat"]
+  },
+  {
+    title: "Astronomy Gallery",
+    description: "High-resolution imagery of galaxies, nebulae, planets, and deep-space missions from NASA, JWST, and Hubble",
+    url: "/gallery",
+    kind: "Gallery",
+    keywords: ["gallery", "images", "photos", "jwst", "hubble", "apod", "galaxies", "nebulae", "planets", "deep space", "spacecraft", "astrophotography"]
   },
   {
     title: "Astronomy Briefs",
@@ -22,6 +29,20 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/briefs",
     kind: "Feed",
     keywords: ["news", "summaries", "nasa", "esa", "arxiv", "apod", "research", "astronomy updates"]
+  },
+  {
+    title: "Astronomy Guides",
+    description: "Source-linked explainers for the ideas behind Astroboat's live tools",
+    url: "/guides",
+    kind: "Guide",
+    keywords: ["guides", "learn", "explainers", "astronomy basics", "asteroids", "near-earth objects"]
+  },
+  {
+    title: "What Is a Near-Earth Object?",
+    description: "Understand near-Earth asteroids, close approaches, and hazard labels",
+    url: "/guides/what-is-a-near-earth-object",
+    kind: "Guide",
+    keywords: ["neo", "asteroid", "comet", "close approach", "planetary defense"]
   },
   {
     title: "Space Events Calendar",
@@ -43,9 +64,16 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/asteroids",
     kind: "Tracker",
     keywords: ["asteroid", "neo", "near earth object", "jpl", "close approach", "planetary defense"]
+  },
+  {
+    title: "Ask Astroboat",
+    description: "Ask simple astronomy chatbot questions about Moon phases, events, asteroids, and space science",
+    url: "/ask",
+    kind: "Assistant",
+    keywords: ["ask", "chatbot", "assistant", "questions", "astronomy basics", "space science"]
   }
 ];
 
 export const quickSearchItems = searchIndex.filter((item) =>
-  ["Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch"].includes(item.title)
+  ["Astronomy Gallery", "Moon Phase Dashboard", "Space Events Calendar", "Astronomy Briefs", "Asteroid Watch", "Ask Astroboat"].includes(item.title)
 );

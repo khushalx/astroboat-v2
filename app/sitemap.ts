@@ -1,44 +1,20 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/seo";
+import { publishedGuides } from "@/lib/guides";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://astroboat.in";
-
-function absoluteUrl(path: string) {
-  return new URL(path, SITE_URL).toString();
-}
-
+// Only canonical public pages are listed. A deployment is not an edit.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const staticPaths = [
+    "/", "/gallery", "/briefs", "/events", "/moon", "/asteroids",
+    "/guides", "/about", "/data-sources", "/contact", "/editorial-policy",
+    "/privacy", "/terms"
+  ];
 
   return [
-    {
-      url: absoluteUrl("/"),
-      lastModified,
-      changeFrequency: "daily",
-      priority: 1
-    },
-    {
-      url: absoluteUrl("/briefs"),
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/events"),
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/moon"),
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.8
-    },
-    {
-      url: absoluteUrl("/asteroids"),
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.8
-    }
+    ...staticPaths.map((path) => ({ url: absoluteUrl(path) })),
+    ...publishedGuides.map((guide) => ({
+      url: absoluteUrl(`/guides/${guide.slug}`),
+      lastModified: new Date(guide.updatedAt ?? guide.publishedAt)
+    }))
   ];
 }

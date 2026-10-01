@@ -1,6 +1,6 @@
 export type SourceInfo = {
   id: string;
-  name: "NASA" | "ESA" | "JPL" | "USNO" | "Space Devs" | "arXiv" | "ISRO" | "Astroboat" | "APOD";
+  name: string;
   kind: "agency" | "archive" | "research" | "platform" | "internal";
   credibility: "Primary" | "Reviewed" | "Preprint" | "Editorial";
 };
@@ -32,6 +32,7 @@ export type VisibilityRegion = "Worldwide" | "Region-specific" | "Online" | "Ind
 export type AstronomyBrief = {
   id: string;
   slug: string;
+  legacySlug?: string;
   source: SourceInfo;
   originalUrl: string;
   title: string;
@@ -44,7 +45,33 @@ export type AstronomyBrief = {
   difficulty?: "Beginner" | "Intermediate" | "Research";
   imageUrl?: string;
   beginnerExplanation?: string;
+  // Machine summaries are source digests; only reviewed, original analysis can be indexed.
+  quality?: "source_digest" | "original_analysis";
+  takeaway?: string;
+  context?: string;
+  whatNext?: string;
+  importantNumbers?: string[];
+  updatedAt?: string;
+  author?: string;
   isFallback?: boolean;
+};
+
+export type BriefSourceStatus = {
+  id: string;
+  name: string;
+  enabled: boolean;
+  count: number;
+  ok: boolean;
+  error?: string;
+};
+
+export type BriefsResult = {
+  briefs: AstronomyBrief[];
+  sourceStatuses: BriefSourceStatus[];
+  lastChecked: string;
+  latestItemDate?: string;
+  isFallback: boolean;
+  warnings: string[];
 };
 
 export type SpaceEvent = {
@@ -238,4 +265,54 @@ export type ToolCard = {
   href: string;
   description: string;
   status: "Ready" | "Mock data" | "Prototype" | "Coming Next";
+};
+
+export type GalleryCategory =
+  | "All"
+  | "Galaxies"
+  | "Nebulae"
+  | "Deep Space"
+  | "Planets"
+  | "Moon"
+  | "Sun"
+  | "Earth"
+  | "Stars"
+  | "Missions";
+
+export type GallerySource =
+  | "NASA APOD"
+  | "NASA Image Library"
+  | "ESA / Webb"
+  | "Hubble"
+  | "ESO"
+  | "Observatory Archive";
+
+export type GalleryImage = {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  thumbnailUrl: string;
+  hdImageUrl?: string;
+  source: GallerySource;
+  sourceUrl: string;
+  credit: string;
+  date: string;
+  category: GalleryCategory;
+  objectName?: string;
+  observatory?: string;
+  distance?: string;
+  aspectRatio?: number;
+  featured?: boolean;
+  isFallback?: boolean;
+};
+
+export type GalleryResult = {
+  images: GalleryImage[];
+  featuredImage: GalleryImage | null;
+  categories: string[];
+  total: number;
+  lastUpdated: string;
+  isFallback: boolean;
+  warnings: string[];
 };

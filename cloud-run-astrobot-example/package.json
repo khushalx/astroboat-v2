@@ -1,0 +1,13 @@
+{
+  "name": "astroboat-cloud-run-astrobot-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google-cloud/vertexai": "^1.10.0",
+    "express": "^4.19.2"
+  }
+}
