@@ -1,0 +1,10 @@
+{
+  "unit":"INR crore",
+  "basis":"Consolidated",
+  "cutoff":"2026-10-01",
+  "rows":[
+    {"year":"FY2023–24","revenue":35494.73,"pat":5557.69,"owners_profit":5460.23,"ebitda":8272.94,"other_income":687.96,"exceptional_charge":0,"eps":56.95},
+    {"year":"FY2024–25","revenue":33905.62,"pat":3709.71,"owners_profit":3667.23,"ebitda":6578.82,"other_income":572.61,"exceptional_charge":363.10,"eps":38.25},
+    {"year":"FY2025–26","revenue":35583.54,"pat":4394.69,"owners_profit":4325.35,"ebitda":7419.72,"other_income":723.80,"exceptional_charge":157.61,"eps":45.12}
+  ]
+}
