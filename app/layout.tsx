@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
+import { Analytics } from "@vercel/analytics/next";
 import { DEFAULT_OG_IMAGE, SITE_URL, safeJsonLd } from "@/lib/seo";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
@@ -136,6 +137,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <GlobalSearch />
+        <Analytics />
         {process.env.NEXT_PUBLIC_GA_ID ? <GoogleAnalytics id={process.env.NEXT_PUBLIC_GA_ID} /> : null}
       </body>
     </html>
