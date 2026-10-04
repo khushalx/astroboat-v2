@@ -8,6 +8,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DEFAULT_OG_IMAGE, SITE_URL, safeJsonLd } from "@/lib/seo";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
@@ -138,6 +139,7 @@ export default function RootLayout({
         </div>
         <GlobalSearch />
         <Analytics />
+        <SpeedInsights />
         {process.env.NEXT_PUBLIC_GA_ID ? <GoogleAnalytics id={process.env.NEXT_PUBLIC_GA_ID} /> : null}
       </body>
     </html>
