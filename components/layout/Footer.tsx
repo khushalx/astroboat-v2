@@ -21,6 +21,16 @@ export function Footer() {
           <div>
             <Link href="/" aria-label="Astroboat home"><Brand /></Link>
             <p className="mt-4 text-sm text-astro-muted">For the endlessly curious.</p>
+            <a href="https://rankcert.com/product/astroboat-1" target="_blank" rel="noopener" className="mt-6 inline-block">
+              {/* eslint-disable-next-line @next/next/no-img-element -- RankCert requires its hosted badge URL. */}
+              <img
+                src="https://rankcert.com/badge/astroboat-1?style=card&theme=dark"
+                alt="Astroboat on RankCert"
+                width="240"
+                height="64"
+                loading="eager"
+              />
+            </a>
           </div>
           <Link href="/ask" className="footer-invitation">There’s a whole universe to ask about.<ArrowIcon diagonal /></Link>
         </div>
