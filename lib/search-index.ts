@@ -1,3 +1,5 @@
+import { publishedGuides } from "@/lib/guides";
+
 export type SearchItemKind = "Tool" | "Feed" | "Calendar" | "Tracker" | "Home" | "Assistant" | "Gallery" | "Guide";
 
 export type SearchIndexItem = {
@@ -38,13 +40,6 @@ export const searchIndex: SearchIndexItem[] = [
     keywords: ["guides", "learn", "explainers", "astronomy basics", "asteroids", "near-earth objects"]
   },
   {
-    title: "What Is a Near-Earth Object?",
-    description: "Understand near-Earth asteroids, close approaches, and hazard labels",
-    url: "/guides/what-is-a-near-earth-object",
-    kind: "Guide",
-    keywords: ["neo", "asteroid", "comet", "close approach", "planetary defense"]
-  },
-  {
     title: "Space Events Calendar",
     description: "Global launches, mission events, crewed spaceflight updates, and selected sky events",
     url: "/events",
@@ -71,7 +66,14 @@ export const searchIndex: SearchIndexItem[] = [
     url: "/ask",
     kind: "Assistant",
     keywords: ["ask", "chatbot", "assistant", "questions", "astronomy basics", "space science"]
-  }
+  },
+  ...publishedGuides.map((guide): SearchIndexItem => ({
+    title: guide.title,
+    description: guide.description,
+    url: `/guides/${guide.slug}`,
+    kind: "Guide",
+    keywords: [guide.category, ...guide.tags]
+  }))
 ];
 
 export const quickSearchItems = searchIndex.filter((item) =>

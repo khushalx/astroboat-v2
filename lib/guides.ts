@@ -1,3 +1,5 @@
+import { astronomyGuides } from "@/lib/guide-library";
+
 export type Guide = {
   slug: string;
   title: string;
@@ -20,7 +22,7 @@ export type Guide = {
   status: "published" | "draft";
 };
 
-// Add hand-reviewed guides here. Drafts stay out of public routes and the sitemap.
+// Drafts stay out of public routes, search, RSS, and the sitemap.
 const guides: Guide[] = [
   {
     slug: "what-is-a-near-earth-object",
@@ -80,7 +82,7 @@ const guides: Guide[] = [
   }
 ];
 
-export const publishedGuides = guides.filter((guide) => guide.status === "published");
+export const publishedGuides = [...guides, ...astronomyGuides].filter((guide) => guide.status === "published");
 
 export function getPublishedGuide(slug: string) {
   return publishedGuides.find((guide) => guide.slug === slug);
