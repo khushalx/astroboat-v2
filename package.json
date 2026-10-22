@@ -9,7 +9,8 @@
     "lint": "eslint app components lib services --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
     "seo:audit": "node scripts/seo-audit.mjs",
-    "test:assistant": "node --test tests/astrobot-route.test.cjs"
+    "test:assistant": "node --test tests/astrobot-route.test.cjs",
+    "test:guides": "node --test tests/guides.test.cjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

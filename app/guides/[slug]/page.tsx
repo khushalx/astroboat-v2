@@ -81,11 +81,33 @@ export default async function GuidePage({ params }: Props) {
         </figure>
       ) : null}
       <div className="mt-9 grid gap-10 md:grid-cols-[minmax(0,1fr)_12rem]">
-        <div className="max-w-[68ch]">
+        <div className="min-w-0 max-w-[68ch]">
           {guide.sections.map((section) => (
             <section key={section.id} id={section.id} className="mb-10 scroll-mt-24">
               <h2 className="font-display text-2xl text-astro-text">{section.heading}</h2>
               {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-8 text-astro-muted">{paragraph}</p>)}
+              {section.list ? (() => {
+                const List = section.list.ordered ? "ol" : "ul";
+                return <List className={`mt-4 space-y-3 pl-6 text-base leading-8 text-astro-muted ${section.list.ordered ? "list-decimal" : "list-disc"}`}>
+                  {section.list.items.map((item) => <li key={item}>{item}</li>)}
+                </List>;
+              })() : null}
+              {section.table ? (
+                <div className="mt-5 overflow-x-auto rounded-lg border border-astro-border" role="region" aria-label={section.table.caption} tabIndex={0}>
+                  <table className="w-full text-left text-sm leading-7 text-astro-muted">
+                    <caption className="border-b border-astro-border px-4 py-3 text-left font-medium text-astro-text">{section.table.caption}</caption>
+                    <thead><tr>{section.table.columns.map((column) => <th key={column} scope="col" className="border-b border-astro-border px-4 py-3 font-medium text-astro-text">{column}</th>)}</tr></thead>
+                    <tbody>{section.table.rows.map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0
+                      ? <th key={index} scope="row" className="border-b border-astro-border px-4 py-3 font-medium text-astro-text">{cell}</th>
+                      : <td key={index} className="border-b border-astro-border px-4 py-3">{cell}</td>)}</tr>)}</tbody>
+                  </table>
+                </div>
+              ) : null}
+              {section.sourceUrls?.length ? (
+                <p className="mt-4 text-xs leading-6 text-astro-muted">Reference: {section.sourceUrls.map((url, index) => (
+                  <span key={url}>{index > 0 ? "; " : ""}<TrackedLink event="original_source_clicked" href={url} className="text-astro-blue hover:underline">{guide.sources.find((source) => source.url === url)?.label ?? "Primary source"}</TrackedLink></span>
+                ))}</p>
+              ) : null}
             </section>
           ))}
           <section className="border-t border-astro-border pt-8">

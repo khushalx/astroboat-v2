@@ -16,7 +16,14 @@ export type Guide = {
   seoTitle?: string;
   seoDescription?: string;
   showTableOfContents?: boolean;
-  sections: { id: string; heading: string; paragraphs: string[] }[];
+  sections: {
+    id: string;
+    heading: string;
+    paragraphs: string[];
+    list?: { ordered?: boolean; items: string[] };
+    table?: { caption: string; columns: string[]; rows: string[][] };
+    sourceUrls?: string[];
+  }[];
   sources: { label: string; url: string }[];
   relatedPaths: { label: string; href: string }[];
   status: "published" | "draft";
