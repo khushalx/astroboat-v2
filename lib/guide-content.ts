@@ -1034,4 +1034,101 @@ export const guideSections: Record<string, Guide["sections"]> = {
       ] }
     }
   ],
+  "how-to-spot-the-space-station": [
+    {
+      id: "what-to-look-for", heading: "Look for a moving point of light",
+      paragraphs: [
+        "The International Space Station can look like a bright point moving steadily across the sky. You are seeing reflected sunlight, not the station's lights. You do not need a telescope for a favorable pass.",
+        "Visible passes often happen around dawn or dusk, when your sky is relatively dark but the station is still sunlit. Not every pass above your location will be visible."
+      ], sourceUrls: ["https://www.nasa.gov/spot-the-station/", "https://www.nasa.gov/international-space-station/space-station-facts-and-figures/"]
+    },
+    {
+      id: "check-the-pass", heading: "Check a prediction for your location",
+      paragraphs: [
+        "Use NASA's Spot the Station information to find a pass for your city or observing location. Check the date, time zone, direction of appearance, and maximum elevation before going outside.",
+        "Elevation is the angle above the horizon: 0 degrees is on the horizon and 90 degrees is overhead. A high pass is usually easier to follow than one hidden behind roofs and trees."
+      ], sourceUrls: ["https://www.nasa.gov/spot-the-station/"]
+    },
+    {
+      id: "first-attempt", heading: "Make your first attempt simple",
+      paragraphs: ["Choose a safe spot with a clear view along the predicted path. Start with your eyes so you can scan a wide area without trying to track through binoculars."],
+      list: { ordered: true, items: [
+        "Arrive a few minutes early and identify the predicted starting direction.",
+        "Look for a moving light at the expected time, then follow its path.",
+        "Compare both timing and direction before deciding you saw the station. Other satellites can look similar."
+      ] }
+    },
+    {
+      id: "disappearing", heading: "Why it might disappear",
+      paragraphs: [
+        "The station may fade before reaching the horizon because it enters Earth's shadow. Cloud can also hide it. Neither means it has stopped moving.",
+        "Recheck the prediction before observing, because orbital changes can affect pass times. Never point a laser at a passing object, and avoid looking near the Sun with binoculars or a telescope."
+      ]
+    }
+  ],
+  "twilight-civil-nautical-astronomical": [
+    {
+      id: "after-sunset", heading: "Sunset is not the start of darkness",
+      paragraphs: [
+        "The sky stays bright after sunset because sunlight still reaches the atmosphere above you. As the Sun sinks farther below the horizon, that scattered light fades. The same process runs in reverse before sunrise.",
+        "How long this takes depends on your latitude and the season. Waiting a fixed half-hour after sunset will not give the same sky conditions everywhere."
+      ], sourceUrls: ["https://aa.usno.navy.mil/faq/RST_defs"]
+    },
+    {
+      id: "three-stages", heading: "Know the three stages",
+      paragraphs: ["Twilight stages use the position of the Sun's center below the horizon. They describe a gradual transition, not a sudden change in the sky."],
+      list: { items: [
+        "Civil twilight: from sunset until the Sun's center is 6 degrees below the horizon. The sky is still bright.",
+        "Nautical twilight: from 6 to 12 degrees below. More stars become visible as the sky darkens.",
+        "Astronomical twilight: from 12 to 18 degrees below. After it ends, ordinary twilight is no longer the main limit on darkness."
+      ] }, sourceUrls: ["https://www.weather.gov/fsd/twilight"]
+    },
+    {
+      id: "choose-a-time", heading: "Match your timing to the target",
+      paragraphs: [
+        "For faint stars or a meteor shower, look for an interval after astronomical twilight with little Moon interference. For a bright Moon or planet, twilight can still offer a useful view. A low western target may set before full darkness.",
+        "As a planning example, if astronomical twilight ends at 20:00 and the Moon rises at 21:00, that hour may be worth considering. Those are illustrative times, not tonight's forecast; cloud and the target's position still matter."
+      ]
+    },
+    {
+      id: "check-conditions", heading: "Check more than the clock",
+      paragraphs: [
+        "Use a location-specific twilight table, confirm its time zone, and check Moonrise, Moonset, and weather. City lights, haze, and moonlight can keep a sky bright even after astronomical twilight.",
+        "At some high-latitude locations in summer, astronomical twilight never ends because the Sun does not sink far enough. A missing darkness interval can be a real seasonal result, not a broken prediction."
+      ], sourceUrls: ["https://aa.usno.navy.mil/faq/RST_defs"]
+    }
+  ],
+  "photographing-the-night-sky-with-a-phone": [
+    {
+      id: "pick-a-target", heading: "Start with a bright star pattern",
+      paragraphs: [
+        "Try a bright constellation above a clear horizon rather than a faint galaxy. A few recognizable stars and a simple foreground make a good first photograph. You can start with the phone you already own.",
+        "Choose a safe observing spot away from direct lights. Clean the camera lens and use the main wide camera as a starting point. Digital zoom enlarges a crop; it does not add telescope-like detail."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/astrophotography-with-your-smartphone/"]
+    },
+    {
+      id: "steady-the-phone", heading: "Keep the phone steady",
+      paragraphs: [
+        "Rest the phone on a secure support or a tripod and use a shutter timer. Even a small movement when you tap the screen can blur a longer exposure.",
+        "Try night mode if your camera offers it. Some phones combine several frames, so keep the phone still until the capture finishes. If focus controls are available, check a distant bright target and inspect whether the stars look sharp."
+      ], sourceUrls: ["https://science.nasa.gov/learn/heat/resource/a-guide-to-smartphone-astrophotography/"]
+    },
+    {
+      id: "test-and-compare", heading: "Change one thing at a time",
+      paragraphs: ["Phone cameras and sky conditions vary, so there is no universal exposure setting. Take a baseline image, then change one available control and compare the results."],
+      list: { items: [
+        "If everything looks smeared, improve support and check focus.",
+        "If stars form short trails, try a shorter exposure or capture duration.",
+        "If the sky looks washed out, reduce exposure or find less nearby glare.",
+        "If the Moon is a white disk, expose separately for it rather than for the dark sky."
+      ] }
+    },
+    {
+      id: "keep-the-original", heading: "Keep the original and a short note",
+      paragraphs: [
+        "Save the original file and note the location, time, and settings. Modest brightness and contrast adjustments can help, but heavy sharpening cannot restore detail that was never captured.",
+        "If you combine exposures or use generative editing, label that clearly when sharing. A simple, honest image of a few stars is a better learning result than invented astronomical detail."
+      ]
+    }
+  ],
 };

@@ -28,6 +28,12 @@ function load(relativePath) {
 const { publishedGuides, getPublishedGuide } = load('lib/guides.ts');
 const { astronomyGuides } = load('lib/guide-library.ts');
 const { guideSections } = load('lib/guide-content.ts');
+const { searchIndex } = load('lib/search-index.ts');
+const newSlugs = new Set([
+  'how-to-spot-the-space-station',
+  'twilight-civil-nautical-astronomical',
+  'photographing-the-night-sky-with-a-phone'
+]);
 
 function readingText(guide) {
   return guide.sections.flatMap((section) => [section.heading, ...section.paragraphs,
@@ -36,20 +42,38 @@ function readingText(guide) {
   ]).join(' ');
 }
 
-test('all 25 revisions map to published guides without dropping the original guide', () => {
-  assert.equal(astronomyGuides.length, 25);
-  assert.equal(publishedGuides.length, 26);
+test('3 simple guides join the 25 revisions without dropping the original guide', () => {
+  assert.equal(astronomyGuides.length, 28);
+  assert.equal(publishedGuides.length, 29);
   assert.equal(Object.keys(guideSections).sort().join(','), astronomyGuides.map((guide) => guide.slug).sort().join(','));
   assert.equal(new Set(publishedGuides.map((guide) => guide.slug)).size, publishedGuides.length);
   assert.equal(getPublishedGuide('what-is-a-near-earth-object').publishedAt, '2026-09-30');
   assert.equal(getPublishedGuide('not-a-published-guide'), undefined);
+  assert.equal(new Set(publishedGuides.map((guide) => guide.title.toLowerCase())).size, publishedGuides.length);
+  assert.equal(publishedGuides.slice(0, newSlugs.size).map((guide) => guide.slug).sort().join(','), [...newSlugs].sort().join(','));
+  for (let i = 1; i < publishedGuides.length; i++) {
+    assert.ok(publishedGuides[i - 1].publishedAt >= publishedGuides[i].publishedAt);
+  }
+});
+
+test('every published guide has exactly one searchable entry', () => {
+  for (const guide of publishedGuides) {
+    const entries = searchIndex.filter((item) => item.url === `/guides/${guide.slug}`);
+    assert.equal(entries.length, 1, guide.slug);
+    assert.equal(entries[0].title, guide.title);
+    assert.equal(entries[0].description, guide.description);
+    assert.equal(entries[0].kind, 'Guide');
+    assert.ok(entries[0].keywords.includes(guide.category));
+    for (const tag of guide.tags) assert.ok(entries[0].keywords.includes(tag));
+  }
 });
 
 for (const guide of astronomyGuides) {
   test(`${guide.slug}: navigable sections, valid citations, and complete reading time`, () => {
     assert.equal(guide.status, 'published');
-    assert.equal(guide.publishedAt, '2026-10-21');
-    assert.equal(guide.updatedAt, '2026-10-22');
+    const isNew = newSlugs.has(guide.slug);
+    assert.equal(guide.publishedAt, isNew ? '2026-10-24' : '2026-10-21');
+    assert.equal(guide.updatedAt, isNew ? undefined : '2026-10-22');
     assert.ok(guide.aiAssisted);
     assert.ok(guide.sections.length >= 4);
     const ids = new Set();
@@ -83,6 +107,7 @@ for (const guide of astronomyGuides) {
 
     assert.ok(guide.sections.some((section) => section.sourceUrls?.length));
     const words = readingText(guide).split(/\s+/).length;
+    if (isNew) assert.ok(words >= 250 && words <= 400, `Keep new guides short and useful: ${words} words`);
     assert.equal(guide.readingMinutes, Math.max(1, Math.ceil(words / 200)));
     for (const item of guide.relatedPaths) {
       if (item.href.startsWith('/guides/')) assert.ok(getPublishedGuide(item.href.slice('/guides/'.length)), `Missing related guide ${item.href}`);
@@ -91,7 +116,7 @@ for (const guide of astronomyGuides) {
   });
 }
 
-test('revisions do not repeat whole explanatory paragraphs across topics', () => {
+test('guides do not repeat whole explanatory paragraphs across topics', () => {
   const seen = new Set();
   for (const guide of astronomyGuides) {
     for (const paragraph of guide.sections.flatMap((section) => section.paragraphs)) {
@@ -140,7 +165,7 @@ test('published HTML, citations, tables, RSS, and sitemap', { skip: !baseUrl }, 
   for (const guide of astronomyGuides) {
     const entry = sitemap.urlset.url.find((item) => item.loc.endsWith(`/guides/${guide.slug}`));
     assert.ok(entry, `Missing sitemap entry: ${guide.slug}`);
-    assert.ok(String(entry.lastmod).startsWith(guide.updatedAt));
+    assert.ok(String(entry.lastmod).startsWith(guide.updatedAt ?? guide.publishedAt));
   }
   assert.equal((await fetch(new URL('/guides/not-a-published-guide', baseUrl))).status, 404);
 });

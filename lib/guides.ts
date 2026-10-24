@@ -89,7 +89,9 @@ const guides: Guide[] = [
   }
 ];
 
-export const publishedGuides = [...guides, ...astronomyGuides].filter((guide) => guide.status === "published");
+export const publishedGuides = [...guides, ...astronomyGuides]
+  .filter((guide) => guide.status === "published")
+  .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
 export function getPublishedGuide(slug: string) {
   return publishedGuides.find((guide) => guide.slug === slug);

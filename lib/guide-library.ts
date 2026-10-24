@@ -1,11 +1,13 @@
 import type { Guide } from "@/lib/guides";
 import { guideSections } from "@/lib/guide-content";
 
-type GuideEntry = Pick<Guide, "slug" | "title" | "description" | "category" | "tags" | "sources" | "relatedPaths">;
+type GuideEntry = Pick<Guide, "slug" | "title" | "description" | "publishedAt" | "updatedAt" | "category" | "tags" | "sources" | "relatedPaths">;
 
 const entries: GuideEntry[] = [
   {
     slug: "understanding-moon-phases",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Moon Phases: Why the Moon Changes Shape",
     description: "Understand waxing, waning, quarter phases, and illumination so you can make sense of the Moon at a glance.",
     category: "Moon",
@@ -18,6 +20,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "how-to-observe-the-moon",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "How to Observe the Moon for the First Time",
     description: "A simple observing session for finding lunar seas, craters, and shadows with your eyes or binoculars.",
     category: "Moon",
@@ -30,6 +34,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "moonrise-moonset-and-local-time",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Moonrise, Moonset, and UTC: Reading Sky Times",
     description: "Why the Moon is not always up at night, how location changes rise times, and how to convert UTC to your clock.",
     category: "Moon",
@@ -42,6 +48,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "solar-eclipses-and-eye-safety",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Solar Eclipses: What Happens and How to Watch Safely",
     description: "Understand partial, annular, and total eclipses, with the essential distinction between solar viewers and telescope filters.",
     category: "Skywatching",
@@ -56,6 +64,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "lunar-eclipses-explained",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Lunar Eclipses: Why the Moon Can Turn Red",
     description: "Learn what Earth's shadow does to a full Moon and why a lunar eclipse is different from an ordinary phase.",
     category: "Moon",
@@ -68,6 +78,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "how-to-watch-a-meteor-shower",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "How to Watch a Meteor Shower",
     description: "Plan for darkness, the radiant, Moon interference, and realistic expectations rather than headline meteor counts.",
     category: "Skywatching",
@@ -80,6 +92,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "planets-conjunctions-and-opposition",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Planet Conjunctions and Opposition: What to Look For",
     description: "Decode close planetary pairings, the ecliptic, and opposition without mistaking a sky alignment for a physical encounter.",
     category: "Skywatching",
@@ -92,6 +106,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "constellations-and-star-charts",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Constellations and Star Charts for Beginners",
     description: "Find your bearings with a few bright stars, understand asterisms, and avoid using a chart for the wrong place or season.",
     category: "Skywatching",
@@ -104,6 +120,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "light-pollution-and-dark-skies",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Light Pollution: Finding a Better View of the Stars",
     description: "Understand skyglow, nearby glare, and the changes that help you observe from a city or a darker site.",
     category: "Skywatching",
@@ -116,6 +134,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "binoculars-for-stargazing",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Stargazing with Binoculars You Already Own",
     description: "Use a steady, wide-field view to explore lunar detail, star clusters, and bright targets without starting with a telescope.",
     category: "Skywatching",
@@ -129,6 +149,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "telescope-basics-aperture-and-magnification",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Telescope Basics: Light Comes Before Magnification",
     description: "Understand aperture, focus, eyepieces, and a steady mount before your first telescope observing session.",
     category: "Skywatching",
@@ -142,6 +164,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "why-earth-has-seasons",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Why Earth Has Seasons, Solstices, and Equinoxes",
     description: "See how Earth's tilted axis changes daylight and why the two hemispheres have opposite seasons.",
     category: "Astronomy Basics",
@@ -154,6 +178,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "auroras-and-space-weather",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Auroras and Space Weather: Why the Sky Glows",
     description: "Connect the northern and southern lights to solar activity, Earth's magnetic environment, and realistic observing forecasts.",
     category: "Space Science",
@@ -167,6 +193,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "asteroids-comets-and-meteorites",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Asteroid, Comet, Meteor, or Meteorite?",
     description: "Separate the objects traveling through space from the light streaks in our atmosphere and the material that reaches the ground.",
     category: "Asteroids",
@@ -179,6 +207,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "why-comets-have-tails",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Why Comets Have Tails, and Which Way They Point",
     description: "Meet the nucleus, coma, dust tail, and ion tail, and learn why a comet's tail does not simply trail behind its motion.",
     category: "Solar System",
@@ -192,6 +222,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "astronomical-distances-au-and-light-years",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "AU, Lunar Distance, and Light-Years Explained",
     description: "Choose the right scale for a Moon crossing, an asteroid approach, a planetary orbit, or a distant star.",
     category: "Astronomy Basics",
@@ -205,6 +237,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "how-stars-are-born-and-die",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "How Stars Are Born, Shine, and Die",
     description: "Follow a star from a collapsing cloud to a long fusion-powered life and an ending shaped largely by its mass.",
     category: "Deep Space",
@@ -217,6 +251,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "black-holes-explained",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Black Holes: What They Are and How We Find Them",
     description: "Understand event horizons, glowing accretion disks, and the observations that reveal an object light cannot escape.",
     category: "Deep Space",
@@ -229,6 +265,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "galaxies-and-our-milky-way",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Galaxies and the Milky Way: Finding Our Place",
     description: "Distinguish a galaxy from a solar system or a nebula, and understand why our home galaxy looks like a band of light.",
     category: "Deep Space",
@@ -241,6 +279,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "how-we-find-exoplanets",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "How Astronomers Find Planets Around Other Stars",
     description: "Explore transits, stellar wobble, direct imaging, and why a planet candidate needs follow-up observations.",
     category: "Deep Space",
@@ -253,6 +293,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "what-the-habitable-zone-means",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "The Habitable Zone Is Not a Promise of Life",
     description: "Understand what a planet's orbit can suggest about liquid water and what it cannot tell us about a living world.",
     category: "Space Science",
@@ -265,6 +307,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "webb-and-hubble-compared",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Webb and Hubble: Two Different Views of Space",
     description: "Why complementary wavelengths, mirrors, and observing locations matter more than deciding which telescope wins.",
     category: "Missions",
@@ -278,6 +322,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "how-to-read-space-images",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "How to Read a Space Image Beyond the Colors",
     description: "Use captions, filter keys, scale bars, and credits to understand what an astronomy image actually shows.",
     category: "Astronomy Basics",
@@ -290,6 +336,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "rocket-launch-windows-and-countdowns",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Launch Windows, Holds, and Scrubs Explained",
     description: "Read a launch listing and follow a countdown without confusing a scheduled target time with a guaranteed liftoff.",
     category: "Missions",
@@ -302,6 +350,8 @@ const entries: GuideEntry[] = [
   },
   {
     slug: "orbits-and-lagrange-points",
+    publishedAt: "2026-10-21",
+    updatedAt: "2026-10-22",
     title: "Earth Orbits and Lagrange Points: Where Missions Go",
     description: "Compare low Earth, geostationary, and polar orbits, then understand why some observatories operate around L1 or L2.",
     category: "Missions",
@@ -311,7 +361,46 @@ const entries: GuideEntry[] = [
       { label: "ESA: What Are Lagrange Points?", url: "https://www.esa.int/Enabling_Support/Operations/What_are_Lagrange_points" }
     ],
     relatedPaths: [{ label: "Follow mission milestones", href: "/events" }, { label: "Compare Webb and Hubble", href: "/guides/webb-and-hubble-compared" }]
-  }
+  },
+  {
+    slug: "how-to-spot-the-space-station",
+    publishedAt: "2026-10-24",
+    title: "How to Spot the International Space Station",
+    description: "Find a visible ISS pass, know where to look, and follow the station with your eyes.",
+    category: "Skywatching",
+    tags: ["ISS", "International Space Station", "Satellite passes", "Elevation"],
+    sources: [
+      { label: "NASA: Spot the Station", url: "https://www.nasa.gov/spot-the-station/" },
+      { label: "NASA: Space Station Facts and Figures", url: "https://www.nasa.gov/international-space-station/space-station-facts-and-figures/" }
+    ],
+    relatedPaths: [{ label: "Find your bearings with a star chart", href: "/guides/constellations-and-star-charts" }, { label: "Understand Earth orbits", href: "/guides/orbits-and-lagrange-points" }]
+  },
+  {
+    slug: "twilight-civil-nautical-astronomical",
+    publishedAt: "2026-10-24",
+    title: "When Is It Dark Enough to Stargaze?",
+    description: "Understand the three stages of twilight and choose a simple observing window.",
+    category: "Skywatching",
+    tags: ["Twilight", "Sunset", "Astronomical darkness", "Observing plans"],
+    sources: [
+      { label: "US Naval Observatory: Rise, Set, and Twilight Definitions", url: "https://aa.usno.navy.mil/faq/RST_defs" },
+      { label: "US National Weather Service: Types of Twilight", url: "https://www.weather.gov/fsd/twilight" }
+    ],
+    relatedPaths: [{ label: "Plan a meteor-shower session", href: "/guides/how-to-watch-a-meteor-shower" }, { label: "Check Moon conditions", href: "/moon" }]
+  },
+  {
+    slug: "photographing-the-night-sky-with-a-phone",
+    publishedAt: "2026-10-24",
+    title: "How to Photograph Stars with Your Phone",
+    description: "Take a first night-sky photo with a steady phone, a clear target, and a few simple checks.",
+    category: "Skywatching",
+    tags: ["Astrophotography", "Smartphone", "Night mode", "Exposure", "Photography"],
+    sources: [
+      { label: "NASA Night Sky Network: Astrophotography with Your Smartphone", url: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/astrophotography-with-your-smartphone/" },
+      { label: "NASA HEAT: A Guide to Smartphone Astrophotography", url: "https://science.nasa.gov/learn/heat/resource/a-guide-to-smartphone-astrophotography/" }
+    ],
+    relatedPaths: [{ label: "Understand twilight", href: "/guides/twilight-civil-nautical-astronomical" }, { label: "Read astronomy image processing", href: "/guides/how-to-read-space-images" }]
+  },
 ];
 
 export const astronomyGuides: Guide[] = entries.map((entry) => {
@@ -326,8 +415,6 @@ export const astronomyGuides: Guide[] = entries.map((entry) => {
   return {
     ...entry,
     sections,
-    publishedAt: "2026-10-21",
-    updatedAt: "2026-10-22",
     author: "Astroboat",
     aiAssisted: true,
     readingMinutes: Math.max(1, Math.ceil(words / 200)),
