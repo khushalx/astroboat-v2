@@ -401,6 +401,232 @@ const entries: GuideEntry[] = [
     ],
     relatedPaths: [{ label: "Understand twilight", href: "/guides/twilight-civil-nautical-astronomical" }, { label: "Read astronomy image processing", href: "/guides/how-to-read-space-images" }]
   },
+  {
+    slug: "sky-coordinates-altitude-and-azimuth", publishedAt: "2026-10-27",
+    title: "Altitude and Azimuth: Find Your Way Around the Sky",
+    description: "Turn a direction and an angle into a place to look, with a worked southwest-sky example.",
+    category: "Skywatching", tags: ["Altitude", "Azimuth", "Coordinates", "Horizon"],
+    sources: [
+      { label: "NASA JPL: Observer Coordinate FAQ", url: "https://ssd.jpl.nasa.gov/faq.html" },
+      { label: "NASA JPL: Horizons Manual", url: "https://ssd.jpl.nasa.gov/horizons/manual.html" }
+    ],
+    relatedPaths: [{ label: "Read a star chart", href: "/guides/constellations-and-star-charts" }, { label: "Spot the ISS", href: "/guides/how-to-spot-the-space-station" }]
+  },
+  {
+    slug: "stellar-magnitudes-and-brightness", publishedAt: "2026-10-27",
+    title: "Star Magnitudes: Smaller Numbers, Brighter Stars",
+    description: "Compare brightness without reversing the magnitude scale or confusing apparent and intrinsic light.",
+    category: "Astronomy Basics", tags: ["Magnitude", "Brightness", "Stars", "Absolute magnitude"],
+    sources: [
+      { label: "NASA Chandra: Magnitudes", url: "https://wwwastro.msfc.nasa.gov/solar/chandra101/variable_stars/mag.html" },
+      { label: "Las Cumbres Observatory: Absolute Magnitude", url: "https://lco.global/spacebook/distance/what-absolute-magnitude/" },
+      { label: "Las Cumbres Observatory: Magnitude and Color", url: "https://lco.global/spacebook/distance/magnitude-and-color/" }
+    ],
+    relatedPaths: [{ label: "Find darker skies", href: "/guides/light-pollution-and-dark-skies" }, { label: "Measure stellar distance", href: "/guides/stellar-parallax-and-distance" }]
+  },
+  {
+    slug: "earthshine-on-the-crescent-moon", publishedAt: "2026-10-27",
+    title: "Earthshine: See Earth's Light on the Moon",
+    description: "Understand the faint lunar disk beside a bright crescent and try a short evening observation.",
+    category: "Moon", tags: ["Earthshine", "Crescent Moon", "Reflected light"],
+    sources: [
+      { label: "NASA Earth Observatory: Earth's Reflections on the Moon", url: "https://science.nasa.gov/earth/earth-observatory/earths-reflections-on-the-moon-153044/" },
+      { label: "NASA Earth Observatory: Earthshine", url: "https://science.nasa.gov/earth/earth-observatory/earthshine-83782/" }
+    ],
+    relatedPaths: [{ label: "Check Moon conditions", href: "/moon" }, { label: "Understand Moon phases", href: "/guides/understanding-moon-phases" }]
+  },
+  {
+    slug: "why-the-moon-causes-tides", publishedAt: "2026-10-27",
+    title: "Why the Moon Causes Tides",
+    description: "Understand tidal stretching, spring and neap tides, and why a Moon phase is not a local tide forecast.",
+    category: "Moon", tags: ["Tides", "Gravity", "Spring tides", "Neap tides"],
+    sources: [
+      { label: "NOAA: Gravity and Tidal Bulges", url: "https://oceanservice.noaa.gov/education/tutorial_tides/tides03_gravity.html" },
+      { label: "NOAA: Spring and Neap Tides", url: "https://oceanservice.noaa.gov/facts/springtide.html" },
+      { label: "NOAA: The Moon and High Tide", url: "https://oceanservice.noaa.gov/facts/moon-tide.html" }
+    ],
+    relatedPaths: [{ label: "Learn lunar phases", href: "/guides/understanding-moon-phases" }, { label: "Explore the Moon page", href: "/moon" }]
+  },
+  {
+    slug: "how-planetary-defense-works", publishedAt: "2026-10-27",
+    title: "Planetary Defense: Finding and Deflecting Asteroids",
+    description: "Follow discovery, orbit refinement, and the DART demonstration without mistaking a watch list for an impact prediction.",
+    category: "Asteroids", tags: ["Planetary defense", "DART", "Sentry", "Impact probability"],
+    sources: [
+      { label: "NASA: Planetary Defense Explained", url: "https://science.nasa.gov/solar-system/10-things-you-should-know-about-planetary-defense/" },
+      { label: "NASA JPL CNEOS: Sentry Introduction", url: "https://cneos.jpl.nasa.gov/sentry/intro.html" },
+      { label: "NASA: DART", url: "https://science.nasa.gov/planetary-defense-dart/" }
+    ],
+    relatedPaths: [{ label: "Understand near-Earth objects", href: "/guides/what-is-a-near-earth-object" }, { label: "Open Asteroid Watch", href: "/asteroids" }]
+  },
+  {
+    slug: "isro-science-missions-and-instruments", publishedAt: "2026-10-27",
+    title: "ISRO Science Missions: What Do They Measure?",
+    description: "Compare the scientific jobs of Chandrayaan-3, Aditya-L1, and AstroSat through their instruments.",
+    category: "Missions", tags: ["ISRO", "Chandrayaan-3", "Aditya-L1", "AstroSat"],
+    sources: [
+      { label: "ISRO: Chandrayaan-3 Details", url: "https://www.isro.gov.in/ISRO_EN/Chandrayaan3_Details.html" },
+      { label: "ISRO: Aditya-L1 Details", url: "https://www.isro.gov.in/Aditya_L1-MissionDetails.html" },
+      { label: "ISRO: AstroSat", url: "https://www.isro.gov.in/AstroSat.html" }
+    ],
+    relatedPaths: [{ label: "Understand mission orbits", href: "/guides/orbits-and-lagrange-points" }, { label: "Read mission briefs", href: "/briefs" }]
+  },
+  {
+    slug: "spectroscopy-reading-starlight", publishedAt: "2026-10-27",
+    title: "Spectroscopy: Read the Information in Starlight",
+    description: "Learn what spectral lines can reveal about chemistry and motion, and what one unexplained dip cannot prove.",
+    category: "Space Science", tags: ["Spectroscopy", "Spectra", "Absorption", "Emission", "Doppler shift"],
+    sources: [
+      { label: "NASA Webb: Absorption and Emission Spectra", url: "https://science.nasa.gov/mission/webb/science-overview/science-explainers/spectroscopy-101-how-absorption-and-emission-spectra-work/" },
+      { label: "NASA: Hubble Spectroscopy", url: "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-spectroscopy/" }
+    ],
+    relatedPaths: [{ label: "Read a space image", href: "/guides/how-to-read-space-images" }, { label: "Learn how exoplanets are found", href: "/guides/how-we-find-exoplanets" }]
+  },
+  {
+    slug: "why-stars-twinkle-and-seeing", publishedAt: "2026-10-27",
+    title: "Why Stars Twinkle: Seeing Versus Clear Skies",
+    description: "Separate atmospheric steadiness from transparency and make better sense of a shimmering telescope view.",
+    category: "Skywatching", tags: ["Twinkling", "Seeing", "Transparency", "Atmosphere"],
+    sources: [
+      { label: "ESO: Atmospheric Turbulence and Adaptive Optics", url: "https://www.eso.org/public/teles-instr/technology/adaptive_optics/" },
+      { label: "NASA: Skywatching FAQ", url: "https://science.nasa.gov/skywatching/faq/" }
+    ],
+    relatedPaths: [{ label: "Understand telescope basics", href: "/guides/telescope-basics-aperture-and-magnification" }, { label: "Compare star brightness", href: "/guides/stellar-magnitudes-and-brightness" }]
+  },
+  {
+    slug: "stellar-parallax-and-distance", publishedAt: "2026-10-27",
+    title: "Stellar Parallax: Measuring Distance with Geometry",
+    description: "Try an eye-to-eye demonstration, then work through an arcsecond-to-parsec example without the factor-of-two trap.",
+    category: "Astronomy Basics", tags: ["Parallax", "Parsecs", "Distance", "Arcseconds"],
+    sources: [
+      { label: "Las Cumbres Observatory: Stellar Parallax", url: "https://lco.global/spacebook/distance/parallax-and-distance-measurement/" },
+      { label: "Las Cumbres Observatory: Absolute Magnitude", url: "https://lco.global/spacebook/distance/what-absolute-magnitude/" },
+      { label: "Gaia Collaboration: Using Gaia Parallaxes", url: "https://doi.org/10.1051/0004-6361/201832964" }
+    ],
+    relatedPaths: [{ label: "Understand astronomical distances", href: "/guides/astronomical-distances-au-and-light-years" }, { label: "Read the magnitude scale", href: "/guides/stellar-magnitudes-and-brightness" }]
+  },
+  {
+    slug: "open-and-globular-star-clusters", publishedAt: "2026-10-27",
+    title: "Open and Globular Clusters: Two Stellar Families",
+    description: "Tell a real stellar group from a sky pattern and choose a sensible first cluster observation.",
+    category: "Deep Space", tags: ["Star clusters", "Open clusters", "Globular clusters", "Pleiades"],
+    sources: [
+      { label: "NASA Hubble: Star Clusters", url: "https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-star-clusters/" },
+      { label: "NASA Hubble: Open Clusters as Stellar Laboratories", url: "https://science.nasa.gov/missions/hubble/gemstones-in-the-southern-sky/" }
+    ],
+    relatedPaths: [{ label: "Use binoculars for stargazing", href: "/guides/binoculars-for-stargazing" }, { label: "Follow stellar life cycles", href: "/guides/how-stars-are-born-and-die" }]
+  },
+  {
+    slug: "observing-jupiter-and-its-moons", publishedAt: "2026-10-27",
+    title: "Jupiter and Its Moons: Your First Observation",
+    description: "Find the giant planet, sketch its four bright moons, and understand why they do not always appear together.",
+    category: "Solar System", tags: ["Jupiter", "Galilean moons", "Io", "Europa", "Observing"],
+    sources: [
+      { label: "NASA: Jupiter Facts", url: "https://science.nasa.gov/jupiter/jupiter-facts/" },
+      { label: "NASA: Jupiter's Moons", url: "https://science.nasa.gov/jupiter/jupiter-moons/" }
+    ],
+    relatedPaths: [{ label: "Check upcoming sky events", href: "/events" }, { label: "Understand opposition", href: "/guides/planets-conjunctions-and-opposition" }]
+  },
+  {
+    slug: "saturn-rings-and-changing-views", publishedAt: "2026-10-27",
+    title: "Saturn's Rings: Why the View Keeps Changing",
+    description: "Learn what the rings are made of and why a familiar ringed planet can look surprisingly thin.",
+    category: "Solar System", tags: ["Saturn", "Rings", "Ring plane", "Telescope observing"],
+    sources: [
+      { label: "NASA: Saturn Facts", url: "https://science.nasa.gov/saturn/facts/" },
+      { label: "NASA Space Place: Saturn", url: "https://spaceplace.nasa.gov/all-about-saturn/en/" }
+    ],
+    relatedPaths: [{ label: "Check telescope fundamentals", href: "/guides/telescope-basics-aperture-and-magnification" }, { label: "Understand atmospheric seeing", href: "/guides/why-stars-twinkle-and-seeing" }]
+  },
+  {
+    slug: "venus-morning-evening-star-and-phases", publishedAt: "2026-10-27",
+    title: "Venus: Morning Star, Evening Star, and Crescent",
+    description: "Explain Venus's changing place in twilight and why a thin crescent need not be faint.",
+    category: "Solar System", tags: ["Venus", "Morning star", "Evening star", "Phases", "Elongation"],
+    sources: [
+      { label: "NASA: Venus Facts", url: "https://science.nasa.gov/venus/venus-facts/" },
+      { label: "NASA: Venus Overview", url: "https://science.nasa.gov/venus/" }
+    ],
+    relatedPaths: [{ label: "Choose an observing time", href: "/guides/twilight-civil-nautical-astronomical" }, { label: "Understand apparent alignments", href: "/guides/planets-conjunctions-and-opposition" }]
+  },
+  {
+    slug: "mars-red-color-and-observing", publishedAt: "2026-10-27",
+    title: "Mars: Why It Is Red and When Detail Is Visible",
+    description: "Connect rusty dust to the planet's color and set realistic expectations for a small telescope.",
+    category: "Solar System", tags: ["Mars", "Red planet", "Iron oxide", "Dust storms", "Opposition"],
+    sources: [
+      { label: "NASA: Mars Facts", url: "https://science.nasa.gov/mars/facts/" },
+      { label: "NASA Space Place: Mars", url: "https://spaceplace.nasa.gov/all-about-mars/en/" }
+    ],
+    relatedPaths: [{ label: "Learn about opposition", href: "/guides/planets-conjunctions-and-opposition" }, { label: "Read the limits of magnification", href: "/guides/telescope-basics-aperture-and-magnification" }]
+  },
+  {
+    slug: "gravity-assists-and-spacecraft-flybys", publishedAt: "2026-10-27",
+    title: "Gravity Assists: Why Spacecraft Take the Long Way",
+    description: "Understand a planetary flyby's energy exchange and why a detour can make a mission possible.",
+    category: "Missions", tags: ["Gravity assist", "Flybys", "Trajectories", "Orbital energy"],
+    sources: [
+      { label: "ESA: Let Gravity Assist You", url: "https://www.esa.int/Science_Exploration/Space_Science/Exploring_space/Let_gravity_assist_you" },
+      { label: "NASA: Basics of Space Flight, Trajectories", url: "https://science.nasa.gov/learn/basics-of-space-flight/chapter4-1/" }
+    ],
+    relatedPaths: [{ label: "Understand orbits", href: "/guides/orbits-and-lagrange-points" }, { label: "Read launch schedules", href: "/guides/rocket-launch-windows-and-countdowns" }]
+  },
+  {
+    slug: "deep-space-communication-and-light-delay", publishedAt: "2026-10-27",
+    title: "Talking to Spacecraft: Signals, Antennas, and Delay",
+    description: "Follow a command through the Deep Space Network and calculate a simple round-trip light delay.",
+    category: "Missions", tags: ["Deep Space Network", "Radio", "Light travel time", "Telemetry"],
+    sources: [
+      { label: "NASA: Deep Space Network", url: "https://www.nasa.gov/communicating-with-missions/dsn/" },
+      { label: "NASA: Basics of Space Flight, Deep Space Network", url: "https://science.nasa.gov/learn/basics-of-space-flight/chapter18-1/" },
+      { label: "NASA: Delay/Disruption Tolerant Networking", url: "https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/" }
+    ],
+    relatedPaths: [{ label: "Learn light-travel distances", href: "/guides/astronomical-distances-au-and-light-years" }, { label: "Follow mission events", href: "/events" }]
+  },
+  {
+    slug: "why-astronauts-float-in-microgravity", publishedAt: "2026-10-27",
+    title: "Why Astronauts Float When Gravity Is Still There",
+    description: "Understand free fall, the difference between mass and apparent weight, and microgravity experiments.",
+    category: "Space Science", tags: ["Microgravity", "Free fall", "Astronauts", "Weightlessness", "Mass"],
+    sources: [
+      { label: "NASA Glenn: What Is Microgravity?", url: "https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/" },
+      { label: "NASA: Microgravity for Students", url: "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/" }
+    ],
+    relatedPaths: [{ label: "Explore orbital motion", href: "/guides/orbits-and-lagrange-points" }, { label: "Spot an orbiting station", href: "/guides/how-to-spot-the-space-station" }]
+  },
+  {
+    slug: "solar-flares-versus-coronal-mass-ejections", publishedAt: "2026-10-27",
+    title: "Solar Flares and CMEs Are Not the Same Thing",
+    description: "Separate radiation, moving plasma, and geomagnetic effects before reading a space-weather alert.",
+    category: "Space Science", tags: ["Solar flares", "CME", "Space weather", "Radio blackouts", "Geomagnetic storms"],
+    sources: [
+      { label: "NOAA SWPC: Solar Flares", url: "https://www.spaceweather.gov/phenomena/solar-flares-radio-blackouts" },
+      { label: "NOAA SWPC: Coronal Mass Ejections", url: "https://www.spaceweather.gov/phenomena/coronal-mass-ejections" }
+    ],
+    relatedPaths: [{ label: "Understand auroras", href: "/guides/auroras-and-space-weather" }, { label: "Read solar science briefs", href: "/briefs" }]
+  },
+  {
+    slug: "moon-illusion-and-supermoons", publishedAt: "2026-10-27",
+    title: "Huge Horizon Moon or Supermoon? Tell the Difference",
+    description: "Separate a visual illusion from a genuine size change and try a repeatable camera comparison.",
+    category: "Moon", tags: ["Moon illusion", "Supermoon", "Perigee", "Angular size"],
+    sources: [
+      { label: "NASA: The Moon Illusion", url: "https://science.nasa.gov/solar-system/moon/the-moon-illusion-why-does-the-moon-look-so-big-sometimes/" },
+      { label: "NASA JPL: What Is a Supermoon?", url: "https://www.jpl.nasa.gov/edu/resources/teachable-moment/whats-a-supermoon-and-just-how-super-is-it/" }
+    ],
+    relatedPaths: [{ label: "Observe the Moon", href: "/guides/how-to-observe-the-moon" }, { label: "Check lunar conditions", href: "/moon" }]
+  },
+  {
+    slug: "planetary-nebulae-not-planets", publishedAt: "2026-10-27",
+    title: "Planetary Nebulae: Beautiful Shells, Not Planets",
+    description: "Follow a Sun-like star's glowing outer layers and learn how to read a nebula image without confusing stellar endings.",
+    category: "Deep Space", tags: ["Planetary nebula", "White dwarf", "Ionization", "Stellar evolution"],
+    sources: [
+      { label: "ESA/Hubble: Planetary Nebula", url: "https://esahubble.org/wordbank/planetary-nebula/" },
+      { label: "ESA/Hubble: Stars Going Out in Style", url: "https://esahubble.org/announcements/ann0710/" }
+    ],
+    relatedPaths: [{ label: "Understand stellar life cycles", href: "/guides/how-stars-are-born-and-die" }, { label: "Read image colors", href: "/guides/how-to-read-space-images" }]
+  }
 ];
 
 export const astronomyGuides: Guide[] = entries.map((entry) => {

@@ -1131,4 +1131,664 @@ export const guideSections: Record<string, Guide["sections"]> = {
       ]
     }
   ],
+  "sky-coordinates-altitude-and-azimuth": [
+    {
+      id: "two-angles", heading: "One angle around, another angle up",
+      paragraphs: [
+        "Altitude and azimuth describe a direction in your local sky. Azimuth tells you which way to face around the horizon. Altitude, also called elevation, tells you how far above the horizon to look. Neither number tells you how far away the object is.",
+        "In the convention used by JPL's observer tables, azimuth starts at true north and increases clockwise: east is 90 degrees, south 180, and west 270. Altitude is 0 degrees on the geometric horizon and 90 degrees at the zenith, directly overhead. A negative altitude places the direction below that horizon."
+      ], sourceUrls: ["https://ssd.jpl.nasa.gov/faq.html"]
+    },
+    {
+      id: "example", heading: "Translate a coordinate pair into a view",
+      paragraphs: [
+        "Imagine a prediction of azimuth 225 degrees and altitude 30 degrees. Face southwest, halfway between south and west, then look about a third of the angular distance from the horizon to overhead. The numbers are an illustrative direction, not a forecast for a particular object tonight.",
+        "Now change only the altitude to 5 degrees. The target remains southwest but lies very low. A building or tree may hide it even though the prediction correctly places it above the geometric horizon. Positive altitude does not guarantee a clear line of sight."
+      ]
+    },
+    {
+      id: "timestamp", heading: "Keep location and time with the numbers",
+      paragraphs: [
+        "Earth's rotation changes a star's local direction through the night. Moving to another observing location changes the horizon too. A satellite adds rapid orbital motion, making an old coordinate pair especially unhelpful. Always preserve the observing location, date, time, and time zone with a prediction.",
+        "Check whether a compass shows magnetic or true north, and whether a detailed ephemeris includes atmospheric refraction. Right ascension and declination use a different celestial grid; their numbers cannot simply be read as altitude and azimuth. JPL Horizons documents these settings so that observers know which quantity they are using."
+      ], sourceUrls: ["https://ssd.jpl.nasa.gov/horizons/manual.html"]
+    },
+    {
+      id: "try-it", heading: "Practice on an obvious target first",
+      paragraphs: ["Choose the Moon after sunset or a bright star high above nearby obstructions. The aim is to learn the coordinate system before trying to locate something faint or fast-moving."],
+      list: { ordered: true, items: [
+        "Confirm the location, clock, and north convention in your observing tool.",
+        "Turn to the azimuth first, then raise your gaze to the altitude.",
+        "Compare the predicted direction with the target and note anything blocking the view.",
+        "Repeat later and notice that the local coordinates change while the object remains the same."
+      ] }
+    }
+  ],
+  "stellar-magnitudes-and-brightness": [
+    {
+      id: "reversed-scale", heading: "Smaller numbers mean more received light",
+      paragraphs: [
+        "Apparent magnitude describes an object's brightness as seen from our viewpoint in a specified wavelength band. A magnitude 1 star is brighter than a magnitude 4 star. Negative numbers describe brighter objects still; they are not mistakes or negative amounts of light.",
+        "The scale is logarithmic. A difference of five magnitudes corresponds to a brightness ratio of exactly 100. One magnitude is a factor of about 2.512. Subtracting the numbers gives a step on the scale, not the number of times one star is brighter than another."
+      ], sourceUrls: ["https://wwwastro.msfc.nasa.gov/solar/chandra101/variable_stars/mag.html"]
+    },
+    {
+      id: "worked-example", heading: "Compare two imaginary stars",
+      paragraphs: [
+        "Suppose star A is magnitude 2 and star B is magnitude 5 in the same band. A is the brighter star because its number is smaller. Their three-magnitude difference corresponds to 100 raised to the power 3/5, or about 15.85. A supplies roughly 16 times as much measured light.",
+        "For mental estimates, use the landmarks below. Decide which object is brighter before assigning the ratio; this avoids accidentally turning the result upside down. A measurement in a blue filter should not be compared uncritically with one in an infrared filter."
+      ], table: { caption: "Same-band brightness comparisons", columns: ["Magnitude difference", "Brightness ratio"], rows: [["1", "About 2.512"], ["2", "About 6.31"], ["5", "Exactly 100"]] }, sourceUrls: ["https://lco.global/spacebook/distance/magnitude-and-color/"]
+    },
+    {
+      id: "distance", heading: "Apparent brightness is not stellar power",
+      paragraphs: [
+        "A nearby modest star can look brighter than a much more luminous distant star. Absolute magnitude compares stars at a standard reference distance of 10 parsecs. It helps separate intrinsic brightness from the effect of distance; intervening dust and the measurement band still need consideration.",
+        "An object's total magnitude also does not guarantee easy visibility. A galaxy spreads its light across an area, while a star appears nearly point-like. Background skyglow can conceal an extended object even when its catalog number sounds encouraging. Read the target's size and observing guidance as well as its magnitude."
+      ], sourceUrls: ["https://lco.global/spacebook/distance/what-absolute-magnitude/"]
+    },
+    {
+      id: "compare-by-eye", heading: "Try a small comparison by eye",
+      paragraphs: [
+        "Pick three charted stars close together and compare their brightness ordering before reading their labels. Keep them at similar elevations so that looking through different amounts of atmosphere does not dominate the exercise. Your eyes need not reproduce a precise ratio for the comparison to be useful.",
+        "Write down the Moon conditions, haze, and nearby lights. The faintest star you detect is a result for that session, not a permanent rating of your eyesight or a universal limit for everyone."
+      ]
+    }
+  ],
+  "earthshine-on-the-crescent-moon": [
+    {
+      id: "light-route", heading: "Sunlight can visit Earth before reaching the Moon",
+      paragraphs: [
+        "Beside a thin bright crescent, you may notice the rest of the Moon as a faint gray disk. This is earthshine. Sunlight reflects from Earth onto the lunar night side, and some of that light returns to your eyes. The route is Sun to Earth to Moon to observer.",
+        "The crescent receives direct sunlight; the dim disk receives light reflected by Earth. Neither part generates its own visible glow. The extra reflection makes earthshine much fainter, explaining why a photograph that reveals the disk may badly overexpose the crescent."
+      ], sourceUrls: ["https://science.nasa.gov/earth/earth-observatory/earths-reflections-on-the-moon-153044/"]
+    },
+    {
+      id: "geometry", heading: "A crescent Moon corresponds to a bright Earth",
+      paragraphs: [
+        "When we see a thin crescent, an observer on the Moon's Earth-facing side would see a largely illuminated Earth. That broad sunlit face provides the light for earthshine. Near full Moon, Earth appears much less illuminated from the Moon and the bright lunar face overwhelms the faint effect.",
+        "This is not a lunar eclipse, which involves Earth's shadow near full Moon. It is also not a view of a permanently dark hemisphere. The night side changes with the phase; the far side is the hemisphere mostly facing away from Earth. Those are different descriptions."
+      ], sourceUrls: ["https://science.nasa.gov/earth/earth-observatory/earthshine-83782/"]
+    },
+    {
+      id: "observe", heading: "Try an evening crescent after sunset",
+      paragraphs: [
+        "A waxing crescent in the evening is a convenient starting target. You need enough darkness for contrast but enough lunar elevation to clear haze and buildings. Waiting later improves darkness while also lowering an evening crescent, so there is no single perfect delay after sunset.",
+        "Begin with your eyes and a clear horizon. Look for the faint circular disk attached to the bright crescent, rather than a halo outside it. Choose a session after sunset; never sweep binoculars or a telescope near the Sun while searching for a thin crescent."
+      ]
+    },
+    {
+      id: "record", heading: "Record what you actually see",
+      paragraphs: ["A simple comparison is more useful than heavily increasing a phone image's contrast until something appears."],
+      list: { items: [
+        "Sketch the bright arc and the faint outline, noting whether the disk is obvious or only occasionally visible.",
+        "Record the date, time, lunar elevation, haze, and local glare.",
+        "If photographing, compare separate exposures for the crescent and the disk, and keep the originals.",
+        "Label blended exposures clearly. Different automatic camera processing can mimic a change in brightness."
+      ] }
+    }
+  ],
+  "why-the-moon-causes-tides": [
+    {
+      id: "difference", heading: "The important part is the difference in gravity",
+      paragraphs: [
+        "The Moon attracts all of Earth, but its pull is stronger on the near side and weaker on the far side than at Earth's center. These differences stretch the Earth-ocean system. A simplified ocean-covered Earth develops two tidal bulges, rather than just one pile of water directly under the Moon.",
+        "The far-side bulge does not mean the Moon repels water. Gravity remains attractive. The diagram describes motion relative to Earth's center; it is a starting model for the driving force, not a literal timetable for every coast."
+      ], sourceUrls: ["https://oceanservice.noaa.gov/education/tutorial_tides/tides03_gravity.html"]
+    },
+    {
+      id: "solar-role", heading: "Spring and neap tides describe a range",
+      paragraphs: [
+        "The Sun also raises tides. Near new and full Moon, the Sun-Moon geometry tends to reinforce the tidal range, producing spring tides. Near first and third quarter, the combined effect generally produces the smaller ranges called neap tides. Spring refers to the water's springing forth, not the season.",
+        "Range means the difference between high and low water. In an invented table with high water at 2.4 meters and low water at 0.6 meters relative to the same reference, the range is 1.8 meters. Those heights do not describe wave height or the depth at every nearby beach."
+      ], sourceUrls: ["https://oceanservice.noaa.gov/facts/springtide.html"]
+    },
+    {
+      id: "local-pattern", heading: "A real coast needs a local prediction",
+      paragraphs: [
+        "Continents, basin depth, friction, and coastline shape change the ocean's response. High tide does not generally occur exactly when the Moon is overhead. Some locations have two similar high tides per day, others unequal pairs, and others mainly a once-daily pattern.",
+        "That is why Moon phase, Moonrise, and Moonset are not substitutes for an official local tide table. Wind, air pressure, waves, and tidal currents add further complications. A small neap range is not a declaration that coastal conditions are safe."
+      ], sourceUrls: ["https://oceanservice.noaa.gov/facts/moon-tide.html"]
+    },
+    {
+      id: "learning-exercise", heading: "Compare a few weeks of predictions",
+      paragraphs: ["For a learning exercise, mark lunar phases beside several weeks of predictions from one official tide station. Look for the broad range pattern and any lag, rather than forcing every peak to match the exact phase time."],
+      list: { items: [
+        "Keep the station, date, time zone, units, and reference level with the figures.",
+        "Distinguish predicted levels from measured observations and from current-speed forecasts.",
+        "Use local official conditions and warnings for coastal decisions, not this general astronomy explanation."
+      ] }
+    }
+  ],
+  "how-planetary-defense-works": [
+    {
+      id: "sequence", heading: "Discovery is the start, not the conclusion",
+      paragraphs: [
+        "Planetary defense begins with finding near-Earth objects and measuring their motion. Repeated positions constrain an orbit; size and physical properties help assess consequences and possible responses. A newly discovered object is not automatically a newly discovered threat.",
+        "Keep three labels separate. Near-Earth describes an orbital category. Potentially hazardous flags an object meeting orbital and estimated-size criteria worth monitoring. An impact probability is a calculation for a particular possible encounter. None can be substituted for the others in a careful headline."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/10-things-you-should-know-about-planetary-defense/"]
+    },
+    {
+      id: "uncertainty", heading: "New observations change what we know",
+      paragraphs: [
+        "A short observation arc can fit many slightly different future trajectories. NASA JPL's Sentry system evaluates whether some trajectories compatible with observations could lead to an impact. Appearance on its monitoring list is not a prediction of a certain collision.",
+        "As observations narrow the range, an estimated probability can first rise and later disappear. The physical asteroid has not necessarily swerved; the assessment has improved. Removal from a risk list is often the expected result of better orbit knowledge, not evidence that the original uncertainty was imaginary."
+      ], sourceUrls: ["https://cneos.jpl.nasa.gov/sentry/intro.html"]
+    },
+    {
+      id: "dart", heading: "DART tested one way to change motion",
+      paragraphs: [
+        "In 2022, NASA's DART spacecraft struck Dimorphos, the small companion of Didymos. Measurements showed that its orbital period around Didymos changed. This demonstrated a kinetic impactor: a collision transfers momentum and can alter an asteroid's trajectory.",
+        "The target was not an Earth-impact threat. DART was a demonstration, not an emergency rescue, and it did not establish that one identical impact would work for every object. Structure, mass, impact geometry, and warning time influence what a future response could achieve."
+      ], sourceUrls: ["https://science.nasa.gov/planetary-defense-dart/"]
+    },
+    {
+      id: "read-alert", heading: "Check a worrying asteroid story in order",
+      paragraphs: ["An old screenshot can outlive the assessment it quotes. This guide explains the process; it does not claim to give today's complete risk inventory."],
+      list: { ordered: true, items: [
+        "Find the object's exact designation and the assessment date.",
+        "Separate a close-approach distance from an actual impact probability.",
+        "Consult the current official CNEOS record, including its uncertainty and observation history.",
+        "Use Astroboat's Asteroid Watch for browsing and context, not as a replacement for formal impact monitoring."
+      ] }
+    }
+  ],
+  "isro-science-missions-and-instruments": [
+    {
+      id: "science-question", heading: "Start with the instrument's question",
+      paragraphs: [
+        "A rocket delivers a mission; the scientific payload determines what it can investigate. Chandrayaan-3, Aditya-L1, and AstroSat illustrate three different approaches: experiments on the lunar surface, solar observations and local space measurements, and multi-wavelength views of cosmic sources.",
+        "This is a guide to mission designs, not a live operating-status report. A launch, a landing, a calibrated measurement, and a published interpretation are separate milestones. Check an update's date and original ISRO release before treating an older mission overview as today's news."
+      ]
+    },
+    {
+      id: "moon", heading: "Chandrayaan-3 measures a local lunar environment",
+      paragraphs: [
+        "The lander's ChaSTE investigated near-surface thermal properties, ILSA addressed seismic activity, and a Langmuir probe investigated plasma. The rover carried APXS and LIBS to investigate elemental composition using different physical techniques. These instruments do more than take pictures of the landing site.",
+        "A temperature profile and an elemental spectrum answer different questions. A result at one site is not automatically a map of the whole Moon. Detecting an element also does not by itself establish water, biology, or an economically usable deposit. Preserve the location and measurement method when summarizing a result."
+      ], sourceUrls: ["https://www.isro.gov.in/ISRO_EN/Chandrayaan3_Details.html"]
+    },
+    {
+      id: "sun-and-stars", heading: "Aditya-L1 and AstroSat use different kinds of light",
+      paragraphs: [
+        "Aditya-L1 carries seven payloads combining remote observations of the Sun with measurements of particles and magnetic fields at the spacecraft. Watching a solar eruption and sampling a passing particle population are related but distinct measurements. The Sun-Earth L1 region supports a useful sustained solar view, not a landing on the Sun.",
+        "AstroSat was designed to observe ultraviolet, limited optical bands, and X-rays. Simultaneous multi-band observations help study changing sources without confusing a wavelength difference with a change between observing dates. Different instruments reveal different physical processes; no single band gives a complete picture."
+      ], sourceUrls: ["https://www.isro.gov.in/Aditya_L1-MissionDetails.html", "https://www.isro.gov.in/AstroSat.html"]
+    },
+    {
+      id: "read-result", heading: "Use a four-line reading note",
+      paragraphs: [
+        "Imagine a headline about lunar chemistry. Before repeating its broadest claim, identify the instrument and whether the evidence came from one spot, repeated measurements, or a mapped region. Those are different scopes even when the same element appears in the headline."
+      ], list: { items: [
+        "Mission and instrument: which device produced the signal?",
+        "Observation: what quantity was actually measured, where, and when?",
+        "Interpretation: what explanation does the mission team give?",
+        "Limit: what remains uncertain or outside the observation's coverage?"
+      ] }
+    }
+  ],
+  "spectroscopy-reading-starlight": [
+    {
+      id: "spectrum", heading: "A spectrum separates light by wavelength",
+      paragraphs: [
+        "An image shows where light arrives from across a scene. A spectrum shows how that light is distributed across wavelengths. It may appear as a colored strip or a graph, including infrared or ultraviolet light outside human vision. It is a measurement, not just a rainbow added to a photograph.",
+        "Read the axes first. A common plot puts wavelength horizontally and received light vertically, but other conventions exist. Check units and whether the values have been normalized. A dip is a deficit relative to that plot's baseline, not a literal dark scratch on the distant object."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-spectroscopy/"]
+    },
+    {
+      id: "lines", heading: "Patterns reveal chemistry and physical conditions",
+      paragraphs: [
+        "Atoms and molecules exchange energy with light at characteristic wavelengths. Emitting gas can produce bright lines, while intervening material can remove selected wavelengths from a background source and produce absorption dips. Which pattern appears depends on the source and the material along the light's path.",
+        "Identifying several consistent features is stronger than naming an element from one isolated dip. Temperature, ionization, and the observed wavelength range affect which lines appear. A missing line does not automatically mean that an element is absent."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/science-overview/science-explainers/spectroscopy-101-how-absorption-and-emission-spectra-work/"]
+    },
+    {
+      id: "shift", heading: "A shifted pattern can reveal motion",
+      paragraphs: [
+        "A pattern shifted toward longer wavelengths is redshifted; toward shorter wavelengths, blueshifted. For local motions, Doppler shifts reveal motion along the line of sight, not sideways speed. Cosmological redshift needs an interpretation involving the expansion of space rather than a simple everyday-speed analogy.",
+        "For an illustrative calculation, a line normally at 500 nanometers measured at 505 has fractional shift (505 - 500) / 500 = 0.01. That number is not itself a distance. You must establish the line identification, calibration, and physical model before interpreting it further."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-spectroscopy/"]
+    },
+    {
+      id: "read-carefully", heading: "Separate the observation from the claim",
+      paragraphs: ["Noise, blended lines, calibration, and Earth's atmosphere can complicate an apparent feature. A detected molecule is not automatically evidence of life, and a model curve is an explanation of data rather than another independent observation."],
+      list: { ordered: true, items: [
+        "Identify the target, instrument, date, and wavelength range.",
+        "Distinguish measured points and uncertainty bars from fitted model curves.",
+        "Look for multiple matching features and discussion of alternative explanations.",
+        "Repeat the narrow supported conclusion, not the most dramatic possible interpretation."
+      ] }
+    }
+  ],
+  "why-stars-twinkle-and-seeing": [
+    {
+      id: "moving-air", heading: "Twinkling happens along the light's path",
+      paragraphs: [
+        "A star's light passes through shifting layers of Earth's atmosphere. Changes in the air's refractive properties bend the arriving light differently from moment to moment, producing fluctuations in apparent brightness and position. The star is not usually changing its own output on that rapid timescale.",
+        "This atmospheric disturbance can blur fine detail in a telescope even when the sky looks cloudless. Astronomers call the steadiness of the image seeing. Professional adaptive-optics systems measure distortions and rapidly adjust mirrors to correct part of the effect; an ordinary focus knob cannot do the same job."
+      ], sourceUrls: ["https://www.eso.org/public/teles-instr/technology/adaptive_optics/"]
+    },
+    {
+      id: "two-qualities", heading: "Clear and steady are different qualities",
+      paragraphs: [
+        "Transparency describes how much useful light gets through, affected by cloud, haze, and particles. Seeing describes the atmosphere's effect on image steadiness. A transparent night can still give a boiling planetary view; a steady night with haze can hide faint objects.",
+        "Stars low in the sky are viewed through more atmosphere, so a low target can shimmer or change apparent color strongly. Planets usually twinkle less because their small apparent disks average many light paths, but they are not immune. 'It twinkles' alone is not a reliable identification test."
+      ], sourceUrls: ["https://science.nasa.gov/skywatching/faq/"]
+    },
+    {
+      id: "diagnose", heading: "Test the view before blaming the telescope",
+      paragraphs: [
+        "On a familiar bright target, use modest magnification and wait for a few moments. If details briefly sharpen and then soften while the mount remains still, atmospheric seeing may be a limit. If the whole field jumps when touched, mechanical vibration is a different problem.",
+        "Heat from a roof, pavement, or a telescope not yet near outdoor temperature can also disturb a view. Changing eyepieces repeatedly cannot fix the air. Try a target higher in the sky or a line of sight away from obvious heat sources before deciding that more magnification is the answer."
+      ]
+    },
+    {
+      id: "record", heading: "Keep two simple observing notes",
+      paragraphs: ["Record seeing and transparency separately rather than writing only 'good weather.' A consistent personal description is more useful than an unsupported precision score."],
+      list: { items: [
+        "Transparency note: which familiar faint stars remain visible, and is there haze or cloud?",
+        "Seeing note: does the lunar edge or a planetary feature stay sharp, sharpen briefly, or constantly shimmer?",
+        "Context note: include target elevation, magnification, nearby heat sources, and Moon glare."
+      ] }
+    }
+  ],
+  "stellar-parallax-and-distance": [
+    {
+      id: "two-views", heading: "A nearby object shifts against a distant background",
+      paragraphs: [
+        "Hold a finger in front of a distant wall and look with one eye, then the other. Your finger appears to jump relative to the background even though it stayed still. Changing the observing position changes the apparent direction: this is parallax.",
+        "Astronomers use Earth's changing position around the Sun as a much larger baseline. A nearby star traces a small apparent displacement relative to a distant reference background through the year. This geometric effect is different from the star's own motion through space, which must also be accounted for in precision measurements."
+      ], sourceUrls: ["https://lco.global/spacebook/distance/parallax-and-distance-measurement/"]
+    },
+    {
+      id: "calculation", heading: "Use the right angle and the right units",
+      paragraphs: [
+        "For a measured stellar parallax p in arcseconds, distance d in parsecs is d = 1/p. The parallax angle corresponds to the standard one-AU baseline. The full displacement between opposite observing positions six months apart can be twice that angle; using the full displacement as p produces a factor-of-two error.",
+        "An illustrative parallax of 0.05 arcseconds gives 1 / 0.05 = 20 parsecs. If a catalog instead gives 50 milliarcseconds, first divide by 1,000 to obtain the same 0.05 arcseconds. Milliarcseconds and arcseconds are angles, while parsecs are distances."
+      ], sourceUrls: ["https://lco.global/spacebook/distance/parallax-and-distance-measurement/"]
+    },
+    {
+      id: "uncertainty", heading: "Small angles make uncertainty important",
+      paragraphs: [
+        "More distant stars have smaller parallax angles, making measurement errors increasingly important. A noisy or even negative fitted parallax is not a physical negative distance. Blindly taking its reciprocal can produce a misleading result; uncertain measurements need suitable statistical distance estimates.",
+        "Knowing distance helps convert apparent brightness into an intrinsic comparison such as absolute magnitude, defined for stars at 10 parsecs. But parallax does not directly reveal a star's age, composition, or planet population. Those require other observations and models."
+      ], sourceUrls: ["https://lco.global/spacebook/distance/what-absolute-magnitude/", "https://doi.org/10.1051/0004-6361/201832964"]
+    },
+    {
+      id: "practice", heading: "Check a catalog value before calculating",
+      paragraphs: ["Use the 50-milliarcsecond example as a unit-conversion exercise, not a claim about a particular real star. For actual catalog work, keep the uncertainty and documentation attached to the value."],
+      list: { ordered: true, items: [
+        "Check whether the quantity is parallax, proper motion, or a derived distance.",
+        "Read the angular units and convert to arcseconds only when appropriate.",
+        "Check uncertainty before using the simple reciprocal relation.",
+        "Report the distance with its unit and avoid more digits than the evidence supports."
+      ] }
+    }
+  ],
+  "open-and-globular-star-clusters": [
+    {
+      id: "real-group", heading: "A star cluster is more than a sky pattern",
+      paragraphs: [
+        "A constellation groups directions on the sky; its stars can lie at very different distances. A star cluster is a physical collection of stars with a shared history and gravitational relationships. Open clusters and globular clusters are two broad families with different structures and typical ages.",
+        "Open clusters are relatively loose, often irregular groups. Many contain young stars and lie in a galaxy's disk. Over time, interactions with their surroundings can disperse them. The Pleiades is a familiar example, but a star chart still needs your location, season, and time to show whether it is well placed."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-star-clusters/"]
+    },
+    {
+      id: "globular", heading: "Globular clusters concentrate many old stars",
+      paragraphs: [
+        "Globular clusters are much denser and broadly rounded, with large stellar populations. Many associated with the Milky Way are ancient and orbit through its wider halo. They are not miniature galaxies simply because they contain many stars; the classifications describe different kinds of systems.",
+        "A small telescope may show a globular cluster as a concentrated glow rather than resolving every star. Aperture, sky conditions, distance, and the cluster's density affect the view. A detailed Hubble portrait sets a scientific context, not a realistic promise for your first eyepiece observation."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/universe-uncovered/hubble-star-clusters/"]
+    },
+    {
+      id: "laboratory", heading: "Shared histories make clusters useful laboratories",
+      paragraphs: [
+        "Stars in an open cluster are at roughly the same distance and often have similar ages and initial chemical composition. Their different masses then offer a way to compare stellar evolution without changing every variable at once. A cluster is useful partly because its members provide a related sample.",
+        "Do not assume every bright point projected onto a cluster is a member. Foreground and background stars can overlap the view. Membership can be investigated through motion, distance, and other evidence, not only by whether a point falls inside the outline of a photograph."
+      ], sourceUrls: ["https://science.nasa.gov/missions/hubble/gemstones-in-the-southern-sky/"]
+    },
+    {
+      id: "first-look", heading: "Try a wide view before adding power",
+      paragraphs: ["Choose a well-placed cluster from a location-aware chart. A broad open cluster can be more satisfying in binoculars than in a narrow high-power telescope view."],
+      list: { items: [
+        "Start at low power and include surrounding stars to establish the pattern.",
+        "Sketch the apparent shape, concentration, and any obvious color differences.",
+        "For an unresolved globular, record the glow and concentration without inventing individual stars.",
+        "Compare your drawing with an identified chart afterward, keeping field orientation in mind."
+      ] }
+    }
+  ],
+  "observing-jupiter-and-its-moons": [
+    {
+      id: "find-jupiter", heading: "Find the planet before reaching for an eyepiece",
+      paragraphs: [
+        "Jupiter is often a bright object when well placed, but it is not visible at every hour or in every season. Use a location-aware chart to confirm its direction and elevation. Choose a time when it is reasonably high above the horizon, away from the Sun and local obstructions.",
+        "The familiar stripes are atmospheric cloud bands, not solid surface markings. Jupiter is a gas giant without a hard surface on which a conventional lander could simply touch down. A small telescope can reveal more than the naked-eye point, but conditions and equipment determine how much detail appears."
+      ], sourceUrls: ["https://science.nasa.gov/jupiter/jupiter-facts/"]
+    },
+    {
+      id: "four-moons", heading: "Look for a changing arrangement of bright moons",
+      paragraphs: [
+        "Io, Europa, Ganymede, and Callisto are Jupiter's four large Galilean moons. They can appear as small points near the planet in suitable binoculars or a small telescope. A steady support helps distinguish them from glare and shake. You should not expect to see detailed landscapes on these points.",
+        "All four need not be separately visible. A moon can be in front of Jupiter, behind it, in its shadow, or too close to the bright disk to separate easily. A nearby background star can also resemble a moon. Check a dated moon-position prediction before assigning names."
+      ], sourceUrls: ["https://science.nasa.gov/jupiter/jupiter-moons/"]
+    },
+    {
+      id: "sketch", heading: "Make two sketches instead of chasing a perfect image",
+      paragraphs: [
+        "Draw Jupiter as a circle and mark each visible point along a line through it. Add the time and a simple scale such as one apparent Jupiter diameter. Repeat later in the session or on a subsequent night to see how the configuration changes.",
+        "Your telescope may invert or mirror the scene, so do not assume the left side of a sketch is west. Compare orientations before declaring that a prediction is wrong. An imperfect but timed drawing can record motion more clearly than a bright phone image with no scale or date."
+      ], list: { items: [
+        "Record date, time zone, instrument, and magnification.",
+        "Mark uncertain points differently from confidently seen ones.",
+        "Compare with a current ephemeris after drawing, rather than copying the expected pattern."
+      ] }
+    },
+    {
+      id: "realistic-detail", heading: "Treat steadiness as part of the observation",
+      paragraphs: [
+        "Start with modest magnification and wait for brief steady moments. Cloud bands may be easier than the Great Red Spot, which must also be on the visible hemisphere at the right time. Raising magnification cannot guarantee additional detail when the atmosphere is shimmering.",
+        "Seeing fewer moons or less detail than a photograph is not a failed observation. Record what was actually visible and return under different conditions. The changing moon pattern is already a direct way to follow orbital motion."
+      ]
+    }
+  ],
+  "saturn-rings-and-changing-views": [
+    {
+      id: "particles", heading: "The rings are countless orbiting pieces",
+      paragraphs: [
+        "Saturn's rings are not a solid disk attached to the planet. They consist of enormous numbers of particles, mostly water ice with other material, moving in orbit. From far away their combined reflected sunlight makes them look like continuous bright bands.",
+        "Different ring regions contain gaps and structures shaped by orbital dynamics and interactions with moons. A gap is not necessarily an entirely empty cut through a rigid plate. The detailed images from spacecraft reveal far more structure than an ordinary visual telescope observation can resolve."
+      ], sourceUrls: ["https://science.nasa.gov/saturn/facts/"]
+    },
+    {
+      id: "tilt", heading: "Changing geometry alters the view",
+      paragraphs: [
+        "The rings lie roughly in Saturn's equatorial plane. As Saturn moves around the Sun and Earth changes its viewing position, we see that plane at different angles. At a wide opening the rings look broad; near an edge-on view their apparent width becomes very small.",
+        "Think of looking at a thin circular plate face-on and then nearly along its edge. The plate has not lost material, but its projected shape changes. This analogy explains the viewing geometry, not the rings' physical construction. A thin-looking year is not evidence that the ring system suddenly disappeared."
+      ], sourceUrls: ["https://spaceplace.nasa.gov/all-about-saturn/en/", "https://science.nasa.gov/saturn/facts/"]
+    },
+    {
+      id: "first-view", heading: "Choose a steady first telescope view",
+      paragraphs: [
+        "Use an up-to-date chart to find Saturn when it is above your local horizon and safely away from the Sun. A small telescope can show the ringed shape under suitable conditions, but ordinary handheld binoculars are not a reliable way to resolve the rings clearly.",
+        "Begin at low power, focus carefully, and increase magnification only while the image remains useful. The Cassini Division and subtle bands require more favorable conditions than merely noticing the rings. A low target shimmering over a warm roof may be limited by the air rather than the telescope."
+      ]
+    },
+    {
+      id: "compare", heading: "Keep a simple ring-angle record",
+      paragraphs: ["A series of honest sketches can reveal more than trying to reproduce a highly processed spacecraft portrait."],
+      list: { items: [
+        "Draw the planet and the ring opening you actually see; mark uncertain detail lightly.",
+        "Include observing date, magnification, target elevation, and image steadiness.",
+        "Compare observations separated by months or years, checking field orientation.",
+        "Use a dated prediction for current ring geometry rather than assuming this guide describes today's appearance."
+      ] }
+    }
+  ],
+  "venus-morning-evening-star-and-phases": [
+    {
+      id: "not-a-star", heading: "One planet has two familiar nicknames",
+      paragraphs: [
+        "Venus is called the evening star when visible after sunset and the morning star when visible before sunrise. It is still a planet reflecting sunlight. Its orbit lies inside Earth's, so from our viewpoint it stays relatively close to the Sun's direction rather than roaming anywhere across the midnight sky.",
+        "The angular separation from the Sun is called elongation. A larger separation can create a more convenient twilight observing opportunity, but your latitude, season, and horizon also matter. A headline saying Venus is visible does not establish that it is high enough from your location tonight."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/"]
+    },
+    {
+      id: "phases", heading: "The illuminated fraction changes with geometry",
+      paragraphs: [
+        "Like the Moon, Venus shows phases because we see different portions of its sunlit hemisphere. A telescope can reveal a gibbous or crescent shape at suitable times. The phase is not a shadow cast by Earth, and Venus does not produce its own changing crescent of visible light.",
+        "Its apparent size changes too. A crescent Venus can be nearer and appear larger than a nearly full Venus farther away. Brightness therefore depends on distance as well as illuminated fraction and cloud reflectivity. 'Less than half lit' does not automatically mean 'hard to see.'"
+      ], sourceUrls: ["https://science.nasa.gov/venus/", "https://science.nasa.gov/venus/venus-facts/"]
+    },
+    {
+      id: "safe-plan", heading: "Plan a twilight observation, not a daytime search",
+      paragraphs: [
+        "For a simple first observation, use a current chart and start with your eyes after the Sun has set. Check Venus's setting time and choose a clear horizon. Do not sweep binoculars or a telescope around the Sun while trying to locate it.",
+        "If using a telescope, make sure the Sun is safely below the horizon and the pointing direction is unambiguous. A morning session needs equal care as sunrise approaches. You do not need to attempt daytime observing or a dangerously close solar alignment to understand Venus's phases."
+      ]
+    },
+    {
+      id: "compare", heading: "Track shape and size separately",
+      paragraphs: ["Across several safely planned sessions, use the same magnification where possible and keep a dated record. Your drawing is a comparison tool, not a measurement of the planet's physical diameter."],
+      list: { items: [
+        "Record whether Venus looks gibbous, half illuminated, or crescent-shaped.",
+        "Note its apparent size, elevation, time, and atmospheric steadiness.",
+        "Compare the sketch with a dated phase prediction afterward.",
+        "Do not interpret a bright featureless view as a map of the surface beneath Venus's clouds."
+      ] }
+    }
+  ],
+  "mars-red-color-and-observing": [
+    {
+      id: "rust", heading: "Rust-colored material gives Mars its familiar tint",
+      paragraphs: [
+        "Iron-bearing minerals in Martian rock and dust react to form oxidized compounds, giving much of the surface its reddish appearance. The comparison with rust is useful, but Mars is not a uniformly painted red ball. Different terrain, dust cover, illumination, and image processing produce different colors.",
+        "The planet is a cold rocky world with a thin atmosphere, not a hot world simply because it looks red. Its weather includes clouds and moving dust, and large dust storms can obscure surface detail. Color alone is a poor shortcut to temperature or habitability."
+      ], sourceUrls: ["https://science.nasa.gov/mars/facts/", "https://spaceplace.nasa.gov/all-about-mars/en/"]
+    },
+    {
+      id: "distance", heading: "A bright point is not always a large telescope target",
+      paragraphs: [
+        "Earth and Mars change their separation as they follow different orbits around the Sun. The apparent disk can be much larger during a favorable observing season than at other times. Opposition is a useful geometric landmark, but not every opposition offers the same distance or apparent size.",
+        "A planet can be easy to identify with your eyes yet too small for useful detail in a modest telescope. Raising magnification enlarges the image and its blur together; it cannot create information lost to small angular size, poor focus, or unsteady air."
+      ]
+    },
+    {
+      id: "details", heading: "Look for broad patterns, not rover-level landscapes",
+      paragraphs: [
+        "Under favorable conditions, observers may distinguish a polar cap or broad dark markings. These are not views of individual rocks or familiar rover panoramas. Mars rotates, its seasons change, and dust can alter the appearance, so a feature's visibility depends on more than one factor.",
+        "Use a current chart to identify Mars and choose a time when it is high enough to avoid the worst horizon haze. Start at moderate power and watch for moments of steady seeing. A simple disk with one uncertain marking is a reasonable observation to record honestly."
+      ]
+    },
+    {
+      id: "record", heading: "Compare sessions with the conditions attached",
+      paragraphs: ["A sketch becomes useful when another observer can tell when and how it was made. Do not force your drawing to match a detailed map after the fact."],
+      list: { items: [
+        "Note date, time zone, instrument, magnification, and image orientation.",
+        "Draw only features repeatedly visible during steady moments.",
+        "Mark uncertain detail and record haze or apparent dust obscuration without diagnosing a global storm yourself.",
+        "Check dated mission or observing reports for context instead of assuming an old photograph shows today's view."
+      ] }
+    }
+  ],
+  "gravity-assists-and-spacecraft-flybys": [
+    {
+      id: "detour", heading: "The shortest-looking route may need too much fuel",
+      paragraphs: [
+        "Spacecraft do not fly between stationary planets along arbitrary straight lines. They follow trajectories shaped by gravity, launch energy, and the moving geometry of the Solar System. A sequence of planetary flybys can reach a destination with a practical launch vehicle and fuel budget, even when the path looks indirect.",
+        "A gravity assist uses a close passage by a moving planet to change the spacecraft's trajectory and, relative to the Sun, its speed and orbital energy. It is not an engine powered by gravity from nowhere, and a flyby is not necessarily an attempt to enter orbit around that planet."
+      ], sourceUrls: ["https://www.esa.int/Science_Exploration/Space_Science/Exploring_space/Let_gravity_assist_you"]
+    },
+    {
+      id: "reference-frame", heading: "Ask whose viewpoint defines the speed",
+      paragraphs: [
+        "In a simplified planet-centered encounter without propulsion, the spacecraft accelerates inward and slows as it leaves. Far before and after, its speed relative to that planet can be approximately the same while its direction has changed. That does not mean nothing useful happened.",
+        "The planet is itself moving around the Sun. Changing the spacecraft's direction in the planet's frame changes its velocity and energy in the Sun's frame. Energy is exchanged with the planet's orbital motion; the planet's corresponding change is tiny because it is vastly more massive. The chosen encounter can increase or decrease spacecraft energy."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter4-1/"]
+    },
+    {
+      id: "constraints", heading: "Every encounter has a timing and geometry cost",
+      paragraphs: [
+        "The spacecraft must meet the planet at the right place and time, with a suitable approach direction and safe closest distance. Atmospheres, rings, radiation environments, and navigation uncertainty constrain what is usable. Not every nearby planet can supply the desired turn.",
+        "A route may trade shorter travel time for more launch energy, or accept years of travel to make the mission feasible. A flyby can also provide science, but its navigation role and its instrument observations are separate objectives. A beautiful encounter photograph does not by itself explain the trajectory change."
+      ]
+    },
+    {
+      id: "read-trajectory", heading: "Read a mission map with four questions",
+      paragraphs: ["Mission diagrams often compress years into one picture and distort distances for clarity. Treat the path as a planning story before interpreting it as a scale drawing."],
+      list: { items: [
+        "Which body does each segment orbit or pass, and what are the encounter dates?",
+        "Is the maneuver a flyby, a powered burn, or an orbital insertion?",
+        "Does the encounter aim to change speed, direction, orbital inclination, or several properties?",
+        "Which launch-energy and timing constraints make the apparently indirect route worthwhile?"
+      ] }
+    }
+  ],
+  "deep-space-communication-and-light-delay": [
+    {
+      id: "radio", heading: "Spacecraft send radio signals, not sound through space",
+      paragraphs: [
+        "Commands and scientific measurements travel between Earth and distant spacecraft as information carried by electromagnetic waves. Radio does not need air to cross space. The signal reaches an antenna, where equipment detects and decodes it; a mission audio clip is not evidence that ordinary sound crossed the vacuum.",
+        "NASA's Deep Space Network uses large antennas at complexes near Goldstone in California, Madrid in Spain, and Canberra in Australia. Their separation around Earth lets stations hand communication duties onward as Earth rotates. Geometry, maintenance, competing missions, and available equipment still constrain an individual contact."
+      ], sourceUrls: ["https://www.nasa.gov/communicating-with-missions/dsn/"]
+    },
+    {
+      id: "delay", heading: "Distance creates a delay that better antennas cannot remove",
+      paragraphs: [
+        "A radio signal travels at the speed of light. Its one-way travel time depends on the distance between sender and receiver, which changes as Earth and the spacecraft move. A single permanent 'Mars delay' would therefore be misleading.",
+        "Imagine a mission with a ten-minute one-way light time. A command sent now cannot arrive for ten minutes. An immediate reply then needs another ten minutes to return, so Earth waits at least twenty minutes for that round trip. Processing, observation time, and the contact schedule can make the practical wait longer. This is an illustrative distance, not today's value for a particular mission."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter18-1/"]
+    },
+    {
+      id: "bandwidth", heading: "Slow delivery and long travel time are different problems",
+      paragraphs: [
+        "Light time sets when the first information can arrive. Data rate controls how much information can be delivered each second. A larger image takes longer to transmit at a low rate, even after its first bits reach Earth. Weak signals, antenna capability, and link conditions influence the usable rate.",
+        "Delay/disruption tolerant networking can store information and forward it when a suitable connection becomes available. That helps networks work across interruptions; it does not make a message outrun light. Spacecraft autonomy and carefully prepared command sequences help missions operate without joystick-style control from Earth."
+      ], sourceUrls: ["https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/"]
+    },
+    {
+      id: "timestamps", heading: "Check what a mission timestamp actually means",
+      paragraphs: ["During an encounter or landing, an event can already have happened while its confirmation is still traveling. Distinguishing the event time from the received time makes a mission broadcast easier to follow."],
+      list: { items: [
+        "Look for spacecraft-event time versus Earth-received time in the timeline.",
+        "Check the stated time zone, including whether a schedule uses UTC.",
+        "Treat delayed confirmation as expected when the timeline includes light time.",
+        "Use the mission's dated communication plan rather than assuming uninterrupted live video."
+      ] }
+    }
+  ],
+  "why-astronauts-float-in-microgravity": [
+    {
+      id: "free-fall", heading: "An orbiting station is falling around Earth",
+      paragraphs: [
+        "Gravity is still substantial at the altitude of the International Space Station. Astronauts do not float because they have crossed an invisible boundary where Earth's gravity switches off. The station, its crew, and loose objects inside are falling together while moving sideways fast enough to keep going around Earth.",
+        "On the ground, a floor pushes upward on your feet and a scale measures that support force. In orbital free fall, the floor does not need to support you in the same way. You can remain beside it without standing on it. The familiar sensation of weight changes even though Earth's gravitational pull remains."
+      ], sourceUrls: ["https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/"]
+    },
+    {
+      id: "mass", heading: "Floating equipment still has mass and momentum",
+      paragraphs: [
+        "Picture an astronaut releasing a tool gently inside the station. The tool and station continue sharing almost the same orbital motion. The tool does not immediately drop toward one particular cabin wall, because that wall is falling too. A small push, air movement, or vibration can still move it relative to the cabin.",
+        "An object does not lose its mass when it floats. Starting, stopping, or redirecting a massive piece of equipment still takes force, and a moving object still carries momentum. 'Weightless' is not the same as 'effortless to control.' Securing equipment matters even without an ordinary downward direction."
+      ], sourceUrls: ["https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/"]
+    },
+    {
+      id: "small-forces", heading: "Microgravity describes an environment, not an absence of physics",
+      paragraphs: [
+        "Real orbital laboratories are not perfectly free of disturbances. Atmospheric drag, equipment motion, vibrations, and differences in gravity across the spacecraft can introduce small accelerations. 'Microgravity' is a practical term for the resulting low apparent-weight environment, not a promise that every experiment experiences an identical acceleration.",
+        "Without the usual gravity-driven settling and buoyant circulation, fluids and flames can behave differently. Surface tension and other effects that are less obvious on Earth may become prominent. Researchers study those differences under controlled conditions; an interesting floating droplet does not mean gravity or the other laws of physics have stopped working."
+      ], sourceUrls: ["https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/"]
+    },
+    {
+      id: "test-the-claim", heading: "Three checks for a weightlessness explanation",
+      paragraphs: ["Drop towers and aircraft flying suitable parabolic paths can also provide brief periods of free fall. An airless chamber alone cannot: removing air does not remove Earth's gravitational field."],
+      list: { items: [
+        "Does the explanation distinguish gravity from the support force you feel?",
+        "Does it account for both the astronaut and the surrounding spacecraft falling together?",
+        "Does it preserve mass and inertia instead of treating floating objects as massless?"
+      ] }
+    }
+  ],
+  "solar-flares-versus-coronal-mass-ejections": [
+    {
+      id: "different-eruptions", heading: "A flash of radiation is not the same as an expelled cloud",
+      paragraphs: [
+        "A solar flare is a sudden release of energy that increases radiation from a region of the Sun. A coronal mass ejection, or CME, expels a large amount of solar plasma and magnetic field into space. They can accompany the same eruption, but observing one does not automatically establish the presence, direction, or effects of the other.",
+        "The distinction matters when reading an alarming headline. A flare's radiation and a CME's moving material do not reach Earth on the same schedule or interact with our environment in exactly the same way. 'Solar storm' is too broad a label to tell you which process a report describes."
+      ], sourceUrls: ["https://www.spaceweather.gov/phenomena/solar-flares-radio-blackouts", "https://www.spaceweather.gov/phenomena/coronal-mass-ejections"]
+    },
+    {
+      id: "travel", heading: "Separate travel time from warning time",
+      paragraphs: [
+        "Flare radiation takes roughly eight minutes to travel from the Sun to Earth, just as ordinary sunlight does. That is not eight minutes of warning after an Earth-based observer sees the flare: the observation itself depends on arriving radiation. An associated CME, if directed toward Earth, generally travels for many hours to days instead.",
+        "Those different times explain why a radiation-related effect may be reported promptly while forecasters are still estimating whether expelled material will arrive later. A forecast arrival window has uncertainty, and a fast event elsewhere on the Sun need not be headed toward us."
+      ],
+      table: { caption: "Flare radiation versus CME material", columns: ["Phenomenon", "Signal and possible effect"], rows: [
+        ["Solar flare", "Radiation; can disturb dayside high-frequency radio"],
+        ["Earth-directed CME", "Plasma and magnetic field; can cause geomagnetic disturbances"]
+      ] }, sourceUrls: ["https://www.spaceweather.gov/phenomena/solar-flares-radio-blackouts", "https://www.spaceweather.gov/phenomena/coronal-mass-ejections"]
+    },
+    {
+      id: "effects", heading: "Size alone does not predict the local outcome",
+      paragraphs: [
+        "CME direction, speed, and magnetic-field orientation help determine its interaction with Earth's magnetic environment. An eruption is not a guarantee of widespread auroras, damaged equipment, or disruption at your location. Conversely, a real operational warning deserves more attention than a reassuring social-media guess.",
+        "A flare classification describes radiation output in a particular measurement band; it is not a universal rating for every possible geomagnetic consequence. Read the phenomenon and impact named in an official bulletin rather than transferring a dramatic number or letter between different scales."
+      ], sourceUrls: ["https://www.spaceweather.gov/phenomena/coronal-mass-ejections"]
+    },
+    {
+      id: "read-a-report", heading: "Use a dated bulletin, not an undated eruption clip",
+      paragraphs: ["For current conditions, consult official space-weather reports. This guide explains the vocabulary and does not forecast an aurora or an outage."],
+      list: { items: [
+        "Check the observation time and the bulletin's issue time.",
+        "Identify whether it reports a flare, a CME, a forecast arrival, or a confirmed disturbance.",
+        "Look for the affected region and named service rather than assuming a global impact.",
+        "Keep forecast uncertainty attached when sharing a predicted arrival or observing opportunity."
+      ] }
+    }
+  ],
+  "moon-illusion-and-supermoons": [
+    {
+      id: "illusion", heading: "A huge-looking horizon Moon need not be physically closer",
+      paragraphs: [
+        "The Moon can look strikingly large beside trees, buildings, or a distant ridge and look smaller when high overhead. This familiar Moon illusion is a feature of perception, not evidence that the Moon rapidly changed its physical size. Researchers have proposed several explanations for the perceptual effect; no single simple account explains every observation.",
+        "Earth's atmosphere is not acting as a magnifying glass that turns an ordinary rising Moon into a giant disk. Refraction can distort a low Moon, especially by flattening its shape vertically. Haze and the longer atmospheric path can also change its color. These effects should not be confused with the illusion of a much larger diameter."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/moon/the-moon-illusion-why-does-the-moon-look-so-big-sometimes/"]
+    },
+    {
+      id: "supermoon", heading: "A supermoon involves a real change in viewing distance",
+      paragraphs: [
+        "The Moon's orbit is elliptical. It appears somewhat larger when nearer Earth than when farther away. 'Supermoon' is a popular term usually applied to a full Moon near the closer part of its orbit, not a separate kind of Moon with different physical properties.",
+        "Comparisons need a reference. A size difference measured against the smallest, most distant full Moon is not the same as a difference against an average full Moon. The popular label also lacks one universally applied cutoff. Check the stated definition and comparison before interpreting a percentage as an extraordinary naked-eye transformation."
+      ], sourceUrls: ["https://www.jpl.nasa.gov/edu/resources/teachable-moment/whats-a-supermoon-and-just-how-super-is-it/"]
+    },
+    {
+      id: "comparison", heading: "Try a controlled photograph comparison",
+      paragraphs: [
+        "Photograph the Moon near the horizon and later when it is higher during the same evening. Keep focal length, digital zoom, and image dimensions unchanged, and avoid switching between phone cameras. Choose an exposure that preserves the lunar edge rather than a blown-out white patch.",
+        "Compare the disk width in pixels without independently resizing the photographs. The dramatic visual impression often exceeds the small changes in measured angular size during the session. Horizon refraction, camera processing, and imperfect settings are limitations, so this is a useful demonstration rather than precision orbital measurement."
+      ]
+    },
+    {
+      id: "photographs", heading: "Read striking Moon photographs with the camera setup in mind",
+      paragraphs: ["A distant foreground and a long focal length can frame the Moon prominently beside a landmark. That composition alone does not prove a picture is fake, nor does it show what an unaided observer would perceive at the scene."],
+      list: { items: [
+        "Ask whether the claim concerns perceived size, measured angular size, or distance.",
+        "Keep crop and focal length consistent in your own comparisons.",
+        "Treat color, flattening, and apparent diameter as different observations.",
+        "Use a dated lunar-distance reference when evaluating a specific supermoon claim."
+      ] }
+    }
+  ],
+  "planetary-nebulae-not-planets": [
+    {
+      id: "name", heading: "The name describes an old impression, not a planetary origin",
+      paragraphs: [
+        "A planetary nebula is glowing gas expelled by an evolving star, not a planet or a cloud made from shattered planets. The historical name arose because some examples looked like small, rounded planetary disks through early telescopes. A familiar name can preserve an outdated visual analogy long after the underlying physics becomes clearer.",
+        "These nebulae belong to the later evolution of low- and intermediate-mass stars. After a star sheds its outer layers, the hot exposed central remnant supplies ultraviolet radiation that ionizes the surrounding gas. The gas then emits light. The central remnant eventually becomes a cooling white dwarf."
+      ], sourceUrls: ["https://esahubble.org/wordbank/planetary-nebula/"]
+    },
+    {
+      id: "stellar-ending", heading: "This is not a supernova or a star-forming nursery",
+      paragraphs: [
+        "Different stellar masses lead to different evolutionary paths. A planetary nebula should not be described as the aftermath of a supernova or as a black hole swallowing its surroundings. The Sun belongs to the broad mass range associated with this late-life pathway, but a nearby photograph is not a prediction of its exact future shape.",
+        "'Nebula' is a broad word for a cloud seen in space. Some nebulae are star-forming regions, some are supernova remnants, and some are planetary nebulae. Ask what illuminates the gas and how it formed before assuming that two colorful images show the same stage of a star's life."
+      ], sourceUrls: ["https://esahubble.org/wordbank/planetary-nebula/", "https://esahubble.org/announcements/ann0710/"]
+    },
+    {
+      id: "shape-and-color", heading: "Shapes and colors encode structure and observing choices",
+      paragraphs: [
+        "Planetary nebulae can show rings, shells, knots, or two-lobed structures. We see a three-dimensional cloud projected onto the sky, so viewing angle affects its apparent shape. A ring in an image does not establish that the entire object is a flat hoop.",
+        "Images often combine filters that isolate emission from particular atoms or ions. Assigned display colors help separate those signals; they are not necessarily the colors your eyes would see through a telescope. Read the filter explanation before treating a green or red region as a simple photograph of visible smoke."
+      ], sourceUrls: ["https://esahubble.org/announcements/ann0710/"]
+    },
+    {
+      id: "use-a-caption", heading: "Turn an attractive image into a useful observation",
+      paragraphs: ["These shells are short-lived compared with a star's long lifetime. A telescope image captures one stage of an evolving system, often at a detail level unavailable to a beginner's instrument. A small, faint patch at the eyepiece can still be a successful sighting."],
+      list: { items: [
+        "Identify the object, central remnant, and stated evolutionary stage.",
+        "Check the filters or wavelengths and how display colors were assigned.",
+        "Read the angular scale before comparing apparent image sizes.",
+        "Keep the telescope, image credit, and source caption with a shared picture."
+      ] }
+    }
+  ],
 };

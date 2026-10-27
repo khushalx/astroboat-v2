@@ -29,10 +29,32 @@ const { publishedGuides, getPublishedGuide } = load('lib/guides.ts');
 const { astronomyGuides } = load('lib/guide-library.ts');
 const { guideSections } = load('lib/guide-content.ts');
 const { searchIndex } = load('lib/search-index.ts');
-const newSlugs = new Set([
+const shortSlugs = new Set([
   'how-to-spot-the-space-station',
   'twilight-civil-nautical-astronomical',
   'photographing-the-night-sky-with-a-phone'
+]);
+const newSlugs = new Set([
+  'sky-coordinates-altitude-and-azimuth',
+  'stellar-magnitudes-and-brightness',
+  'earthshine-on-the-crescent-moon',
+  'why-the-moon-causes-tides',
+  'how-planetary-defense-works',
+  'isro-science-missions-and-instruments',
+  'spectroscopy-reading-starlight',
+  'why-stars-twinkle-and-seeing',
+  'stellar-parallax-and-distance',
+  'open-and-globular-star-clusters',
+  'observing-jupiter-and-its-moons',
+  'saturn-rings-and-changing-views',
+  'venus-morning-evening-star-and-phases',
+  'mars-red-color-and-observing',
+  'gravity-assists-and-spacecraft-flybys',
+  'deep-space-communication-and-light-delay',
+  'why-astronauts-float-in-microgravity',
+  'solar-flares-versus-coronal-mass-ejections',
+  'moon-illusion-and-supermoons',
+  'planetary-nebulae-not-planets'
 ]);
 
 function readingText(guide) {
@@ -42,9 +64,9 @@ function readingText(guide) {
   ]).join(' ');
 }
 
-test('3 simple guides join the 25 revisions without dropping the original guide', () => {
-  assert.equal(astronomyGuides.length, 28);
-  assert.equal(publishedGuides.length, 29);
+test('20 new guides join the existing 29 without dropping or duplicating a guide', () => {
+  assert.equal(astronomyGuides.length, 48);
+  assert.equal(publishedGuides.length, 49);
   assert.equal(Object.keys(guideSections).sort().join(','), astronomyGuides.map((guide) => guide.slug).sort().join(','));
   assert.equal(new Set(publishedGuides.map((guide) => guide.slug)).size, publishedGuides.length);
   assert.equal(getPublishedGuide('what-is-a-near-earth-object').publishedAt, '2026-09-30');
@@ -72,8 +94,9 @@ for (const guide of astronomyGuides) {
   test(`${guide.slug}: navigable sections, valid citations, and complete reading time`, () => {
     assert.equal(guide.status, 'published');
     const isNew = newSlugs.has(guide.slug);
-    assert.equal(guide.publishedAt, isNew ? '2026-10-24' : '2026-10-21');
-    assert.equal(guide.updatedAt, isNew ? undefined : '2026-10-22');
+    const isShort = shortSlugs.has(guide.slug);
+    assert.equal(guide.publishedAt, isNew ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
+    assert.equal(guide.updatedAt, isNew || isShort ? undefined : '2026-10-22');
     assert.ok(guide.aiAssisted);
     assert.ok(guide.sections.length >= 4);
     const ids = new Set();
@@ -107,7 +130,8 @@ for (const guide of astronomyGuides) {
 
     assert.ok(guide.sections.some((section) => section.sourceUrls?.length));
     const words = readingText(guide).split(/\s+/).length;
-    if (isNew) assert.ok(words >= 250 && words <= 400, `Keep new guides short and useful: ${words} words`);
+    if (isShort) assert.ok(words >= 250 && words <= 400, `Keep simple guides short and useful: ${words} words`);
+    if (isNew) assert.ok(words >= 300 && words <= 600, `Keep new guides focused and useful: ${words} words`);
     assert.equal(guide.readingMinutes, Math.max(1, Math.ceil(words / 200)));
     for (const item of guide.relatedPaths) {
       if (item.href.startsWith('/guides/')) assert.ok(getPublishedGuide(item.href.slice('/guides/'.length)), `Missing related guide ${item.href}`);
