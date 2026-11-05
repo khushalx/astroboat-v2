@@ -58,7 +58,7 @@ The product is built around three ideas: **source transparency**, **graceful fai
 
 ### 🔭 Astronomy gallery
 
-The Gallery is a current-first visual archive built from official astronomy sources:
+The Gallery is a current-first visual archive built from official astronomy sources:-
 
 - Combines recent NASA APOD images, targeted NASA Image Library results, ESA/Webb releases, ESA/Hubble releases, and European Southern Observatory image feeds.
 - Uses the latest 45-day APOD window instead of a random historical sample, with the official APOD RSS archive as a keyless fallback.
