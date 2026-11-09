@@ -1791,4 +1791,524 @@ export const guideSections: Record<string, Guide["sections"]> = {
       ] }
     }
   ],
+  "telescope-field-of-view": [
+    {
+      id: "two-fields", heading: "The angle on the box is not the patch of sky",
+      paragraphs: [
+        "An eyepiece's apparent field is how wide its viewing circle looks to your eye. True field is the width of sky that circle contains when the eyepiece is installed in a particular telescope. Two eyepieces can have the same apparent field but show very different amounts of sky. The telescope and the magnification matter too."
+      ], sourceUrls: ["https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf"]
+    },
+    {
+      id: "calculate", heading: "Try the numbers before changing eyepieces",
+      paragraphs: [
+        "Put a 25 mm eyepiece with a 50-degree apparent field into a telescope with a 1,000 mm focal length. The magnification is 1,000 divided by 25, or 40x. Divide 50 degrees by 40 to estimate a true field of 1.25 degrees. A 10 mm eyepiece with the same apparent field gives 100x and about 0.5 degrees. That is a tight fit for the roughly half-degree Moon, with little or no room around it."
+      ], sourceUrls: ["https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf"]
+    },
+    {
+      id: "measure", heading: "Measure it when the estimate is too close",
+      paragraphs: [
+        "The apparent-field formula is approximate because eyepieces can distort angles across the view. A drift test avoids relying on the box: with tracking off, time a star near the celestial equator as it crosses the center of the field from edge to edge. Four minutes of drift there corresponds to about one degree. A chord away from the center is shorter, and stars far from the celestial equator drift more slowly across the sky."
+      ], sourceUrls: ["https://www.celestron.com/blogs/knowledgebase/how-much-magnification-and-true-field-of-view-does-the-neximage-camera-have-when-placed-in-my-eyepiece-holder"]
+    },
+    {
+      id: "plan", heading: "Choose framing before choosing power",
+      paragraphs: [
+        "For a wide cluster or planet pairing, compare the target's charted width with the true field and leave room for the surrounding pattern. For a small planet, start wide to center it, then switch to higher power if the air is steady. Keep a note of the field for each eyepiece: that same number tells you how far one hop across a star chart will take you."
+      ]
+    }
+  ],
+  "night-sky-observing-log": [
+    {
+      id: "minimum", heading: "Record enough to repeat the view",
+      paragraphs: [
+        "Write down the date, time and time zone, approximate location, target, and what you used to look. For a telescope, add the eyepiece or magnification. A note that says 'Jupiter looked good' is hard to use later. One that says '21:10 IST, 60x, two bands steady for a few seconds' tells you what was visible and when. Keep precise site coordinates private unless an observing program needs them."
+      ], sourceUrls: ["https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf"]
+    },
+    {
+      id: "conditions", heading: "Separate the target from the sky",
+      paragraphs: [
+        "Record clouds, haze, nearby glare, and whether the image shimmered. Those clues matter when two nights produce different results. A faint cluster missing behind thin cloud is not the same as a cluster you failed to identify in a clear field. Note what prevented a detection, or write 'not seen' without guessing. Negative observations are only comparable when you know how the search was done."
+      ], sourceUrls: ["https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf", "https://science.nasa.gov/skywatching/faq/"]
+    },
+    {
+      id: "sketch", heading: "Put down the geometry first",
+      paragraphs: [
+        "Draw a circle for the field, place two or three obvious reference points, then add the detail you are trying to verify. Mark the orientation if you know it; a diagonal or a different instrument may reverse the view. If the orientation is uncertain, label a direction by watching how stars drift with tracking off. An untidy sketch with reliable relative positions is more useful than a neat sketch redrawn from an online image."
+      ]
+    },
+    {
+      id: "compare", heading: "Give the next session a question",
+      paragraphs: [
+        "End the entry with one thing you want to check again. For example: 'Was that fourth point beside Jupiter hidden by the planet, or just too close to the glare?' Revisit at another time with the same equipment and compare the sketches before consulting predictions. You can keep the whole entry in a notes app; the value comes from recording what you actually saw, not from the format."
+      ]
+    }
+  ],
+  "find-polaris-and-true-north": [
+    {
+      id: "find", heading: "Follow the two stars opposite the handle",
+      paragraphs: [
+        "Find the Big Dipper's bowl and identify the two stars along its outer edge, Merak and Dubhe. Follow the line from Merak through Dubhe and continue roughly five times their separation. That brings you near Polaris, at the end of the Little Dipper's handle. Use a chart to verify the pattern rather than picking the brightest star in the area. If the Big Dipper is hidden, the same chart can help you find Polaris directly."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/what-is-the-north-star-and-how-do-you-find-it/"]
+    },
+    {
+      id: "north", heading: "Look down from the star to the horizon",
+      paragraphs: [
+        "Polaris sits near the direction of Earth's north rotation axis. Most stars seem to sweep around that point as Earth turns. Project a vertical line down from Polaris to the horizon and you have an approximate true-north direction. A magnetic compass can point somewhere different because magnetic and geographic north are not the same. Polaris is close to the pole, not exactly on it."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/what-is-the-north-star-and-how-do-you-find-it/"]
+    },
+    {
+      id: "latitude", heading: "Use the angle above a level horizon",
+      paragraphs: [
+        "The north celestial pole's altitude equals your latitude in the Northern Hemisphere. At 25 degrees north, expect Polaris roughly 25 degrees above a level northern horizon, not directly overhead. The star's offset from the pole, atmospheric refraction near the horizon, and a sloping skyline all limit a rough measurement. A roofline or hilltop is not the geometric horizon."
+      ], sourceUrls: ["https://pwg.gsfc.nasa.gov/stargaze/Snavigat.htm"]
+    },
+    {
+      id: "limits", heading: "Try the observation where it makes sense",
+      paragraphs: [
+        "At low northern latitudes the star can be difficult to see through haze or obstructions. Well south of the equator, Polaris is below the horizon; use a southern sky chart rather than trying to force the same method. Compare a rough angle estimate with your known latitude and explain the mismatch. This is a geometry exercise, not a substitute for dependable navigation."
+      ]
+    }
+  ],
+  "airmass-and-atmospheric-extinction": [
+    {
+      id: "path", heading: "A low target means a longer path through air",
+      paragraphs: [
+        "Straight overhead is roughly one airmass. At lower altitude, light slants through more atmosphere before reaching you. At 30 degrees above the horizon, a simple flat-atmosphere estimate gives about two airmasses. Do not extend that approximation all the way to the horizon: Earth's curvature and the atmosphere's structure matter there. Airmass describes the path, not a direct measurement of how clear the sky is."
+      ], sourceUrls: ["https://www.aavso.org/sites/default/files/publications_files/dslr_manual/AAVSO_DSLR_Observing_Manual_V1-4.pdf"]
+    },
+    {
+      id: "loss", heading: "Extinction reduces the light that reaches the telescope",
+      paragraphs: [
+        "Air molecules, aerosols, and other material scatter or absorb some of the light. The loss depends on wavelength and conditions. In visible light, blue is often attenuated more than red, so a star may look warmer near the horizon without changing intrinsically. This is different from seeing, which describes how air turbulence blurs and distorts an image. Both problems can affect the same observation."
+      ], sourceUrls: ["https://www.eso.org/sci/observing/tools/Extinction.html"]
+    },
+    {
+      id: "example", heading: "Put a magnitude difference in context",
+      paragraphs: [
+        "Suppose an observing site has an extinction coefficient of 0.2 magnitude per airmass in the band you are using. Under the same conditions, a star at two airmasses would appear 0.2 magnitude fainter than at one airmass. That is an illustrative coefficient, not a value to apply everywhere. Site, wavelength, dust, and variable haze can change the actual loss."
+      ], sourceUrls: ["https://www.eso.org/sci/observing/tools/Extinction.html", "https://www.aavso.org/sites/default/files/publications_files/dslr_manual/AAVSO_DSLR_Observing_Manual_V1-4.pdf"]
+    },
+    {
+      id: "try", heading: "Compare one star as it climbs",
+      paragraphs: [
+        "Use the same instrument and watch a bright star at two elevations in one evening. Note color, apparent brightness, and haze separately. If doing a camera comparison, keep settings fixed and avoid saturating the star. For a faint object you have not found yet, try again nearer its highest point in the sky instead of assuming the chart was wrong."
+      ]
+    }
+  ],
+  "lunar-and-asteroid-occultations": [
+    {
+      id: "alignment", heading: "A foreground object blocks a more distant one",
+      paragraphs: [
+        "In a lunar occultation, a star can wink out behind the Moon's edge, called the limb, then reappear on the other side. An asteroid can briefly hide a star too. What matters is the alignment from your observing site. The star is not physically near the Moon or asteroid; the two just line up along your line of sight."
+      ], sourceUrls: ["https://occultations.org/observing/observing-basics/"]
+    },
+    {
+      id: "prediction", heading: "A prediction is local, not a worldwide appointment",
+      paragraphs: [
+        "Check the target star, location, time zone, predicted duration, and local horizon. An asteroid's shadow can cross a narrow track, and the predicted track has uncertainty. A star that stays visible from a site near the track is not automatically a failed observation. But a cloud crossing the field or a camera stopping at the critical moment leaves a gap, not a reliable miss."
+      ], sourceUrls: ["https://occultations.org/observing/observing-basics/", "https://iota-india.in/occultations/"]
+    },
+    {
+      id: "chord", heading: "One timed dip gives a slice, not a complete shape",
+      paragraphs: [
+        "If a shadow moves at an illustrative 20 kilometres per second and the star is hidden for three seconds, your site samples a chord about 60 kilometres long. It might cut across the middle of the silhouette or only skim an edge. Timings from different sites can supply several chords across the same object and help constrain its projected outline."
+      ], sourceUrls: ["https://iota-india.in/occultations/"]
+    },
+    {
+      id: "first-session", heading: "Practice on a well-placed night-time lunar event",
+      paragraphs: [
+        "Use a location-specific prediction and confirm the star before the event, allowing for lunar glare. Record continuously through the predicted window and save the original timestamps. If you want to submit scientific timings, follow IOTA's guidance on clocks, equipment delay, and position accuracy; a phone clock read by eye is a practice record, not automatically a calibrated timing."
+      ], sourceUrls: ["https://occultations.org/observing/observing-basics/", "https://iota-india.in/occultations/"]
+    }
+  ],
+  "lunar-libration": [
+    {
+      id: "rocking", heading: "The face is familiar, but the edge shifts",
+      paragraphs: [
+        "The Moon keeps roughly the same side facing Earth, yet its markings appear to rock slightly from night to night. This change in viewing angle is called libration. It lets us see about 59 percent of the lunar surface in total over time, not all at once. The extra terrain is close to the edge, where foreshortening makes detail hard to judge."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smoon4.htm", "https://science.nasa.gov/moon/moon-phases/"]
+    },
+    {
+      id: "east-west", heading: "The Moon's spin is steadier than its orbital speed",
+      paragraphs: [
+        "The Moon moves faster along its elliptical orbit when nearer Earth and slower when farther away. Its spin rate is much more uniform. Sometimes the rotation gets a little ahead of the orbital motion and sometimes it falls a little behind. From Earth, that difference lets us see slightly farther around one side, then the other. It does not undo tidal locking."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smoon4.htm"]
+    },
+    {
+      id: "north-south", heading: "Tilt changes which pole we can see past",
+      paragraphs: [
+        "The Moon's spin axis is tilted relative to the plane in which it orbits Earth. As our viewing direction changes, one polar region is tipped a little toward us and then the other. Phase is a separate effect: it tells you what portion of the face is sunlit. A feature can be geometrically in view but still in shadow."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smoon4.htm", "https://science.nasa.gov/moon/moon-phases/"]
+    },
+    {
+      id: "compare", heading: "Compare a landmark, not just the bright outline",
+      paragraphs: [
+        "Pick two dated NASA Moon visualizations with similar phases but different libration. Orient them the same way and look for how far a landmark such as Mare Crisium sits from the edge of the disk. The bright crescent alone is a poor reference because its shape changes with illumination. For your own photos, keep the optical orientation and capture date with each image."
+      ], sourceUrls: ["https://science.nasa.gov/moon/moon-phases/"]
+    }
+  ],
+  "why-the-moon-has-a-far-side": [
+    {
+      id: "rotation", heading: "One orbit and one turn happen together",
+      paragraphs: [
+        "The Moon takes about 27.3 days to orbit Earth relative to the stars and about the same time to spin once. That match is called synchronous rotation. Without that spin, the same fixed lunar face would point in the same direction in space, and observers on Earth would see different faces as the Moon went around them. Tidal interactions helped bring the rotation into this locked state."
+      ], sourceUrls: ["https://science.nasa.gov/moon/tidal-locking/", "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"]
+    },
+    {
+      id: "demo", heading: "Walk around a chair to test the idea",
+      paragraphs: [
+        "Put a chair in the middle of a room and walk around it while always facing the chair. Someone watching from the wall sees you turn through a full circle. From the chair's point of view, however, your front remains visible the whole way. Repeat while keeping your shoulders aimed toward the same wall; now the chair would see different sides of you. The first walk models the Moon."
+      ], sourceUrls: ["https://science.nasa.gov/moon/tidal-locking/"]
+    },
+    {
+      id: "daylight", heading: "Far side describes direction, not darkness",
+      paragraphs: [
+        "The side facing away from Earth also experiences sunlight and night. Near new Moon, the Earth-facing hemisphere is mostly dark and the far side is mostly lit; near full Moon the situation reverses. Small regions near the poles can remain in shadow because of local terrain, but that is not what 'far side' means. A space image of a bright far side is entirely consistent with the geometry."
+      ], sourceUrls: ["https://science.nasa.gov/moon/moon-phases/"]
+    },
+    {
+      id: "month", heading: "Two different months answer two different questions",
+      paragraphs: [
+        "The roughly 27.3-day period tracks a return to the same position relative to the stars. The phase cycle takes about 29.5 days because Earth and the Moon have also moved around the Sun during that orbit. The Moon must travel a little farther before the lighting geometry repeats. Use the shorter number for the star-relative rotation and the longer one for new Moon to new Moon."
+      ], sourceUrls: ["https://science.nasa.gov/moon/moon-phases/", "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"]
+    }
+  ],
+  "lunar-maria-and-highlands": [
+    {
+      id: "plains", heading: "Dark seas are rock, not water",
+      paragraphs: [
+        "The broad dark regions called maria are mostly plains of basalt. Large impacts made basins, and later lava flooded many of them. These are two separate events: the impact excavated a depression; the volcanic material filled parts of it. The name 'sea' survives because the areas looked like bodies of water to early observers. Their dark tone persists even when they are fully lit."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/", "https://science.nasa.gov/resource/wrinkle-ridge-in-mare-crisium/"]
+    },
+    {
+      id: "highlands", heading: "Look for a contrast in texture as well as tone",
+      paragraphs: [
+        "Lunar highlands are generally brighter and more heavily cratered than the maria. Many highland surfaces have preserved a longer record of impacts, while lava resurfaced parts of the basins. Crater counts can help compare surface ages, but one smooth patch is not an exact date. To read a photograph, look for crater rims and overlapping features, not simply bright versus dark pixels."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/"]
+    },
+    {
+      id: "crisium", heading: "Find one basin you can recognize again",
+      paragraphs: [
+        "Mare Crisium is an isolated dark plain near one edge of the familiar lunar face. Start with a labeled atlas, then match the outline rather than guessing from left or right: a telescope can invert or mirror the view. NASA's close-up of a wrinkle ridge shows that a plain can look flat in a wide view and still have real topography at a finer scale."
+      ], sourceUrls: ["https://science.nasa.gov/resource/wrinkle-ridge-in-mare-crisium/"]
+    },
+    {
+      id: "compare", heading: "Separate terrain from lighting with two observations",
+      paragraphs: [
+        "Sketch the same basin on two nights, marking the boundary of the dark material and any sharp shadows separately. Near the terminator, the line between lunar day and night, low sunlight emphasizes relief. With the Sun higher over that terrain, shadows shorten, but the basalt remains darker than its surroundings. If the outline changes shape near the limb, consider viewing angle before deciding you found a new feature."
+      ]
+    }
+  ],
+  "dwarf-planets-pluto-and-ceres": [
+    {
+      id: "definition", heading: "Round is necessary, but not enough",
+      paragraphs: [
+        "In the IAU's Solar System classification, a dwarf planet orbits the Sun, is rounded by its own gravity, does not dominate its orbital neighbourhood, and is not a satellite. Planets meet the orbital-dominance condition instead. The definition is about Solar System bodies; it is not a quick recipe for deciding what every exoplanet or distant discovery should be called."
+      ], sourceUrls: ["https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx"]
+    },
+    {
+      id: "neighbourhood", heading: "Clearing an orbit does not mean sweeping it empty",
+      paragraphs: [
+        "A planet can share space with small objects and still gravitationally dominate its region. 'Cleared' does not require a perfectly debris-free path. Pluto lives in a region populated by other objects beyond Neptune, and Ceres shares the main asteroid belt between Mars and Jupiter. Roundness alone cannot tell you how an object has shaped the population around its orbit."
+      ], sourceUrls: ["https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx", "https://science.nasa.gov/dwarf-planets/ceres/facts/"]
+    },
+    {
+      id: "worlds", heading: "A shared label does not imply shared geology",
+      paragraphs: [
+        "NASA's Dawn mission orbited Ceres and examined its surface, including the bright deposits in Occator crater. New Horizons flew past Pluto in 2015 and revealed varied terrain, including mountains and a broad bright ice plain. Those observations are separate from the rules for naming the objects. A classification can help describe a population without telling you what every world in it looks like."
+      ], sourceUrls: ["https://science.nasa.gov/dwarf-planets/ceres/facts/", "https://science.nasa.gov/mission/new-horizons/"]
+    },
+    {
+      id: "read", heading: "Check what a discovery headline actually measured",
+      paragraphs: [
+        "An object beyond Neptune may be described as a dwarf-planet candidate because its estimated size suggests it could be round. A brightness measurement alone is not a shape measurement: a small reflective object and a larger dark one can look similarly bright. When reading a claim, distinguish a proposed classification from a settled one and check which observations support it."
+      ]
+    }
+  ],
+  "uranus-and-neptune-ice-giants": [
+    {
+      id: "ice", heading: "Ice describes ingredients, not a surface you could stand on",
+      paragraphs: [
+        "Both planets have hydrogen and helium atmospheres containing methane. Models give heavier ingredients such as water, ammonia, and methane a larger role in their interiors than in Jupiter or Saturn. Under immense pressure and heat, those ingredients need not behave like familiar solid ice. The label describes a broad family, not a direct measurement of the exact proportions hidden inside."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/", "https://science.nasa.gov/neptune/neptune-facts/"]
+    },
+    {
+      id: "differences", heading: "Tilt, weather, and haze tell different stories",
+      paragraphs: [
+        "Uranus rotates with its axis tipped nearly on its side, creating extreme seasonal lighting at its poles. Neptune is farther out and has a dynamic atmosphere with fast winds. Methane absorbs red light and helps give both planets their blue-green appearance, while haze also affects their color. Check the filters and processing before comparing the hue of two publicity images."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/", "https://science.nasa.gov/neptune/neptune-facts/", "https://science.nasa.gov/solar-system/why-uranus-and-neptune-are-different-colors/"]
+    },
+    {
+      id: "evidence", heading: "A flyby is detailed but brief",
+      paragraphs: [
+        "Voyager 2 passed Uranus in 1986 and Neptune in 1989. A close flyby can reveal moons, rings, and atmospheric structure at scales difficult to study from Earth, but it samples one period in a planet's changing seasons. Repeated remote observations answer a different question: which features persist, and which come and go? Neither technique is a direct look all the way into the interior."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/", "https://science.nasa.gov/neptune/neptune-facts/"]
+    },
+    {
+      id: "observe", heading: "Treat finding one as an identification exercise",
+      paragraphs: [
+        "Use a dated chart with nearby reference stars. Start with a wide field and compare the target's position with the pattern around it. Especially for Neptune, plan on optical aid and do not use 'it looked blue' as proof. A second observation can reveal its motion against the stars. The useful outcome is a confident identification, not a promise of seeing cloud detail."
+      ]
+    }
+  ],
+  "asteroid-light-curves-and-rotation": [
+    {
+      id: "measure", heading: "A point of light can still carry a pattern",
+      paragraphs: [
+        "A light curve is a record of brightness over time. An unresolved asteroid can get brighter as a broad side turns toward us and fainter as a narrow side comes into view. Surface reflectivity and the geometry of illumination can change the pattern too. A telescope need not resolve the outline to measure these variations, but one curve is not a direct photograph of the shape."
+      ], sourceUrls: ["https://arxiv.org/abs/astro-ph/0612097", "https://arxiv.org/abs/2501.07189"]
+    },
+    {
+      id: "period", heading: "Check whether the pattern repeats after one peak or two",
+      paragraphs: [
+        "Imagine bright peaks at hours zero, two, and four. If the first and third look alike and the middle peak is consistently lower, the full pattern may repeat every four hours. An elongated object can show two maxima per turn. The largest peak in a period-finding calculation can therefore point to half the true rotation period. More observations can help choose between candidates."
+      ], sourceUrls: ["https://arxiv.org/abs/astro-ph/0612097", "https://arxiv.org/abs/2501.07189"]
+    },
+    {
+      id: "gaps", heading: "A clean-looking curve can hide missing time",
+      paragraphs: [
+        "A target can set before one turn finishes, and clouds or daylight can leave gaps. Different proposed periods can fit the same sparse points. Look at how much of each cycle was observed, how large the uncertainty is, and whether observations on another night support the result. If the vertical axis is magnitude, smaller numbers indicate more light even when the plot flips the axis."
+      ], sourceUrls: ["https://arxiv.org/abs/2501.07189"]
+    },
+    {
+      id: "combine", heading: "Pair brightness with another kind of measurement",
+      paragraphs: [
+        "A changing light curve tells you about a repeating signal, not a unique diameter or a certain three-dimensional model. The Rosetta team observed Steins at a different illumination angle from earlier ground observations. Extra viewpoints and measurements such as occultation chords give a model more constraints. Before repeating a shape claim, check what evidence beyond a single light curve supports it."
+      ], sourceUrls: ["https://arxiv.org/abs/astro-ph/0612097"]
+    }
+  ],
+  "asteroid-sample-return": [
+    {
+      id: "context", heading: "A known collection site makes the grain more informative",
+      paragraphs: [
+        "A meteorite can contain valuable records of the early Solar System, but its original location on a parent body is often unknown. A sample-return spacecraft can map its target, document the sampling site, and bring material back with that context attached. Scientists can then compare what a remote spectrum suggested with what the material actually contains."
+      ], sourceUrls: ["https://science.nasa.gov/mission/osiris-rex/in-depth/", "https://www.isas.jaxa.jp/en/topics/004280.html"]
+    },
+    {
+      id: "missions", heading: "Two missions sampled different carbon-rich asteroids",
+      paragraphs: [
+        "JAXA's Hayabusa2 returned material from Ryugu in 2020. NASA's OSIRIS-REx delivered material from Bennu in 2023. Each collected small portions of a particular asteroid, not a representative scoop of all asteroids. Comparing the samples can reveal similarities and differences while leaving open how much variation exists elsewhere on either body."
+      ], sourceUrls: ["https://science.nasa.gov/mission/osiris-rex/in-depth/", "https://www.isas.jaxa.jp/en/topics/004280.html"]
+    },
+    {
+      id: "laboratory", heading: "The capsule lands before much of the science begins",
+      paragraphs: [
+        "Laboratories can study grain textures, mineral chemistry, and isotope ratios with instruments too large or specialized to fly on the mission. Curators track and protect the material, document how it was handled, and allocate portions for particular investigations. Saving some for future instruments matters because a destructive test cannot be repeated on the same grain."
+      ], sourceUrls: ["https://www.isas.jaxa.jp/en/topics/004280.html", "https://darts.isas.jaxa.jp/en/missions/curation"]
+    },
+    {
+      id: "interpret", heading: "Trace the claim from site to measurement",
+      paragraphs: [
+        "For a sample headline, note the mission, the asteroid, and the subset analyzed. Ask whether the result is a direct measurement on a grain, an inference about the asteroid's history, or a comparison with other material. Finding a compound in a sample does not establish that it came from biology. Check how researchers assessed contamination and how far they extend the conclusion."
+      ], sourceUrls: ["https://science.nasa.gov/mission/osiris-rex/in-depth/", "https://darts.isas.jaxa.jp/en/missions/curation"]
+    }
+  ],
+  "read-landsat-false-color-images": [
+    {
+      id: "bands", heading: "A band measures light over a wavelength range",
+      paragraphs: [
+        "A satellite sensor measures separate bands rather than taking one ordinary color photograph. To make a viewable composite, a producer assigns bands to display red, green, and blue. A natural-color image uses visible bands in their familiar order. A false-color image can assign invisible wavelengths to visible colors so differences in vegetation, water, or ground cover are easier to see."
+      ], sourceUrls: ["https://science.nasa.gov/earth/earth-observatory/how-to-interpret-a-false-color-satellite-image/"]
+    },
+    {
+      id: "decode", heading: "Try reading two composites of the same scene",
+      paragraphs: [
+        "For Landsat 8 and 9, a 4-3-2 display uses red, green, and blue visible bands. A 5-4-3 display sends near-infrared to the red channel, visible red to green, and visible green to blue. Vegetation that strongly reflects near-infrared can look red in that second image. That does not mean the scene burned. Check the satellite and sensor: band numbers are not universal."
+      ], sourceUrls: ["https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites", "https://science.nasa.gov/earth/earth-observatory/how-to-interpret-a-false-color-satellite-image/"]
+    },
+    {
+      id: "resolution", heading: "A larger image is not a sharper measurement",
+      paragraphs: [
+        "The Landsat 8 and 9 visible and near-infrared multispectral bands used here have 30-metre sampling. A pixel near a shoreline can include both land and water. Zooming into that pixel does not recover the finer details. Compare images at a useful common scale, and check whether a displayed product blends or resamples data before making claims about small features."
+      ], sourceUrls: ["https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites"]
+    },
+    {
+      id: "compare", heading: "Check dates and processing before calling a change",
+      paragraphs: [
+        "To compare a reservoir or forest across dates, use the same band assignment and a comparable display stretch. Note cloud and shadow, differences in season, and the capture dates. A darker patch could be water, shadow, or a display choice. Start by comparing both composites for the same scene, then look for a change that remains visible under a fair comparison."
+      ], sourceUrls: ["https://science.nasa.gov/earth/earth-observatory/how-to-interpret-a-false-color-satellite-image/"]
+    }
+  ],
+  "weather-satellite-orbits": [
+    {
+      id: "stationary", heading: "Geostationary does not mean motionless",
+      paragraphs: [
+        "A geostationary satellite orbits above Earth's equator about 35,786 kilometres up, in the direction Earth spins. Its orbital period matches Earth's rotation relative to the stars, so it stays over the same longitude. That gives a weather instrument repeated views of the same broad region. Near the edge of its view, particularly toward high latitudes, the instrument looks through a more oblique path."
+      ], sourceUrls: ["https://www.noaa.gov/jetstream/weather-satellites", "https://www.esa.int/Science_Exploration/Space_Science/Spacecraft_orbits"]
+    },
+    {
+      id: "swath", heading: "A polar satellite builds coverage in strips",
+      paragraphs: [
+        "A near-polar weather satellite crosses high latitudes on each orbit. As Earth turns beneath the orbit, the instrument sweeps out different swaths. This can provide useful coverage in regions that a geostationary view sees poorly, but the same instrument does not hover continuously over one storm. A global mosaic can stitch together observations made at different times."
+      ], sourceUrls: ["https://www.noaa.gov/jetstream/weather-satellites", "https://www.nesdis.noaa.gov/about/k-12-education/satellites-technology/why-do-satellites-have-different-orbits"]
+    },
+    {
+      id: "choice", heading: "Match the orbit to the question",
+      paragraphs: [
+        "To watch cloud development over an afternoon, look for a time sequence from a suitable geostationary satellite. For a polar region or a different set of spectral measurements, look at the polar-orbiting products and their overpass times. Neither orbit guarantees better data for every purpose. Instrument, channel, viewing angle, and revisit interval all change what you can infer."
+      ], sourceUrls: ["https://www.nesdis.noaa.gov/about/k-12-education/satellites-technology/why-do-satellites-have-different-orbits", "https://www.esa.int/Science_Exploration/Space_Science/Spacecraft_orbits"]
+    },
+    {
+      id: "timestamp", heading: "Read the label before interpreting the loop",
+      paragraphs: [
+        "Check acquisition time, time zone, channel, and whether a frame is a single scan or a composite. A publication timestamp can be later than the observation. Visible channels depend on reflected sunlight, while thermal infrared can track cloud features at night. For operational weather decisions, consult the appropriate official forecast or alert instead of treating an image as one."
+      ]
+    }
+  ],
+  "rocket-stages-fairings-and-deployment": [
+    {
+      id: "stages", heading: "A stage carries engines and propellant",
+      paragraphs: [
+        "A rocket can shed tanks, engines, and structure it no longer needs, leaving a lighter vehicle for later acceleration. In a common two-stage launch, the first stage handles much of the climb and the upper stage continues toward the intended orbit. Side boosters can supply additional early thrust. Not every rocket separates its components in the same sequence, so use the mission-specific timeline."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/space-transportation/ariane/ariane-6-what-s-it-made-of", "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf"]
+    },
+    {
+      id: "fairing", heading: "The fairing is a shell, not a stage",
+      paragraphs: [
+        "The payload fairing protects spacecraft during launch and the thick part of the atmospheric climb. Once conditions permit, the rocket can open or jettison it. That removes mass and exposes the payload, but the spacecraft may still be firmly attached to its adapter. Seeing the fairing leave is not proof that the satellite has reached orbit or been released."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/space-transportation/ariane/ariane-6-what-s-it-made-of", "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf"]
+    },
+    {
+      id: "coast", heading: "A quiet interval can be deliberate",
+      paragraphs: [
+        "An upper stage can coast with its engine off before another burn. The coast can put the vehicle in the right part of its trajectory for an orbit change or for releasing a payload. In a webcast, an engine cutoff call describes propulsion; a stage separation call describes hardware coming apart. Neither, on its own, is a complete report of where the payload ended up."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/space-transportation/ariane/ariane-6-what-s-it-made-of", "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf"]
+    },
+    {
+      id: "deployment", heading: "Look for the event that answers your question",
+      paragraphs: [
+        "If you want to know whether the satellite is free, look for payload separation. If you want to know whether the intended orbit was reached, look for insertion confirmation or orbital data. If you want to know whether the spacecraft works, look for later communications and commissioning updates. On a rideshare, one deployment confirmation does not confirm the others. Keep the planned and reported times separate."
+      ]
+    }
+  ],
+  "radio-interferometry-and-alma": [
+    {
+      id: "signals", heading: "Compare the waves, not just their average brightness",
+      paragraphs: [
+        "A wave from a distant source reaches separated antennas with a small difference in arrival time. An interferometer accounts for those delays and correlates signals from antenna pairs. Each pair samples part of the sky's brightness structure. The array builds an image from many such measurements rather than stacking separate ordinary photographs of the same object."
+      ], sourceUrls: ["https://www.almaobservatory.org/en/about-alma/how-alma-works/technologies/interferometry/", "https://almascience.nrao.edu/about-alma/alma-basics"]
+    },
+    {
+      id: "baseline", heading: "A longer baseline can distinguish finer detail",
+      paragraphs: [
+        "The separation between a pair of antennas is called a baseline. At a given wavelength, larger projected separations can resolve finer features. A useful scale estimate is wavelength divided by baseline, in radians. For 1-millimetre waves and a 1-kilometre baseline, that is about one millionth of a radian, or 0.2 arcseconds. Actual resolution depends on the observing geometry and how the data are combined."
+      ], sourceUrls: ["https://www.almaobservatory.org/en/about-alma/how-alma-works/technologies/interferometry/", "https://almascience.nrao.edu/about-alma/alma-basics"]
+    },
+    {
+      id: "short", heading: "Fine resolution does not guarantee a complete image",
+      paragraphs: [
+        "An extended cloud can emit strongly across a broad area but have little contrast on the finest scales. An array without enough short baselines can recover compact knots while missing much of the smooth emission. ALMA uses compact antenna configurations and single-dish measurements to help recover larger structures. A spread-out array does not gather light like one solid dish the size of the array."
+      ], sourceUrls: ["https://almascience.nrao.edu/about-alma/alma-basics"]
+    },
+    {
+      id: "caption", heading: "Look at the beam and the scale together",
+      paragraphs: [
+        "Find the wavelength, image scale, and beam size in a published map. A beam indicates the resolution of the reconstructed view; features smaller than it are not resolved just because they cover several pixels. If two maps disagree about how extensive a cloud is, compare their baselines and sensitivity to broad emission before assuming the cloud changed."
+      ], sourceUrls: ["https://almascience.nrao.edu/about-alma/alma-basics"]
+    }
+  ],
+  "neutron-stars-and-pulsars": [
+    {
+      id: "remnant", heading: "A neutron star is the compact remnant of a collapse",
+      paragraphs: [
+        "When the core of a sufficiently massive star collapses, it can leave behind a neutron star. Much of the original star's outer material can be thrown out in a supernova. The remnant packs a mass comparable to the Sun's into an object only tens of kilometres across. That is a scale comparison, not a claim that every neutron star has the same mass or radius."
+      ], sourceUrls: ["https://imagine.gsfc.nasa.gov/science/objects/neutron_stars1.html"]
+    },
+    {
+      id: "beam", heading: "The beam sweeps across us as the star spins",
+      paragraphs: [
+        "A spinning, magnetized neutron star can produce beams of radiation. When a beam crosses our line of sight, a telescope measures a pulse. The lighthouse analogy is about geometry: a source can emit even when its beam points away from us. Not seeing pulses does not rule out a neutron star, and not every pulsar is detected in the same wavelength band."
+      ], sourceUrls: ["https://imagine.gsfc.nasa.gov/science/objects/neutron_stars1.html", "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-pulsars/"]
+    },
+    {
+      id: "read", heading: "Convert a period into a rotation rate",
+      paragraphs: [
+        "A pulsar with a measured spin period of 0.25 seconds turns four times each second. Look for repeating structure before counting every bump in a pulse profile as a separate turn; more than one feature can recur in a single cycle. Timing uses repeated measurements, and astronomers can measure changes in rotation over longer intervals rather than treating every pulsar as a perfectly unchanging clock."
+      ], sourceUrls: ["https://imagine.gsfc.nasa.gov/science/objects/neutron_stars1.html", "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-pulsars/"]
+    },
+    {
+      id: "evidence", heading: "Ask what produced the plot",
+      paragraphs: [
+        "A pulse profile may combine many rotations to bring out a weak signal. A colored drawing of a beam is often an illustration, not a direct photograph of the star's magnetic field. Check the wavelength band, time scale, and whether you are looking at a single burst, an averaged profile, or a fitted timing model. They answer different questions about the same source."
+      ]
+    }
+  ],
+  "gravitational-waves-and-ligo": [
+    {
+      id: "wave", heading: "A ripple in spacetime is not sound",
+      paragraphs: [
+        "Accelerating massive systems such as orbiting compact objects can generate gravitational waves. A passing wave changes the relative distances between freely suspended test masses in a characteristic pattern. The wave travels at light speed, but it is not light and does not need air. An audio chirp made from the signal is a representation of the measured waveform, not sound recorded by a microphone in space."
+      ], sourceUrls: ["https://www.ligo.caltech.edu/page/what-are-gw", "https://ligo.org/science-summaries/GW150914/"]
+    },
+    {
+      id: "strain", heading: "The instrument measures a fractional change",
+      paragraphs: [
+        "LIGO compares laser light that travels along two perpendicular arms. A wave can alter their relative lengths, changing how the returning light interferes. Strain is a fractional measure of the distortion. A strain of one part in 10 to the 21st corresponds to a characteristic length scale of about 4 times 10 to the minus 18 metres over a 4-kilometre arm. The exact response depends on wave direction and polarization."
+      ], sourceUrls: ["https://www.ligo.caltech.edu/page/what-are-gw", "https://ligo.org/science-summaries/GW150914/"]
+    },
+    {
+      id: "chirp", heading: "Read frequency and time, not volume alone",
+      paragraphs: [
+        "In a compact binary inspiral, the orbit tightens and the wave frequency rises before merger. That upward sweep is the chirp. A plot may show filtered data and a model waveform together, so read the legend before treating every small wiggle as a feature of the source. Researchers compare the measured pattern with predictions to estimate properties such as the objects' masses."
+      ], sourceUrls: ["https://ligo.org/science-summaries/GW150914/"]
+    },
+    {
+      id: "confidence", heading: "A second detector helps distinguish a signal from noise",
+      paragraphs: [
+        "The first direct detection, GW150914, was seen in both LIGO detectors. Researchers checked whether the patterns and arrival times were consistent and whether local disturbances or instrumental effects could explain them. When reading about another event, look for which detectors contributed and whether the report is an initial candidate or a vetted result. A waveform image without that context is not the full evidence."
+      ], sourceUrls: ["https://ligo.org/science-summaries/GW150914/", "https://ligo.org/science-summaries/GW150914Detchar/"]
+    }
+  ],
+  "cosmic-microwave-background": [
+    {
+      id: "release", heading: "The early universe had to become transparent first",
+      paragraphs: [
+        "In the hot early universe, light scattered frequently off free electrons. As the universe expanded and cooled, electrons could join nuclei to form neutral atoms and photons could travel much more freely. The cosmic microwave background, or CMB, is radiation from around that transition, about 380,000 years into cosmic history. It is not a photograph of the first instant."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/science/planck/planck-and-the-cosmic-microwave-background", "https://www.esa.int/Science_Exploration/Space_Science/Planck/Planck_science_highlights"]
+    },
+    {
+      id: "stretch", heading: "Expansion moved the light into the microwave range",
+      paragraphs: [
+        "Light from that era has been stretched to longer wavelengths as space expanded. Its spectrum today is close to that of thermal radiation at 2.7 kelvin. That is a description of the background radiation, not a claim that all matter in space is at that temperature. The signal comes from across the sky, not from a single point you could aim a visible-light telescope at."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/science/planck/planck-and-the-cosmic-microwave-background"]
+    },
+    {
+      id: "map", heading: "The patches show tiny departures from the average",
+      paragraphs: [
+        "A typical CMB map subtracts a mean and shows small temperature differences using assigned colors. Check the color scale: the contrast is exaggerated for legibility, and the patches are not literally red or blue clouds. Observations at different frequencies help distinguish the background from foreground emission such as dust in our own galaxy. A raw microwave sky map and a cleaned CMB map need not look alike."
+      ], sourceUrls: ["https://www.esa.int/articles/about-us/directorates/science/planck/planck-and-the-cosmic-microwave-background", "https://planck.ipac.caltech.edu/wwt"]
+    },
+    {
+      id: "read", heading: "Compare two views before interpreting a pattern",
+      paragraphs: [
+        "Use a Planck viewer to compare a frequency map with a map intended to isolate the background. Look for the bright band of our galaxy in the first view and see how it is treated in the second. Cosmologists learn from the statistical pattern of the fluctuations across angular scales. A single conspicuous spot is not, by itself, a complete test of a cosmological model."
+      ], sourceUrls: ["https://www.esa.int/Science_Exploration/Space_Science/Planck/Planck_science_highlights", "https://planck.ipac.caltech.edu/wwt"]
+    }
+  ],
+  "cosmological-redshift-and-lookback-time": [
+    {
+      id: "stretch", heading: "Older light can arrive at a longer wavelength",
+      paragraphs: [
+        "Light takes time to travel, so a distant galaxy is seen as it was when its light left, not as it is now. While the light travels through an expanding universe, its wavelength stretches. Light that began in visible or ultraviolet wavelengths can arrive in the infrared. That is one reason Webb's infrared instruments are useful for studying early galaxies."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/", "https://science.nasa.gov/mission/webb/early-universe/"]
+    },
+    {
+      id: "calculate", heading: "Compare the measured line with its rest wavelength",
+      paragraphs: [
+        "Suppose a known spectral feature is emitted at 400 nanometres and is measured at 1,200 nanometres. Its wavelength is three times longer. Redshift is the observed wavelength divided by the rest wavelength, minus one, so z equals 2 in this illustrative example. Redshift is a ratio, not a number of years or kilometres. Astronomers look for matching features rather than guessing the rest wavelength from color alone."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/"]
+    },
+    {
+      id: "distances", heading: "A travel time and a present-day distance are different",
+      paragraphs: [
+        "Lookback time is how long the light has been traveling. Redshift describes the change in wavelength, and translating it into lookback time requires a model for the expansion history. Distance has several definitions in cosmology because the universe changes during the journey. When a headline gives a distance or an age, check which quantity it means; do not multiply a large redshift by the speed of light and call it the galaxy's velocity."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/", "https://science.nasa.gov/mission/webb/early-universe/"]
+    },
+    {
+      id: "evidence", heading: "Ask whether the estimate comes from a spectrum or colors",
+      paragraphs: [
+        "Broad-band colors can suggest a redshift, but dust and other effects can mimic some of the signatures. A spectrum can test the estimate by matching identified features at a consistent shift. When reading about an early-galaxy candidate, look for the measurement method and stated uncertainty. 'Earlier in cosmic history' is an inference from those measurements and a model, not a date stamped on the image."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/early-universe/"]
+    }
+  ],
 };

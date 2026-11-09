@@ -34,7 +34,7 @@ const shortSlugs = new Set([
   'twilight-civil-nautical-astronomical',
   'photographing-the-night-sky-with-a-phone'
 ]);
-const newSlugs = new Set([
+const octoberSlugs = new Set([
   'sky-coordinates-altitude-and-azimuth',
   'stellar-magnitudes-and-brightness',
   'earthshine-on-the-crescent-moon',
@@ -56,6 +56,28 @@ const newSlugs = new Set([
   'moon-illusion-and-supermoons',
   'planetary-nebulae-not-planets'
 ]);
+const novemberSlugs = new Set([
+  'telescope-field-of-view',
+  'night-sky-observing-log',
+  'find-polaris-and-true-north',
+  'airmass-and-atmospheric-extinction',
+  'lunar-and-asteroid-occultations',
+  'lunar-libration',
+  'why-the-moon-has-a-far-side',
+  'lunar-maria-and-highlands',
+  'dwarf-planets-pluto-and-ceres',
+  'uranus-and-neptune-ice-giants',
+  'asteroid-light-curves-and-rotation',
+  'asteroid-sample-return',
+  'read-landsat-false-color-images',
+  'weather-satellite-orbits',
+  'rocket-stages-fairings-and-deployment',
+  'radio-interferometry-and-alma',
+  'neutron-stars-and-pulsars',
+  'gravitational-waves-and-ligo',
+  'cosmic-microwave-background',
+  'cosmological-redshift-and-lookback-time'
+]);
 
 function readingText(guide) {
   return guide.sections.flatMap((section) => [section.heading, ...section.paragraphs,
@@ -64,15 +86,15 @@ function readingText(guide) {
   ]).join(' ');
 }
 
-test('20 new guides join the existing 29 without dropping or duplicating a guide', () => {
-  assert.equal(astronomyGuides.length, 48);
-  assert.equal(publishedGuides.length, 49);
+test('20 new guides join the existing 49 without dropping or duplicating a guide', () => {
+  assert.equal(astronomyGuides.length, 68);
+  assert.equal(publishedGuides.length, 69);
   assert.equal(Object.keys(guideSections).sort().join(','), astronomyGuides.map((guide) => guide.slug).sort().join(','));
   assert.equal(new Set(publishedGuides.map((guide) => guide.slug)).size, publishedGuides.length);
   assert.equal(getPublishedGuide('what-is-a-near-earth-object').publishedAt, '2026-09-30');
   assert.equal(getPublishedGuide('not-a-published-guide'), undefined);
   assert.equal(new Set(publishedGuides.map((guide) => guide.title.toLowerCase())).size, publishedGuides.length);
-  assert.equal(publishedGuides.slice(0, newSlugs.size).map((guide) => guide.slug).sort().join(','), [...newSlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(0, novemberSlugs.size).map((guide) => guide.slug).sort().join(','), [...novemberSlugs].sort().join(','));
   for (let i = 1; i < publishedGuides.length; i++) {
     assert.ok(publishedGuides[i - 1].publishedAt >= publishedGuides[i].publishedAt);
   }
@@ -93,14 +115,16 @@ test('every published guide has exactly one searchable entry', () => {
 for (const guide of astronomyGuides) {
   test(`${guide.slug}: navigable sections, valid citations, and complete reading time`, () => {
     assert.equal(guide.status, 'published');
-    const isNew = newSlugs.has(guide.slug);
+    const isNovember = novemberSlugs.has(guide.slug);
+    const isOctober = octoberSlugs.has(guide.slug);
     const isShort = shortSlugs.has(guide.slug);
-    assert.equal(guide.publishedAt, isNew ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
-    assert.equal(guide.updatedAt, isNew || isShort ? undefined : '2026-10-22');
+    assert.equal(guide.publishedAt, isNovember ? '2026-11-09' : isOctober ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
+    assert.equal(guide.updatedAt, isNovember || isOctober || isShort ? undefined : '2026-10-22');
     assert.ok(guide.aiAssisted);
     assert.ok(guide.sections.length >= 4);
     const ids = new Set();
     const sources = new Set(guide.sources.map((source) => source.url));
+    const cited = new Set(guide.sections.flatMap((section) => section.sourceUrls ?? []));
     assert.ok(sources.size >= 2);
     for (const source of sources) assert.equal(new URL(source).protocol, 'https:');
 
@@ -128,10 +152,12 @@ for (const guide of astronomyGuides) {
       }
     }
 
-    assert.ok(guide.sections.some((section) => section.sourceUrls?.length));
+    assert.ok(cited.size);
+    if (isNovember) assert.equal(cited.size, sources.size, 'Cite each source where it supports the guide');
     const words = readingText(guide).split(/\s+/).length;
     if (isShort) assert.ok(words >= 250 && words <= 400, `Keep simple guides short and useful: ${words} words`);
-    if (isNew) assert.ok(words >= 300 && words <= 600, `Keep new guides focused and useful: ${words} words`);
+    if (isOctober) assert.ok(words >= 300 && words <= 600, `Keep October guides focused and useful: ${words} words`);
+    if (isNovember) assert.ok(words >= 220 && words <= 400, `Keep November guides focused and useful: ${words} words`);
     assert.equal(guide.readingMinutes, Math.max(1, Math.ceil(words / 200)));
     for (const item of guide.relatedPaths) {
       if (item.href.startsWith('/guides/')) assert.ok(getPublishedGuide(item.href.slice('/guides/'.length)), `Missing related guide ${item.href}`);

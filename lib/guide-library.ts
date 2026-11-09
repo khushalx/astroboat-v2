@@ -626,6 +626,233 @@ const entries: GuideEntry[] = [
       { label: "ESA/Hubble: Stars Going Out in Style", url: "https://esahubble.org/announcements/ann0710/" }
     ],
     relatedPaths: [{ label: "Understand stellar life cycles", href: "/guides/how-stars-are-born-and-die" }, { label: "Read image colors", href: "/guides/how-to-read-space-images" }]
+  },
+  {
+    slug: "telescope-field-of-view", publishedAt: "2026-11-09",
+    title: "Telescope Field of View: Will the Target Fit?",
+    description: "Estimate how much sky an eyepiece shows before trying to frame a Moon, planet pair, or cluster.",
+    category: "Skywatching", tags: ["Eyepieces", "Field of view", "Magnification"],
+    sources: [
+      { label: "AAVSO: Visual Observing Manual", url: "https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf" },
+      { label: "Celestron: Measuring True Field by Drift", url: "https://www.celestron.com/blogs/knowledgebase/how-much-magnification-and-true-field-of-view-does-the-neximage-camera-have-when-placed-in-my-eyepiece-holder" }
+    ],
+    relatedPaths: [{ label: "Check telescope basics", href: "/guides/telescope-basics-aperture-and-magnification" }, { label: "Choose a cluster", href: "/guides/open-and-globular-star-clusters" }]
+  },
+  {
+    slug: "night-sky-observing-log", publishedAt: "2026-11-09",
+    title: "Keep a Skywatching Log You Can Use Again",
+    description: "Make a short record that lets you compare nights without mistaking changing conditions for changing objects.",
+    category: "Skywatching", tags: ["Observing log", "Sketching", "UTC"],
+    sources: [
+      { label: "AAVSO: Visual Observing Manual", url: "https://www.aavso.org/sites/default/files/EnglishManual-2013.pdf" },
+      { label: "NASA: Skywatching FAQ", url: "https://science.nasa.gov/skywatching/faq/" }
+    ],
+    relatedPaths: [{ label: "Read sky times", href: "/guides/moonrise-moonset-and-local-time" }, { label: "Sketch Jupiter and its moons", href: "/guides/observing-jupiter-and-its-moons" }]
+  },
+  {
+    slug: "find-polaris-and-true-north", publishedAt: "2026-11-09",
+    title: "Find Polaris and Estimate Your Latitude",
+    description: "Use the Big Dipper's pointer stars to locate true north, then check how high the pole appears from your site.",
+    category: "Skywatching", tags: ["Polaris", "Latitude", "Celestial pole", "True north"],
+    sources: [
+      { label: "NASA: How to Find the North Star", url: "https://science.nasa.gov/solar-system/skywatching/what-is-the-north-star-and-how-do-you-find-it/" },
+      { label: "NASA Goddard: Finding Latitude with the Pole Star", url: "https://pwg.gsfc.nasa.gov/stargaze/Snavigat.htm" }
+    ],
+    relatedPaths: [{ label: "Read altitude and azimuth", href: "/guides/sky-coordinates-altitude-and-azimuth" }, { label: "Identify star patterns", href: "/guides/constellations-and-star-charts" }]
+  },
+  {
+    slug: "airmass-and-atmospheric-extinction", publishedAt: "2026-11-09",
+    title: "Airmass: Why Stars Fade Near the Horizon",
+    description: "Understand what airmass means and use it to choose a better time to observe a faint target.",
+    category: "Skywatching", tags: ["Airmass", "Atmospheric extinction", "Transparency"],
+    sources: [
+      { label: "ESO: La Silla Extinction Coefficients", url: "https://www.eso.org/sci/observing/tools/Extinction.html" },
+      { label: "AAVSO: DSLR Observing Manual", url: "https://www.aavso.org/sites/default/files/publications_files/dslr_manual/AAVSO_DSLR_Observing_Manual_V1-4.pdf" }
+    ],
+    relatedPaths: [{ label: "Distinguish seeing from transparency", href: "/guides/why-stars-twinkle-and-seeing" }, { label: "Read stellar magnitudes", href: "/guides/stellar-magnitudes-and-brightness" }]
+  },
+  {
+    slug: "lunar-and-asteroid-occultations", publishedAt: "2026-11-09",
+    title: "Occultations: When a Star Briefly Disappears",
+    description: "Read a local prediction, understand what a timed disappearance measures, and distinguish a missed event from lost data.",
+    category: "Skywatching", tags: ["Occultation", "Lunar limb", "Asteroid shadow", "Timing"],
+    sources: [
+      { label: "IOTA: Occultation Observing Basics", url: "https://occultations.org/observing/observing-basics/" },
+      { label: "IOTA India: Occultation Observing Guide", url: "https://iota-india.in/occultations/" }
+    ],
+    relatedPaths: [{ label: "Check sky events", href: "/events" }, { label: "Understand asteroid light curves", href: "/guides/asteroid-light-curves-and-rotation" }]
+  },
+  {
+    slug: "lunar-libration", publishedAt: "2026-11-09",
+    title: "Lunar Libration: A Peek Around the Moon's Edge",
+    description: "See why the Moon's visible edge shifts and compare two views without confusing libration with phase.",
+    category: "Moon", tags: ["Libration", "Lunar limb", "Moon orbit"],
+    sources: [
+      { label: "NASA Goddard: Librations of the Moon", url: "https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smoon4.htm" },
+      { label: "NASA: Moon Phases and Libration", url: "https://science.nasa.gov/moon/moon-phases/" }
+    ],
+    relatedPaths: [{ label: "Why the Moon keeps one face toward Earth", href: "/guides/why-the-moon-has-a-far-side" }, { label: "Explore the Moon page", href: "/moon" }]
+  },
+  {
+    slug: "why-the-moon-has-a-far-side", publishedAt: "2026-11-09",
+    title: "The Moon Rotates: Why We Still See the Same Face",
+    description: "Use a simple tabletop model to distinguish lunar rotation, orbital motion, and the far side's daylight.",
+    category: "Moon", tags: ["Tidal locking", "Far side", "Synchronous rotation"],
+    sources: [
+      { label: "NASA: Tidal Locking", url: "https://science.nasa.gov/moon/tidal-locking/" },
+      { label: "NASA: Moon Phases", url: "https://science.nasa.gov/moon/moon-phases/" },
+      { label: "NASA: Moon Fact Sheet", url: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html" }
+    ],
+    relatedPaths: [{ label: "See how libration shifts the view", href: "/guides/lunar-libration" }, { label: "Understand the phases", href: "/guides/understanding-moon-phases" }]
+  },
+  {
+    slug: "lunar-maria-and-highlands", publishedAt: "2026-11-09",
+    title: "Read the Moon's Dark Plains and Bright Highlands",
+    description: "Tell broad lunar terrain apart from moving shadows, and trace an impact basin in a binocular view.",
+    category: "Moon", tags: ["Maria", "Highlands", "Basalt", "Impact basins"],
+    sources: [
+      { label: "NASA: Lunar Craters and Basins", url: "https://science.nasa.gov/moon/lunar-craters/" },
+      { label: "NASA LRO: Wrinkle Ridge in Mare Crisium", url: "https://science.nasa.gov/resource/wrinkle-ridge-in-mare-crisium/" }
+    ],
+    relatedPaths: [{ label: "Try a first lunar observation", href: "/guides/how-to-observe-the-moon" }, { label: "See how the lunar edge shifts", href: "/guides/lunar-libration" }]
+  },
+  {
+    slug: "dwarf-planets-pluto-and-ceres", publishedAt: "2026-11-09",
+    title: "Dwarf Planets: Why Pluto and Ceres Share a Category",
+    description: "Read the Solar System classification as a test of orbital dominance, not a ranking by size or scientific interest.",
+    category: "Solar System", tags: ["Dwarf planets", "Pluto", "Ceres", "IAU"],
+    sources: [
+      { label: "IAU: 2006 Solar System Classification", url: "https://www.iau.org/IAU/Iau/News/PR2006/iau-2006-general-assembly-resolution-votes.aspx" },
+      { label: "NASA: Ceres Facts", url: "https://science.nasa.gov/dwarf-planets/ceres/facts/" },
+      { label: "NASA: New Horizons", url: "https://science.nasa.gov/mission/new-horizons/" }
+    ],
+    relatedPaths: [{ label: "Understand asteroid and comet differences", href: "/guides/asteroids-comets-and-meteorites" }, { label: "Meet the ice giants", href: "/guides/uranus-and-neptune-ice-giants" }]
+  },
+  {
+    slug: "uranus-and-neptune-ice-giants", publishedAt: "2026-11-09",
+    title: "Uranus and Neptune: What Makes an Ice Giant?",
+    description: "Compare two distant planets without taking the word ice or a processed blue photograph too literally.",
+    category: "Solar System", tags: ["Uranus", "Neptune", "Ice giants", "Voyager 2"],
+    sources: [
+      { label: "NASA: Uranus Facts", url: "https://science.nasa.gov/uranus/facts/" },
+      { label: "NASA: Neptune Facts", url: "https://science.nasa.gov/neptune/neptune-facts/" },
+      { label: "NASA: Color and Haze on the Ice Giants", url: "https://science.nasa.gov/solar-system/why-uranus-and-neptune-are-different-colors/" }
+    ],
+    relatedPaths: [{ label: "Read a space image", href: "/guides/how-to-read-space-images" }, { label: "Compare with Saturn", href: "/guides/saturn-rings-and-changing-views" }]
+  },
+  {
+    slug: "asteroid-light-curves-and-rotation", publishedAt: "2026-11-09",
+    title: "Asteroid Light Curves: Find a Spin Without Seeing the Shape",
+    description: "Learn how brightness changes reveal a possible rotation period and why two peaks can be one turn.",
+    category: "Asteroids", tags: ["Light curve", "Rotation period", "Photometry"],
+    sources: [
+      { label: "Rosetta team: The Light Curve of Asteroid Steins", url: "https://arxiv.org/abs/astro-ph/0612097" },
+      { label: "TESS research: Rotation Periods from Asteroid Light Curves", url: "https://arxiv.org/abs/2501.07189" }
+    ],
+    relatedPaths: [{ label: "How occultations measure a silhouette", href: "/guides/lunar-and-asteroid-occultations" }, { label: "Browse near-Earth approaches", href: "/asteroids" }]
+  },
+  {
+    slug: "asteroid-sample-return", publishedAt: "2026-11-09",
+    title: "Why Bring Asteroid Samples Back to Earth?",
+    description: "Compare Bennu and Ryugu and learn why collecting a little material can answer questions a flyby cannot.",
+    category: "Missions", tags: ["Sample return", "Bennu", "Ryugu", "OSIRIS-REx", "Hayabusa2"],
+    sources: [
+      { label: "NASA: OSIRIS-REx In Depth", url: "https://science.nasa.gov/mission/osiris-rex/in-depth/" },
+      { label: "ISAS/JAXA: Science from Asteroid Sample Returns", url: "https://www.isas.jaxa.jp/en/topics/004280.html" },
+      { label: "ISAS/JAXA: Sample Curation Archive", url: "https://darts.isas.jaxa.jp/en/missions/curation" }
+    ],
+    relatedPaths: [{ label: "Read asteroid light curves", href: "/guides/asteroid-light-curves-and-rotation" }, { label: "Explore near-Earth objects", href: "/guides/what-is-a-near-earth-object" }]
+  },
+  {
+    slug: "read-landsat-false-color-images", publishedAt: "2026-11-09",
+    title: "Read a Landsat Image: What Does the Color Mean?",
+    description: "Decode the band numbers in a Landsat image and avoid mistaking a useful color assignment for a literal photograph.",
+    category: "Earth Observation", tags: ["Landsat", "False color", "Near infrared", "Resolution"],
+    sources: [
+      { label: "USGS: Landsat Band Designations", url: "https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites" },
+      { label: "NASA Earth Observatory: Interpret a False-Color Image", url: "https://science.nasa.gov/earth/earth-observatory/how-to-interpret-a-false-color-satellite-image/" }
+    ],
+    relatedPaths: [{ label: "Read other space images", href: "/guides/how-to-read-space-images" }, { label: "Compare weather satellite orbits", href: "/guides/weather-satellite-orbits" }]
+  },
+  {
+    slug: "weather-satellite-orbits", publishedAt: "2026-11-09",
+    title: "Weather Satellites: One Stays Put, One Sweeps the Globe",
+    description: "Choose between a rapid regional loop and a polar-orbiting swath, and check what the image timestamp actually means.",
+    category: "Earth Observation", tags: ["Weather satellites", "Geostationary orbit", "Polar orbit", "GOES", "JPSS"],
+    sources: [
+      { label: "NOAA: Weather Satellites", url: "https://www.noaa.gov/jetstream/weather-satellites" },
+      { label: "NOAA NESDIS: Why Satellites Have Different Orbits", url: "https://www.nesdis.noaa.gov/about/k-12-education/satellites-technology/why-do-satellites-have-different-orbits" },
+      { label: "ESA: Spacecraft Orbits", url: "https://www.esa.int/Science_Exploration/Space_Science/Spacecraft_orbits" }
+    ],
+    relatedPaths: [{ label: "Understand orbit fundamentals", href: "/guides/orbits-and-lagrange-points" }, { label: "Decode satellite colors", href: "/guides/read-landsat-false-color-images" }]
+  },
+  {
+    slug: "rocket-stages-fairings-and-deployment", publishedAt: "2026-11-09",
+    title: "Rocket Stages and Fairings: Read a Launch Timeline",
+    description: "Tell engine cutoff, stage separation, fairing release, and payload deployment apart on a mission webcast.",
+    category: "Missions", tags: ["Rocket staging", "Fairing", "Upper stage", "Deployment"],
+    sources: [
+      { label: "ESA: Ariane 6 Components", url: "https://www.esa.int/articles/about-us/directorates/space-transportation/ariane/ariane-6-what-s-it-made-of" },
+      { label: "SpaceX: Falcon Payload User's Guide", url: "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf" }
+    ],
+    relatedPaths: [{ label: "Understand countdowns and launch windows", href: "/guides/rocket-launch-windows-and-countdowns" }, { label: "Browse upcoming launches", href: "/events" }]
+  },
+  {
+    slug: "radio-interferometry-and-alma", publishedAt: "2026-11-09",
+    title: "Radio Interferometry: How ALMA Links Its Antennas",
+    description: "See how antenna spacing sets image detail and why a wider array can miss broad emission.",
+    category: "Space Science", tags: ["ALMA", "Interferometry", "Baseline", "Radio astronomy"],
+    sources: [
+      { label: "ALMA Observatory: Interferometry", url: "https://www.almaobservatory.org/en/about-alma/how-alma-works/technologies/interferometry/" },
+      { label: "NRAO: ALMA Basics", url: "https://almascience.nrao.edu/about-alma/alma-basics" }
+    ],
+    relatedPaths: [{ label: "Read a space image", href: "/guides/how-to-read-space-images" }, { label: "Understand wavelengths and spectra", href: "/guides/spectroscopy-reading-starlight" }]
+  },
+  {
+    slug: "neutron-stars-and-pulsars", publishedAt: "2026-11-09",
+    title: "Pulsars: How a Neutron Star Keeps Time",
+    description: "Read a pulse period and understand why a flashing signal does not mean the whole star switches on and off.",
+    category: "Deep Space", tags: ["Neutron stars", "Pulsars", "Rotation", "Timing"],
+    sources: [
+      { label: "NASA Goddard: Neutron Stars and Pulsars", url: "https://imagine.gsfc.nasa.gov/science/objects/neutron_stars1.html" },
+      { label: "NASA Hubble: Pulsars", url: "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-pulsars/" }
+    ],
+    relatedPaths: [{ label: "Follow stellar life cycles", href: "/guides/how-stars-are-born-and-die" }, { label: "See how mergers are measured", href: "/guides/gravitational-waves-and-ligo" }]
+  },
+  {
+    slug: "gravitational-waves-and-ligo", publishedAt: "2026-11-09",
+    title: "Gravitational Waves: Read a LIGO Chirp",
+    description: "Understand what a laser interferometer measures and how scientists check that a brief signal came from space.",
+    category: "Deep Space", tags: ["Gravitational waves", "LIGO", "Strain", "Compact mergers"],
+    sources: [
+      { label: "LIGO Lab: What Are Gravitational Waves?", url: "https://www.ligo.caltech.edu/page/what-are-gw" },
+      { label: "LIGO Collaboration: The GW150914 Detection", url: "https://ligo.org/science-summaries/GW150914/" },
+      { label: "LIGO Collaboration: Vetting GW150914", url: "https://ligo.org/science-summaries/GW150914Detchar/" }
+    ],
+    relatedPaths: [{ label: "Understand black holes", href: "/guides/black-holes-explained" }, { label: "Meet neutron stars", href: "/guides/neutron-stars-and-pulsars" }]
+  },
+  {
+    slug: "cosmic-microwave-background", publishedAt: "2026-11-09",
+    title: "The Cosmic Microwave Background: Read the Oldest Light",
+    description: "Understand what a Planck map shows, what its colors encode, and why it is not a picture of the Big Bang itself.",
+    category: "Deep Space", tags: ["Cosmic microwave background", "CMB", "Planck", "Early universe"],
+    sources: [
+      { label: "ESA: Planck and the Cosmic Microwave Background", url: "https://www.esa.int/articles/about-us/directorates/science/planck/planck-and-the-cosmic-microwave-background" },
+      { label: "ESA: Planck Science Highlights", url: "https://www.esa.int/Science_Exploration/Space_Science/Planck/Planck_science_highlights" },
+      { label: "Planck Team at IPAC: Interactive Data Viewer", url: "https://planck.ipac.caltech.edu/wwt" }
+    ],
+    relatedPaths: [{ label: "Learn how expansion shifts light", href: "/guides/cosmological-redshift-and-lookback-time" }, { label: "Read a space image", href: "/guides/how-to-read-space-images" }]
+  },
+  {
+    slug: "cosmological-redshift-and-lookback-time", publishedAt: "2026-11-09",
+    title: "Cosmological Redshift: How Old Light Reaches Webb",
+    description: "Calculate a simple redshift and distinguish stretched wavelengths, light travel time, and distance today.",
+    category: "Deep Space", tags: ["Redshift", "Lookback time", "Webb", "Expansion"],
+    sources: [
+      { label: "NASA Hubble: Cosmological Redshift", url: "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/" },
+      { label: "NASA Webb: Early Universe", url: "https://science.nasa.gov/mission/webb/early-universe/" }
+    ],
+    relatedPaths: [{ label: "Read spectral lines", href: "/guides/spectroscopy-reading-starlight" }, { label: "Explore the cosmic microwave background", href: "/guides/cosmic-microwave-background" }]
   }
 ];
 
