@@ -117,6 +117,10 @@ export default async function MoonPage() {
       <aside className="border-l-2 border-astro-gold/60 pl-5 sm:pl-6">
         <h2 className="font-display text-xl font-normal text-astro-text">Viewing advice</h2>
         <p className="mt-2 max-w-3xl text-sm leading-7 text-astro-muted">{trimAdvice(moon.beginnerExplanation)}</p>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-astro-muted">
+          Learn <Link href="/guides/why-moon-visible-during-day" className="text-astro-blue underline">why the Moon is visible in daylight</Link>
+          {" and "}<Link href="/guides/what-is-a-blue-moon" className="text-astro-blue underline">what a blue Moon means</Link>.
+        </p>
       </aside>
     </PageShell>
   );

@@ -27,6 +27,10 @@ export default async function EventsPage() {
         warnings={calendar.warnings}
         lastUpdated={calendar.lastUpdated}
       />
+      <p className="max-w-3xl text-sm leading-7 text-astro-muted">
+        Viewing guides: <Link href="/guides/how-to-watch-a-meteor-shower" className="text-astro-blue underline">meteor showers</Link>
+        {" and "}<Link href="/guides/august-2027-solar-eclipse" className="text-astro-blue underline">the August 2027 solar eclipse</Link>.
+      </p>
     </PageShell>
   );
 }

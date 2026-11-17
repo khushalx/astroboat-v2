@@ -78,6 +78,28 @@ const novemberSlugs = new Set([
   'cosmic-microwave-background',
   'cosmological-redshift-and-lookback-time'
 ]);
+const latestSlugs = new Set([
+  'geminid-meteor-shower-2026',
+  'quadrantid-meteor-shower-2027',
+  'perseid-meteor-shower-2027',
+  'august-2027-solar-eclipse',
+  'photograph-a-meteor-shower',
+  'how-to-find-andromeda-galaxy',
+  'how-to-find-orion-nebula',
+  'how-to-find-pleiades',
+  'how-to-find-sirius',
+  'best-time-to-see-milky-way',
+  'how-to-see-mercury',
+  'why-moon-visible-during-day',
+  'what-is-a-blue-moon',
+  'how-to-see-zodiacal-light',
+  'earth-shadow-and-belt-of-venus',
+  'starlink-train-lights-in-sky',
+  'why-comet-brightness-is-hard-to-predict',
+  'why-webb-stars-have-eight-spikes',
+  'europa-and-enceladus-oceans',
+  'how-gps-finds-your-location'
+]);
 
 function readingText(guide) {
   return guide.sections.flatMap((section) => [section.heading, ...section.paragraphs,
@@ -86,15 +108,16 @@ function readingText(guide) {
   ]).join(' ');
 }
 
-test('20 new guides join the existing 49 without dropping or duplicating a guide', () => {
-  assert.equal(astronomyGuides.length, 68);
-  assert.equal(publishedGuides.length, 69);
+test('20 new guides join the existing 69 without dropping or duplicating a guide', () => {
+  assert.equal(astronomyGuides.length, 88);
+  assert.equal(publishedGuides.length, 89);
   assert.equal(Object.keys(guideSections).sort().join(','), astronomyGuides.map((guide) => guide.slug).sort().join(','));
   assert.equal(new Set(publishedGuides.map((guide) => guide.slug)).size, publishedGuides.length);
   assert.equal(getPublishedGuide('what-is-a-near-earth-object').publishedAt, '2026-09-30');
   assert.equal(getPublishedGuide('not-a-published-guide'), undefined);
   assert.equal(new Set(publishedGuides.map((guide) => guide.title.toLowerCase())).size, publishedGuides.length);
-  assert.equal(publishedGuides.slice(0, novemberSlugs.size).map((guide) => guide.slug).sort().join(','), [...novemberSlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(0, latestSlugs.size).map((guide) => guide.slug).sort().join(','), [...latestSlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(latestSlugs.size, latestSlugs.size + novemberSlugs.size).map((guide) => guide.slug).sort().join(','), [...novemberSlugs].sort().join(','));
   for (let i = 1; i < publishedGuides.length; i++) {
     assert.ok(publishedGuides[i - 1].publishedAt >= publishedGuides[i].publishedAt);
   }
@@ -115,11 +138,12 @@ test('every published guide has exactly one searchable entry', () => {
 for (const guide of astronomyGuides) {
   test(`${guide.slug}: navigable sections, valid citations, and complete reading time`, () => {
     assert.equal(guide.status, 'published');
+    const isLatest = latestSlugs.has(guide.slug);
     const isNovember = novemberSlugs.has(guide.slug);
     const isOctober = octoberSlugs.has(guide.slug);
     const isShort = shortSlugs.has(guide.slug);
-    assert.equal(guide.publishedAt, isNovember ? '2026-11-09' : isOctober ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
-    assert.equal(guide.updatedAt, isNovember || isOctober || isShort ? undefined : '2026-10-22');
+    assert.equal(guide.publishedAt, isLatest ? '2026-11-17' : isNovember ? '2026-11-09' : isOctober ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
+    assert.equal(guide.updatedAt, isLatest || isNovember || isOctober || isShort ? undefined : '2026-10-22');
     assert.ok(guide.aiAssisted);
     assert.ok(guide.sections.length >= 4);
     const ids = new Set();
@@ -153,11 +177,11 @@ for (const guide of astronomyGuides) {
     }
 
     assert.ok(cited.size);
-    if (isNovember) assert.equal(cited.size, sources.size, 'Cite each source where it supports the guide');
+    if (isLatest || isNovember) assert.equal(cited.size, sources.size, 'Cite each source where it supports the guide');
     const words = readingText(guide).split(/\s+/).length;
     if (isShort) assert.ok(words >= 250 && words <= 400, `Keep simple guides short and useful: ${words} words`);
     if (isOctober) assert.ok(words >= 300 && words <= 600, `Keep October guides focused and useful: ${words} words`);
-    if (isNovember) assert.ok(words >= 220 && words <= 400, `Keep November guides focused and useful: ${words} words`);
+    if (isLatest || isNovember) assert.ok(words >= 220 && words <= 400, `Keep November guides focused and useful: ${words} words`);
     assert.equal(guide.readingMinutes, Math.max(1, Math.ceil(words / 200)));
     for (const item of guide.relatedPaths) {
       if (item.href.startsWith('/guides/')) assert.ok(getPublishedGuide(item.href.slice('/guides/'.length)), `Missing related guide ${item.href}`);
@@ -177,13 +201,14 @@ test('guides do not repeat whole explanatory paragraphs across topics', () => {
 });
 
 const baseUrl = process.env.GUIDE_TEST_BASE_URL;
+const canonicalBase = 'https://www.astroboat.in';
 test('published HTML, citations, tables, RSS, and sitemap', { skip: !baseUrl }, async () => {
   const index = await fetch(new URL('/guides', baseUrl));
   assert.equal(index.status, 200);
   const indexHtml = await index.text();
   for (const guide of astronomyGuides) {
     const route = `/guides/${guide.slug}`;
-    assert.ok(indexHtml.includes(route), `Index missing ${route}`);
+    assert.ok(indexHtml.includes(`href="${route}"`), `Index missing link to ${route}`);
     const response = await fetch(new URL(route, baseUrl));
     assert.equal(response.status, 200, route);
     const html = await response.text();
@@ -193,7 +218,10 @@ test('published HTML, citations, tables, RSS, and sitemap', { skip: !baseUrl }, 
     const article = schemas.find((schema) => schema['@type'] === 'Article');
     assert.equal(article?.datePublished, guide.publishedAt);
     assert.equal(article?.dateModified, guide.updatedAt);
-    assert.ok(html.includes('rel="canonical"'));
+    assert.equal(article?.mainEntityOfPage, canonicalBase + route);
+    assert.ok(html.includes(`rel="canonical" href="${canonicalBase + route}"`));
+    assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/i);
+    assert.doesNotMatch(response.headers.get('x-robots-tag') ?? '', /noindex/i);
     assert.ok(html.includes('On this page'));
     for (const section of guide.sections) {
       assert.ok(html.includes(`id="${section.id}"`));
@@ -211,11 +239,27 @@ test('published HTML, citations, tables, RSS, and sitemap', { skip: !baseUrl }, 
   const parser = new XMLParser();
   const feed = parser.parse(await (await fetch(new URL('/feed.xml', baseUrl))).text());
   assert.equal(feed.rss.channel.item.length, publishedGuides.length);
+  const feedLinks = new Set(feed.rss.channel.item.map((item) => item.link));
   const sitemap = parser.parse(await (await fetch(new URL('/sitemap.xml', baseUrl))).text());
   for (const guide of astronomyGuides) {
-    const entry = sitemap.urlset.url.find((item) => item.loc.endsWith(`/guides/${guide.slug}`));
+    const canonical = `${canonicalBase}/guides/${guide.slug}`;
+    assert.ok(feedLinks.has(canonical), `Missing feed item: ${guide.slug}`);
+    const entry = sitemap.urlset.url.find((item) => item.loc === canonical);
     assert.ok(entry, `Missing sitemap entry: ${guide.slug}`);
     assert.ok(String(entry.lastmod).startsWith(guide.updatedAt ?? guide.publishedAt));
   }
   assert.equal((await fetch(new URL('/guides/not-a-published-guide', baseUrl))).status, 404);
+});
+
+test('Events and Moon pages link to relevant observing guides', { skip: !baseUrl }, async () => {
+  const paths = [
+    ['/events', ['how-to-watch-a-meteor-shower', 'august-2027-solar-eclipse']],
+    ['/moon', ['why-moon-visible-during-day', 'what-is-a-blue-moon']]
+  ];
+  for (const [path, slugs] of paths) {
+    const response = await fetch(new URL(path, baseUrl));
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    for (const slug of slugs) assert.ok(html.includes(`href="/guides/${slug}"`), `Missing link: ${path} to ${slug}`);
+  }
 });

@@ -2311,4 +2311,524 @@ export const guideSections: Record<string, Guide["sections"]> = {
       ], sourceUrls: ["https://science.nasa.gov/mission/webb/early-universe/"]
     }
   ],
+  "geminid-meteor-shower-2026": [
+    {
+      id: "when", heading: "Try the nights on either side of December 14",
+      paragraphs: [
+        "The International Meteor Organization (IMO) centers the broad 2026 maximum near 14:00 UTC on December 14. That is daytime in much of Europe and the Americas and evening or late night in parts of Asia and Oceania. Convert the UTC prediction to your local clock, then compare the night of December 13 into 14 and December 14 into 15. There is no need to wait for the exact predicted minute."
+      ], sourceUrls: ["https://www.imo.net/files/meteor-shower/cal2026.pdf"]
+    },
+    {
+      id: "where", heading: "Use Gemini as a direction marker, not a viewing box",
+      paragraphs: [
+        "The radiant lies in Gemini, near Castor. A radiant is the point from which the paths appear to diverge; meteors can streak across other constellations. Pick an open view away from direct lights and look well away from that point. Northern sites generally get useful elevations earlier in the night; farther south, check how high Gemini gets from your latitude before committing to an all-night watch."
+      ], sourceUrls: ["https://www.imo.net/files/meteor-shower/cal2026.pdf", "https://science.nasa.gov/solar-system/meteors-meteorites/geminids/"]
+    },
+    {
+      id: "conditions", heading: "Build your plan around darkness and altitude",
+      paragraphs: [
+        "The IMO expects favorable lunar conditions around the broad maximum. Still, confirm local moonset and the time when the radiant is high. It typically reaches its highest point around 02:00 local time, but a useful window can open earlier. Try a naked-eye session when Gemini is well up and the Moon is down, with a second session if clouds interrupt the first. An ideal zenithal hourly rate is not the count you should expect at your site."
+      ], sourceUrls: ["https://www.imo.net/files/meteor-shower/cal2026.pdf"]
+    },
+    {
+      id: "what-you-see", heading: "Look for trails, not pieces of Gemini",
+      paragraphs: [
+        "The shower is associated with debris from asteroid 3200 Phaethon. A streak that does not trace back toward Gemini may be an unrelated meteor; record uncertain cases separately. Bring a reclining chair and use your eyes, not a telescope. A quiet ten minutes can be followed by several meteors in quick succession, so give yourself more than one short look."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/meteors-meteorites/geminids/"]
+    }
+  ],
+  "quadrantid-meteor-shower-2027": [
+    {
+      id: "peak", heading: "The forecast peak is early on January 4 UTC",
+      paragraphs: [
+        "The IMO places the main maximum near 03:25 UTC on January 4, 2027, with a timing uncertainty of a few hours. In a UTC-5 location that forecast converts to 22:25 on January 3. That conversion is not a recommendation to look at 22:25: the sky may be dark but the radiant may be too low. Check daylight and altitude separately."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf"]
+    },
+    {
+      id: "radiant", heading: "Use a northern sky chart rather than searching for an obsolete constellation",
+      paragraphs: [
+        "The name comes from Quadrans Muralis, a constellation no longer on modern maps. The radiant is in northern Bootes. At many northern locations the radiant is better placed before dawn; at far southern sites it stays low or never rises. A local star chart at your proposed observing hour is more useful than a single worldwide instruction to look north."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf", "https://science.nasa.gov/solar-system/meteors-meteorites/quadrantids/"]
+    },
+    {
+      id: "window", heading: "A shorter peak changes the backup plan",
+      paragraphs: [
+        "The Quadrantids can fall off quickly compared with the Geminids. Look for the overlap between a dark sky, a high enough radiant, and the forecast peak window. If that overlap is poor, a predawn attempt near maximum is still worth considering, but do not expect the quoted peak rate. The IMO expects little lunar interference at this return; cloud and local glare can still dominate."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf"]
+    },
+    {
+      id: "record", heading: "Count in short, comparable blocks",
+      paragraphs: [
+        "If you observe for an hour, keep consecutive short counts rather than just a session total. Note when clouds or a break interrupted viewing, and distinguish tracks that point back toward the radiant from other streaks. Two sessions on adjacent mornings can show whether the apparent change is consistent with the peak passing or more likely caused by different sky conditions."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf", "https://science.nasa.gov/solar-system/meteors-meteorites/quadrantids/"]
+    }
+  ],
+  "perseid-meteor-shower-2027": [
+    {
+      id: "peak", heading: "The main maximum is forecast for August 13",
+      paragraphs: [
+        "The IMO puts the 2027 main maximum around 08:00 to 10:00 UTC on August 13. Use the nights around that date, not only the exact UTC window. In a UTC-7 location that main interval corresponds to 01:00 to 03:00 local time on August 13. In a UTC+2 location it is 10:00 to noon, too late for most observers. Use your actual offset for the date when making the conversion."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf"]
+    },
+    {
+      id: "moon", heading: "Look for the gap after the Moon sets",
+      paragraphs: [
+        "A waxing gibbous Moon interferes around the maximum. Look up local moonset and the start of morning astronomical twilight. If moonset is at 03:00 and astronomical twilight starts at 04:00, that gives roughly one hour of darker sky, as long as the radiant is up. These are example times, not a prediction for a city. Where there is no dark gap, keeping the Moon behind a building can cut direct glare but cannot remove skyglow caused by moonlight."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf"]
+    },
+    {
+      id: "radiant", heading: "Favor a wide sky view once Perseus is up",
+      paragraphs: [
+        "The radiant is far enough north that much of the Southern Hemisphere has a poor view. At many suitable northern sites it climbs as the night progresses. Aim your gaze away from the radiant and the Moon to cover a broad dark patch. There is no advantage to using high magnification for a shower spread across the sky."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf", "https://science.nasa.gov/solar-system/meteors-meteorites/perseids/"]
+    },
+    {
+      id: "expectations", heading: "Do not build a trip around an unconfirmed outburst",
+      paragraphs: [
+        "The particles come from comet Swift-Tuttle. Forecast encounters with particular dust trails can be uncertain. A predicted enhancement and an actual counted enhancement are different things, and individual rates also depend on the Moon, clouds, and site. Save your viewing window, location, and count together so your result remains useful even if the shower is quiet."
+      ], sourceUrls: ["https://www.imo.net/files/data/calendar/cal2027.pdf", "https://science.nasa.gov/solar-system/meteors-meteorites/perseids/"]
+    }
+  ],
+  "august-2027-solar-eclipse": [
+    {
+      id: "path", heading: "Totality follows a narrow track",
+      paragraphs: [
+        "On August 2, 2027, the Moon's central shadow crosses parts of southern Spain, North Africa, the Arabian Peninsula, and Somalia before continuing into the Indian Ocean. A much wider area sees a partial eclipse. A country being named in a headline does not mean every city there sees totality. Click your exact site in the NASA or National Solar Observatory map and check whether it is inside the central track or only in the partial region."
+      ], sourceUrls: ["https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2027Aug02Tgoogle.html", "https://nso.edu/eclipse-map-2027-aug2/"]
+    },
+    {
+      id: "times", heading: "Use the site's contact times rather than the global maximum",
+      paragraphs: [
+        "The longest total phase is about six minutes and 23 seconds near the point of greatest eclipse. That is not a duration to apply to any other site. A map can list first contact, maximum, and last contact; inside the path, it also lists the start and end of totality. Check whether the map times are UTC or local, and note the local Sun altitude. The map describes geometry, not clouds or obstructions."
+      ], sourceUrls: ["https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2027Aug02Tgoogle.html"]
+    },
+    {
+      id: "safety", heading: "A partial eclipse is never safe to look at unfiltered",
+      paragraphs: [
+        "During every partial phase, use an undamaged solar viewer that meets ISO 12312-2, sourced from a reputable supplier, or view indirectly by pinhole projection. Ordinary sunglasses are not sufficient. Do not look through a camera, binoculars, or telescope while wearing eclipse glasses; optics need a suitable solar filter mounted securely at the front. For beginners, handheld viewers or indirect projection are simpler."
+      ], sourceUrls: ["https://science.nasa.gov/eclipses/safety/"]
+    },
+    {
+      id: "plan", heading: "Keep your plan tied to your exact location",
+      paragraphs: [
+        "If you are outside the path, keep proper eye protection on for all direct viewing. Only when the bright face is completely covered during verified totality can you look without a solar viewer; put the viewer back on before the bright Sun returns. When in doubt, keep it on. Save the local map result and a time-zone conversion before the day, and check the horizon and weather separately."
+      ], sourceUrls: ["https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2027Aug02Tgoogle.html", "https://science.nasa.gov/eclipses/safety/"]
+    }
+  ],
+  "photograph-a-meteor-shower": [
+    {
+      id: "frame", heading: "Use a wide field and leave the radiant off center",
+      paragraphs: [
+        "A tripod and a wide lens cover more useful sky than a long lens. Give yourself a patch free of streetlights, with enough distance from the radiant that projected trails are not all short. The exact direction is a trade-off between radiant altitude, Moon glare, and local horizon. You can watch a different dark patch with your eyes while the camera runs."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/meteors-meteorites/how-to-photograph-a-meteor-shower/", "https://science.nasa.gov/solar-system/meteors-meteorites/meteor-showers/"]
+    },
+    {
+      id: "focus", heading: "Focus on a star, not on the printed infinity mark",
+      paragraphs: [
+        "Use magnified live view on a bright star and adjust manual focus until the point looks smallest. Lock or leave the focus ring alone afterward and check a test frame before running a sequence. For a wide lens under dark skies, a test around f/2.8, 10 seconds, and ISO 1600 is a starting point, not a universal recipe. Shorten the exposure if stars trail or the background is too bright; check the histogram and keep the lens clear of dew."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/meteors-meteorites/how-to-photograph-a-meteor-shower/"]
+    },
+    {
+      id: "run", heading: "Spend more of the session exposing than waiting",
+      paragraphs: [
+        "Use the camera's interval mode or an intervalometer with short gaps between frames. Take a brief test sequence first: some cameras count the interval from the start of one frame, others impose processing delays. Bring spare power and enough storage. The chance of a capture comes from the number of minutes covered; there is no button timing that guarantees a meteor."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/meteors-meteorites/how-to-photograph-a-meteor-shower/"]
+    },
+    {
+      id: "sort", heading: "Compare adjacent frames before naming a streak",
+      paragraphs: [
+        "A streak that continues across several frames is often a satellite or aircraft; a dotted pattern can come from flashing aircraft lights. A meteor is usually brief, but a single-frame track alone does not prove its identity. Compare its direction with the shower radiant and keep the original time and exposure. If you combine several frames into one image, label it a composite."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/meteors-meteorites/how-to-photograph-a-meteor-shower/", "https://science.nasa.gov/solar-system/meteors-meteorites/meteor-showers/"]
+    }
+  ],
+  "how-to-find-andromeda-galaxy": [
+    {
+      id: "plan", heading: "Find a dark hour when M31 is well above your horizon",
+      paragraphs: [
+        "M31 is a northern-sky target and is often well placed on autumn evenings at mid-northern latitudes. Farther south it stays lower, and it never rises at some far-southern sites. Set a sky chart to your location and see when Andromeda is highest. A dark, moonless hour is more useful than an early evening when the galaxy is still low over city lights."
+      ], sourceUrls: ["https://nightsky.jpl.nasa.gov/documents/918/Oct24_Andromeda_Refresh_20240917_123354.pdf", "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/"]
+    },
+    {
+      id: "hop", heading: "Start at Alpheratz, then turn at Mirach",
+      paragraphs: [
+        "Find the Great Square of Pegasus. Alpheratz is the corner that belongs to Andromeda. On a chart, follow Andromeda's chain past Delta Andromedae to Mirach. From Mirach, turn toward Mu Andromedae and continue roughly the same distance in the same direction. M31 is near there. Use the chart to orient the hop rather than relying on instructions like 'turn left', which change as the sky rotates."
+      ], sourceUrls: ["https://nightsky.jpl.nasa.gov/documents/918/Oct24_Andromeda_Refresh_20240917_123354.pdf"]
+    },
+    {
+      id: "recognize", heading: "Look for a soft glow, not the spiral arms",
+      paragraphs: [
+        "In binoculars the bright center usually looks like a diffuse oval with a brighter middle. The wide outer disk is easy to lose in skyglow. Let your eyes adjust and try looking slightly to one side of the glow. Although it is the nearest large galaxy to the Milky Way, its extended light is harder to see than a star of similar total brightness."
+      ], sourceUrls: ["https://nightsky.jpl.nasa.gov/documents/918/Oct24_Andromeda_Refresh_20240917_123354.pdf", "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/"]
+    },
+    {
+      id: "verify", heading: "Repeat the hop to confirm the patch",
+      paragraphs: [
+        "Lower the binoculars and find Mirach again. If you can repeat the same hop and the glow lands in the same star field, you have a better identification than from one vague glimpse. Sketch the oval and a couple of nearby stars. Compare with a chart; a processed Hubble mosaic is valuable for context but sets the wrong expectation for what you will see."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/"]
+    }
+  ],
+  "how-to-find-orion-nebula": [
+    {
+      id: "find", heading: "Use the Sword as the second landmark",
+      paragraphs: [
+        "Start with three similarly spaced bright stars in a short row: Orion's Belt. Find the shorter string that hangs from it on the Rigel side of the figure. That is the Sword, and the Orion Nebula is near its middle. Depending on where and when you observe, Orion can look sideways or inverted. Use the shape and a chart rather than assuming the Sword is always physically below the Belt."
+      ], sourceUrls: ["https://science.nasa.gov/universe/stories/quick-reads/discovering-the-universe-through-the-constellation-orion/"]
+    },
+    {
+      id: "view", heading: "Try low power before seeking detail",
+      paragraphs: [
+        "From a dark site, the middle of the Sword can look fuzzy even without optics. Binoculars make the knot easier to separate from its surroundings. A small telescope at low power can show a brighter central region and haze extending outward. Look for the Trapezium, a tight group of young stars near the center, as a separate observation; glare and unsteady air can make its members hard to split."
+      ], sourceUrls: ["https://science.nasa.gov/universe/stories/quick-reads/discovering-the-universe-through-the-constellation-orion/", "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-42/"]
+    },
+    {
+      id: "science", heading: "The glow is part of a star-forming cloud",
+      paragraphs: [
+        "Ultraviolet light from hot young stars energizes surrounding gas, which then emits light. Nearby material can also obscure parts of the cloud. Professional images combine long exposures and carefully selected wavelengths, so dramatic pink and blue colors are not a promise for the eyepiece. A mostly gray impression under a good sky is a successful observation."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-42/"]
+    },
+    {
+      id: "compare", heading: "Check on two different nights",
+      paragraphs: [
+        "Draw the same region once under a bright sky and once with less moonlight. Keep the instrument and power fixed, then compare how far the haze extends and which nearby stars remain visible. If the cloud looks larger on the dark night, improved contrast is a better first explanation than real change on a timescale of days."
+      ]
+    }
+  ],
+  "how-to-find-pleiades": [
+    {
+      id: "find", heading: "Trace Orion's Belt toward Taurus",
+      paragraphs: [
+        "When Orion is up, extend the Belt away from Sirius toward the bright orange star Aldebaran. Use a chart to confirm the broad V-shaped Hyades field around it, then continue in the same general direction to the more compact Pleiades. Aldebaran looks like it belongs to the Hyades but is a foreground star. When Orion is still below the horizon, you can find M45 using the Taurus chart alone."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/spot-the-young-stars-of-the-hyades-and-pleiades/"]
+    },
+    {
+      id: "identity", heading: "The shape is small enough to fit in binoculars",
+      paragraphs: [
+        "The cluster can resemble a tiny dipper. The actual Little Dipper occupies a much larger patch near Polaris. If the pattern fits comfortably in one binocular field, it is not the entire Little Dipper. Compare the cluster's compact bright members with the wider, looser Hyades field to be sure you have the right one."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/spot-the-young-stars-of-the-hyades-and-pleiades/", "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-45/"]
+    },
+    {
+      id: "count", heading: "Seven is a name, not an observing requirement",
+      paragraphs: [
+        "Some people see six obvious points with unaided eyes, others more, and haze can leave fewer. The star cluster contains many more members than the seven of its nickname. With binoculars, try a low-power view rather than zooming into the middle. The extra surrounding stars and the relation between the bright members are part of what makes the view distinctive."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/spot-the-young-stars-of-the-hyades-and-pleiades/", "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-45/"]
+    },
+    {
+      id: "light", heading: "Do not mistake glare for the reflection nebula",
+      paragraphs: [
+        "Long-exposure portraits can show faint dust scattering the light of cluster stars. A halo around every bright point on a damp night is more likely scattered light in your optics or the atmosphere. Focus on identifying the stars first. Keep a sketch of the unaided view, then compare it with the binocular view and note which stars were not visible without help."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-45/"]
+    }
+  ],
+  "how-to-find-sirius": [
+    {
+      id: "find", heading: "Extend the Belt on the Alnitak side",
+      paragraphs: [
+        "Identify the three Belt stars, then follow the line from Mintaka through Alnilam and Alnitak into Canis Major. It points roughly toward Sirius, a conspicuously bright star, not to an exact bullseye. Continue the other way and you are looking toward Taurus instead. Use a chart to confirm both the direction and when Sirius rises at your site."
+      ], sourceUrls: ["https://science.nasa.gov/asset/hubble/orion-constellation/"]
+    },
+    {
+      id: "bright", heading: "Brightest visible star does not mean brightest object",
+      paragraphs: [
+        "Sirius has the brightest apparent visible magnitude of any star in the night sky. The Moon and some planets can look brighter, and the Sun is also a star but is not a night-sky target. Sirius owes its apparent rank in part to being relatively close. It is not the most luminous star in the Galaxy."
+      ], sourceUrls: ["https://science.nasa.gov/skywatching/faq/", "https://esahubble.org/images/heic0516a/"]
+    },
+    {
+      id: "twinkle", heading: "A low star can flash different colors",
+      paragraphs: [
+        "Air turbulence changes how starlight reaches your eye. Close to the horizon, the longer path through the atmosphere can make the bright point flash strongly and appear to change color. Check whether it holds its position in the surrounding star pattern and whether it steadies as it climbs. Color flashes alone are not enough to identify a planet, aircraft, or unusual object."
+      ], sourceUrls: ["https://science.nasa.gov/skywatching/faq/"]
+    },
+    {
+      id: "companion", heading: "Treat Sirius B as a different observing challenge",
+      paragraphs: [
+        "Sirius is a binary. The faint companion Sirius B is a white dwarf, not simply another equally bright point. The bright primary overwhelms it in typical beginner views. The original Hubble image shows what specialized equipment can separate. Your first goal is identifying Sirius A from the Belt and the surrounding pattern; seeing one point is the normal result."
+      ], sourceUrls: ["https://esahubble.org/images/heic0516a/"]
+    }
+  ],
+  "best-time-to-see-milky-way": [
+    {
+      id: "target", heading: "Decide whether you mean the band or the bright center",
+      paragraphs: [
+        "The Milky Way is a band of overlapped starlight seen from inside our galaxy. The direction toward its center in Sagittarius is one of its brightest regions, but other parts of the band are visible in different seasons. If Sagittarius is down, you may still see another section. A search result that says 'Milky Way season' often means a convenient dark-sky season for the center only."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/augusts-night-sky-notes-the-great-rift/", "https://science.nasa.gov/skywatching/faq/"]
+    },
+    {
+      id: "season", heading: "Check the hour as well as the month",
+      paragraphs: [
+        "Around June the center is opposite the Sun in the broad sense and can be up for much of the night from suitable sites. On earlier dates it is generally a later-night or predawn target; later in the year it is better placed in the evening before it becomes lost in twilight. At far northern latitudes Sagittarius never gets high, while many southern sites see it much higher. A local chart resolves that difference better than a fixed calendar."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/augusts-night-sky-notes-the-great-rift/", "https://imagine.gsfc.nasa.gov/ask_astro/night_sky.html"]
+    },
+    {
+      id: "window", heading: "Find the overlap of three conditions",
+      paragraphs: [
+        "Set a sky chart to your site. Find the time the Sagittarius region is above your usable horizon, then intersect that with astronomical darkness and the time the Moon is below the horizon. For example, if the center is clear until 02:00 but the Moon sets at 01:15, the last 45 minutes could be your useful window, provided twilight has not begun. These are example times, not a sky forecast."
+      ], sourceUrls: ["https://science.nasa.gov/skywatching/faq/"]
+    },
+    {
+      id: "expect", heading: "Look for contrast, not camera color",
+      paragraphs: [
+        "Give your eyes time to adapt, keep screens dim, and block direct lamps. The band may look pale rather than colorful; in darker skies, dust can appear as lanes against the stellar glow. A long exposure makes those colors and textures easier to see. If the band is washed out, check skyglow and moonlight before deciding you aimed at the wrong region."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/augusts-night-sky-notes-the-great-rift/", "https://science.nasa.gov/skywatching/faq/"]
+    }
+  ],
+  "how-to-see-mercury": [
+    {
+      id: "when-to-look", heading: "Check whether it is a morning or evening planet",
+      paragraphs: [
+        "Mercury orbits inside Earth's orbit, so from our point of view it always stays fairly close to the Sun. At eastern elongation it lies east of the Sun and sets after it, which puts Mercury in the western evening sky. At western elongation it rises before the Sun and appears in the eastern morning sky. The names describe Mercury's position relative to the Sun, not the compass direction where you should look."
+      ], sourceUrls: ["https://science.nasa.gov/mercury/facts/", "https://spdf.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smercury.htm"]
+    },
+    {
+      id: "check-altitude", heading: "Check altitude, not just elongation",
+      paragraphs: [
+        "Greatest elongation tells you when Mercury is farthest from the Sun in angle during that appearance. It does not tell you how high it is above your horizon. A shallow angle between the planets' path and your horizon can put Mercury behind buildings or into hazy air even at a respectable elongation. Set a sky chart to your location and compare a few nearby dates."
+      ], sourceUrls: ["https://spdf.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smercury.htm"]
+    },
+    {
+      id: "viewing-plan", heading: "Make a short twilight plan",
+      paragraphs: [
+        "If an evening chart puts Mercury 8 degrees up at your chosen time, a building or ridge that reaches 10 degrees will hide it. Pick a clearer horizon rather than waiting for a darker sky: Mercury will be lower by then. For a morning appearance, start early enough to catch it before the sky brightens."
+      ]
+    },
+    {
+      id: "identify-it", heading: "Confirm the point you found",
+      paragraphs: [
+        "Use the naked eye with the Sun below the horizon. Start at the chart's predicted direction and height. Mercury may be the only obvious point in that part of the bright sky, but use a nearby star or planet when the chart offers one. Note where it is compared with a landmark and check again on another clear day. Never sweep for Mercury with optics near the Sun."
+      ]
+    }
+  ],
+  "why-moon-visible-during-day": [
+    {
+      id: "why-it-happens", heading: "The Moon is not limited to the night sky",
+      paragraphs: [
+        "The Moon reflects sunlight whether your part of Earth is in daylight or darkness. For much of its orbit, the Moon spends some of its time above your horizon while the Sun is also up. If the lit portion is large enough and the sky is clear, it can stand out against the light scattered through Earth's atmosphere."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/why-can-you-see-the-moon-during-the-day-we-asked-a-nasa-scientist-episode-19/"]
+    },
+    {
+      id: "easiest-phases", heading: "Try first quarter in the afternoon",
+      paragraphs: [
+        "Near first quarter, the Moon is usually a good afternoon target: roughly half the visible disk is lit and the Moon is well away from the Sun in the sky. Near last quarter, try the morning instead. Those are starting points, not fixed times. Your location, the date, the horizon, and the Moon's path all affect what you see."
+      ], sourceUrls: ["https://science.nasa.gov/moon/moon-phases/"]
+    },
+    {
+      id: "missing-phases", heading: "Why not look for a full Moon at noon?",
+      paragraphs: [
+        "At full Moon, it sits nearly opposite the Sun, so it generally rises around sunset and sets around sunrise. You can still catch it in daylight near those transitions, especially around the days on either side of full. Near new Moon it is close to the Sun in the sky, and its Earth-facing side receives little direct sunlight. Leave that phase alone when looking in daylight."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/why-can-you-see-the-moon-during-the-day-we-asked-a-nasa-scientist-episode-19/", "https://science.nasa.gov/moon/moon-phases/"]
+    },
+    {
+      id: "try-it", heading: "Try two observations from the same spot",
+      paragraphs: [
+        "Pick two clear afternoons a few days apart around first quarter. Check a chart for the Moon's direction from your location, then look with your unaided eyes, away from the Sun. Sketch where it sits relative to a rooftop and how much of its face is lit. The position and the phase both change across the two visits. If the sky is hazy, try later or on a clearer day."
+      ]
+    }
+  ],
+  "what-is-a-blue-moon": [
+    {
+      id: "monthly", heading: "The calendar definition",
+      paragraphs: [
+        "A blue Moon usually means the second full Moon in a calendar month. Full moons are spaced about 29.5 days apart, so an early full Moon can leave room for another one before a long month ends. The label records a coincidence between the calendar and the lunar cycle. It does not describe the Moon's brightness, size, or color."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/moon/super-blue-moons-your-questions-answered/"]
+    },
+    {
+      id: "seasonal", heading: "The seasonal definition",
+      paragraphs: [
+        "A seasonal blue Moon is the third full Moon in an astronomical season that contains four. Astronomical seasons are bounded by equinoxes and solstices, not by the first day of a month. Count the exact full-Moon instants in that interval; the third gets the name. It does not have to be a second full Moon in a month."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/moon/super-blue-moons-your-questions-answered/"]
+    },
+    {
+      id: "time-zone", heading: "Check the local date before counting",
+      paragraphs: [
+        "Imagine a full Moon listed at 00:30 UTC on the first of a month. In a place using UTC-4 at that time, the local clock reads 20:30 on the previous month's last day. If that month already had a full Moon, it now has two by the local calendar. A table in UTC is a useful starting point, but use the offset in effect on the observation date."
+      ], sourceUrls: ["https://aa.usno.navy.mil/data/MoonPhases"]
+    },
+    {
+      id: "expectations", heading: "What you will see",
+      paragraphs: [
+        "A blue Moon looks like an ordinary full Moon. The color can change under unusual atmospheric conditions, but that has nothing to do with either definition. The precise full phase happens at one instant, and the disk still looks very round on neighboring nights. For an evening walk or photograph, local moonrise, clouds, and a clear horizon are more useful than the label."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/moon/super-blue-moons-your-questions-answered/", "https://aa.usno.navy.mil/data/MoonPhases"]
+    }
+  ],
+  "how-to-see-zodiacal-light": [
+    {
+      id: "what-it-is", heading: "A glow from outside Earth's atmosphere",
+      paragraphs: [
+        "Zodiacal light is sunlight scattered by dust spread through the plane of the solar system. From a dark site you can see it as a pale, elongated wedge of light, broadest near the horizon and narrowing along the ecliptic, the apparent path of the Sun among the stars. It is broad enough to see with the naked eye; a telescope would show too little of it at once."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/nsn-night-lights/", "https://www.hq.eso.org/public/images/potw1348a/"]
+    },
+    {
+      id: "when-to-look", heading: "Try a spring evening or an autumn morning",
+      paragraphs: [
+        "For many midlatitude locations, the ecliptic rises steeply from the western horizon after dusk around local spring, or from the eastern horizon before dawn around local autumn. The calendar months are reversed between hemispheres. Use a sky chart for your latitude: look for the steepest useful angle while the sky is dark, rather than treating either season as a deadline."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/nsn-night-lights/", "https://www.hq.eso.org/public/images/potw1348a/"]
+    },
+    {
+      id: "avoid-glare", heading: "Choose a dark horizon, not just a dark site",
+      paragraphs: [
+        "On an evening visit, wait for the brightest twilight to fade. On a morning visit, get settled before twilight starts. The Moon should ideally be below the horizon. Check whether the site faces a town or highway in the same direction as the expected wedge. A dark place with a bright western horizon is a poor choice for the evening version."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/skywatching/night-sky-network/nsn-night-lights/"]
+    },
+    {
+      id: "confirm-it", heading: "Follow the outline",
+      paragraphs: [
+        "Look for a smooth glow in the chart's predicted direction along the ecliptic. A light dome tends to sit over a fixed source on the horizon. The Milky Way usually traces a longer, more textured ribbon and can cross the zodiacal light. If haze or city light makes the view ambiguous, sketch the glow and try again from a site with a clearer horizon."
+      ], sourceUrls: ["https://www.hq.eso.org/public/images/potw1348a/"]
+    }
+  ],
+  "earth-shadow-and-belt-of-venus": [
+    {
+      id: "where-to-look", heading: "Face away from the Sun",
+      paragraphs: [
+        "At sunset, turn toward the horizon opposite the setting Sun. Look for a low blue-gray band, Earth's shadow cast through the atmosphere, with a pinkish strip above it. That pink strip is called the Belt of Venus, or antitwilight arch. It is a glow spread across the sky, not a planet. Before sunrise the same view is on the side opposite the rising Sun."
+      ], sourceUrls: ["https://www.eso.org/public/images/potw1331a/", "https://www.hq.eso.org/public/images/potw1251a/"]
+    },
+    {
+      id: "how-it-forms", heading: "Read the two bands together",
+      paragraphs: [
+        "After the Sun drops below your horizon, some higher air in the distance is still lit by sunlight that has traveled a long path through the atmosphere. Reddened light scattered back toward you makes the pink arch, while air inside Earth's shadow below the arch is darker. The contrast can be subtle; a pale pink above blue-gray counts even if it does not look like a saturated photograph."
+      ], sourceUrls: ["https://www.eso.org/public/images/potw1331a/"]
+    },
+    {
+      id: "time-the-view", heading: "Give the horizon several minutes",
+      paragraphs: [
+        "Choose a wide, clear view around local sunset. Watch how the shadow rises and the colors fade as twilight deepens. Before sunrise, the shadow lowers instead. The exact timing and contrast depend on the atmosphere and the horizon, so start around the transition rather than relying on a fixed number of minutes after sunset."
+      ], sourceUrls: ["https://www.eso.org/public/images/potw1331a/", "https://www.hq.eso.org/public/images/potw1251a/"]
+    },
+    {
+      id: "recognize-it", heading: "Distinguish the arch from clouds",
+      paragraphs: [
+        "Clouds often show individual edges and change shape across the horizon. Look for a broad, smooth boundary moving together across a large part of the sky. If you photograph it, keep your framing and white balance fixed for a few shots. That makes the rising boundary easier to see without exaggerating the natural color change."
+      ]
+    }
+  ],
+  "starlink-train-lights-in-sky": [
+    {
+      id: "what-it-looks-like", heading: "Look for a procession moving together",
+      paragraphs: [
+        "Soon after deployment, a batch of Starlink satellites can look like a dotted line moving across the sky. Each dot is a separate satellite. They share roughly the same path at first, so one light may follow another through the same patch of sky. As the satellites spread out into their operating orbits, the most conspicuous trains stop looking like close formations."
+      ], sourceUrls: ["https://docs.fcc.gov/public/attachments/DA-26-36A1.pdf", "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Satellite_Flaring_Paper.pdf"]
+    },
+    {
+      id: "why-they-shine", heading: "Why the lights can vanish mid-pass",
+      paragraphs: [
+        "Normally you are seeing reflected sunlight. The ground can be dark while satellites overhead are still lit. A dot can fade or disappear when it moves into Earth's shadow; its brightness can also change as the angle of reflection changes. A string that fades one dot at a time in the same part of the sky is consistent with satellites, but not enough to identify a particular launch."
+      ], sourceUrls: ["https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Satellite_Flaring_Paper.pdf"]
+    },
+    {
+      id: "similar-lights", heading: "Rule out a few lookalikes",
+      paragraphs: [
+        "A meteor usually crosses a patch of sky in a moment, not as a series of dots following one course for minutes. Aircraft often have regularly blinking lights, and traffic in a single approach corridor can also make a line. Watch for repeated flashes, different directions of movement, or the way the lights pass the same background stars."
+      ]
+    },
+    {
+      id: "check-pass", heading: "Confirm with the time and direction",
+      paragraphs: [
+        "Record the local date, time and time zone, approximate location, and direction the line moved. Set your observing location in Heavens-Above, then choose its Starlink passes by launch. A match in time and direction is stronger evidence than a photo of evenly spaced dots. If you cannot find a match, leave the identification open."
+      ], sourceUrls: ["https://www.heavens-above.com/"]
+    }
+  ],
+  "why-comet-brightness-is-hard-to-predict": [
+    {
+      id: "orbit-versus-light", heading: "A good orbit does not guarantee a good brightness forecast",
+      paragraphs: [
+        "Astronomers can measure a comet's position and use its orbit to say where it will appear. Brightness is harder: sunlight warms the nucleus, releasing gas and dust, and that activity can change abruptly. Comet 12P/Pons-Brooks, for instance, brightened during outbursts. A prediction of where to aim and a prediction of what your eyes will see deserve different amounts of confidence."
+      ], sourceUrls: ["https://www.nasa.gov/blogs/watch-the-skies/2024/04/05/when-and-how-to-spot-the-devil-comet/"]
+    },
+    {
+      id: "read-magnitude", heading: "A comet and a star of equal magnitude do not look alike",
+      paragraphs: [
+        "A comet's total magnitude combines light from an extended glow. A star concentrates comparable light into a tiny point, making it easier to pick out through twilight or light pollution. A forecast that sounds bright on a star chart can still mean a subtle, fuzzy patch, and the dust tail may be harder to see than the head."
+      ], sourceUrls: ["https://www.nasa.gov/blogs/watch-the-skies/2024/04/05/when-and-how-to-spot-the-devil-comet/", "https://www.nasa.gov/blogs/watch-the-skies/2024/10/02/ancient-oort-cloud-comet-to-make-first-documented-pass-by-earth-in-mid-october/"]
+    },
+    {
+      id: "check-geometry", heading: "Check the chart against your horizon",
+      paragraphs: [
+        "Check three things for your location: angular distance from the Sun, altitude around the beginning or end of usable darkness, and whether there is a clear view in that direction. Those details matter more than the advertised date of peak brightness. For a twilight target, plan to observe only with the Sun below the horizon; do not point a camera or optics near it."
+      ], sourceUrls: ["https://www.nasa.gov/blogs/watch-the-skies/2024/04/05/when-and-how-to-spot-the-devil-comet/", "https://www.nasa.gov/blogs/watch-the-skies/2024/10/02/ancient-oort-cloud-comet-to-make-first-documented-pass-by-earth-in-mid-october/"]
+    },
+    {
+      id: "use-recent-reports", heading: "Read reports from the last few nights",
+      paragraphs: [
+        "Look for observations made in similar twilight with similar equipment. A long-exposure image can show a tail you will not see by eye. If observers at a comparable site needed binoculars, use that as a planning clue and check another date if the comet is climbing into darker sky. Do not treat an older forecast as a promise."
+      ], sourceUrls: ["https://www.nasa.gov/blogs/watch-the-skies/2024/10/02/ancient-oort-cloud-comet-to-make-first-documented-pass-by-earth-in-mid-october/"]
+    }
+  ],
+  "why-webb-stars-have-eight-spikes": [
+    {
+      id: "count-the-rays", heading: "Six strong spikes and two fainter ones",
+      paragraphs: [
+        "A bright star in a Webb image often has six conspicuous rays and two shorter ones. They are diffraction spikes: light spreads in a characteristic pattern as it passes through the telescope's aperture. The pattern is set by the instrument. Those straight lines do not trace eruptions, jets, or surfaces on the star."
+      ], sourceUrls: ["https://science.nasa.gov/asset/webb/webbs-diffraction-spikes/"]
+    },
+    {
+      id: "mirror-and-struts", heading: "The mirror and struts leave different signatures",
+      paragraphs: [
+        "The hexagonal geometry of Webb's primary mirror produces six strong spikes. The three struts that hold the secondary mirror also cause diffraction. Some of their spikes overlap the ones from the mirror, so the two horizontal ones in NASA's reference illustration stand out as the fainter extra pair. A rotated picture can show the same pattern at another angle."
+      ], sourceUrls: ["https://science.nasa.gov/asset/webb/webbs-diffraction-spikes/"]
+    },
+    {
+      id: "read-an-image", heading: "Compare several bright points",
+      paragraphs: [
+        "Look for the same ray angles around other bright points in the same exposure. An unresolved source tends to show the telescope pattern more clearly, while light from a large diffuse nebula is spread across many positions. Spikes alone do not prove that an object is a nearby star: a very compact bright source can also acquire them."
+      ], sourceUrls: ["https://science.nasa.gov/asset/webb/webbs-diffraction-spikes/", "https://science.nasa.gov/mission/webb/multimedia/about-webb-images/"]
+    },
+    {
+      id: "spot-real-features", heading: "Use the caption to check what is real",
+      paragraphs: [
+        "When a line looks like a jet, check whether it follows the shared spike pattern, then read the caption for the filters and what the team identified. An apparent feature that persists in images taken at different telescope orientations or with another instrument is worth a closer look. A line that turns with the instrument is a strong clue that it comes from the optics."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/multimedia/about-webb-images/"]
+    }
+  ],
+  "europa-and-enceladus-oceans": [
+    {
+      id: "europa", heading: "Europa: A magnetic clue from Galileo",
+      paragraphs: [
+        "Jupiter's magnetic field changes as seen from Europa. Galileo measured an additional magnetic response consistent with a conducting layer beneath the ice. Salty liquid water can carry electric currents and produce that kind of response, making a subsurface ocean a strong explanation. Surface cracks and disrupted patches offer clues about the ice but are not direct views of the ocean."
+      ], sourceUrls: ["https://science.nasa.gov/mission/europa-clipper/why-europa-overview/"]
+    },
+    {
+      id: "enceladus", heading: "Enceladus: Plume samples and a wobble",
+      paragraphs: [
+        "Cassini flew through the material venting from Enceladus and measured water-rich gas and particles, including salts in ice grains. A separate clue came from the moon's rotation: its small wobble was larger than expected for an icy shell solidly joined to the interior. A global liquid layer allows the shell to move more independently. The two measurements probe different properties and point to the same broad picture."
+      ], sourceUrls: ["https://science.nasa.gov/mission/cassini/science/enceladus/"]
+    },
+    {
+      id: "how-water-stays-liquid", heading: "How the water can stay liquid so far from the Sun",
+      paragraphs: [
+        "As each moon orbits its giant planet, changing gravitational pulls flex its interior. That deformation can convert orbital energy into heat. An ice shell also separates the water from space. A surface that is very cold need not imply that everything below it is frozen, though ocean depth and ice thickness are harder to pin down."
+      ], sourceUrls: ["https://science.nasa.gov/mission/europa-clipper/why-europa-overview/", "https://science.nasa.gov/mission/cassini/science/enceladus/"]
+    },
+    {
+      id: "what-we-do-not-know", heading: "An ocean is not a detection of life",
+      paragraphs: [
+        "A water reservoir is one reason to investigate habitability, alongside chemistry and usable energy. Neither moon has confirmed life. Reports of possible Europa plumes should also be read differently from Cassini's direct encounters at Enceladus. The useful question in an announcement is which measurement was made and what competing explanations it can rule out."
+      ], sourceUrls: ["https://science.nasa.gov/mission/europa-clipper/why-europa-overview/", "https://science.nasa.gov/mission/cassini/science/enceladus/", "https://www.nasa.gov/missions/are-water-plumes-spraying-from-europa-nasas-europa-clipper-is-on-the-case/"]
+    }
+  ],
+  "how-gps-finds-your-location": [
+    {
+      id: "signal-travel", heading: "Location starts with a clock",
+      paragraphs: [
+        "GPS satellites broadcast radio signals containing timing and orbit information. The receiver uses how long those signals appear to have traveled to estimate its distance from each satellite. Because radio moves at light speed, a timing error of one microsecond corresponds to about 300 meters of apparent range error. A phone's clock is not nearly as precise as the clocks on the satellites."
+      ], sourceUrls: ["https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-your-location-using-gps", "https://www.faa.gov/about/office_org/headquarters_offices/ato/service_units/techops/navservices/gnss/gps/howitworks"]
+    },
+    {
+      id: "four-satellites", heading: "Why a basic fix needs four satellites",
+      paragraphs: [
+        "A receiver needs to estimate three position coordinates and its own clock offset. Measurements from at least four satellites give it enough information to solve for those four unknowns in a basic fix. The distance estimates before correcting for that clock offset are called pseudoranges. The phone listens to the satellites; it does not have to send a satellite its location."
+      ], sourceUrls: ["https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-your-location-using-gps", "https://www.faa.gov/about/office_org/headquarters_offices/ato/service_units/techops/navservices/gnss/gps/howitworks"]
+    },
+    {
+      id: "building-error", heading: "Why the dot can jump across a street",
+      paragraphs: [
+        "Tall buildings can block direct signals. A signal that bounces off a facade travels farther than the direct route, so the measured range can be too long. This is called multipath. Satellites visible only through a narrow gap can also give poor geometry. Spread across the sky, they constrain the possible position better than several in nearly the same direction."
+      ], sourceUrls: ["https://archive.gps.gov/systems/gps/performance/accuracy/"]
+    },
+    {
+      id: "test-it", heading: "Tell a location problem from a map problem",
+      paragraphs: [
+        "Compare the dot at a street corner between tall buildings and again under a wider patch of open sky. Give the receiver time to settle. A shrinking uncertainty circle and steadier dot suggest better reception. If the dot stays fixed but the app places the street or address incorrectly, check the map data instead. A map and a position fix are different inputs."
+      ], sourceUrls: ["https://archive.gps.gov/systems/gps/performance/accuracy/"]
+    }
+  ],
 };

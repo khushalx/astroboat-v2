@@ -60,7 +60,7 @@ const entries: GuideEntry[] = [
       { label: "American Astronomical Society: Safe Solar Viewing and Trusted Suppliers", url: "https://eclipse.aas.org/eye-safety" },
       { label: "American Astronomical Society: Pinhole and Optical Projection", url: "https://eclipse.aas.org/eye-safety/projection" }
     ],
-    relatedPaths: [{ label: "Check upcoming sky events", href: "/events" }, { label: "Learn about lunar eclipses", href: "/guides/lunar-eclipses-explained" }]
+    relatedPaths: [{ label: "Check upcoming sky events", href: "/events" }, { label: "Plan for the August 2027 solar eclipse", href: "/guides/august-2027-solar-eclipse" }, { label: "Learn about lunar eclipses", href: "/guides/lunar-eclipses-explained" }]
   },
   {
     slug: "lunar-eclipses-explained",
@@ -88,7 +88,14 @@ const entries: GuideEntry[] = [
       { label: "NASA Space Place: What Is a Meteor Shower?", url: "https://spaceplace.nasa.gov/meteor-shower/en/" },
       { label: "NASA Meteoroid Environments Office: Why Ideal Meteor Rates Differ from What You See", url: "https://www.nasa.gov/blogs/watch-the-skies/2019/11/19/about-the-upcoming-maybe-alpha-monocerotid-meteor-shower-outburst/" }
     ],
-    relatedPaths: [{ label: "Browse sky events", href: "/events" }, { label: "Check Moon conditions", href: "/moon" }]
+    relatedPaths: [
+      { label: "2026 Geminids viewing guide", href: "/guides/geminid-meteor-shower-2026" },
+      { label: "2027 Quadrantids viewing guide", href: "/guides/quadrantid-meteor-shower-2027" },
+      { label: "2027 Perseids viewing guide", href: "/guides/perseid-meteor-shower-2027" },
+      { label: "Photograph a meteor shower", href: "/guides/photograph-a-meteor-shower" },
+      { label: "Browse sky events", href: "/events" },
+      { label: "Check Moon conditions", href: "/moon" }
+    ]
   },
   {
     slug: "planets-conjunctions-and-opposition",
@@ -145,7 +152,7 @@ const entries: GuideEntry[] = [
       { label: "NASA: Skywatching Tools", url: "https://science.nasa.gov/skywatching/" },
       { label: "NASA: Moon Viewing Tips", url: "https://science.nasa.gov/moon/viewing-tips/" }
     ],
-    relatedPaths: [{ label: "Observe the Moon", href: "/guides/how-to-observe-the-moon" }, { label: "Understand telescope basics", href: "/guides/telescope-basics-aperture-and-magnification" }]
+    relatedPaths: [{ label: "Find the Pleiades", href: "/guides/how-to-find-pleiades" }, { label: "Find the Andromeda Galaxy", href: "/guides/how-to-find-andromeda-galaxy" }, { label: "Observe the Moon", href: "/guides/how-to-observe-the-moon" }, { label: "Understand telescope basics", href: "/guides/telescope-basics-aperture-and-magnification" }]
   },
   {
     slug: "telescope-basics-aperture-and-magnification",
@@ -332,7 +339,7 @@ const entries: GuideEntry[] = [
       { label: "NASA: About Webb Images", url: "https://science.nasa.gov/mission/webb/multimedia/about-webb-images/" },
       { label: "NASA: Webb Image Galleries", url: "https://science.nasa.gov/mission/webb/multimedia/images/" }
     ],
-    relatedPaths: [{ label: "Practice in the gallery", href: "/gallery" }, { label: "Compare Webb and Hubble", href: "/guides/webb-and-hubble-compared" }]
+    relatedPaths: [{ label: "Recognize Webb's diffraction spikes", href: "/guides/why-webb-stars-have-eight-spikes" }, { label: "Practice in the gallery", href: "/gallery" }, { label: "Compare Webb and Hubble", href: "/guides/webb-and-hubble-compared" }]
   },
   {
     slug: "rocket-launch-windows-and-countdowns",
@@ -853,6 +860,232 @@ const entries: GuideEntry[] = [
       { label: "NASA Webb: Early Universe", url: "https://science.nasa.gov/mission/webb/early-universe/" }
     ],
     relatedPaths: [{ label: "Read spectral lines", href: "/guides/spectroscopy-reading-starlight" }, { label: "Explore the cosmic microwave background", href: "/guides/cosmic-microwave-background" }]
+  },
+  {
+    slug: "geminid-meteor-shower-2026", publishedAt: "2026-11-17",
+    title: "Geminid Meteor Shower 2026: When and Where to Look",
+    description: "Plan your December 2026 Geminid watch around the broad peak, local darkness, and the rising radiant.",
+    category: "Skywatching", tags: ["Geminids", "Meteor shower", "December 2026", "3200 Phaethon"],
+    sources: [
+      { label: "International Meteor Organization: 2026 Shower Calendar", url: "https://www.imo.net/files/meteor-shower/cal2026.pdf" },
+      { label: "NASA: Geminids", url: "https://science.nasa.gov/solar-system/meteors-meteorites/geminids/" }
+    ],
+    relatedPaths: [{ label: "Check Astroboat's sky calendar", href: "/events" }, { label: "Learn how to photograph meteors", href: "/guides/photograph-a-meteor-shower" }]
+  },
+  {
+    slug: "quadrantid-meteor-shower-2027", publishedAt: "2026-11-17",
+    title: "Quadrantid Meteor Shower 2027: Plan for the Short Peak",
+    description: "Find the January 2027 Quadrantid peak in local time and decide whether the radiant will be above your horizon.",
+    category: "Skywatching", tags: ["Quadrantids", "January 2027", "Meteor shower", "Bootes"],
+    sources: [
+      { label: "International Meteor Organization: 2027 Shower Calendar", url: "https://www.imo.net/files/data/calendar/cal2027.pdf" },
+      { label: "NASA: Quadrantids", url: "https://science.nasa.gov/solar-system/meteors-meteorites/quadrantids/" }
+    ],
+    relatedPaths: [{ label: "Read UTC and local sky times", href: "/guides/moonrise-moonset-and-local-time" }, { label: "Plan a naked-eye meteor watch", href: "/guides/how-to-watch-a-meteor-shower" }]
+  },
+  {
+    slug: "perseid-meteor-shower-2027", publishedAt: "2026-11-17",
+    title: "Perseid Meteor Shower 2027: Find the Darkest Window",
+    description: "Use the August 2027 Perseid peak, local moonset, and the start of twilight to choose an observing window.",
+    category: "Skywatching", tags: ["Perseids", "August 2027", "Meteor shower", "Swift-Tuttle"],
+    sources: [
+      { label: "International Meteor Organization: 2027 Shower Calendar", url: "https://www.imo.net/files/data/calendar/cal2027.pdf" },
+      { label: "NASA: Perseids", url: "https://science.nasa.gov/solar-system/meteors-meteorites/perseids/" }
+    ],
+    relatedPaths: [{ label: "Check local Moon timing", href: "/guides/moonrise-moonset-and-local-time" }, { label: "Understand twilight limits", href: "/guides/twilight-civil-nautical-astronomical" }]
+  },
+  {
+    slug: "august-2027-solar-eclipse", publishedAt: "2026-11-17",
+    title: "August 2, 2027 Solar Eclipse: Path, Times, and Safe Viewing",
+    description: "Find out where the August 2027 eclipse is total or partial, how to read your local map, and how to view it safely.",
+    category: "Skywatching", tags: ["Solar eclipse", "2027 eclipse", "Totality", "Eclipse map", "Eye safety"],
+    sources: [
+      { label: "NASA Goddard: August 2, 2027 Eclipse Path Map", url: "https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2027Aug02Tgoogle.html" },
+      { label: "National Solar Observatory: 2027 Eclipse Map", url: "https://nso.edu/eclipse-map-2027-aug2/" },
+      { label: "NASA: Eclipse Viewing Safety", url: "https://science.nasa.gov/eclipses/safety/" }
+    ],
+    relatedPaths: [{ label: "Understand solar eclipse geometry", href: "/guides/solar-eclipses-and-eye-safety" }, { label: "Browse space events", href: "/events" }]
+  },
+  {
+    slug: "photograph-a-meteor-shower", publishedAt: "2026-11-17",
+    title: "How to Photograph a Meteor Shower With a Camera",
+    description: "Set up a wide lens and a continuous exposure sequence, then distinguish likely meteors from aircraft and satellites.",
+    category: "Skywatching", tags: ["Meteor photography", "Astrophotography", "Wide lens", "Camera settings"],
+    sources: [
+      { label: "NASA: How to Photograph a Meteor Shower", url: "https://science.nasa.gov/solar-system/meteors-meteorites/how-to-photograph-a-meteor-shower/" },
+      { label: "NASA: Meteor Showers", url: "https://science.nasa.gov/solar-system/meteors-meteorites/meteor-showers/" }
+    ],
+    relatedPaths: [{ label: "Try a phone setup", href: "/guides/photographing-the-night-sky-with-a-phone" }, { label: "Plan for the Geminids", href: "/guides/geminid-meteor-shower-2026" }]
+  },
+  {
+    slug: "how-to-find-andromeda-galaxy", publishedAt: "2026-11-17",
+    title: "How to Find the Andromeda Galaxy With Binoculars",
+    description: "Follow a short hop from the Great Square of Pegasus to M31 and recognize the faint glow through binoculars.",
+    category: "Skywatching", tags: ["Andromeda Galaxy", "M31", "Binoculars", "Star hopping"],
+    sources: [
+      { label: "NASA Night Sky Network: Finding Andromeda", url: "https://nightsky.jpl.nasa.gov/documents/918/Oct24_Andromeda_Refresh_20240917_123354.pdf" },
+      { label: "NASA Hubble: Messier 31", url: "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/" }
+    ],
+    relatedPaths: [{ label: "Choose a binocular field", href: "/guides/binoculars-for-stargazing" }, { label: "See another binocular target", href: "/guides/how-to-find-pleiades" }]
+  },
+  {
+    slug: "how-to-find-orion-nebula", publishedAt: "2026-11-17",
+    title: "How to Find the Orion Nebula Below Orion's Belt",
+    description: "Use Orion's Belt and Sword to locate M42, then know what detail to expect with eyes, binoculars, or a small telescope.",
+    category: "Skywatching", tags: ["Orion Nebula", "M42", "Orion's Belt", "Trapezium"],
+    sources: [
+      { label: "NASA: Discovering Orion", url: "https://science.nasa.gov/universe/stories/quick-reads/discovering-the-universe-through-the-constellation-orion/" },
+      { label: "NASA Hubble: Messier 42", url: "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-42/" }
+    ],
+    relatedPaths: [{ label: "Estimate your telescope's field", href: "/guides/telescope-field-of-view" }, { label: "Trace the Belt to Sirius", href: "/guides/how-to-find-sirius" }]
+  },
+  {
+    slug: "how-to-find-pleiades", publishedAt: "2026-11-17",
+    title: "How to Find the Pleiades: The Seven Sisters in Taurus",
+    description: "Identify the compact M45 cluster, tell it apart from the Little Dipper, and choose a wide enough binocular view.",
+    category: "Skywatching", tags: ["Pleiades", "Seven Sisters", "M45", "Taurus", "Binoculars"],
+    sources: [
+      { label: "NASA Night Sky Network: Hyades and Pleiades", url: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/spot-the-young-stars-of-the-hyades-and-pleiades/" },
+      { label: "NASA Hubble: Messier 45", url: "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-45/" }
+    ],
+    relatedPaths: [{ label: "Learn how open clusters form", href: "/guides/open-and-globular-star-clusters" }, { label: "Choose a wide field of view", href: "/guides/telescope-field-of-view" }]
+  },
+  {
+    slug: "how-to-find-sirius", publishedAt: "2026-11-17",
+    title: "How to Find Sirius, the Brightest Star in the Night Sky",
+    description: "Use Orion's Belt to identify Sirius and tell an intensely twinkling star from a bright planet.",
+    category: "Skywatching", tags: ["Sirius", "Dog Star", "Canis Major", "Orion's Belt", "White dwarf"],
+    sources: [
+      { label: "NASA: Skywatching FAQ and Stellar Brightness", url: "https://science.nasa.gov/skywatching/faq/" },
+      { label: "ESA/Hubble: Sirius A and Sirius B", url: "https://esahubble.org/images/heic0516a/" },
+      { label: "NASA: Orion Constellation", url: "https://science.nasa.gov/asset/hubble/orion-constellation/" }
+    ],
+    relatedPaths: [{ label: "Find the Orion Nebula", href: "/guides/how-to-find-orion-nebula" }, { label: "Understand why stars twinkle", href: "/guides/why-stars-twinkle-and-seeing" }]
+  },
+  {
+    slug: "best-time-to-see-milky-way", publishedAt: "2026-11-17",
+    title: "When Is the Best Time to See the Milky Way?",
+    description: "Find the overlap between a dark sky, a low Moon, and a high Galactic center instead of relying on a universal month.",
+    category: "Skywatching", tags: ["Milky Way season", "Galactic center", "Sagittarius", "Dark sky"],
+    sources: [
+      { label: "NASA Night Sky Network: The Great Rift", url: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/augusts-night-sky-notes-the-great-rift/" },
+      { label: "NASA: Skywatching FAQ", url: "https://science.nasa.gov/skywatching/faq/" },
+      { label: "NASA Goddard: Night Sky Questions", url: "https://imagine.gsfc.nasa.gov/ask_astro/night_sky.html" }
+    ],
+    relatedPaths: [{ label: "Choose a darker site", href: "/guides/light-pollution-and-dark-skies" }, { label: "Know when twilight ends", href: "/guides/twilight-civil-nautical-astronomical" }]
+  },
+  {
+    slug: "how-to-see-mercury", publishedAt: "2026-11-17",
+    title: "How to See Mercury After Sunset or Before Sunrise",
+    description: "Find Mercury in twilight by checking its elongation, local altitude, and the direction of the horizon.",
+    category: "Skywatching", tags: ["Mercury", "Planet spotting", "Elongation"],
+    sources: [
+      { label: "NASA Mercury facts", url: "https://science.nasa.gov/mercury/facts/" },
+      { label: "NASA Goddard: Mercury and elongation", url: "https://spdf.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Smercury.htm" }
+    ],
+    relatedPaths: [{ label: "Read altitude and azimuth", href: "/guides/sky-coordinates-altitude-and-azimuth" }, { label: "Understand the stages of twilight", href: "/guides/twilight-civil-nautical-astronomical" }]
+  },
+  {
+    slug: "why-moon-visible-during-day", publishedAt: "2026-11-17",
+    title: "Why Can You See the Moon During the Day?",
+    description: "Learn why the Moon is visible in daylight and which phases are easiest to look for in the morning or afternoon.",
+    category: "Moon", tags: ["Daytime Moon", "Moon phases", "First quarter"],
+    sources: [
+      { label: "NASA: Why can you see the Moon during the day?", url: "https://www.nasa.gov/solar-system/why-can-you-see-the-moon-during-the-day-we-asked-a-nasa-scientist-episode-19/" },
+      { label: "NASA Moon phases", url: "https://science.nasa.gov/moon/moon-phases/" }
+    ],
+    relatedPaths: [{ label: "Explore Moon phases", href: "/moon" }, { label: "Read moonrise and moonset times", href: "/guides/moonrise-moonset-and-local-time" }]
+  },
+  {
+    slug: "what-is-a-blue-moon", publishedAt: "2026-11-17",
+    title: "What Is a Blue Moon? Two Definitions, No Color Change",
+    description: "Understand calendar and seasonal blue moons, and why the date can differ with your time zone.",
+    category: "Moon", tags: ["Blue Moon", "Full Moon", "Time zones"],
+    sources: [
+      { label: "NASA: Super blue moons explained", url: "https://science.nasa.gov/solar-system/moon/super-blue-moons-your-questions-answered/" },
+      { label: "US Naval Observatory Moon phase tables", url: "https://aa.usno.navy.mil/data/MoonPhases" }
+    ],
+    relatedPaths: [{ label: "Understand Moon phases", href: "/guides/understanding-moon-phases" }, { label: "Moon illusion and supermoons", href: "/guides/moon-illusion-and-supermoons" }]
+  },
+  {
+    slug: "how-to-see-zodiacal-light", publishedAt: "2026-11-17",
+    title: "How to See Zodiacal Light Before Dawn or After Dusk",
+    description: "Find the faint cone of sunlight scattered by interplanetary dust and tell it apart from twilight or city glow.",
+    category: "Skywatching", tags: ["Zodiacal light", "Dark skies", "Ecliptic"],
+    sources: [
+      { label: "NASA Night Sky Network: Night lights", url: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/nsn-night-lights/" },
+      { label: "ESO zodiacal glow over Paranal", url: "https://www.hq.eso.org/public/images/potw1348a/" }
+    ],
+    relatedPaths: [{ label: "Plan a Milky Way session", href: "/guides/best-time-to-see-milky-way" }, { label: "Check astronomical twilight", href: "/guides/twilight-civil-nautical-astronomical" }]
+  },
+  {
+    slug: "earth-shadow-and-belt-of-venus", publishedAt: "2026-11-17",
+    title: "How to See Earth's Shadow and the Belt of Venus",
+    description: "Look opposite the setting Sun for a blue-gray shadow and the pink twilight arch above it. No telescope needed.",
+    category: "Skywatching", tags: ["Belt of Venus", "Earth's shadow", "Twilight"],
+    sources: [
+      { label: "ESO: The Belt of Venus", url: "https://www.eso.org/public/images/potw1331a/" },
+      { label: "ESO: Twilight over Paranal", url: "https://www.hq.eso.org/public/images/potw1251a/" }
+    ],
+    relatedPaths: [{ label: "Learn the stages of twilight", href: "/guides/twilight-civil-nautical-astronomical" }, { label: "Find the zodiacal light", href: "/guides/how-to-see-zodiacal-light" }]
+  },
+  {
+    slug: "starlink-train-lights-in-sky", publishedAt: "2026-11-17",
+    title: "A Line of Lights in the Sky? How to Identify a Starlink Train",
+    description: "Tell a satellite train from aircraft lights and meteors, and check whether a pass matches what you saw.",
+    category: "Skywatching", tags: ["Starlink", "Satellite train", "Twilight"],
+    sources: [
+      { label: "FCC: Starlink satellite brightness and deployment", url: "https://docs.fcc.gov/public/attachments/DA-26-36A1.pdf" },
+      { label: "AARO: Satellite reflections and observed Starlink trains", url: "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Satellite_Flaring_Paper.pdf" },
+      { label: "Heavens-Above: Observing location and Starlink passes", url: "https://www.heavens-above.com/" }
+    ],
+    relatedPaths: [{ label: "Find an International Space Station pass", href: "/guides/how-to-spot-the-space-station" }, { label: "Understand satellite deployment", href: "/guides/rocket-stages-fairings-and-deployment" }]
+  },
+  {
+    slug: "why-comet-brightness-is-hard-to-predict", publishedAt: "2026-11-17",
+    title: "Will That Comet Be Visible? How to Read a Brightness Forecast",
+    description: "Learn why comet brightness can surprise observers and how to check elongation, altitude, twilight, and recent reports.",
+    category: "Skywatching", tags: ["Comets", "Brightness forecasts", "Magnitude", "Elongation"],
+    sources: [
+      { label: "NASA: When and how to spot comet 12P/Pons-Brooks", url: "https://www.nasa.gov/blogs/watch-the-skies/2024/04/05/when-and-how-to-spot-the-devil-comet/" },
+      { label: "NASA: Observing comet Tsuchinshan-ATLAS", url: "https://www.nasa.gov/blogs/watch-the-skies/2024/10/02/ancient-oort-cloud-comet-to-make-first-documented-pass-by-earth-in-mid-october/" }
+    ],
+    relatedPaths: [{ label: "Why comet tails point away from the Sun", href: "/guides/why-comets-have-tails" }, { label: "Read the magnitude scale", href: "/guides/stellar-magnitudes-and-brightness" }]
+  },
+  {
+    slug: "why-webb-stars-have-eight-spikes", publishedAt: "2026-11-17",
+    title: "Why Do Stars in Webb Images Have Eight Spikes?",
+    description: "See how Webb's hexagonal mirror and support struts leave six bright spikes and two fainter ones around point sources.",
+    category: "Astronomy Basics", tags: ["James Webb Space Telescope", "Diffraction spikes", "Optics"],
+    sources: [
+      { label: "NASA and STScI: Webb's diffraction spikes", url: "https://science.nasa.gov/asset/webb/webbs-diffraction-spikes/" },
+      { label: "NASA: About Webb images", url: "https://science.nasa.gov/mission/webb/multimedia/about-webb-images/" }
+    ],
+    relatedPaths: [{ label: "Compare Webb and Hubble", href: "/guides/webb-and-hubble-compared" }, { label: "Practice with Astroboat's gallery", href: "/gallery" }]
+  },
+  {
+    slug: "europa-and-enceladus-oceans", publishedAt: "2026-11-17",
+    title: "Europa and Enceladus: How Do We Know They Have Oceans?",
+    description: "Compare the magnetic evidence at Europa with the plume and wobble evidence at Enceladus, and see what it says about habitability.",
+    category: "Astronomy Basics", tags: ["Europa", "Enceladus", "Ocean worlds", "Cassini", "Galileo"],
+    sources: [
+      { label: "NASA Europa Clipper: Why Europa?", url: "https://science.nasa.gov/mission/europa-clipper/why-europa-overview/" },
+      { label: "NASA Cassini: Enceladus", url: "https://science.nasa.gov/mission/cassini/science/enceladus/" },
+      { label: "NASA: Evidence for possible Europa plumes", url: "https://www.nasa.gov/missions/are-water-plumes-spraying-from-europa-nasas-europa-clipper-is-on-the-case/" }
+    ],
+    relatedPaths: [{ label: "Observe Jupiter's moons", href: "/guides/observing-jupiter-and-its-moons" }, { label: "What a habitable zone means", href: "/guides/what-the-habitable-zone-means" }]
+  },
+  {
+    slug: "how-gps-finds-your-location", publishedAt: "2026-11-17",
+    title: "How GPS Finds Your Location and Why It Drifts Near Buildings",
+    description: "Follow the timing measurements that locate your phone, and learn how reflected signals and poor satellite geometry move the map dot.",
+    category: "Missions", tags: ["GPS", "Satellite navigation", "Timing", "Multipath"],
+    sources: [
+      { label: "NIST: How GPS measures location", url: "https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-your-location-using-gps" },
+      { label: "FAA: How GPS works", url: "https://www.faa.gov/about/office_org/headquarters_offices/ato/service_units/techops/navservices/gnss/gps/howitworks" },
+      { label: "GPS.gov: Factors that affect accuracy", url: "https://archive.gps.gov/systems/gps/performance/accuracy/" }
+    ],
+    relatedPaths: [{ label: "Compare weather satellite orbits", href: "/guides/weather-satellite-orbits" }, { label: "Understand light travel time", href: "/guides/deep-space-communication-and-light-delay" }]
   }
 ];
 
