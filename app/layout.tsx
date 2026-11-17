@@ -8,7 +8,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { SkyGridBackground } from "@/components/visuals/SkyGridBackground";
 import { Analytics } from "@vercel/analytics/next";
-import { DEFAULT_OG_IMAGE, SITE_URL, safeJsonLd } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, DEFAULT_OG_IMAGE_SIZE, RSS_ALTERNATES, SITE_URL, safeJsonLd } from "@/lib/seo";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 const siteDescription =
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     "sky tools",
     "space science"
   ],
-  alternates: { types: { "application/rss+xml": `${SITE_URL}/feed.xml` } },
+  alternates: { types: RSS_ALTERNATES },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -64,8 +64,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: previewImage,
-        width: 1200,
-        height: 630,
+        ...DEFAULT_OG_IMAGE_SIZE,
         alt: previewImageAlt
       }
     ]
@@ -101,14 +100,18 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: "Astroboat",
     url: SITE_URL,
     description: siteDescription,
-    image: DEFAULT_OG_IMAGE
+    image: DEFAULT_OG_IMAGE,
+    inLanguage: "en",
+    publisher: { "@id": `${SITE_URL}/#organization` }
   },
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
     name: "Astroboat",
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,

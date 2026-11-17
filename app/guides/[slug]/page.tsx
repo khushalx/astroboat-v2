@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ShareButton, TrackArticleOpen, TrackedLink } from "@/components/analytics/EditorialActions";
 import { getPublishedGuide, publishedGuides } from "@/lib/guides";
+import { guideArticleSchema, guideCategoryId } from "@/lib/guide-seo";
 import { absoluteUrl, breadcrumbSchema, pageMetadata, safeJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -27,6 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       ...base.openGraph,
       type: "article",
+      authors: [absoluteUrl("/about")],
+      section: guide.category,
+      tags: guide.tags,
       publishedTime: guide.publishedAt,
       ...(guide.updatedAt ? { modifiedTime: guide.updatedAt } : {})
     }
@@ -38,18 +42,7 @@ export default async function GuidePage({ params }: Props) {
   const guide = getPublishedGuide(slug);
   if (!guide) notFound();
   const path = `/guides/${slug}`;
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: guide.title,
-    description: guide.description,
-    datePublished: guide.publishedAt,
-    ...(guide.updatedAt ? { dateModified: guide.updatedAt } : {}),
-    author: { "@type": "Organization", name: guide.author, url: absoluteUrl("/about") },
-    publisher: { "@type": "Organization", name: "Astroboat", url: absoluteUrl("/") },
-    mainEntityOfPage: absoluteUrl(path),
-    image: absoluteUrl(guide.ogImage ?? guide.heroImage?.src ?? "/og-image.png")
-  };
+  const articleSchema = guideArticleSchema(guide);
 
   return (
     <article className="mx-auto max-w-4xl pb-12">
@@ -62,7 +55,7 @@ export default async function GuidePage({ params }: Props) {
         <Link href="/guides" className="hover:text-astro-text">Guides</Link> <span aria-hidden="true">/</span> {guide.title}
       </nav>
       <header className="mt-8 border-b border-astro-border pb-8">
-        <p className="font-mono text-xs uppercase tracking-widest text-astro-gold">{guide.category}</p>
+        <Link href={`/guides#${guideCategoryId(guide.category)}`} className="font-mono text-xs uppercase tracking-widest text-astro-gold hover:underline">{guide.category}</Link>
         <h1 className="mt-4 font-display text-4xl leading-tight text-astro-text sm:text-5xl">{guide.title}</h1>
         <p className="mt-5 max-w-[68ch] text-lg leading-8 text-astro-muted">{guide.description}</p>
         <div className="mt-5 flex flex-wrap items-center gap-3 text-xs text-astro-muted">

@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 // Production redirects the apex host to www. Keep this independent of local preview URLs.
 export const SITE_URL = "https://www.astroboat.in";
 export const SITE_NAME = "Astroboat";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/astroboat-search-banner.png`;
+export const DEFAULT_OG_IMAGE_SIZE = { width: 1536, height: 1024 };
+export const RSS_ALTERNATES = { "application/rss+xml": `${SITE_URL}/feed.xml` };
 
 export function absoluteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
@@ -26,14 +28,14 @@ export function pageMetadata({ title, description, path, image, imageAlt, noinde
   return {
     title: { absolute: fullTitle },
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, types: RSS_ALTERNATES },
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
       title: fullTitle,
       description,
       url,
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: imageAlt ?? title }]
+      images: [{ url: imageUrl, ...(!image ? DEFAULT_OG_IMAGE_SIZE : {}), alt: imageAlt ?? title }]
     },
     twitter: { card: "summary_large_image", title: fullTitle, description, images: [imageUrl] },
     ...(noindex ? { robots: { index: false, follow: true } } : {})
