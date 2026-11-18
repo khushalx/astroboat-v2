@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <PageShell className="max-w-3xl">
+    <PageShell className="info-page">
       <PageHeader
         eyebrow="Privacy"
         title="Privacy Policy"

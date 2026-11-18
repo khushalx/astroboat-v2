@@ -38,5 +38,10 @@ export function formatBriefDate(value: string) {
 }
 
 export function getFeaturedBrief(briefs: AstronomyBrief[]) {
-  return briefs.find((brief) => brief.source.name === "APOD") ?? briefs[0];
+  // Keep the lead current, while favouring a science story with a useful image.
+  const newest = Math.max(...briefs.map((brief) => Date.parse(brief.publishedAt)).filter(Number.isFinite));
+  const recent = briefs.filter((brief) => newest - Date.parse(brief.publishedAt) <= 3 * 86400000);
+  return recent.find((brief) => brief.imageUrl && /galax|nebula|star|telescope|planet|black hole|cosmo/i.test(brief.title) && !/contest|challenge|award|job/i.test(brief.title))
+    ?? recent.find((brief) => brief.source.name === "APOD")
+    ?? briefs[0];
 }

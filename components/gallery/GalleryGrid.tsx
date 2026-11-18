@@ -36,7 +36,7 @@ export function GalleryGrid({
           onClick={onResetFilters}
           className="cosmic-primary mt-5 rounded-lg px-4 py-2 text-xs font-medium sm:text-sm"
         >
-          Reset Filters & Show All
+          Clear filters
         </button>
       </div>
     );
@@ -51,7 +51,7 @@ export function GalleryGrid({
             key={image.id}
             image={image}
             onSelect={onSelectImage}
-            priority={index < 6}
+            priority={index === 0}
           />
         ))}
       </div>
@@ -72,7 +72,7 @@ export function GalleryGrid({
               </>
             ) : (
               <>
-                <span>Load More Astronomy Captures</span>
+                <span>See more observations</span>
                 <span aria-hidden="true">↓</span>
               </>
             )}

@@ -19,7 +19,7 @@ export function SearchTrigger({ className, showShortcut = false, compact = false
     <button
       type="button"
       className={cn(
-        "glass-control inline-flex min-h-10 items-center gap-2 rounded-lg px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/30 hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35",
+        "glass-control inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-sm text-astro-muted transition hover:border-astro-blue/30 hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/35",
         className
       )}
       aria-label="Open Astroboat search"
@@ -147,7 +147,7 @@ export function GlobalSearch() {
             <button
               type="button"
               onClick={closeSearch}
-              className="grid h-9 w-9 place-items-center rounded-lg border border-astro-border/80 bg-white/[0.025] text-sm text-astro-muted transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/30"
+              className="grid h-11 w-11 place-items-center rounded-lg border border-astro-border/80 bg-white/[0.025] text-sm text-astro-muted transition hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/30"
               aria-label="Close search"
             >
               ×

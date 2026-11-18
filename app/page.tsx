@@ -1,3 +1,5 @@
+export const revalidate = 900;
+
 import { pageMetadata } from "@/lib/seo";
 import { CoreTools } from "@/components/home/CoreTools";
 import { Hero } from "@/components/home/Hero";

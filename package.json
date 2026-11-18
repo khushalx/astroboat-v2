@@ -11,7 +11,8 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:assistant": "node --test tests/astrobot-route.test.cjs",
     "test:guides": "node --test tests/guides.test.cjs",
-    "test:seo": "node --test tests/seo.test.cjs"
+    "test:seo": "node --test tests/seo.test.cjs",
+    "test:data": "node --test tests/data-integrity.test.cjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

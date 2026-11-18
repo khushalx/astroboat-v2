@@ -25,12 +25,7 @@ export function GalleryClient({ initialResult }: GalleryClientProps) {
   // Read initial image query param on mount or URL change
   useEffect(() => {
     const imageIdFromUrl = searchParams.get("image");
-    if (imageIdFromUrl) {
-      const match = initialResult.images.find((img) => img.id === imageIdFromUrl);
-      if (match) {
-        setSelectedImage(match);
-      }
-    }
+    setSelectedImage(imageIdFromUrl ? initialResult.images.find((img) => img.id === imageIdFromUrl) ?? null : null);
   }, [searchParams, initialResult.images]);
 
   // Synchronize URL when selectedImage changes

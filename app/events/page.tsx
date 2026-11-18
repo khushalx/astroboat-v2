@@ -1,3 +1,5 @@
+export const revalidate = 900;
+
 import { pageMetadata } from "@/lib/seo";
 import { EventsCalendarClient } from "@/components/events/EventsCalendarClient";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -18,19 +20,21 @@ export default async function EventsPage() {
   return (
     <PageShell>
       <PageHeader
-        title="Space Events"
-        subtitle="Upcoming launches, sky events, and mission milestones in one clean calendar."
+        eyebrow="The space calendar"
+        title="Worth looking up for."
+        subtitle="Rocket launches, mission milestones, and moments in the night sky. All times in UTC."
       />
-      <p className="max-w-3xl text-sm leading-7 text-astro-muted">Launch plans and event times can change. Check each event&apos;s original source before making viewing plans; dates are shown in UTC where available. <Link href="/data-sources" className="text-astro-blue underline">Review the event sources</Link>.</p>
+
       <EventsCalendarClient
         events={calendar.events}
         warnings={calendar.warnings}
         lastUpdated={calendar.lastUpdated}
       />
-      <p className="max-w-3xl text-sm leading-7 text-astro-muted">
+      <aside className="page-note"><p>Launch plans and event times can change. Check each event&apos;s original source before making viewing plans; dates are shown in UTC where available. <Link href="/data-sources" className="text-astro-blue underline">Review the event sources</Link>.</p>
+      <p className="mt-2">
         Viewing guides: <Link href="/guides/how-to-watch-a-meteor-shower" className="text-astro-blue underline">meteor showers</Link>
         {" and "}<Link href="/guides/august-2027-solar-eclipse" className="text-astro-blue underline">the August 2027 solar eclipse</Link>.
-      </p>
+      </p></aside>
     </PageShell>
   );
 }

@@ -45,7 +45,7 @@ export default async function GuidePage({ params }: Props) {
   const articleSchema = guideArticleSchema(guide);
 
   return (
-    <article className="mx-auto max-w-4xl pb-12">
+    <article className="reading-page">
       <TrackArticleOpen path={path} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd([articleSchema, breadcrumbSchema([
         { name: "Home", path: "/" }, { name: "Guides", path: "/guides" }, { name: guide.title, path }

@@ -49,11 +49,11 @@ export function mountEarth(host: HTMLDivElement, options: EarthOptions): EarthCo
   });
   const orbit = new THREE.LineLoop(
     new THREE.BufferGeometry().setFromPoints(orbitPoints),
-    new THREE.LineBasicMaterial({ color: 0xbbe58a, transparent: true, opacity: 0.3 })
+    new THREE.LineBasicMaterial({ color: 0xa7c7d2, transparent: true, opacity: 0.3 })
   );
   orbit.rotation.set(1.2, -0.2, -0.4);
   scene.add(orbit);
-  const marker = new THREE.Mesh(new THREE.SphereGeometry(0.025, 12, 8), new THREE.MeshBasicMaterial({ color: 0xd2f79b }));
+  const marker = new THREE.Mesh(new THREE.SphereGeometry(0.025, 12, 8), new THREE.MeshBasicMaterial({ color: 0xd9bb8c }));
   marker.position.copy(orbitPoints[15]);
   orbit.add(marker);
 

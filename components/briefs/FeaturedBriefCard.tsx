@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { BriefImage } from "@/components/briefs/BriefImage";
 import { AstroCard } from "@/components/ui/AstroCard";
-import { DataBadge } from "@/components/ui/DataBadge";
-import { SourceBadge } from "@/components/ui/SourceBadge";
 import type { AstronomyBrief } from "@/lib/types";
 import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
 import { TrackedLink } from "@/components/analytics/EditorialActions";
@@ -16,7 +14,7 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
   const category = getBriefCategory(brief);
 
   return (
-    <AstroCard as="article" className="group p-0">
+    <AstroCard as="article" className="brief-feature group p-0">
       <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
         <BriefImage
           src={brief.imageUrl}
@@ -31,8 +29,7 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
 
         <div className="flex flex-col p-5 sm:p-7">
           <div className="flex flex-wrap items-center gap-2">
-            <SourceBadge source={brief.source.name} />
-            <DataBadge label={category} />
+            <span className="eyebrow text-astro-gold">{brief.source.name} · {category}</span>
             <span className="font-mono text-xs text-astro-muted">{formatBriefDate(brief.publishedAt)}</span>
           </div>
 
@@ -44,11 +41,11 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
           <p className="mt-3 line-clamp-3 text-sm leading-7 text-astro-muted">{getBriefSummary(brief, 1)}</p>
 
           <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-6">
-            <Link href={`/briefs/${brief.slug}`} className="text-sm font-medium text-astro-blue hover:text-astro-text">Read summary →</Link>
+            <Link href={`/briefs/${brief.slug}`} className="inline-flex min-h-11 items-center text-sm font-medium text-astro-blue hover:text-astro-text">Read summary →</Link>
             {originalHref ? (
               <TrackedLink event="original_source_clicked"
                 href={originalHref}
-                className="text-sm text-astro-muted hover:text-astro-text"
+                className="inline-flex min-h-11 items-center text-sm text-astro-muted hover:text-astro-text"
               >
                 Original source ↗
               </TrackedLink>

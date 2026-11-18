@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         astro: {
           bg: "rgb(var(--bg-base-rgb) / <alpha-value>)",
+          dim: "var(--text-dim)",
           surface: "rgb(var(--bg-surface-rgb) / <alpha-value>)",
           elevated: "rgb(var(--bg-elevated-rgb) / <alpha-value>)",
           border: "rgb(var(--border-subtle-rgb) / <alpha-value>)",

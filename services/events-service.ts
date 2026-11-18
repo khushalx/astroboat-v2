@@ -4,6 +4,7 @@ import {
   EVENTS_REVALIDATE_SECONDS,
   SPACE_DEVS_API_BASE
 } from "@/lib/constants";
+import { isUpcomingEvent } from "@/lib/event-time";
 import { spaceEvents as mockSpaceEvents } from "@/lib/mock-data";
 import type { SpaceEvent, SpaceEventCategory, SpaceEventStatus } from "@/lib/types";
 import type { SpaceDevsEvent, SpaceDevsLaunch, SpaceDevsListResponse } from "@/services/space-devs-types";
@@ -27,8 +28,8 @@ type SpaceDevsJsonResult<T> = {
   throttled: boolean;
 };
 
-const throttledWarning = "Live event data is temporarily rate-limited. Showing saved Astroboat events for now.";
-const fallbackWarning = "Live event data is temporarily unavailable. Showing saved Astroboat events.";
+const throttledWarning = "Live event data is temporarily rate-limited. Upcoming results may be incomplete; saved examples are labeled in Past.";
+const fallbackWarning = "Live event data is temporarily unavailable. Saved examples are labeled in Past; check the original providers for current schedules.";
 let spaceDevsThrottleUntil = 0;
 
 function buildSpaceDevsUrl(path: string, params: Record<string, string | number>) {
@@ -49,6 +50,7 @@ export async function fetchSpaceDevsJson<T>(url: string): Promise<SpaceDevsJsonR
   try {
     const response = await fetch(url, {
       next: { revalidate: EVENTS_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000),
       headers: {
         Accept: "application/json"
       }
@@ -140,9 +142,9 @@ export async function getCombinedSpaceCalendar(limit = 40): Promise<SpaceCalenda
   } else if (launchesResult.failed && eventsResult.failed) {
     warnings.push(fallbackWarning);
   } else if (launchesResult.failed) {
-    warnings.push("Launch data is temporarily unavailable. Showing saved Astroboat launch events alongside live space events.");
+    warnings.push("Launch data is temporarily unavailable. Live spaceflight events remain available; saved launch examples are labeled in Past.");
   } else if (eventsResult.failed) {
-    warnings.push("Spaceflight event data is temporarily unavailable. Showing saved Astroboat events alongside live launches.");
+    warnings.push("Spaceflight event data is temporarily unavailable. Live launches remain available; saved spaceflight examples are labeled in Past.");
   }
 
   const curatedSkyEvents = getCuratedSkyEvents();
@@ -170,9 +172,9 @@ export async function getSpaceEventBySlug(slug: string): Promise<SpaceEvent | un
 }
 
 export async function getUpcomingEvents(limit?: number): Promise<SpaceEvent[]> {
-  const calendar = await getCombinedSpaceCalendar(limit);
+  const calendar = await getCombinedSpaceCalendar();
 
-  return calendar.events;
+  return calendar.events.filter((event) => event.source !== "Mock" && isUpcomingEvent(event)).slice(0, limit);
 }
 
 export async function getEventsByCategory(category: SpaceEventCategory): Promise<SpaceEvent[]> {

@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function EditorialPolicyPage() {
   return (
-    <PageShell className="max-w-4xl">
+    <PageShell className="info-page">
       <PageHeader title="Editorial methodology" subtitle="How Astroboat sources information, explains it, and handles corrections." />
       <AstroCard as="article" className="space-y-8 p-6 text-sm leading-7 text-astro-muted sm:p-8">
         <section><h2 className="font-display text-2xl text-astro-text">Sources and live data</h2><p className="mt-3">Astroboat draws astronomy updates from publisher feeds and live data from named agencies and services. Each brief links to its original publisher. Live tool data identifies its provider and, where available, its observation date or update time. See the <Link href="/data-sources" className="text-astro-blue underline">data sources</Link> page for the provider list.</p></section>

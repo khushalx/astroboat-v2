@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function SatellitesPausedPage() {
   return (
-    <PageShell className="max-w-3xl">
+    <PageShell className="info-page">
       <PageHeader
         title="Satellite Finder"
         subtitle="This feature is temporarily paused while Astroboat focuses on core astronomy tools."

@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function ArticlesPage() {
   return (
-    <PageShell className="max-w-3xl">
+    <PageShell className="info-page">
       <PageHeader
         title="Articles"
         subtitle="This section is temporarily paused while Astroboat focuses on core astronomy tools."

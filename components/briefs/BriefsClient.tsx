@@ -25,7 +25,7 @@ type BriefsClientProps = {
 };
 
 export function BriefsClient({ result }: BriefsClientProps) {
-  const { briefs, sourceStatuses, lastChecked, latestItemDate, isFallback } = result;
+  const { briefs, sourceStatuses, lastChecked, isFallback } = result;
   const [activeFilter, setActiveFilter] = useState(filters[0]);
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(pageSize);
@@ -42,14 +42,10 @@ export function BriefsClient({ result }: BriefsClientProps) {
 
   return (
     <div className="space-y-8">
-      <AstroCard className="p-0">
-        <div className="grid grid-cols-2 sm:grid-cols-4">
-          <StatusCard label="Total briefs" value={briefs.length ? String(briefs.length) : "0"} />
-          <StatusCard label="Active sources" value={String(activeSources)} />
-          <StatusCard label="Latest item" value={isFallback ? "Fallback data" : formatBriefStatusDate(latestItemDate)} />
-          <StatusCard label="Last checked" value={isFallback ? "Fallback data" : formatCheckedTime(lastChecked)} />
-        </div>
-      </AstroCard>
+      <div className="feed-meta">
+        <p><strong>{briefs.length} briefs</strong> from {activeSources} source{activeSources === 1 ? "" : "s"}</p>
+        <p>{isFallback ? "Saved sample briefs" : `Checked ${formatCheckedTime(lastChecked)} UTC`}</p>
+      </div>
 
       <div className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
@@ -58,11 +54,11 @@ export function BriefsClient({ result }: BriefsClientProps) {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search briefs, missions, planets, JWST, asteroids..."
+              placeholder="Search a story, mission, or discovery…"
               className="glass-control min-h-11 w-full rounded-lg px-4 py-2.5 text-sm text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue/35 focus:outline-none focus:ring-2 focus:ring-astro-blue/15"
             />
           </label>
-          <p className="text-xs text-astro-muted">
+          <p className="text-xs text-astro-muted" role="status">
             {filteredBriefs.length} result{filteredBriefs.length === 1 ? "" : "s"}
           </p>
         </div>
@@ -72,10 +68,10 @@ export function BriefsClient({ result }: BriefsClientProps) {
       {featured ? <FeaturedBriefCard brief={featured} /> : null}
 
       <section>
-        <h2 className="mb-5 font-display text-3xl font-normal tracking-[-0.02em] text-astro-text">Latest briefs</h2>
+        {gridBriefs.length > 0 && <h2 className="mb-5 font-display text-3xl font-normal tracking-[-0.02em] text-astro-text">More from the universe</h2>}
         {gridBriefs.length > 0 ? (
           <>
-            <AstroCard className="divide-y divide-astro-border/70 p-0">
+            <AstroCard className="feed-list p-0">
               {visibleBriefs.map((brief) => (
                 <BriefCard key={brief.id} brief={brief} />
               ))}
@@ -96,15 +92,6 @@ export function BriefsClient({ result }: BriefsClientProps) {
           <EmptyState title="No briefs match this search" description="Try another source, topic, or mission keyword." />
         ) : null}
       </section>
-    </div>
-  );
-}
-
-function StatusCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="border-b border-r border-astro-border/70 p-4 even:border-r-0 [&:nth-child(n+3)]:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
-      <p className="text-xs text-astro-muted">{label}</p>
-      <p className="mt-1.5 font-mono text-sm font-medium text-astro-text sm:text-base">{value}</p>
     </div>
   );
 }
@@ -139,20 +126,6 @@ function filterBriefs(briefs: AstronomyBrief[], activeFilter: string, query: str
 
     return searchText.includes(normalizedQuery);
   });
-}
-
-function formatBriefStatusDate(value?: string) {
-  if (!value) {
-    return "Date unavailable";
-  }
-
-  const date = new Date(`${value}T00:00:00Z`);
-
-  if (Number.isNaN(date.getTime())) {
-    return "Date unavailable";
-  }
-
-  return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(date);
 }
 
 function formatCheckedTime(value: string) {

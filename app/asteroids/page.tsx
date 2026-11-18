@@ -1,3 +1,5 @@
+export const revalidate = 900;
+
 import { pageMetadata } from "@/lib/seo";
 import { AsteroidWatchClient } from "@/components/asteroids/AsteroidWatchClient";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -19,10 +21,11 @@ export default async function AsteroidsPage() {
   return (
     <PageShell>
       <PageHeader
-        title="Asteroid Watch"
+        eyebrow="Our cosmic neighbours"
+        title="Asteroid watch"
         subtitle="Near-Earth objects on close approach, sourced from NASA JPL."
       />
-      <p className="max-w-3xl text-sm leading-7 text-astro-muted">A near-Earth object is an asteroid or comet whose orbit brings it into Earth&apos;s neighborhood. This list covers a limited future window using NASA JPL close-approach data; distances and sizes are estimates, and Astroboat&apos;s watch labels are browsing cues rather than impact predictions. <Link href="/guides/what-is-a-near-earth-object" className="text-astro-blue underline">Learn how to read close approaches</Link>.</p>
+
 
       {nearEarthObjects.length > 0 ? (
         <AsteroidWatchClient objects={nearEarthObjects} />
@@ -32,6 +35,7 @@ export default async function AsteroidsPage() {
           description="No close approaches are available for this cached window. Check back after the next update."
         />
       )}
+      <p className="page-note">A near-Earth object is an asteroid or comet whose orbit brings it into Earth&apos;s neighborhood. This list covers a limited future window using NASA JPL close-approach data; distances and sizes are estimates, and Astroboat&apos;s watch labels are browsing cues rather than impact predictions. <Link href="/guides/what-is-a-near-earth-object" className="text-astro-blue underline">Learn how to read close approaches</Link>.</p>
     </PageShell>
   );
 }

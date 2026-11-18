@@ -59,7 +59,7 @@ export const metadata = pageMetadata({
 
 export default function DataSourcesPage() {
   return (
-    <PageShell className="max-w-4xl">
+    <PageShell className="info-page">
       <PageHeader
         eyebrow="Sources"
         title="Data Sources"

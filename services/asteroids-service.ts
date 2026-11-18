@@ -40,6 +40,7 @@ export async function getJplCloseApproaches(): Promise<NearEarthObject[]> {
   try {
     const response = await fetch(url, {
       next: { revalidate: ASTEROIDS_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000),
       headers: {
         Accept: "application/json"
       }
@@ -79,6 +80,7 @@ export async function getNeoWsFeed(): Promise<NearEarthObject[]> {
   try {
     const response = await fetch(url, {
       next: { revalidate: ASTEROIDS_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000),
       headers: {
         Accept: "application/json"
       }

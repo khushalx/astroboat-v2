@@ -47,7 +47,7 @@ export function Header() {
 
   return (
     <header className="desktop-header sticky top-0 z-40 hidden border-b lg:block">
-      <div className="site-container flex h-[84px] items-center justify-between gap-5">
+      <div className="site-container flex h-[80px] items-center justify-between gap-5">
         <Link href="/" aria-label="Astroboat home" className="rounded-md"><Brand /></Link>
         <nav aria-label="Primary navigation" className="flex items-center gap-1 xl:gap-3">
           {primaryLinks.map((item) => {
@@ -69,7 +69,7 @@ export function Header() {
               <div id="sky-tools-menu" className="sky-tools-menu">
                 <p className="eyebrow mb-3 px-3">Your personal observatory</p>
                 {skyToolItems.map((item) => (
-                  <Link href={item.href} key={item.href} onClick={() => setToolsOpen(false)} aria-current={pathname.startsWith(item.href) ? "page" : undefined} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-astro-muted transition hover:bg-white/5 hover:text-astro-text">
+                  <Link href={item.href} key={item.href} onClick={() => setToolsOpen(false)} aria-current={pathname.startsWith(item.href) ? "page" : undefined} className="flex items-center gap-3 rounded px-3 py-3 text-sm text-astro-muted transition hover:bg-white/5 hover:text-astro-text">
                     <NavIcon label={item.label} className="h-5 w-5 text-astro-gold" />
                     <span>{item.label}</span><ArrowIcon className="ml-auto opacity-50" />
                   </Link>
@@ -80,7 +80,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-3">
           <SearchTrigger compact showShortcut />
-          <Link href="/ask" className="cosmic-primary inline-flex min-h-10 items-center gap-3 rounded-full px-4 text-sm font-semibold">Ask Astroboat <ArrowIcon diagonal /></Link>
+          <Link href="/ask" className="cosmic-primary inline-flex min-h-11 items-center gap-3 rounded-md px-4 text-sm font-semibold">Ask Astroboat <ArrowIcon diagonal /></Link>
         </div>
       </div>
     </header>

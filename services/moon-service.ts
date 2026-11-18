@@ -1,5 +1,4 @@
 import { DEFAULT_MOON_LOCATION, MOON_REVALIDATE_SECONDS, USNO_API_BASE } from "@/lib/constants";
-import { moonDashboard } from "@/lib/mock-data";
 import type { MoonData, MoonEvent, MoonPhaseName, PrimaryMoonPhase } from "@/lib/types";
 import type { UsnoMoonPhenomenon, UsnoOneDayResponse, UsnoPhaseItem, UsnoMoonPhasesResponse } from "@/services/usno-types";
 
@@ -22,27 +21,31 @@ export async function getCurrentMoonData(params?: MoonDataParams): Promise<MoonD
 }
 
 export async function getMoonDataForLocation(params: MoonDataParams = {}): Promise<MoonData> {
-  const date = params.date ?? formatDateForUsno(new Date());
   const latitude = params.latitude ?? DEFAULT_MOON_LOCATION.latitude;
   const longitude = params.longitude ?? DEFAULT_MOON_LOCATION.longitude;
   const timezoneOffset = params.timezoneOffset ?? DEFAULT_MOON_LOCATION.timezoneOffset;
   const locationName = params.locationName ?? DEFAULT_MOON_LOCATION.name;
+  const date = params.date ?? formatDateForUsno(new Date(), timezoneOffset);
 
   const [oneDayResult, phasesResult] = await Promise.all([
     fetchUsnoOneDayData({ date, latitude, longitude, timezoneOffset }),
     getUpcomingMoonPhases(date)
   ]);
 
-  if (!oneDayResult) {
-    console.warn("USNO Moon one-day data unavailable. Falling back to Astroboat mock Moon data.");
-    return createFallbackMoonData({ date, latitude, longitude, timezoneOffset, locationName });
+  if (!oneDayResult?.properties?.data) {
+    console.warn("USNO Moon one-day data unavailable.");
+    return createUnavailableMoonData({ date, latitude, longitude, timezoneOffset, locationName }, phasesResult);
   }
 
   const data = oneDayResult.properties?.data;
   const phaseName = normalizeMoonPhaseName(data?.curphase);
-  const illuminationPercent = parseIllumination(data?.fracillum, moonDashboard.illuminationPercent);
+  const illuminationPercent = parseIllumination(data?.fracillum, Number.NaN);
+  if (phaseName === "Unknown" || !Number.isFinite(illuminationPercent)) {
+    return createUnavailableMoonData({ date, latitude, longitude, timezoneOffset, locationName }, phasesResult);
+  }
   const moonPhenomena = parseMoonPhenomena(data?.moondata);
-  const upcomingPhases = phasesResult.length > 0 ? phasesResult : moonDashboard.upcomingPhases;
+  const boundary = params.date ? Date.parse(`${date}T00:00:00Z`) : Date.now();
+  const upcomingPhases = phasesResult.filter((phase) => Date.parse(phase.dateUtc) >= boundary);
   const closestPrimaryPhase = data?.closestphase ? mapUsnoPhaseToMoonEvent(data.closestphase) : undefined;
 
   return {
@@ -76,14 +79,15 @@ export async function getUpcomingMoonPhases(date = formatDateForUsno(new Date())
   try {
     const response = await fetch(url, {
       next: { revalidate: MOON_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000),
       headers: {
         Accept: "application/json"
       }
     });
 
     if (!response.ok) {
-      console.warn("USNO Moon phases request failed. Falling back to mock lunar phases.");
-      return moonDashboard.upcomingPhases;
+      console.warn("USNO Moon phases request failed. No lunar milestones available.");
+      return [];
     }
 
     const payload = (await response.json()) as UsnoMoonPhasesResponse;
@@ -92,8 +96,8 @@ export async function getUpcomingMoonPhases(date = formatDateForUsno(new Date())
       .map(mapUsnoPhaseToMoonEvent)
       .filter((event): event is MoonEvent => Boolean(event));
   } catch {
-    console.warn("USNO Moon phases request errored. Falling back to mock lunar phases.");
-    return moonDashboard.upcomingPhases;
+    console.warn("USNO Moon phases request errored. No lunar milestones available.");
+    return [];
   }
 }
 
@@ -112,6 +116,7 @@ async function fetchUsnoOneDayData(params: {
   try {
     const response = await fetch(url, {
       next: { revalidate: MOON_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(8000),
       headers: {
         Accept: "application/json"
       }
@@ -161,13 +166,15 @@ export function parseMoonPhenomena(moondata: UsnoMoonPhenomenon[] | null | undef
 }
 
 export function parseIllumination(value: string | number | null | undefined, fallback = 0): number {
-  const parsed = typeof value === "number" ? value : Number(value?.replace("%", "").trim());
+  const normalized = typeof value === "string" ? value.trim() : value;
+  const explicitPercent = typeof normalized === "string" && normalized.includes("%");
+  const parsed = normalized == null || normalized === "" ? Number.NaN : typeof normalized === "number" ? normalized : Number(normalized.replace("%", ""));
 
   if (!Number.isFinite(parsed)) {
     return clampPercent(fallback);
   }
 
-  return clampPercent(parsed <= 1 ? parsed * 100 : parsed);
+  return clampPercent(!explicitPercent && parsed <= 1 ? parsed * 100 : parsed);
 }
 
 export function normalizeMoonPhaseName(value: string | null | undefined): MoonPhaseName {
@@ -250,15 +257,19 @@ export function calculateMoonPhotographyScore(phaseName: MoonPhaseName, illumina
   return Math.max(0, Math.min(10, score));
 }
 
-function createFallbackMoonData(params: Required<MoonDataParams>): MoonData {
+function createUnavailableMoonData(params: Required<MoonDataParams>, phases: MoonEvent[]): MoonData {
+  const upcomingPhases = phases.filter((phase) => Date.parse(phase.dateUtc) >= Date.now());
   return {
-    ...moonDashboard,
-    date: params.date,
-    latitude: params.latitude,
-    longitude: params.longitude,
-    timezoneOffset: params.timezoneOffset,
-    locationName: params.locationName,
-    source: "Mock",
+    ...params,
+    phaseName: "Unknown",
+    illuminationPercent: 0,
+    upcomingPhases,
+    nextNewMoon: upcomingPhases.find((phase) => phase.phase === "New Moon"),
+    nextFullMoon: upcomingPhases.find((phase) => phase.phase === "Full Moon"),
+    photographyScore: 0,
+    viewingAdvice: "Current lunar conditions could not be retrieved. Check USNO for observing information.",
+    beginnerExplanation: "The Moon’s phases reflect how much of its sunlit near side we see from Earth.",
+    source: "USNO",
     isFallback: true
   };
 }
@@ -273,8 +284,8 @@ function normalizePrimaryMoonPhase(value: string | null | undefined): PrimaryMoo
   return undefined;
 }
 
-function formatDateForUsno(date: Date) {
-  return date.toISOString().slice(0, 10);
+export function formatDateForUsno(date: Date, timezoneOffset = DEFAULT_MOON_LOCATION.timezoneOffset) {
+  return new Date(date.getTime() + timezoneOffset * 3600000).toISOString().slice(0, 10);
 }
 
 function formatDateTimeUtc(dateUtc: string) {
@@ -297,7 +308,7 @@ function formatDateTimeUtc(dateUtc: string) {
 }
 
 function clampPercent(value: number) {
-  return Math.round(Math.max(0, Math.min(100, value)));
+  return Math.round(Math.max(0, Math.min(100, value)) * 10) / 10;
 }
 
 function pad(value: number) {

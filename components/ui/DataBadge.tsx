@@ -61,7 +61,7 @@ export function DataBadge({ label, className }: DataBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-md border px-2 py-1 text-[11px] font-medium leading-none",
+        "data-badge inline-flex items-center text-[11px] font-medium",
         badgeStyles[key] ?? "border-astro-border bg-astro-elevated text-astro-muted",
         className
       )}

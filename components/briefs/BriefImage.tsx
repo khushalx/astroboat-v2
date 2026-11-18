@@ -26,11 +26,13 @@ export function BriefImage({
   className
 }: BriefImageProps) {
   const [failedSrc, setFailedSrc] = useState<string>();
+  const [loadedSrc, setLoadedSrc] = useState<string>();
   const heightClass = featured ? "h-44 sm:h-64" : "h-32 sm:h-40";
 
   if (src && failedSrc !== src) {
     return (
-      <div className={cn("media-frame overflow-hidden rounded-xl border border-astro-border/70 bg-astro-bg", heightClass, className)}>
+      <div className={cn("media-frame relative overflow-hidden rounded-xl border border-astro-border/70 bg-astro-bg", heightClass, className)}>
+        {loadedSrc !== src && <div className="absolute inset-0 animate-pulse bg-astro-elevated" aria-hidden="true" />}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
@@ -40,7 +42,8 @@ export function BriefImage({
           loading={featured ? "eager" : "lazy"}
           fetchPriority={featured ? "high" : "auto"}
           referrerPolicy="no-referrer"
-          className="h-full w-full object-cover transition duration-500 hover:scale-[1.025]"
+          className="relative h-full w-full object-cover transition duration-500 hover:scale-[1.025]"
+          onLoad={() => setLoadedSrc(src)}
           onError={() => setFailedSrc(src)}
         />
       </div>

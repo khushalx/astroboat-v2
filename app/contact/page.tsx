@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <PageShell className="max-w-3xl">
+    <PageShell className="info-page">
       <PageHeader
         eyebrow="Contact"
         title="Contact Astroboat"

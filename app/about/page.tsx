@@ -20,7 +20,7 @@ export const metadata = pageMetadata({
 
 export default function AboutPage() {
   return (
-    <PageShell className="max-w-4xl">
+    <PageShell className="info-page">
       <PageHeader
         eyebrow="About"
         title="About Astroboat"
@@ -50,7 +50,7 @@ export default function AboutPage() {
           <h2 className="font-display text-2xl font-normal text-astro-text">What Astroboat offers</h2>
           <ul className="mt-4 grid gap-x-8 sm:grid-cols-2">
             {offers.map((item) => (
-              <li key={item} className="border-t border-astro-border/60 py-3 text-sm leading-6 text-astro-text">
+              <li key={item} className="py-3 text-sm leading-6 text-astro-text">
                 {item}
               </li>
             ))}

@@ -54,7 +54,7 @@ export const BRIEF_SOURCE_CONFIGS: BriefSourceConfig[] = [
     id: "esa-space-science",
     name: "ESA Space Science",
     type: "rss",
-    url: "https://www.esa.int/rssfeed/Science_Exploration/Space_Science",
+    url: "https://www.esa.int/rss/science.rss",
     enabled: true,
     categoryHint: "Astrophysics",
     source: { id: "esa-space-science", name: "ESA", kind: "agency", credibility: "Primary" }
@@ -63,7 +63,7 @@ export const BRIEF_SOURCE_CONFIGS: BriefSourceConfig[] = [
     id: "esa-exploration",
     name: "ESA Exploration",
     type: "rss",
-    url: "https://www.esa.int/rssfeed/Science_Exploration/Human_and_Robotic_Exploration",
+    url: "https://www.esa.int/rss/human-and-robotic-exploration.rss",
     enabled: true,
     categoryHint: "Missions",
     source: { id: "esa-exploration", name: "ESA", kind: "agency", credibility: "Primary" }

@@ -53,7 +53,7 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
   const relatedGuide = brief.tags.some((tag) => /asteroid|near-earth/i.test(tag)) ? { href: "/guides/what-is-a-near-earth-object", label: "What is a near-Earth object?" } : null;
 
   return (
-    <article className="mx-auto max-w-4xl pb-10">
+    <article className="reading-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema([
         { name: "Home", path: "/" }, { name: "Briefs", path: "/briefs" }, { name: brief.title, path: `/briefs/${brief.slug}` }
       ])) }} />
@@ -84,7 +84,7 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
       />
 
       <div className="mx-auto mt-10 max-w-[70ch]">
-        {brief.takeaway ? <p className="mb-8 border-l-2 border-astro-gold pl-4 text-lg leading-8 text-astro-text">{brief.takeaway}</p> : null}
+        {brief.takeaway ? <p className="context-panel mb-8 text-lg leading-8 text-astro-text">{brief.takeaway}</p> : null}
         <section className="pb-9">
           <h2 className="font-display text-2xl font-normal text-astro-text">Astroboat summary</h2>
           <div className="mt-4 space-y-4">

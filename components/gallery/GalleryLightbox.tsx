@@ -15,6 +15,8 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
   const [copied, setCopied] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const isOpen = Boolean(image);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
@@ -67,9 +69,17 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
     };
   }, [image, onClose, handlePrev, handleNext]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialogRef.current?.querySelector<HTMLButtonElement>('button[aria-label^="Close image"]')?.focus();
+    return () => previousFocus?.focus();
+  }, [isOpen]);
+
   // Mobile Touch Swipe Handling
   function handleTouchStart(e: React.TouchEvent) {
     touchStartX.current = e.targetTouches[0].clientX;
+    touchEndX.current = null;
   }
 
   function handleTouchMove(e: React.TouchEvent) {
@@ -77,7 +87,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
   }
 
   function handleTouchEnd() {
-    if (!touchStartX.current || !touchEndX.current) return;
+    if (touchStartX.current === null || touchEndX.current === null) return;
     const distance = touchStartX.current - touchEndX.current;
     const minSwipeDistance = 50;
 
@@ -147,10 +157,19 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
 
   return (
     <div
+      ref={dialogRef}
+      onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        const focusable = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]'));
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }}
       role="dialog"
       aria-modal="true"
       aria-label={`Immersive viewer: ${image.title}`}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-2 sm:p-4 md:p-6 transition-all duration-300"
+      className="gallery-viewer fixed inset-0 z-50 flex items-center justify-center"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -159,7 +178,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
       <div className="absolute left-4 right-4 top-4 z-50 flex items-center justify-between pointer-events-auto">
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/70 px-3.5 py-1.5 backdrop-blur-md">
           <span className="font-mono text-xs text-astro-muted">
-            {currentIndex + 1} / {images.length}
+            {currentIndex >= 0 ? `${currentIndex + 1} / ${images.length}` : "Featured observation"}
           </span>
           {image.category ? (
             <>
@@ -202,7 +221,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
             type="button"
             onClick={onClose}
             aria-label="Close image viewer (Escape)"
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-black/70 text-astro-muted backdrop-blur-md transition hover:bg-white/15 hover:text-white focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-black/70 text-astro-muted backdrop-blur-md transition hover:bg-white/15 hover:text-white focus:outline-none focus:ring-2 focus:ring-astro-blue/40"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
@@ -217,7 +236,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
           type="button"
           onClick={handlePrev}
           aria-label="Previous astronomical image (Left Arrow)"
-          className="absolute left-4 top-1/2 z-40 hidden -translate-y-1/2 md:grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-black/60 text-astro-text backdrop-blur-md transition hover:scale-105 hover:border-astro-blue/50 hover:bg-black/85 focus:outline-none focus:ring-2 focus:ring-astro-blue/50"
+          className="absolute left-4 top-1/2 z-40 grid -translate-y-1/2 h-11 w-11 place-items-center rounded-full border border-white/10 bg-black/60 text-astro-text backdrop-blur-md transition hover:scale-105 hover:border-astro-blue/50 hover:bg-black/85 focus:outline-none focus:ring-2 focus:ring-astro-blue/50"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <path d="m15 18-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
@@ -230,7 +249,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
           type="button"
           onClick={handleNext}
           aria-label="Next astronomical image (Right Arrow)"
-          className="absolute right-4 top-1/2 z-40 hidden -translate-y-1/2 md:grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-black/60 text-astro-text backdrop-blur-md transition hover:scale-105 hover:border-astro-blue/50 hover:bg-black/85 focus:outline-none focus:ring-2 focus:ring-astro-blue/50"
+          className="absolute right-4 top-1/2 z-40 grid -translate-y-1/2 h-11 w-11 place-items-center rounded-full border border-white/10 bg-black/60 text-astro-text backdrop-blur-md transition hover:scale-105 hover:border-astro-blue/50 hover:bg-black/85 focus:outline-none focus:ring-2 focus:ring-astro-blue/50"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <path d="m9 18 6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
@@ -282,7 +301,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
         </div>
 
         {/* Metadata & Astronomy Context Card */}
-        <div className="mt-3 w-full rounded-xl border border-astro-border/70 bg-astro-surface/90 p-4 backdrop-blur-xl sm:p-5">
+        <div className="viewer-context mt-3 w-full p-4 sm:p-5">
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div className="flex-1 max-w-3xl">
               {image.objectName ? (

@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function TermsPage() {
   return (
-    <PageShell className="max-w-3xl">
+    <PageShell className="info-page">
       <PageHeader
         eyebrow="Terms"
         title="Terms of Use"

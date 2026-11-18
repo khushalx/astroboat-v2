@@ -17,13 +17,13 @@ export function CoreTools({ moon }: { moon: MoonData }) {
     <section id="explore" className="explore-section" aria-labelledby="explore-title">
       <div className="explore-heading">
         <div><p className="eyebrow mb-3">Follow your curiosity</p><h2 id="explore-title">There’s more out there.</h2></div>
-        <p>Pick a rabbit hole.<br />See where it takes you.</p>
+        <p>Five ways to see a little further.</p>
       </div>
       <div className="discovery-grid">
         {tools.map((tool, index) => (
           <Link href={tool.href} key={tool.href} className={`discovery-card discovery-card-${tool.style}`}>
             <div className="discovery-card-top"><span className="tool-icon"><NavIcon label={tool.icon} className="h-5 w-5" /></span><span className="tool-number">0{index + 1}</span></div>
-            {tool.style === "moon" && <div className="tool-moon" aria-hidden="true"><MoonPhaseVisual phaseName={moon.phaseName} illuminationPercent={moon.illuminationPercent} size="md" /></div>}
+            {tool.style === "moon" && !moon.isFallback && <div className="tool-moon" aria-hidden="true"><MoonPhaseVisual phaseName={moon.phaseName} illuminationPercent={moon.illuminationPercent} size="md" /></div>}
             <div className="discovery-card-content"><p className="tool-category">{tool.category}</p><h3>{tool.title}</h3><p className="tool-description">{tool.copy}</p></div>
             <span className="tool-action">{tool.action}<span className="tool-arrow"><ArrowIcon diagonal /></span></span>
             {tool.style === "gallery" && <span className="gallery-card-credit">N44 · NASA, ESA/Hubble, D. Gouliermis</span>}

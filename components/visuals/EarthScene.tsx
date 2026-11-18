@@ -56,11 +56,10 @@ export function EarthScene() {
 
   return (
     <div className={`earth-stage ${ready ? "earth-ready" : ""}`}>
-      <div className="earth-stage-glow" aria-hidden="true" />
       <div className="earth-coordinate"><span className="coordinate-cross" aria-hidden="true">+</span><span>SOL SYSTEM / 03</span></div>
       <div className="earth-fallback" aria-hidden="true" />
       <div ref={hostRef} className="earth-canvas" role="img" aria-label={failed ? "Earth, our home among the stars" : "Interactive 3D illustration of Earth with an orbital ring. Drag horizontally to rotate, or use the rotation buttons below."} />
-      <div className="earth-caption"><span className="earth-caption-line" aria-hidden="true" /><div><span className="eyebrow">Our pale blue dot</span><p>One planet. Infinite wonder.</p></div></div>
+      <div className="earth-caption"><div><span className="eyebrow">Our pale blue dot</span><p>One planet. Infinite wonder.</p></div></div>
       <div className="earth-controls">
         <span className="earth-interaction-hint">{failed ? "Our home among the stars" : ready ? "Drag to explore" : "A new perspective"}</span>
         {ready && !failed && <div className="earth-control-buttons" aria-label="Earth rotation controls">

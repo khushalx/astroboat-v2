@@ -1,7 +1,6 @@
 "use client";
 
 import type { GalleryCategory } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 type GalleryFiltersProps = {
   categories: string[];
@@ -25,11 +24,11 @@ export function GalleryFilters({
   filteredCount
 }: GalleryFiltersProps) {
   return (
-    <div className="mb-8 space-y-4">
+    <div className="gallery-controls space-y-4">
       {/* Top row: Search input + Surprise Me button */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {/* Search input */}
-        <div className="relative flex-1 max-w-md">
+        <div className="gallery-search relative flex-1 max-w-md">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-astro-muted">
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
               <circle cx="11" cy="11" r="8" />
@@ -40,9 +39,9 @@ export function GalleryFilters({
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search celestial objects, telescopes (JWST, Hubble, Orion)..."
+            placeholder="Search an object or observatory…"
             aria-label="Search astronomy gallery"
-            className="w-full rounded-lg border border-astro-border/80 bg-astro-surface/70 py-2 pl-9 pr-8 text-sm text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue focus:bg-astro-surface focus:outline-none focus:ring-1 focus:ring-astro-blue/50 transition-colors"
+            className="min-h-11 w-full rounded-md border border-astro-border/80 bg-astro-surface/70 py-2 pl-9 pr-8 text-sm text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue focus:bg-astro-surface focus:outline-none focus:ring-1 focus:ring-astro-blue/50 transition-colors"
           />
           {searchQuery ? (
             <button
@@ -63,6 +62,7 @@ export function GalleryFilters({
           <button
             type="button"
             onClick={onSurpriseMe}
+            disabled={totalCount === 0}
             className="cosmic-secondary inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium sm:text-sm focus:outline-none focus:ring-2 focus:ring-astro-blue/35"
             title="Discover a random high-resolution astronomy capture"
           >
@@ -72,7 +72,7 @@ export function GalleryFilters({
             <span>Surprise Me</span>
           </button>
 
-          <span className="font-mono text-xs text-[color:var(--text-dim)]">
+          <span className="text-xs text-[color:var(--text-dim)]" role="status">
             {filteredCount === totalCount ? `${totalCount} captures` : `${filteredCount} of ${totalCount}`}
           </span>
         </div>
@@ -81,7 +81,7 @@ export function GalleryFilters({
       {/* Category Filter Pills */}
       <nav
         aria-label="Filter gallery by astronomical category"
-        className="flex flex-wrap items-center gap-1.5 border-b border-astro-border/60 pb-4"
+        className="filter-bar"
       >
         {categories.map((cat) => {
           const active = cat === activeCategory;
@@ -90,12 +90,8 @@ export function GalleryFilters({
               key={cat}
               type="button"
               onClick={() => onCategoryChange(cat as GalleryCategory)}
-              className={cn(
-                "rounded-lg border px-3 py-1.5 text-xs font-medium transition-all sm:text-sm focus:outline-none focus:ring-2 focus:ring-astro-blue/35",
-                active
-                  ? "border-astro-blue/40 bg-astro-blue/15 text-astro-text shadow-sm"
-                  : "border-transparent bg-transparent text-astro-muted hover:border-astro-border/70 hover:bg-white/[0.03] hover:text-astro-text"
-              )}
+              aria-pressed={active}
+              className="filter-button"
             >
               {cat}
             </button>

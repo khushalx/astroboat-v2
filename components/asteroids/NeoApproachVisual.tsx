@@ -32,6 +32,7 @@ export function NeoApproachVisual({ distanceLunar, label = "Near-Earth object ap
       <text x="177" y="137" fill="#aab3c1" fontSize="9" fontFamily="ui-sans-serif, system-ui, sans-serif">
         {formatLunarDistance(distanceLunar)}
       </text>
+    <text x="150" y="155" textAnchor="middle" fill="#909ba8" fontSize="9" fontFamily="ui-sans-serif, system-ui, sans-serif">Illustration · Not to scale</text>
     </svg>
   );
 }

@@ -14,9 +14,9 @@ export default function AskPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Assistant"
+        eyebrow="Your cosmic companion"
         title="Ask Astroboat"
-        subtitle="Ask simple questions about astronomy, space events, Moon phases, asteroids, and space science."
+        subtitle="A little clarity on the big questions. Explore astronomy with a curious, science-focused assistant."
       />
       <AstrobotClient />
     </PageShell>

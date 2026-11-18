@@ -45,17 +45,22 @@ export default async function GalleryPage() {
       />
 
       <PageHeader
-        eyebrow="ASTROBOAT GALLERY"
+        eyebrow="The cosmic collection"
         title="The universe, frame by frame."
-        subtitle="A constantly evolving collection of astronomical imagery from observatories, spacecraft and missions exploring our universe."
+        subtitle="Observed by NASA, ESA, Webb, Hubble, and ESO. A window into the universe, with every image credited to its source."
       />
 
       {result.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
+        <div className="data-notice">
           Live astronomy image sources are temporarily unavailable. Astroboat will retry them automatically; no
           unrelated substitute photos are shown.
         </div>
       ) : null}
+
+      {!result.isFallback && result.warnings.length > 0 && <details className="data-notice">
+        <summary className="flex min-h-11 cursor-pointer items-center text-sm text-astro-text">Collection status · Some image sources are unavailable</summary>
+        <ul className="mt-2 space-y-2 pb-2">{result.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul>
+      </details>}
 
       <Suspense
         fallback={

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { AstroCard } from "@/components/ui/AstroCard";
 import { cn } from "@/lib/utils";
@@ -24,15 +25,17 @@ export function AstrobotClient() {
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [failedMessage, setFailedMessage] = useState("");
 
   useEffect(() => {
     if (messages.length > 0 || isSending) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      const panel = scrollRef.current;
+      panel?.scrollTo({ top: panel.scrollHeight, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     }
   }, [messages, isSending]);
 
-  async function sendMessage(value: string) {
+  async function sendMessage(value: string, retry = false) {
     const message = value.trim();
     if (!message || isSending) {
       return;
@@ -49,7 +52,7 @@ export function AstrobotClient() {
       text: message
     };
 
-    setMessages((current) => [...current, userMessage]);
+    if (!retry) setMessages((current) => [...current, userMessage]);
     setInput("");
     setError("");
     setIsSending(true);
@@ -57,6 +60,7 @@ export function AstrobotClient() {
     try {
       const response = await fetch("/api/astrobot", {
         method: "POST",
+        signal: AbortSignal.timeout(30000),
         headers: {
           "Content-Type": "application/json"
         },
@@ -67,10 +71,12 @@ export function AstrobotClient() {
 
       if (!response.ok) {
         setError(cleanAssistantError(data.error));
+        setFailedMessage(message);
         return;
       }
 
       const answer = data.answer?.trim();
+      setFailedMessage("");
 
       setMessages((current) => [
         ...current,
@@ -81,6 +87,7 @@ export function AstrobotClient() {
         }
       ]);
     } catch {
+      setFailedMessage(message);
       setError("Astroboat Assistant is temporarily unavailable. Please try again later.");
     } finally {
       setIsSending(false);
@@ -94,7 +101,7 @@ export function AstrobotClient() {
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === "Enter" && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
       event.preventDefault();
       void sendMessage(input);
     }
@@ -108,20 +115,18 @@ export function AstrobotClient() {
   const hasUserMessages = messages.some((message) => message.role === "user");
 
   return (
-    <section className="mx-auto max-w-4xl space-y-4">
+    <section className="assistant-shell space-y-4">
       <AstroCard as="section" className="p-0">
-        <div className="flex h-[clamp(34rem,70svh,42rem)] flex-col">
+        <div className="assistant-panel flex flex-col">
           <div className="flex items-center justify-between gap-4 border-b border-astro-border/70 px-4 py-4 sm:px-6">
             <div>
               <p className="text-sm font-semibold text-astro-text">Astronomy conversation</p>
-              <p className="mt-1 text-xs text-astro-muted">Concepts and context, explained clearly.</p>
+              <p className="mt-1 text-xs text-astro-muted">An astronomy-focused AI · Answers can contain mistakes.</p>
             </div>
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-astro-gold/25 bg-astro-gold/[0.06] text-astro-gold" aria-hidden="true">
-              ✦
-            </span>
+            {hasUserMessages && <button type="button" disabled={isSending} onClick={() => { setMessages([]); setError(""); setFailedMessage(""); setInput(""); inputRef.current?.focus(); }} className="cosmic-secondary shrink-0 px-3 py-2 text-xs">New conversation</button>}
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-5" aria-live="polite">
+          <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:px-6 sm:py-5" role="log" aria-label="Astronomy conversation" aria-live="polite" aria-busy={isSending}>
             {!hasUserMessages ? (
               <StarterState onPromptClick={handlePromptClick} />
             ) : (
@@ -135,11 +140,10 @@ export function AstrobotClient() {
             {isSending ? (
               <TypingIndicator />
             ) : null}
-            <div ref={messagesEndRef} />
           </div>
 
           <div className="border-t border-astro-border/70 bg-astro-bg/35 p-3 sm:p-4">
-            {error ? <ErrorNotice message={error} /> : null}
+            {error ? <div role="alert"><ErrorNotice message={error} />{failedMessage && <button type="button" disabled={isSending} className="mb-2 inline-flex min-h-11 items-center text-sm text-astro-blue" onClick={() => void sendMessage(failedMessage, true)}>Try this question again ↗</button>}</div> : null}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row sm:items-end">
               <label className="sr-only" htmlFor="astrobot-message">
@@ -155,7 +159,7 @@ export function AstrobotClient() {
                 maxLength={MAX_MESSAGE_LENGTH}
                 rows={2}
                 aria-label="Ask Astroboat a question"
-                placeholder="Ask about Moon phases, asteroids, space events, or astronomy basics..."
+                placeholder="What are you curious about?"
                 className="glass-control min-h-14 flex-1 resize-none rounded-lg px-3.5 py-3 text-sm leading-6 text-astro-text placeholder:text-[color:var(--text-dim)] focus:border-astro-blue/60 focus:outline-none focus:ring-2 focus:ring-astro-blue/20 disabled:cursor-not-allowed disabled:opacity-70"
               />
               <button
@@ -181,8 +185,9 @@ export function AstrobotClient() {
         </div>
       </AstroCard>
 
-      <aside className="border-l-2 border-astro-blue/30 pl-4 text-sm leading-6 text-astro-muted">
-        For current launches, Moon data, and asteroid approaches, use Astroboat&apos;s dedicated pages. The assistant is best for explanations and context.
+      <aside className="context-panel text-sm leading-6 text-astro-muted">
+        For current conditions, go straight to the source-backed tools.
+        <div className="assistant-links"><Link href="/moon">Lunar observatory ↗</Link><Link href="/events">Space calendar ↗</Link><Link href="/asteroids">Asteroid watch ↗</Link></div>
       </aside>
     </section>
   );
@@ -190,13 +195,13 @@ export function AstrobotClient() {
 
 function StarterState({ onPromptClick }: { onPromptClick: (prompt: string) => void }) {
   return (
-    <div className="flex min-h-[23rem] flex-col items-center justify-center px-2 py-8 text-center">
-      <span className="mb-5 grid h-12 w-12 place-items-center rounded-full border border-astro-blue/20 bg-astro-blue/[0.05] text-lg text-astro-blue" aria-hidden="true">
+    <div className="assistant-starter">
+      <span className="starter-symbol mb-4 grid h-12 w-12 place-items-center rounded-full border border-astro-blue/20 bg-astro-blue/[0.05] text-lg text-astro-blue" aria-hidden="true">
         ✦
       </span>
       <h2 className="font-display text-2xl font-normal text-astro-text sm:text-3xl">What would you like to explore?</h2>
-      <p className="mt-2 max-w-md text-sm leading-6 text-astro-muted">Ask about Moon phases, asteroids, space events, or astronomy basics.</p>
-      <div className="mt-5 grid w-full max-w-2xl gap-2 sm:grid-cols-2">
+      <p className="mt-2 max-w-md text-sm leading-6 text-astro-muted">Start with a question. Follow your curiosity.</p>
+      <div className="assistant-prompts">
         {SUGGESTED_PROMPTS.map((prompt) => (
           <PromptButton key={prompt} prompt={prompt} onClick={() => onPromptClick(prompt)} />
         ))}
@@ -211,7 +216,7 @@ function ChatBubble({ message }: { message: ChatMessage }) {
   return (
     <article
       className={cn(
-        "max-w-[92%] rounded-xl border px-3.5 py-3 text-sm leading-6 sm:max-w-[78%] sm:px-4",
+        "chat-message max-w-[92%] rounded-xl border px-3.5 py-3 text-sm leading-6 sm:max-w-[78%] sm:px-4",
         isUser
           ? "ml-auto border-astro-gold/25 bg-astro-gold/[0.07] text-astro-text"
           : "mr-auto border-astro-border bg-white/[0.025] text-astro-text"
@@ -251,7 +256,7 @@ function PromptButton({ prompt, onClick }: { prompt: string; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      className="rounded-lg border border-astro-border bg-white/[0.018] px-3 py-2.5 text-left text-xs leading-5 text-astro-muted transition hover:border-astro-blue/35 hover:bg-astro-blue/[0.05] hover:text-astro-text focus:outline-none focus:ring-2 focus:ring-astro-blue/25"
+      className="focus-visible:outline-astro-gold"
     >
       {prompt}
     </button>
@@ -267,7 +272,7 @@ async function safeReadJson(response: Response) {
 }
 
 function cleanAssistantError(error?: string) {
-  if (!error || /html|cannot post|stack|http|cloud run|fetch/i.test(error)) {
+  if (!error || /html|cannot post|stack|http|cloud run|fetch|not configured|api key/i.test(error)) {
     return "Astroboat Assistant is temporarily unavailable. Please try again later.";
   }
 

@@ -18,18 +18,19 @@ export default async function BriefsPage() {
   return (
     <PageShell>
       <PageHeader
-        title="Briefs"
+        eyebrow="The latest dispatches"
+        title="Astronomy briefs"
         subtitle="Concise astronomy and space-science updates from public sources, with links to the original reporting."
       />
 
       {result.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
+        <div className="data-notice">
           Live brief sources are temporarily unavailable. Showing saved Astroboat sample briefs.
         </div>
       ) : null}
 
       {!result.isFallback && result.warnings.length > 0 ? (
-        <div className="rounded-lg border border-astro-border/70 bg-white/[0.018] p-4 text-sm text-astro-muted">
+        <div className="data-notice">
           {result.warnings[0]}
         </div>
       ) : null}

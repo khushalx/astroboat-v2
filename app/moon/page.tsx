@@ -1,159 +1,75 @@
+import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { AstroCard } from "@/components/ui/AstroCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
-import { SourceBadge } from "@/components/ui/SourceBadge";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { MoonPhaseVisual } from "@/components/visuals/MoonPhaseVisual";
-import type { MoonEvent, PrimaryMoonPhase } from "@/lib/types";
+import type { PrimaryMoonPhase } from "@/lib/types";
 import { getCurrentMoonData } from "@/services/moon-service";
-import Link from "next/link";
 
+export const revalidate = 900;
 export const metadata = pageMetadata({
   title: "Today's Moon Phase, Illumination & Rise Times",
-  description: 'See the current Moon phase and illumination, rise and set times for Ahmedabad, and the next full and new Moon.',
-  path: '/moon',
-  noindex: false
-})
+  description: "See the current Moon phase and illumination, rise and set times for Ahmedabad, and the next full and new Moon.",
+  path: "/moon"
+});
 
 export default async function MoonPage() {
   const moon = await getCurrentMoonData();
+  const milestones = moon.upcomingPhases.filter((phase) => Date.parse(phase.dateUtc) >= Date.now());
   const metricCards = [
-    ["Moonrise", moon.moonrise ?? "Unavailable"],
-    ["Moonset", moon.moonset ?? "Unavailable"],
-    ["Next full moon", moon.nextFullMoon ? `${moon.nextFullMoon.dateDisplay} · ${countdown(moon.nextFullMoon)}` : "Unavailable"],
-    ["Next new moon", moon.nextNewMoon ? `${moon.nextNewMoon.dateDisplay} · ${countdown(moon.nextNewMoon)}` : "Unavailable"]
+    ["Moonrise · IST", moon.moonrise ?? "No rise time returned"],
+    ["Moonset · IST", moon.moonset ?? "No set time returned"],
+    ["Next full Moon · UTC", moon.nextFullMoon?.dateDisplay ?? "Unavailable"],
+    ["Next new Moon · UTC", moon.nextNewMoon?.dateDisplay ?? "Unavailable"]
   ];
-
   return (
     <PageShell>
-      <PageHeader
-        title="Moon"
-        subtitle="Current phase, illumination, rise/set times, and the next lunar milestones."
-      />
-      <p className="max-w-3xl text-sm leading-7 text-astro-muted">Rise and set times are for Ahmedabad, India (UTC+05:30). The phase and illumination describe the Moon on the displayed date; conditions elsewhere may differ. <Link href="/data-sources" className="text-astro-blue underline">See the lunar data source</Link>.</p>
-
+      <PageHeader eyebrow="The lunar observatory" title="Tonight’s Moon" subtitle="Follow the light. Find your next observing window, with lunar conditions for Ahmedabad, India." />
+      <div className="feed-meta">
+        <p>{moon.locationName} · Rise & set times in IST (UTC+05:30)</p>
+        <p>Conditions for <time dateTime={moon.date}>{moon.date}</time> · <Link className="text-link" href="/data-sources">USNO</Link></p>
+      </div>
       {moon.isFallback ? (
-        <div className="rounded-lg border border-astro-gold/25 bg-astro-gold/[0.06] p-4 text-sm leading-6 text-astro-text">
-          Live Moon data is temporarily unavailable. Showing saved Astroboat sample data.
-        </div>
-      ) : null}
-
-      <AstroCard className="p-0">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
-          <div className="moon-feature min-h-[24rem] border-b border-astro-border/70 p-6 text-center lg:min-h-[30rem] lg:border-b-0 lg:border-r">
-            <MoonPhaseVisual
-              phaseName={moon.phaseName}
-              illuminationPercent={moon.illuminationPercent}
-              size="lg"
-              className="scale-110 drop-shadow-[0_20px_24px_rgba(0,0,0,0.35)] sm:scale-125"
-            />
-            <div className="absolute bottom-5 left-5 right-5 z-10 flex flex-wrap items-center justify-center gap-2">
-              <SourceBadge source={moon.source} />
-              <span className="text-xs text-astro-muted">{moon.locationName}</span>
-            </div>
+        <div className="data-notice" role="status">Current Moon data is unavailable. Phase, illumination, and rise/set times are withheld until the source responds. Available lunar milestones are shown below.</div>
+      ) : (
+        <section className="moon-dashboard" aria-label="Lunar conditions">
+          <div className="moon-feature">
+            <MoonPhaseVisual phaseName={moon.phaseName} illuminationPercent={moon.illuminationPercent} size="lg" className="scale-125" />
+            <p className="absolute bottom-5 text-[11px] text-astro-muted">Phase illustration · Northern hemisphere orientation</p>
           </div>
-
-          <div className="flex flex-col justify-center p-5 sm:p-7 lg:p-9">
-            <div className="mb-7 flex items-center justify-between gap-3 border-b border-astro-border/70 pb-4 text-xs text-astro-muted">
-              <span>Current conditions</span>
-              <time className="font-mono">{moon.date}</time>
-            </div>
-            <p className="font-display text-2xl text-astro-text">{moon.phaseName}</p>
-            <p className="mt-5 text-sm text-astro-muted">Illumination</p>
-            <p className="mt-2 font-mono text-6xl font-medium leading-none tracking-[-0.06em] text-astro-gold sm:text-7xl">
-              {moon.illuminationPercent}%
-            </p>
-            <div className="mt-5 h-1 overflow-hidden rounded-full bg-white/[0.06]">
-              <div
-                className="h-full rounded-full bg-astro-gold"
-                style={{ width: `${moon.illuminationPercent}%` }}
-              />
-            </div>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-astro-muted">
-              {trimAdvice(moon.viewingAdvice)}
-            </p>
-            <p className="mt-4 text-xs text-[color:var(--text-dim)]">Based on {moon.locationName}</p>
+          <div className="moon-readout">
+            <p className="eyebrow">{moon.phaseName}</p>
+            <p className="moon-value">{moon.illuminationPercent}<span className="ml-1 text-4xl">%</span></p>
+            <p className="text-sm text-astro-muted">of the visible lunar disc illuminated</p>
+            <p className="mt-5 max-w-md text-sm leading-7 text-astro-muted">{moon.viewingAdvice}</p>
           </div>
+        </section>
+      )}
+      <dl className="moon-facts">
+        {metricCards.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+      </dl>
+      <section aria-labelledby="lunar-cycle-title">
+        <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="lunar-cycle-title" className="font-display text-3xl">The next lunar milestones</h2>
+          <p className="text-xs text-astro-muted">Primary phases · All dates in UTC</p>
         </div>
-      </AstroCard>
-
-      <AstroCard className="p-0">
-        <dl className="grid gap-px bg-astro-border/70 sm:grid-cols-2 lg:grid-cols-4">
-          {metricCards.map(([label, value]) => (
-            <div key={label} className="bg-astro-surface/95 p-4 sm:p-5">
-              <dt className="text-xs text-astro-muted">{label}</dt>
-              <dd className="mt-2 text-sm font-medium leading-6 text-astro-text">{value}</dd>
-            </div>
-          ))}
-        </dl>
-      </AstroCard>
-
-      <AstroCard className="p-0">
-        <div className="mb-5 flex items-center justify-between gap-3">
-          <div className="px-5 pt-5 sm:px-6 sm:pt-6">
-            <h2 className="font-display text-2xl font-normal text-astro-text sm:text-3xl">Lunar cycle</h2>
-            <p className="mt-1 text-sm text-astro-muted">Primary phases from USNO, shown in UTC.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-px border-t border-astro-border/70 bg-astro-border/70 sm:grid-cols-4">
-          {moon.upcomingPhases.map((item) => (
-            <div
-              key={`${item.phase}-${item.dateUtc}`}
-              className="bg-astro-surface/95 p-4 text-center sm:p-5"
-            >
-              <MoonPhaseVisual
-                phaseName={item.phase}
-                illuminationPercent={phaseIllumination(item.phase)}
-                size="sm"
-                className={item.phase === moon.closestPrimaryPhase?.phase && item.dateUtc === moon.closestPrimaryPhase?.dateUtc ? "rounded-full ring-1 ring-astro-gold/50" : undefined}
-              />
-              <p className="mt-3 text-sm font-medium text-astro-text">{item.phase}</p>
-              <p className="mt-1 font-mono text-[11px] text-astro-muted">{item.dateDisplay}</p>
-            </div>
-          ))}
-        </div>
-      </AstroCard>
-
-      <aside className="border-l-2 border-astro-gold/60 pl-5 sm:pl-6">
-        <h2 className="font-display text-xl font-normal text-astro-text">Viewing advice</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-astro-muted">{trimAdvice(moon.beginnerExplanation)}</p>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-astro-muted">
-          Learn <Link href="/guides/why-moon-visible-during-day" className="text-astro-blue underline">why the Moon is visible in daylight</Link>
-          {" and "}<Link href="/guides/what-is-a-blue-moon" className="text-astro-blue underline">what a blue Moon means</Link>.
-        </p>
+        {milestones.length ? <div className="lunar-cycle">
+          {milestones.map((item) => <div key={item.dateUtc}>
+            <MoonPhaseVisual phaseName={item.phase} illuminationPercent={phaseIllumination(item.phase)} size="sm" />
+            <h3 className="mt-3 text-sm font-medium">{item.phase}</h3>
+            <time dateTime={item.dateUtc} className="mt-1 text-xs leading-6 text-astro-muted">{item.dateDisplay}</time>
+          </div>)}
+        </div> : <EmptyState title="Lunar milestones unavailable" description="USNO’s phase calendar could not be loaded. No estimated or sample dates are substituted." />}
+      </section>
+      <aside className="context-panel">
+        <h2 className="font-display text-2xl">A little lunar context</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted">{moon.beginnerExplanation}</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-astro-muted [&_a]:text-astro-blue [&_a]:underline">Rise and set times apply to the displayed location and date. A missing time means the source returned no rise or set for that civil day. Explore <Link href="/guides/why-moon-visible-during-day">the daytime Moon</Link> or <Link href="/guides/what-is-a-blue-moon">the meaning of a blue Moon</Link>.</p>
       </aside>
     </PageShell>
   );
 }
-
 function phaseIllumination(phase: PrimaryMoonPhase) {
-  switch (phase) {
-    case "New Moon":
-      return 0;
-    case "First Quarter":
-    case "Last Quarter":
-      return 50;
-    case "Full Moon":
-      return 100;
-  }
-}
-
-function countdown(event: MoonEvent) {
-  const date = new Date(event.dateUtc);
-
-  if (Number.isNaN(date.getTime())) {
-    return "date pending";
-  }
-
-  const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-
-  if (days <= 0) {
-    return "today";
-  }
-
-  return `in ${days} day${days === 1 ? "" : "s"}`;
-}
-
-function trimAdvice(value: string) {
-  return value.split(". ").slice(0, 2).join(". ").replace(/\.$/, "") + ".";
+  return phase === "New Moon" ? 0 : phase === "Full Moon" ? 100 : 50;
 }
