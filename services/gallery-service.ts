@@ -59,6 +59,16 @@ const OBSERVATORY_IMAGE_FEEDS: ObservatoryFeedConfig[] = [
   }
 ];
 
+const GALLERY_FETCH_TIMEOUT_MS = 8000;
+
+function warnGalleryFetchFailure(source: string, error: unknown): void {
+  const failure = error as { name?: string; message?: string } | null;
+  const reason = failure?.name === "TimeoutError"
+    ? `request timed out after ${GALLERY_FETCH_TIMEOUT_MS / 1000}s`
+    : failure?.message || "request failed";
+  console.warn(`${source}: ${reason}. Continuing with available gallery sources.`);
+}
+
 const APOD_RSS_URL = "https://apod.nasa.gov/apod.rss";
 const GALLERY_XML_PARSER = new XMLParser({
   ignoreAttributes: false,
@@ -404,7 +414,7 @@ async function fetchObservatoryFeed(config: ObservatoryFeedConfig): Promise<Gall
         "User-Agent": "Astroboat/1.0 (+https://astroboat.in)"
       },
       next: { revalidate: GALLERY_REVALIDATE_SECONDS },
-      signal: AbortSignal.timeout(8000)
+      signal: AbortSignal.timeout(GALLERY_FETCH_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -463,7 +473,7 @@ async function fetchObservatoryFeed(config: ObservatoryFeedConfig): Promise<Gall
 
     return images;
   } catch (error) {
-    console.warn(`${config.source} gallery feed failed:`, error);
+    warnGalleryFetchFailure(`${config.source} gallery feed`, error);
     return [];
   }
 }
@@ -480,7 +490,7 @@ async function fetchNasaApodRssImages(): Promise<GalleryImage[]> {
     const response = await fetch(APOD_RSS_URL, {
       headers: { "User-Agent": "Astroboat/1.0 (+https://astroboat.in)" },
       next: { revalidate: GALLERY_REVALIDATE_SECONDS },
-      signal: AbortSignal.timeout(8000)
+      signal: AbortSignal.timeout(GALLERY_FETCH_TIMEOUT_MS)
     });
 
     if (!response.ok) return [];
@@ -557,7 +567,7 @@ async function fetchNasaApodRssImages(): Promise<GalleryImage[]> {
       result.status === "fulfilled" && result.value ? [result.value] : []
     );
   } catch (error) {
-    console.warn("NASA APOD RSS fallback failed:", error);
+    warnGalleryFetchFailure("NASA APOD RSS feed", error);
     return [];
   }
 }
@@ -572,7 +582,7 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
   try {
     const res = await fetch(url, {
       next: { revalidate: GALLERY_REVALIDATE_SECONDS },
-      signal: AbortSignal.timeout(8000)
+      signal: AbortSignal.timeout(GALLERY_FETCH_TIMEOUT_MS)
     });
 
     if (!res.ok) {
@@ -634,7 +644,7 @@ async function fetchNasaApodImages(): Promise<GalleryImage[]> {
 
     return results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 30);
   } catch (error) {
-    console.warn("NASA APOD fetch failed:", error);
+    warnGalleryFetchFailure("NASA APOD", error);
     return [];
   }
 }
@@ -667,7 +677,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
       const url = `${NASA_IMAGE_LIBRARY_API_BASE}/search?q=${encodeURIComponent(q)}&media_type=image&page_size=14`;
       const res = await fetch(url, {
         next: { revalidate: GALLERY_REVALIDATE_SECONDS },
-        signal: AbortSignal.timeout(8000)
+        signal: AbortSignal.timeout(GALLERY_FETCH_TIMEOUT_MS)
       });
 
       if (!res.ok) return [];
@@ -734,7 +744,7 @@ async function fetchNasaImageLibraryQueries(): Promise<GalleryImage[]> {
 
       return queryImages;
     } catch (e) {
-      console.warn(`NASA Image Library query failed for "${q}":`, e);
+      warnGalleryFetchFailure(`NASA Image Library query "${q}"`, e);
       return [];
     }
   });

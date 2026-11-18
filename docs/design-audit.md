@@ -31,14 +31,14 @@ Shared spacing, page widths, surfaces, controls, focus states, responsive grids,
 - ESA's two old Briefs endpoints returned 404. Their replacement ESA-hosted RSS endpoints returned valid XML with 15 entries each. The resulting Briefs page reported seven active feeds without the former ESA failure notices.
 - Gallery viewer close/back navigation synchronizes the URL, Escape closes, keyboard focus returns to the trigger, Tab stays in the viewer, and previous/next controls work on phones.
 - Assistant retries do not duplicate the user's message. Missing configuration produces a calm unavailable message. Successful live answers require the deployment's existing Groq configuration.
-- Data requests for Moon, events, and asteroids have bounded timeouts. Partial gallery feeds are disclosed in an expandable status panel.
+- Data requests for Moon, events, and asteroids have bounded timeouts. Partial gallery feeds are disclosed in an expandable status panel. Provider timeouts produce concise source-specific warnings, and regression tests verify that remaining sources still populate the gallery without fabricated fallback imagery.
 - Loading screens are scoped to data routes. The integration suite verifies that unknown guide URLs still return HTTP 404 rather than a streamed HTTP 200.
 
 ## Validation
 
 - `npm run build`: production compilation, lint/type validation, and 115 prerendered pages.
 - `npm run lint` and `npm run typecheck`.
-- 127 automated tests: assistant 15; guides 93; SEO 11; data integrity 8. Guide and SEO HTTP integration checks run against the production server, with no skipped tests.
+- 129 automated tests: assistant 15; guides 93; SEO 11; data integrity 10. Guide and SEO HTTP integration checks run against the production server, with no skipped tests.
 - Browser review of all eight main pages at 320, 768, 1024, 1440, and 1920px; additional 390px phone checks. No document-level horizontal overflow. Supporting and paused routes also fit 320px.
 - Rendered checks include desktop and phone homepage, gallery, Briefs and a source digest, events, Moon, asteroids, assistant, guides and a guide article, informational pages, and 404.
 - Interaction checks: gallery search/filter/random/load-more/viewer navigation/Escape/focus/back; Briefs no-results; asteroid filters; guide search; navigation dismissal; global search; assistant retry and reset.

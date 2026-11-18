@@ -9,6 +9,7 @@ function load(file, overrides = {}) {
   const exports = {};
   const output = ts.transpileModule(readFileSync(path.join(root, file), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
   new vm.Script(output, { filename: file }).runInContext(vm.createContext({ exports, Date, URL, Intl, Number, AbortSignal, console: { warn() {} }, require: (id) => {
+    if (id === "fast-xml-parser") return require(id);
     if (id.startsWith("@/")) return load(id.slice(2) + ".ts", overrides);
     throw new Error("Unexpected dependency: " + id);
   }, ...overrides }));
@@ -73,4 +74,40 @@ test("homepage event limits are applied after past entries are removed", async (
   const events = await service.getUpcomingEvents(1);
   assert.equal(events.length, 1);
   assert.equal(events[0].title, "Future launch");
+});
+
+test("APOD and Hubble timeouts preserve available gallery imagery and readable warnings", async () => {
+  const warnings = [];
+  const timeout = Object.assign(new Error("The operation was aborted due to timeout"), { name: "TimeoutError" });
+  const service = load("services/gallery-service.ts", {
+    process,
+    console: { warn: (...args) => warnings.push(args) },
+    fetch: async (url) => {
+      const host = new URL(url).hostname;
+      if (host === "api.nasa.gov" || host === "esahubble.org") throw timeout;
+      if (host === "images-api.nasa.gov") return { ok: true, json: async () => ({ collection: { items: [{
+        data: [{ nasa_id: "NGC-1300", title: "Spiral galaxy NGC 1300", description: "Hubble view of the spiral galaxy NGC 1300.", date_created: "2026-11-17T00:00:00Z", center: "GSFC" }],
+        links: [{ rel: "preview", render: "image", href: "https://images-assets.nasa.gov/image/NGC-1300/NGC-1300~thumb.jpg" }]
+      }] } }) };
+      return { ok: false, status: 503 };
+    }
+  });
+  const result = await service.getGalleryData();
+  assert.equal(result.isFallback, false);
+  assert.equal(result.images.length, 1);
+  assert.equal(result.images[0].title, "Spiral galaxy NGC 1300");
+  assert.ok(result.warnings.some((message) => message.includes("NASA APOD")));
+  assert.ok(result.warnings.some((message) => message.includes("Hubble")));
+  const timeoutWarnings = warnings.filter(([message]) => message.includes("timed out"));
+  assert.equal(timeoutWarnings.length, 2);
+  assert.ok(timeoutWarnings.every((args) => args.length === 1 && args[0].includes("8s")));
+});
+
+test("total gallery source failure leaves an honest unavailable collection", async () => {
+  const service = load("services/gallery-service.ts", { process, fetch: async () => { throw new Error("offline"); } });
+  const result = await service.getGalleryData();
+  assert.equal(result.isFallback, true);
+  assert.equal(result.images.length, 0);
+  assert.equal(result.featuredImage, null);
+  assert.ok(result.warnings.length > 0);
 });
