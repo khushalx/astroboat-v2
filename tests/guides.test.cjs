@@ -101,6 +101,29 @@ const latestSlugs = new Set([
   'how-gps-finds-your-location'
 ]);
 
+const curiositySlugs = new Set([
+  'why-is-space-black',
+  'can-sound-travel-through-space',
+  'why-is-space-cold',
+  'what-is-inside-a-black-hole',
+  'can-a-black-hole-swallow-earth',
+  'are-wormholes-real',
+  'what-is-the-universe-expanding-into',
+  'does-the-universe-have-a-center',
+  'what-was-before-the-big-bang',
+  'dark-matter-vs-dark-energy',
+  'will-the-sun-become-a-black-hole',
+  'what-color-is-the-sun',
+  'why-is-venus-hotter-than-mercury',
+  'can-you-land-on-jupiter',
+  'would-saturn-float-in-water',
+  'why-is-the-moon-moving-away',
+  'why-are-there-no-green-stars',
+  'why-are-planets-round',
+  'what-happens-when-galaxies-collide',
+  'can-tidally-locked-planets-support-life'
+]);
+
 function readingText(guide) {
   return guide.sections.flatMap((section) => [section.heading, ...section.paragraphs,
     ...(section.list?.items ?? []),
@@ -108,16 +131,18 @@ function readingText(guide) {
   ]).join(' ');
 }
 
-test('20 new guides join the existing 69 without dropping or duplicating a guide', () => {
-  assert.equal(astronomyGuides.length, 88);
-  assert.equal(publishedGuides.length, 89);
+test('20 curiosity guides join the existing 89 without dropping or duplicating a guide', () => {
+  assert.equal(astronomyGuides.length, 108);
+  assert.equal(publishedGuides.length, 109);
   assert.equal(Object.keys(guideSections).sort().join(','), astronomyGuides.map((guide) => guide.slug).sort().join(','));
   assert.equal(new Set(publishedGuides.map((guide) => guide.slug)).size, publishedGuides.length);
   assert.equal(getPublishedGuide('what-is-a-near-earth-object').publishedAt, '2026-09-30');
   assert.equal(getPublishedGuide('not-a-published-guide'), undefined);
   assert.equal(new Set(publishedGuides.map((guide) => guide.title.toLowerCase())).size, publishedGuides.length);
-  assert.equal(publishedGuides.slice(0, latestSlugs.size).map((guide) => guide.slug).sort().join(','), [...latestSlugs].sort().join(','));
-  assert.equal(publishedGuides.slice(latestSlugs.size, latestSlugs.size + novemberSlugs.size).map((guide) => guide.slug).sort().join(','), [...novemberSlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(0, curiositySlugs.size).map((guide) => guide.slug).sort().join(','), [...curiositySlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(curiositySlugs.size, curiositySlugs.size + latestSlugs.size).map((guide) => guide.slug).sort().join(','), [...latestSlugs].sort().join(','));
+  assert.equal(publishedGuides.slice(curiositySlugs.size + latestSlugs.size, curiositySlugs.size + latestSlugs.size + novemberSlugs.size).map((guide) => guide.slug).sort().join(','), [...novemberSlugs].sort().join(','));
+  assert.equal(new Set(publishedGuides.map((guide) => guide.description.toLowerCase())).size, publishedGuides.length);
   for (let i = 1; i < publishedGuides.length; i++) {
     assert.ok(publishedGuides[i - 1].publishedAt >= publishedGuides[i].publishedAt);
   }
@@ -138,12 +163,13 @@ test('every published guide has exactly one searchable entry', () => {
 for (const guide of astronomyGuides) {
   test(`${guide.slug}: navigable sections, valid citations, and complete reading time`, () => {
     assert.equal(guide.status, 'published');
+    const isCuriosity = curiositySlugs.has(guide.slug);
     const isLatest = latestSlugs.has(guide.slug);
     const isNovember = novemberSlugs.has(guide.slug);
     const isOctober = octoberSlugs.has(guide.slug);
     const isShort = shortSlugs.has(guide.slug);
-    assert.equal(guide.publishedAt, isLatest ? '2026-11-17' : isNovember ? '2026-11-09' : isOctober ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
-    assert.equal(guide.updatedAt, isLatest || isNovember || isOctober || isShort ? undefined : '2026-10-22');
+    assert.equal(guide.publishedAt, isCuriosity ? '2026-11-20' : isLatest ? '2026-11-17' : isNovember ? '2026-11-09' : isOctober ? '2026-10-27' : isShort ? '2026-10-24' : '2026-10-21');
+    assert.equal(guide.updatedAt, isCuriosity || isLatest || isNovember || isOctober || isShort ? undefined : '2026-10-22');
     assert.ok(guide.aiAssisted);
     assert.ok(guide.sections.length >= 4);
     const ids = new Set();
@@ -177,8 +203,18 @@ for (const guide of astronomyGuides) {
     }
 
     assert.ok(cited.size);
-    if (isLatest || isNovember) assert.equal(cited.size, sources.size, 'Cite each source where it supports the guide');
+    if (isCuriosity || isLatest || isNovember) assert.equal(cited.size, sources.size, 'Cite each source where it supports the guide');
     const words = readingText(guide).split(/\s+/).length;
+    if (isCuriosity) {
+      assert.ok(words >= 300 && words <= 600, `Keep curiosity guides substantive and focused: ${words} words`);
+      assert.ok(guide.description.length >= 110 && guide.description.length <= 180, 'Use a useful, concise search description');
+      assert.ok(guide.tags.length >= 3);
+      assert.ok(guide.relatedPaths.length >= 3);
+      assert.ok(guide.relatedPaths.every((link) => link.href !== `/guides/${guide.slug}`));
+      assert.ok(guide.sections.every((section) => section.sourceUrls?.length), 'Support every section with primary references');
+      assert.ok(publishedGuides.some((other) => other.slug !== guide.slug &&
+        other.relatedPaths.some((link) => link.href === `/guides/${guide.slug}`)), 'Keep each new guide discoverable from a related guide');
+    }
     if (isShort) assert.ok(words >= 250 && words <= 400, `Keep simple guides short and useful: ${words} words`);
     if (isOctober) assert.ok(words >= 300 && words <= 600, `Keep October guides focused and useful: ${words} words`);
     if (isLatest || isNovember) assert.ok(words >= 220 && words <= 400, `Keep November guides focused and useful: ${words} words`);
@@ -220,6 +256,21 @@ test('published HTML, citations, tables, RSS, and sitemap', { skip: !baseUrl }, 
     assert.equal(article?.dateModified, guide.updatedAt);
     assert.equal(article?.mainEntityOfPage, canonicalBase + route);
     assert.ok(html.includes(`rel="canonical" href="${canonicalBase + route}"`));
+    if (curiositySlugs.has(guide.slug)) {
+      assert.ok(html.includes(`<title>${escapeHtml(guide.title)} | Astroboat</title>`), `Missing descriptive title: ${route}`);
+      assert.ok(html.includes(`<meta name="description" content="${escapeHtml(guide.description)}"`));
+      assert.ok(html.includes('<meta property="og:type" content="article"'));
+      assert.ok(html.includes(`<meta property="og:url" content="${canonicalBase + route}"`));
+      assert.ok(html.includes(`<meta property="article:published_time" content="${guide.publishedAt}"`));
+      assert.ok(html.includes('<meta name="twitter:card" content="summary_large_image"'));
+      assert.equal(article.headline, guide.title);
+      assert.equal(article.description, guide.description);
+      assert.equal(article.articleSection, guide.category);
+      assert.deepEqual(article.keywords, [...guide.tags]);
+      assert.deepEqual(article.citation, [...guide.sources].map((source) => source.url));
+      const breadcrumbs = schemas.find((schema) => schema['@type'] === 'BreadcrumbList');
+      assert.equal(breadcrumbs?.itemListElement.at(-1).item, canonicalBase + route);
+    }
     assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/i);
     assert.doesNotMatch(response.headers.get('x-robots-tag') ?? '', /noindex/i);
     assert.ok(html.includes('On this page'));

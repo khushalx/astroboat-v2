@@ -268,7 +268,13 @@ const entries: GuideEntry[] = [
       { label: "NASA: Black Holes", url: "https://science.nasa.gov/universe/black-holes/" },
       { label: "NASA Webb: How Do We Know There Are Black Holes?", url: "https://science.nasa.gov/mission/webb/science-overview/science-explainers/how-do-we-know-there-are-black-holes/" }
     ],
-    relatedPaths: [{ label: "Read deep-space briefs", href: "/briefs" }, { label: "Follow the life cycle of stars", href: "/guides/how-stars-are-born-and-die" }]
+    relatedPaths: [
+      { label: "What is inside a black hole?", href: "/guides/what-is-inside-a-black-hole" },
+      { label: "Could a black hole swallow Earth?", href: "/guides/can-a-black-hole-swallow-earth" },
+      { label: "Are wormholes real?", href: "/guides/are-wormholes-real" },
+      { label: "Follow the life cycle of stars", href: "/guides/how-stars-are-born-and-die" },
+      { label: "Read deep-space briefs", href: "/briefs" }
+    ]
   },
   {
     slug: "galaxies-and-our-milky-way",
@@ -282,7 +288,13 @@ const entries: GuideEntry[] = [
       { label: "NASA: Galaxies", url: "https://science.nasa.gov/universe/galaxies/" },
       { label: "NASA: What Is the Universe?", url: "https://science.nasa.gov/exoplanets/what-is-the-universe/" }
     ],
-    relatedPaths: [{ label: "Explore galaxy images", href: "/gallery" }, { label: "Understand astronomical distances", href: "/guides/astronomical-distances-au-and-light-years" }]
+    relatedPaths: [
+      { label: "What happens when galaxies collide?", href: "/guides/what-happens-when-galaxies-collide" },
+      { label: "Dark matter vs. dark energy", href: "/guides/dark-matter-vs-dark-energy" },
+      { label: "Does the universe have a center?", href: "/guides/does-the-universe-have-a-center" },
+      { label: "Understand astronomical distances", href: "/guides/astronomical-distances-au-and-light-years" },
+      { label: "Explore galaxy images", href: "/gallery" }
+    ]
   },
   {
     slug: "how-we-find-exoplanets",
@@ -310,7 +322,12 @@ const entries: GuideEntry[] = [
       { label: "NASA: The Habitable Zone", url: "https://science.nasa.gov/exoplanets/habitable-zone/" },
       { label: "NASA: How We Find and Characterize Exoplanets", url: "https://science.nasa.gov/exoplanets/how-we-find-and-characterize/" }
     ],
-    relatedPaths: [{ label: "Learn how exoplanets are detected", href: "/guides/how-we-find-exoplanets" }, { label: "Follow astronomy discoveries", href: "/briefs" }]
+    relatedPaths: [
+      { label: "Could a tidally locked planet support life?", href: "/guides/can-tidally-locked-planets-support-life" },
+      { label: "Why is Venus hotter than Mercury?", href: "/guides/why-is-venus-hotter-than-mercury" },
+      { label: "Learn how exoplanets are detected", href: "/guides/how-we-find-exoplanets" },
+      { label: "Follow astronomy discoveries", href: "/briefs" }
+    ]
   },
   {
     slug: "webb-and-hubble-compared",
@@ -452,7 +469,11 @@ const entries: GuideEntry[] = [
       { label: "NOAA: Spring and Neap Tides", url: "https://oceanservice.noaa.gov/facts/springtide.html" },
       { label: "NOAA: The Moon and High Tide", url: "https://oceanservice.noaa.gov/facts/moon-tide.html" }
     ],
-    relatedPaths: [{ label: "Learn lunar phases", href: "/guides/understanding-moon-phases" }, { label: "Explore the Moon page", href: "/moon" }]
+    relatedPaths: [
+      { label: "Why is the Moon moving away?", href: "/guides/why-is-the-moon-moving-away" },
+      { label: "Learn lunar phases", href: "/guides/understanding-moon-phases" },
+      { label: "Explore the Moon page", href: "/moon" }
+    ]
   },
   {
     slug: "how-planetary-defense-works", publishedAt: "2026-10-27",
@@ -588,7 +609,11 @@ const entries: GuideEntry[] = [
       { label: "NASA: Basics of Space Flight, Deep Space Network", url: "https://science.nasa.gov/learn/basics-of-space-flight/chapter18-1/" },
       { label: "NASA: Delay/Disruption Tolerant Networking", url: "https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/" }
     ],
-    relatedPaths: [{ label: "Learn light-travel distances", href: "/guides/astronomical-distances-au-and-light-years" }, { label: "Follow mission events", href: "/events" }]
+    relatedPaths: [
+      { label: "Can sound travel through space?", href: "/guides/can-sound-travel-through-space" },
+      { label: "Learn light-travel distances", href: "/guides/astronomical-distances-au-and-light-years" },
+      { label: "Follow mission events", href: "/events" }
+    ]
   },
   {
     slug: "why-astronauts-float-in-microgravity", publishedAt: "2026-10-27",
@@ -632,7 +657,12 @@ const entries: GuideEntry[] = [
       { label: "ESA/Hubble: Planetary Nebula", url: "https://esahubble.org/wordbank/planetary-nebula/" },
       { label: "ESA/Hubble: Stars Going Out in Style", url: "https://esahubble.org/announcements/ann0710/" }
     ],
-    relatedPaths: [{ label: "Understand stellar life cycles", href: "/guides/how-stars-are-born-and-die" }, { label: "Read image colors", href: "/guides/how-to-read-space-images" }]
+    relatedPaths: [
+      { label: "Will the Sun become a black hole?", href: "/guides/will-the-sun-become-a-black-hole" },
+      { label: "Why are there no green stars?", href: "/guides/why-are-there-no-green-stars" },
+      { label: "Understand stellar life cycles", href: "/guides/how-stars-are-born-and-die" },
+      { label: "Read image colors", href: "/guides/how-to-read-space-images" }
+    ]
   },
   {
     slug: "telescope-field-of-view", publishedAt: "2026-11-09",
@@ -1086,6 +1116,326 @@ const entries: GuideEntry[] = [
       { label: "GPS.gov: Factors that affect accuracy", url: "https://archive.gps.gov/systems/gps/performance/accuracy/" }
     ],
     relatedPaths: [{ label: "Compare weather satellite orbits", href: "/guides/weather-satellite-orbits" }, { label: "Understand light travel time", href: "/guides/deep-space-communication-and-light-delay" }]
+  },
+  {
+    slug: "why-is-space-black", publishedAt: "2026-11-20",
+    title: "Why Is Space Black If There Are So Many Stars?",
+    description: "Two different questions explain the dark sky: why sunlight does not fill a vacuum with blue, and why distant stars do not light every direction.",
+    category: "Astronomy Basics", tags: ["Dark sky","Olbers' paradox","Scattered light"],
+    sources: [
+      { label: "NASA StarChild: Why is space black?", url: "https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question52.html" },
+      { label: "NASA John Mather: Cosmology FAQ (archive)", url: "https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html" },
+      { label: "NASA: Cosmic microwave background", url: "https://science.nasa.gov/mission/wmap/wmap-overview/" }
+    ],
+    relatedPaths: [
+      { label: "Understand the cosmic microwave background", href: "/guides/cosmic-microwave-background" },
+      { label: "Read what space expands into", href: "/guides/what-is-the-universe-expanding-into" },
+      { label: "How stars produce light", href: "/guides/how-stars-are-born-and-die" }
+    ]
+  },
+  {
+    slug: "can-sound-travel-through-space", publishedAt: "2026-11-20",
+    title: "Can Sound Travel Through Space?",
+    description: "Sound needs matter, but space is not empty everywhere. Learn why astronauts use radios and what NASA's black-hole recordings actually represent.",
+    category: "Space Science", tags: ["Sound in space","Sonification","Pressure waves","Radio"],
+    sources: [
+      { label: "NASA: Black-hole data sonifications", url: "https://science.nasa.gov/science-research/astrophysics/data-sonifications/" },
+      { label: "Chandra: How the M87 sonification works", url: "https://chandra.harvard.edu/sound/m87.html" },
+      { label: "NASA: Space data sonification", url: "https://science.nasa.gov/open-science/astronomy-data-sonification/" }
+    ],
+    relatedPaths: [
+      { label: "Read why space looks black", href: "/guides/why-is-space-black" },
+      { label: "Understand radio communication", href: "/guides/deep-space-communication-and-light-delay" },
+      { label: "Explore black holes", href: "/guides/black-holes-explained" }
+    ]
+  },
+  {
+    slug: "why-is-space-cold", publishedAt: "2026-11-20",
+    title: "Why Is Space Cold If the Sun Is So Hot?",
+    description: "Space has no single everyday temperature. Learn how sunlight, radiation, shade, and thin gas determine whether an object heats up or cools down.",
+    category: "Space Science", tags: ["Temperature","Heat transfer","Thermal radiation","Vacuum"],
+    sources: [
+      { label: "NASA Cosmicopia: Heat and temperature in space", url: "https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_ht.html" },
+      { label: "NASA: Spacecraft thermal control", url: "https://science.nasa.gov/learn/basics-of-space-flight/chapter11-4/" },
+      { label: "NASA: Cosmic microwave background", url: "https://science.nasa.gov/mission/wmap/wmap-overview/" }
+    ],
+    relatedPaths: [
+      { label: "Read why space is black", href: "/guides/why-is-space-black" },
+      { label: "Understand the Sun's light", href: "/guides/what-color-is-the-sun" },
+      { label: "Why Venus is hotter than Mercury", href: "/guides/why-is-venus-hotter-than-mercury" }
+    ]
+  },
+  {
+    slug: "what-is-inside-a-black-hole", publishedAt: "2026-11-20",
+    title: "What Is Inside a Black Hole? What Physics Can Tell Us",
+    description: "Separate the event horizon, tidal forces, and the predicted singularity from the parts of a black-hole interior that science has not established.",
+    category: "Deep Space", tags: ["Event horizon","Singularity","General relativity","Black holes"],
+    sources: [
+      { label: "NASA: Anatomy of a black hole", url: "https://science.nasa.gov/universe/black-holes/anatomy/" },
+      { label: "NASA: Ten black-hole questions", url: "https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/" },
+      { label: "NASA: Black-hole questions on infalling observers", url: "https://science.nasa.gov/apod/frequently-asked-questions-faqs-on-black-holes/" }
+    ],
+    relatedPaths: [
+      { label: "Start with black-hole basics", href: "/guides/black-holes-explained" },
+      { label: "Could a black hole swallow Earth?", href: "/guides/can-a-black-hole-swallow-earth" },
+      { label: "Are wormholes real?", href: "/guides/are-wormholes-real" }
+    ]
+  },
+  {
+    slug: "can-a-black-hole-swallow-earth", publishedAt: "2026-11-20",
+    title: "Could a Black Hole Swallow Earth?",
+    description: "Black holes are not cosmic vacuum cleaners. Understand how mass, distance, and an object's orbit matter more than the frightening name.",
+    category: "Deep Space", tags: ["Black-hole gravity","Earth","Orbits","Sagittarius A*"],
+    sources: [
+      { label: "NASA: Black-hole overview and misconceptions", url: "https://science.nasa.gov/universe/black-holes/" },
+      { label: "NASA: Ten black-hole questions", url: "https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/" },
+      { label: "NASA: Black-hole anatomy and accretion disks", url: "https://science.nasa.gov/universe/black-holes/anatomy/" }
+    ],
+    relatedPaths: [
+      { label: "Read black-hole basics", href: "/guides/black-holes-explained" },
+      { label: "What is inside a black hole?", href: "/guides/what-is-inside-a-black-hole" },
+      { label: "Why the Sun will not become a black hole", href: "/guides/will-the-sun-become-a-black-hole" }
+    ]
+  },
+  {
+    slug: "are-wormholes-real", publishedAt: "2026-11-20",
+    title: "Are Wormholes Real, or Just Science Fiction?",
+    description: "Wormholes appear in mathematical models, but none has been confirmed. Learn why a black hole or quantum experiment is not a usable space tunnel.",
+    category: "Deep Space", tags: ["Wormholes","Einstein-Rosen bridge","Quantum models","Spacetime"],
+    sources: [
+      { label: "Einstein Online: Wormholes", url: "https://www.einstein-online.info/en/explandict/Wormhole/" },
+      { label: "Caltech: Questions about the 2022 wormhole experiment", url: "https://inqnet.caltech.edu/wormhole2022/" },
+      { label: "NASA: What black holes are not", url: "https://science.nasa.gov/universe/black-holes/" }
+    ],
+    relatedPaths: [
+      { label: "What is inside a black hole?", href: "/guides/what-is-inside-a-black-hole" },
+      { label: "Understand gravitational waves", href: "/guides/gravitational-waves-and-ligo" },
+      { label: "Read about the universe's expansion", href: "/guides/what-is-the-universe-expanding-into" }
+    ]
+  },
+  {
+    slug: "what-is-the-universe-expanding-into", publishedAt: "2026-11-20",
+    title: "What Is the Universe Expanding Into?",
+    description: "Cosmic expansion does not require an outside room. Understand growing distances, the limits of the balloon analogy, and what telescopes measure.",
+    category: "Deep Space", tags: ["Cosmic expansion","Spacetime","Scale factor","Big Bang"],
+    sources: [
+      { label: "NASA John Mather: Cosmology FAQ (archive)", url: "https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html" },
+      { label: "NASA Webb: Big Bang questions with John Mather", url: "https://science.nasa.gov/mission/webb/big-bang-q-and-a/" },
+      { label: "NASA Webb: Studying the early universe", url: "https://science.nasa.gov/mission/webb/early-universe/" }
+    ],
+    relatedPaths: [
+      { label: "Does the universe have a center?", href: "/guides/does-the-universe-have-a-center" },
+      { label: "Read redshift and lookback time", href: "/guides/cosmological-redshift-and-lookback-time" },
+      { label: "Dark matter versus dark energy", href: "/guides/dark-matter-vs-dark-energy" }
+    ]
+  },
+  {
+    slug: "does-the-universe-have-a-center", publishedAt: "2026-11-20",
+    title: "Does the Universe Have a Center?",
+    description: "Earth is central to our observable horizon, not necessarily to space. See why expansion looks similar from other galaxies without a central blast site.",
+    category: "Deep Space", tags: ["Center of the universe","Observable universe","Expansion","Cosmology"],
+    sources: [
+      { label: "NASA Webb: The Big Bang did not have a central location", url: "https://science.nasa.gov/mission/webb/big-bang-q-and-a/" },
+      { label: "NASA John Mather: Cosmology FAQ (archive) and expansion", url: "https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html" },
+      { label: "NASA Imagine the Universe: Cosmology questions", url: "https://imagine.gsfc.nasa.gov/ask_astro/cosmology.html" }
+    ],
+    relatedPaths: [
+      { label: "What is the universe expanding into?", href: "/guides/what-is-the-universe-expanding-into" },
+      { label: "What came before the Big Bang?", href: "/guides/what-was-before-the-big-bang" },
+      { label: "Learn about the microwave background", href: "/guides/cosmic-microwave-background" }
+    ]
+  },
+  {
+    slug: "what-was-before-the-big-bang", publishedAt: "2026-11-20",
+    title: "What Was Before the Big Bang? What We Actually Know",
+    description: "The hot Big Bang describes an early cosmic history, not a confirmed answer to ultimate origins. Separate evidence, inflation models, and speculation.",
+    category: "Deep Space", tags: ["Big Bang","Cosmic inflation","Origins","Early universe"],
+    sources: [
+      { label: "NASA Webb: Early-universe science and inflation", url: "https://science.nasa.gov/mission/webb/early-universe/" },
+      { label: "NASA WMAP: Limits of the Big Bang model", url: "https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html" },
+      { label: "NASA Hubble: Evidence for the Big Bang", url: "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-big-bang/" }
+    ],
+    relatedPaths: [
+      { label: "Does the universe have a center?", href: "/guides/does-the-universe-have-a-center" },
+      { label: "Read the cosmic microwave background", href: "/guides/cosmic-microwave-background" },
+      { label: "What is space expanding into?", href: "/guides/what-is-the-universe-expanding-into" }
+    ]
+  },
+  {
+    slug: "dark-matter-vs-dark-energy", publishedAt: "2026-11-20",
+    title: "Dark Matter vs. Dark Energy: What Is the Difference?",
+    description: "Dark matter helps explain gravitational structure; dark energy describes accelerated expansion. Compare the evidence without treating either as a known substance.",
+    category: "Deep Space", tags: ["Dark matter","Dark energy","Gravitational lensing","Cosmic acceleration"],
+    sources: [
+      { label: "NASA: What dark matter means", url: "https://science.nasa.gov/dark-matter/" },
+      { label: "NASA: Investigating dark energy", url: "https://science.nasa.gov/astrophysics/programs/physics-of-the-cosmos/expand-our-knowledge-of-dark-energy/" },
+      { label: "ESA: Dark matter and dark energy", url: "https://www.esa.int/Science_Exploration/Space_Science/What_are_dark_matter_and_dark_energy" }
+    ],
+    relatedPaths: [
+      { label: "What is the universe expanding into?", href: "/guides/what-is-the-universe-expanding-into" },
+      { label: "Read cosmic redshift and lookback time", href: "/guides/cosmological-redshift-and-lookback-time" },
+      { label: "Understand galaxy structure", href: "/guides/galaxies-and-our-milky-way" }
+    ]
+  },
+  {
+    slug: "will-the-sun-become-a-black-hole", publishedAt: "2026-11-20",
+    title: "Will the Sun Become a Black Hole?",
+    description: "No: the Sun will leave a white dwarf, not a black hole. Follow the red-giant stage, mass loss, and the difference between shrinking and collapsing.",
+    category: "Space Science", tags: ["Sun's future","White dwarf","Red giant","Stellar evolution"],
+    sources: [
+      { label: "NASA: Why the Sun will not become a black hole", url: "https://www.nasa.gov/image-article/why-sun-wont-become-black-hole/" },
+      { label: "NASA: Sun facts and lifetime", url: "https://science.nasa.gov/sun/facts/" },
+      { label: "NASA: The lives of stars", url: "https://science.nasa.gov/universe/stars/" }
+    ],
+    relatedPaths: [
+      { label: "How stars are born and die", href: "/guides/how-stars-are-born-and-die" },
+      { label: "Why planetary nebulae are not planets", href: "/guides/planetary-nebulae-not-planets" },
+      { label: "Could a black hole swallow Earth?", href: "/guides/can-a-black-hole-swallow-earth" }
+    ]
+  },
+  {
+    slug: "what-color-is-the-sun", publishedAt: "2026-11-20",
+    title: "What Color Is the Sun: White, Yellow, or Something Else?",
+    description: "Sunlight contains a broad mix of visible colors. Learn why the Sun looks white from space, warmer near the horizon, and different in observatory images.",
+    category: "Astronomy Basics", tags: ["Sunlight","Star colors","Atmospheric scattering","Solar images"],
+    sources: [
+      { label: "NASA HEAT: Portrayals of the Sun in art", url: "https://science.nasa.gov/learn/heat/resource/hby-math-7-portrayals-of-the-sun-in-art/" },
+      { label: "NASA: Why observe the Sun in different colors?", url: "https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html" },
+      { label: "NASA: Eclipse viewing safety", url: "https://science.nasa.gov/eclipses/safety/" }
+    ],
+    relatedPaths: [
+      { label: "Why are there no green stars?", href: "/guides/why-are-there-no-green-stars" },
+      { label: "Read space-image colors", href: "/guides/how-to-read-space-images" },
+      { label: "Learn safe solar viewing", href: "/guides/solar-eclipses-and-eye-safety" }
+    ]
+  },
+  {
+    slug: "why-is-venus-hotter-than-mercury", publishedAt: "2026-11-20",
+    title: "Why Is Venus Hotter Than Mercury?",
+    description: "Distance from the Sun is only part of a planet's temperature. Compare Venus's thick atmosphere with Mercury's nearly airless, hot-and-cold surface.",
+    category: "Solar System", tags: ["Venus","Mercury","Greenhouse effect","Planetary temperatures"],
+    sources: [
+      { label: "NASA: Venus facts", url: "https://science.nasa.gov/venus/venus-facts/" },
+      { label: "NASA: Mercury facts", url: "https://science.nasa.gov/mercury/facts/" },
+      { label: "NASA: Temperatures across the solar system", url: "https://science.nasa.gov/solar-system/temperatures-across-our-solar-system/" }
+    ],
+    relatedPaths: [
+      { label: "What makes a planet potentially habitable?", href: "/guides/what-the-habitable-zone-means" },
+      { label: "Why space can be hot or cold", href: "/guides/why-is-space-cold" },
+      { label: "How to see Mercury", href: "/guides/how-to-see-mercury" }
+    ]
+  },
+  {
+    slug: "can-you-land-on-jupiter", publishedAt: "2026-11-20",
+    title: "Can You Land on Jupiter? Does It Have a Surface?",
+    description: "Jupiter has no ground beneath its clouds like Earth's. Follow what changes as a probe descends, and why a dense core does not provide a landing site.",
+    category: "Solar System", tags: ["Jupiter","Gas giant","Galileo probe","Metallic hydrogen"],
+    sources: [
+      { label: "NASA: Jupiter facts and interior", url: "https://science.nasa.gov/jupiter/jupiter-facts/" },
+      { label: "NASA: Galileo atmospheric probe", url: "https://science.nasa.gov/mission/galileo-jupiter-atmospheric-probe/" }
+    ],
+    relatedPaths: [
+      { label: "Observe Jupiter and its moons", href: "/guides/observing-jupiter-and-its-moons" },
+      { label: "Would Saturn float in water?", href: "/guides/would-saturn-float-in-water" },
+      { label: "Europa and Enceladus ocean evidence", href: "/guides/europa-and-enceladus-oceans" }
+    ]
+  },
+  {
+    slug: "would-saturn-float-in-water", publishedAt: "2026-11-20",
+    title: "Would Saturn Really Float in Water?",
+    description: "The famous bathtub fact compares average densities, not a realistic experiment. Learn what it says about Saturn and what the comparison leaves out.",
+    category: "Solar System", tags: ["Saturn","Density","Buoyancy","Gas giants"],
+    sources: [
+      { label: "NASA: Saturn facts", url: "https://science.nasa.gov/saturn/facts/" },
+      { label: "NASA Cassini: Saturn questions", url: "https://science.nasa.gov/mission/cassini/faq/" },
+      { label: "NASA Cassini: Density reference", url: "https://science.nasa.gov/wp-content/uploads/2023/09/cassini-arrival-1.pdf" }
+    ],
+    relatedPaths: [
+      { label: "Why Jupiter has no landing surface", href: "/guides/can-you-land-on-jupiter" },
+      { label: "See Saturn's rings", href: "/guides/saturn-rings-and-changing-views" },
+      { label: "Why planets are nearly round", href: "/guides/why-are-planets-round" }
+    ]
+  },
+  {
+    slug: "why-is-the-moon-moving-away", publishedAt: "2026-11-20",
+    title: "Why Is the Moon Moving Away From Earth?",
+    description: "Laser measurements show the Moon's orbit slowly widening. Understand the tidal energy exchange, why Earth's day changes, and why the current rate is not eternal.",
+    category: "Moon", tags: ["Lunar recession","Laser ranging","Tides","Angular momentum"],
+    sources: [
+      { label: "NASA: The Apollo experiment that keeps on giving", url: "https://www.nasa.gov/missions/apollo/apollo-11/the-apollo-experiment-that-keeps-on-giving/" },
+      { label: "NASA: Tidal locking and orbital evolution", url: "https://science.nasa.gov/moon/tidal-locking/" },
+      { label: "NASA Eclipse: Lunar secular acceleration", url: "https://eclipse.gsfc.nasa.gov/LEcat5/secular.html" }
+    ],
+    relatedPaths: [
+      { label: "Why the Moon causes tides", href: "/guides/why-the-moon-causes-tides" },
+      { label: "Why we see the same lunar face", href: "/guides/why-the-moon-has-a-far-side" },
+      { label: "Read lunar distance and apparent size", href: "/guides/moon-illusion-and-supermoons" }
+    ]
+  },
+  {
+    slug: "why-are-there-no-green-stars", publishedAt: "2026-11-20",
+    title: "Why Are There No Green Stars?",
+    description: "Stars emit green light, but that rarely makes them look green. Learn how a broad thermal spectrum differs from a single-color lamp or a colored nebula.",
+    category: "Astronomy Basics", tags: ["Green stars","Stellar colors","Blackbody radiation","Color perception"],
+    sources: [
+      { label: "NASA Ames: Stellar colors and the green-star question", url: "https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2020/" },
+      { label: "NASA Webb: Continuous stellar spectra", url: "https://science.nasa.gov/asset/webb/continuous-spectra-blackbody-curves-of-stars/" },
+      { label: "NASA: Why solar images use different colors", url: "https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html" }
+    ],
+    relatedPaths: [
+      { label: "What color is the Sun?", href: "/guides/what-color-is-the-sun" },
+      { label: "Read a stellar spectrum", href: "/guides/spectroscopy-reading-starlight" },
+      { label: "Why planetary nebulae are not planets", href: "/guides/planetary-nebulae-not-planets" }
+    ]
+  },
+  {
+    slug: "why-are-planets-round", publishedAt: "2026-11-20",
+    title: "Why Are Planets Round but Many Asteroids Are Not?",
+    description: "Gravity reshapes large worlds, while material strength preserves small bodies' bumps. Learn why size, composition, rotation, and history all matter.",
+    category: "Astronomy Basics", tags: ["Planet shapes","Hydrostatic equilibrium","Asteroids","Gravity"],
+    sources: [
+      { label: "NASA Space Place: Why are planets round?", url: "https://spaceplace.nasa.gov/planets-round/en/" },
+      { label: "NASA Space Place: Small-body shapes and composition", url: "https://spaceplace.nasa.gov/review/posters/small-bodies/small-bodies-factsheet.pdf" },
+      { label: "NASA: What is a planet?", url: "https://science.nasa.gov/solar-system/planets/what-is-a-planet/" }
+    ],
+    relatedPaths: [
+      { label: "Pluto, Ceres, and dwarf planets", href: "/guides/dwarf-planets-pluto-and-ceres" },
+      { label: "How asteroid rotation is measured", href: "/guides/asteroid-light-curves-and-rotation" },
+      { label: "Would Saturn float in water?", href: "/guides/would-saturn-float-in-water" }
+    ]
+  },
+  {
+    slug: "what-happens-when-galaxies-collide", publishedAt: "2026-11-20",
+    title: "What Happens When Two Galaxies Collide?",
+    description: "Galaxy collisions can rearrange orbits and trigger star birth without most stars hitting each other. Learn what images show and what simulations infer.",
+    category: "Deep Space", tags: ["Galaxy collisions","Mergers","Starbursts","Andromeda"],
+    sources: [
+      { label: "NASA: How galaxies evolve", url: "https://science.nasa.gov/universe/galaxies/evolution/" },
+      { label: "NASA and ESA: The colliding galaxies NGC 6052", url: "https://science.nasa.gov/missions/hubble/hubbles-dazzling-display-of-2-colliding-galaxies/" },
+      { label: "NASA Hubble: Uncertainty in the Milky Way-Andromeda encounter", url: "https://science.nasa.gov/missions/hubble/apocalypse-when-hubble-casts-doubt-on-certainty-of-galactic-collision/" }
+    ],
+    relatedPaths: [
+      { label: "Understand the Milky Way and other galaxies", href: "/guides/galaxies-and-our-milky-way" },
+      { label: "Find Andromeda in the sky", href: "/guides/how-to-find-andromeda-galaxy" },
+      { label: "How gravitational waves reveal mergers", href: "/guides/gravitational-waves-and-ligo" }
+    ]
+  },
+  {
+    slug: "can-tidally-locked-planets-support-life", publishedAt: "2026-11-20",
+    title: "Could Life Exist on a Tidally Locked Planet?",
+    description: "Permanent day and night do not automatically rule out habitability. Explore how air, oceans, clouds, and stellar activity affect the possible climates.",
+    category: "Space Science", tags: ["Tidally locked planets","Habitability","Exoplanet climates","Red dwarfs"],
+    sources: [
+      { label: "NASA: Exoplanet terminology and tidal locking", url: "https://science.nasa.gov/exoplanets/glossary/" },
+      { label: "Yang and colleagues: Ocean dynamics on tidally locked worlds", url: "https://arxiv.org/abs/1902.02103" },
+      { label: "Yang, Cowan, and Abbot: Cloud feedback on locked planets", url: "https://arxiv.org/abs/1307.0515" },
+      { label: "NASA: Conditions for planetary habitability", url: "https://science.nasa.gov/astrobiology/learning-resources/alp/if-a-planet-can-have-life/" }
+    ],
+    relatedPaths: [
+      { label: "What the habitable zone really means", href: "/guides/what-the-habitable-zone-means" },
+      { label: "How we discover exoplanets", href: "/guides/how-we-find-exoplanets" },
+      { label: "Ocean worlds beyond Earth", href: "/guides/europa-and-enceladus-oceans" }
+    ]
   }
 ];
 

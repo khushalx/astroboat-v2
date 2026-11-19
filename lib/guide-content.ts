@@ -2831,4 +2831,604 @@ export const guideSections: Record<string, Guide["sections"]> = {
       ], sourceUrls: ["https://archive.gps.gov/systems/gps/performance/accuracy/"]
     }
   ],
+  "why-is-space-black": [
+    {
+      id: "short-answer", heading: "Sunlight needs something to scatter from",
+      paragraphs: [
+        "Space looks black in visible light because most viewing directions do not deliver enough visible light to your eyes. Near Earth, sunlight certainly passes through space, but there is little atmosphere to scatter it into a bright blue background. On Earth, molecules redirect some sunlight toward you from across the daytime sky. Without that scattering, a sunlit object can be bright while the sky behind it stays dark.",
+        "That answers the daytime question. It does not yet answer why the combined light of all distant stars fails to fill the night sky."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question52.html"]
+    },
+    {
+      id: "olbers-paradox", heading: "Why distant stars do not cover every patch",
+      paragraphs: [
+        "Imagine an eternal, unchanging universe filled everywhere with stars. More distant shells contain more stars, which can compensate for how much fainter each star appears. In that idealized picture, almost every direction should eventually meet a luminous stellar surface. The dark night sky tells us that the assumptions cannot all describe our universe.",
+        "Stars have not been shining forever. The observable universe has a finite history, and light travels at a finite speed. Expansion also stretches much ancient radiation out of the visible range. We do not need to conclude that the entire universe has a physical edge."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question52.html","https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "invisible-light", heading: "Black to your eyes is not empty of radiation",
+      paragraphs: [
+        "Microwave instruments see a nearly all-sky background left from the early hot universe. It is not visible starlight hiding behind a curtain: it has a different origin, and its wavelengths have lengthened as space expanded. Infrared and radio telescopes likewise reveal emission that your eyes cannot detect.",
+        "The practical distinction is between a dark visible background and an absence of energy. Space can have the first without having the second."
+      ], sourceUrls: ["https://science.nasa.gov/mission/wmap/wmap-overview/"]
+    },
+    {
+      id: "photo-check", heading: "Why photographs can make the sky even darker",
+      paragraphs: [
+        "A photograph exposed for a bright spacecraft or sunlit ground can fail to record faint stars. Try photographing a brightly lit building and its night-sky background in the same short exposure: the building can look detailed while the stars disappear. That is a camera limitation, not proof that stars were missing.",
+        "Do not use a black photographic background to infer a completely empty region. Ask which wavelengths were recorded, how bright the foreground was, and what exposure the camera used."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question52.html"]
+    }
+  ],
+  "can-sound-travel-through-space": [
+    {
+      id: "short-answer", heading: "Not across a vacuum, but matter changes the answer",
+      paragraphs: [
+        "Ordinary sound is a disturbance carried through matter: neighboring particles push and pull on one another. A vacuum does not provide that chain of interactions, so a shout cannot cross an empty gap between astronauts. Radio waves are electromagnetic waves, not sound waves. They can cross the gap, and a receiver converts their encoded signal into sound inside a helmet.",
+        "The useful rule is therefore not that space magically destroys sound. It is that a pressure wave needs a suitable medium along its path."
+      ], sourceUrls: ["https://science.nasa.gov/science-research/astrophysics/data-sonifications/"]
+    },
+    {
+      id: "gas-in-space", heading: "Gas clouds can carry genuine pressure waves",
+      paragraphs: [
+        "Some parts of space contain enough gas or plasma for pressure disturbances to travel. Astronomers inferred very low-frequency sound waves in the hot gas around the central galaxy of the Perseus cluster. Those are disturbances in matter, not sounds escaping from inside a black-hole horizon.",
+        "The frequencies are enormously below human hearing. Their existence does not mean an unprotected human could hear a cluster rumbling through a helmet: the environment, coupling to an ear, and frequency range are all wrong."
+      ], sourceUrls: ["https://science.nasa.gov/science-research/astrophysics/data-sonifications/"]
+    },
+    {
+      id: "recording", heading: "A space soundtrack can mean two different things",
+      paragraphs: [
+        "The Perseus audio shifts inferred pressure-wave frequencies upward into an audible range. Other sonifications use an explicit translation rule instead. In the Chandra M87 example, a scan moves around an image and maps measured light to sound.",
+        "Both approaches can communicate real observations, but only the first starts with a measured signature of acoustic waves. Neither is equivalent to placing an ordinary microphone beside the object. Sonification is also an accessibility technique that lets people explore spatial data through another sense."
+      ], sourceUrls: ["https://science.nasa.gov/science-research/astrophysics/data-sonifications/","https://chandra.harvard.edu/sound/m87.html","https://science.nasa.gov/open-science/astronomy-data-sonification/"]
+    },
+    {
+      id: "how-to-check", heading: "Read the audio caption before drawing conclusions",
+      paragraphs: [
+        "For any space recording, ask what the original detector measured. Was it gas pressure structure, electromagnetic radiation, or a spacecraft vibration? Then check which transformations made it audible: a pitch shift, a faster playback, or a chosen mapping from brightness to notes.",
+        "Inside a spacecraft, air and solid structures can carry familiar sounds. Outside, spectacular movie explosions would not send a normal boom across an empty vacuum to a distant observer. A real impact could still transmit vibrations through a vehicle it strikes."
+      ], sourceUrls: ["https://science.nasa.gov/science-research/astrophysics/data-sonifications/","https://science.nasa.gov/open-science/astronomy-data-sonification/"]
+    }
+  ],
+  "why-is-space-cold": [
+    {
+      id: "short-answer", heading: "Space is not a bath of cold air",
+      paragraphs: [
+        "The Sun can heat you without hot air traveling all the way from its surface. Its light carries energy through the vacuum, and a surface that absorbs that light warms up. In deep shade, an object can instead lose more energy through infrared radiation than it receives.",
+        "Calling space cold is shorthand for this radiative environment. It is not a promise that every object in space will reach the same temperature, or that a sunlit spacecraft cannot overheat."
+      ], sourceUrls: ["https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_ht.html","https://science.nasa.gov/learn/basics-of-space-flight/chapter11-4/"]
+    },
+    {
+      id: "three-processes", heading: "A vacuum removes one familiar cooling route",
+      paragraphs: [
+        "On Earth, air can carry heat away by convection, while direct contact transfers heat by conduction. Across an empty gap, those routes are unavailable. Radiation still works in both directions: an object absorbs incoming light and emits radiation according to its temperature and surface properties.",
+        "Imagine two identical metal plates, one dark and one reflective, both facing the Sun. They need not settle at the same temperature. How efficiently each absorbs sunlight and emits infrared matters, not just its distance from the Sun."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter11-4/"]
+    },
+    {
+      id: "hot-thin-gas", heading: "A high gas temperature need not transfer much heat",
+      paragraphs: [
+        "Temperature describes particle motion, not the total amount of heat available. Very sparse plasma can have fast-moving particles and a high temperature while carrying little energy into a small surface because so few particles strike it. Dense hot air and a thin hot space plasma are therefore very different environments.",
+        "The same distinction prevents a misleading opposite claim: a cold radiation background cannot instantly freeze everything. Cooling depends on the object's stored energy, radiating area, insulation, and incoming energy."
+      ], sourceUrls: ["https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_ht.html"]
+    },
+    {
+      id: "spacecraft", heading: "Why spacecraft need heaters as well as radiators",
+      paragraphs: [
+        "Far from stars, the cosmic microwave background has a temperature of about 2.7 kelvin. That describes a pervasive radiation field, not the air temperature around a nearby astronaut or satellite. Nearby sunlight, planets, and the spacecraft's own electronics can dominate its energy budget.",
+        "Engineers use reflective layers, insulation, radiators, and heaters to manage those competing terms. When you hear a temperature quoted for space, ask whether it describes gas particles, background radiation, or the measured temperature of an actual object."
+      ], sourceUrls: ["https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_ht.html","https://science.nasa.gov/learn/basics-of-space-flight/chapter11-4/","https://science.nasa.gov/mission/wmap/wmap-overview/"]
+    }
+  ],
+  "what-is-inside-a-black-hole": [
+    {
+      id: "short-answer", heading: "We have predictions, not an interior photograph",
+      paragraphs: [
+        "General relativity describes how spacetime behaves near a black hole and predicts a one-way boundary called the event horizon. It also predicts extreme conditions deeper inside. But we cannot receive a light signal sent outward from inside the horizon, and current physics does not provide a fully established description of the deepest interior.",
+        "That means neither 'we know nothing' nor 'there is definitely a portal inside' is a good summary. The horizon prediction is much firmer than a claim about the ultimate fate of matter at a singularity."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/anatomy/","https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/"]
+    },
+    {
+      id: "horizon", heading: "The horizon is not a solid shell",
+      paragraphs: [
+        "Crossing an event horizon is not like hitting a material surface. In the simplest nonrotating model, after crossing it, all future-directed paths lead toward smaller radius; turning on a stronger engine cannot create an outward escape route. This is a feature of spacetime, not merely a fuel shortage.",
+        "What an observer experiences also depends on the black hole's mass and surroundings. Hot gas and radiation outside it can be dangerous before the horizon is reached. A quiet theoretical black hole is a different scenario from a bright accreting one."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/anatomy/","https://science.nasa.gov/apod/frequently-asked-questions-faqs-on-black-holes/"]
+    },
+    {
+      id: "tidal-forces", heading: "Would you be stretched before crossing?",
+      paragraphs: [
+        "Gravity can pull more strongly on the near end of an object than on its far end. This difference creates tidal forces, often described as spaghettification. At a small stellar-mass black hole those forces can become destructive outside the horizon. At a sufficiently massive black hole, the tidal gradient at the horizon can be gentler.",
+        "A gentler crossing does not make escape possible. It only distinguishes a local experience from the global fact that signals can no longer get back outside."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/","https://science.nasa.gov/apod/frequently-asked-questions-faqs-on-black-holes/"]
+    },
+    {
+      id: "singularity", heading: "A singularity marks an unresolved limit",
+      paragraphs: [
+        "In simple classical models, collapse leads to a singularity, where quantities such as curvature become unbounded. That is not a measured picture of an infinitely dense object. It may instead show that general relativity is being pushed beyond the regime where it is sufficient.",
+        "A quantum theory of gravity may change that description, but competing ideas are not confirmed views of an actual interior. When reading a discovery headline, separate measurements of surrounding matter or gravitational waves from speculation about what lies beyond the horizon."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/anatomy/","https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/"]
+    }
+  ],
+  "can-a-black-hole-swallow-earth": [
+    {
+      id: "short-answer", heading: "Possible in principle is not a current threat",
+      paragraphs: [
+        "A planet that crosses a black hole's event horizon cannot return. But that does not mean a distant black hole is pulling Earth toward an inevitable end. Black holes are not vacuum cleaners with an extra kind of suction: at large distances their gravitational influence is governed by their mass and distance, just as for other objects.",
+        "There is no established black-hole encounter threatening Earth. Understanding why starts with orbital motion, rather than with whether a telescope has discovered one more black hole somewhere in the galaxy."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/","https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/"]
+    },
+    {
+      id: "sun-example", heading: "The same-mass Sun thought experiment",
+      paragraphs: [
+        "Suppose the Sun were replaced by a black hole with the same mass and position, without giving Earth an extra push. Earth's orbit would remain approximately the same. It would not spiral inward simply because the central object was now a black hole. The loss of sunlight would be catastrophic for Earth's surface conditions, but that is a different effect.",
+        "This is a gravity thought experiment, not a prediction about the Sun. Our star does not have enough mass to end its ordinary stellar evolution as a black hole."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/","https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/"]
+    },
+    {
+      id: "why-matter-falls", heading: "Why do bright black holes appear to be eating?",
+      paragraphs: [
+        "Gas close to a black hole can lose orbital energy through interactions within an accretion flow. Some of it moves inward while much energy is radiated outside the horizon. A planet following a wide stable orbit is not in the same situation as that gas.",
+        "A sufficiently close encounter could still disturb a planetary system, just as another massive compact object or passing star could. Depending on the trajectory, the result could be deflection, ejection, tidal damage, or capture. Mass alone does not specify which outcome happens."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/","https://science.nasa.gov/universe/black-holes/anatomy/"]
+    },
+    {
+      id: "headline-check", heading: "Ask for distance and trajectory",
+      paragraphs: [
+        "The supermassive black hole at the Milky Way's center is far away, not a drain gradually emptying the galaxy. Stars can orbit a black hole without falling in, and Earth belongs to a solar system moving through the galaxy's combined gravitational field.",
+        "For a threat headline, look for an identified object, a measured distance, a credible future trajectory, and uncertainty estimates. A powerful telescope detecting a black hole does not imply that it is approaching Earth. Do not confuse a new observation with a new danger."
+      ], sourceUrls: ["https://science.nasa.gov/universe/black-holes/","https://science.nasa.gov/solar-system/10-questions-you-might-have-about-black-holes/"]
+    }
+  ],
+  "are-wormholes-real": [
+    {
+      id: "short-answer", heading: "A mathematical possibility is not a detected object",
+      paragraphs: [
+        "No wormhole has been confirmed by observation. A wormhole is a proposed connection between otherwise distant regions of spacetime. Some solutions to the equations of general relativity contain structures of that kind, but finding a mathematical geometry does not establish that nature can create it, keep it stable, or let a traveler pass through.",
+        "Compare a drawing of a bridge with a completed, load-tested bridge. The drawing can obey useful rules while leaving unanswered questions about materials, construction, and stability. Wormhole physics has unanswered questions at an even more fundamental level."
+      ], sourceUrls: ["https://www.einstein-online.info/en/explandict/Wormhole/"]
+    },
+    {
+      id: "traversable", heading: "Why a traversable wormhole is harder",
+      paragraphs: [
+        "Not every theoretical wormhole is a usable shortcut. Some close too quickly or have horizons that prevent a return journey. Familiar proposals for holding a traversable throat open require unusual energy conditions, often described using negative energy density.",
+        "Quantum theory permits limited effects that do not resemble ordinary matter, but that is not evidence of a large, controllable supply capable of supporting a spacecraft-sized passage. The existence, formation, and stability of such a passage remain separate questions. A beautiful spacetime diagram cannot settle any of them by itself."
+      ], sourceUrls: ["https://www.einstein-online.info/en/explandict/Wormhole/"]
+    },
+    {
+      id: "laboratory", heading: "Did a quantum computer create one?",
+      paragraphs: [
+        "A widely discussed 2022 experiment studied a small quantum system whose mathematical description has connections to a simplified gravitational model. The team explicitly said it did not create a rupture in physical spacetime. Information behavior in a model is not the same as opening a tunnel in the laboratory.",
+        "This distinction does not make the experiment pointless. Carefully chosen models can test relationships between quantum information and gravity. It simply limits what the result demonstrates: the hardware was not a doorway through which an ordinary object could travel."
+      ], sourceUrls: ["https://inqnet.caltech.edu/wormhole2022/"]
+    },
+    {
+      id: "black-holes", heading: "A black-hole image is not evidence of a portal",
+      paragraphs: [
+        "Black holes have strong observational support. Wormholes do not inherit that support just because films draw both as dark circles or tunnels. The light around an observed black hole comes from its surroundings, and crossing a normal event horizon does not provide an established route somewhere else.",
+        "When a headline claims a wormhole discovery, ask what was actually measured and whether ordinary alternatives were excluded. A proposed signature, a numerical simulation, and an observation that uniquely establishes a wormhole are three very different achievements."
+      ], sourceUrls: ["https://www.einstein-online.info/en/explandict/Wormhole/","https://science.nasa.gov/universe/black-holes/"]
+    }
+  ],
+  "what-is-the-universe-expanding-into": [
+    {
+      id: "short-answer", heading: "Expansion need not have an external destination",
+      paragraphs: [
+        "In standard cosmology, expansion means that distances between widely separated, unbound locations increase as the universe evolves. The description does not require a preexisting empty room outside the universe. Space is part of what the model describes, rather than a container into which all the galaxies were thrown.",
+        "This is difficult to picture because everyday expanding objects, such as smoke clouds, occupy a larger part of a surrounding room. That familiar picture adds an outside environment that the cosmological model does not need."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html","https://science.nasa.gov/mission/webb/big-bang-q-and-a/"]
+    },
+    {
+      id: "distance-example", heading: "Imagine a changing ruler between galaxy groups",
+      paragraphs: [
+        "Consider two idealized galaxy groups following the general expansion, separated by 100 million light-years at one instant. If the cosmic scale factor later became twice as large, their separation would become 200 million light-years. This is an illustration of what scaling means, not a forecast of when a particular pair will double its distance.",
+        "An infinite space could also expand: distances could increase even though it never had a finite outer wall. Conversely, a finite space need not have an edge. The expansion question alone cannot tell us the universe's total size or topology."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "balloon", heading: "The balloon is an analogy, not an extra dimension we measured",
+      paragraphs: [
+        "Dots on an inflating balloon's surface move apart, and no dot is the center of expansion within that surface. That helps illustrate changing separations. But the balloon's rubber, surrounding air, and center inside the balloon are extra features of the demonstration, not automatically parts of the universe.",
+        "Do not turn the analogy into evidence that galaxies lie on a literal two-dimensional skin. The real model describes three spatial dimensions. A visualization can make a relationship understandable without showing the actual global shape of space."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html","https://science.nasa.gov/mission/webb/big-bang-q-and-a/"]
+    },
+    {
+      id: "bound-systems", heading: "Why Earth and the Sun do not expand apart this way",
+      paragraphs: [
+        "Cosmic expansion is most useful for describing the large-scale arrangement of unbound galaxies. At smaller scales, gravity, electromagnetic forces, and local motion matter. An atom, a human body, or a gravitationally bound solar system does not simply grow with the cosmic scale factor.",
+        "Telescopes investigate expansion through observed distances, redshifts, and other measurements. An assertion about an external multiverse is an additional hypothesis, not something established merely by measuring cosmic expansion."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html","https://science.nasa.gov/mission/webb/early-universe/"]
+    }
+  ],
+  "does-the-universe-have-a-center": [
+    {
+      id: "short-answer", heading: "Not the kind of center an explosion has",
+      paragraphs: [
+        "The standard large-scale picture of the universe does not have a special spatial center from which everything was fired outward. The early hot, dense state happened throughout space. It was not a bomb that exploded at a particular address in an otherwise empty universe.",
+        "That does not mean every place looks identical on a local scale. Galaxies, clusters, and enormous voids make the universe very uneven nearby. The relevant claim is about the overall large-scale pattern, not the arrangement of your neighboring stars."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/big-bang-q-and-a/","https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "number-line", heading: "A simple example without a privileged observer",
+      paragraphs: [
+        "Imagine four unbound galaxy groups at positions 0, 1, 2, and 3 along a line. Later the separations double, so their positions in the same illustrative coordinates become 0, 2, 4, and 6. An observer in the first group sees the other groups moving away. An observer in the third also sees more distant groups separating faster, in either direction.",
+        "The zero was a coordinate choice, not a discovery of a physically preferred location. The example is only one-dimensional, but it shows why observing recession around us does not by itself make us central."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "observable", heading: "Why maps put us in the middle anyway",
+      paragraphs: [
+        "The observable universe is the region from which signals could have reached a particular observer over cosmic history. We draw our observable region around our location because those are the signals we can receive. A distant observer has their own horizon-centered description, with a region that may overlap ours.",
+        "A horizon is not a wall at the end of all space. It limits our access to information. Being at the center of our observable region is therefore a statement about observation, not a claim that Earth occupies a uniquely important cosmic address."
+      ], sourceUrls: ["https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html","https://imagine.gsfc.nasa.gov/ask_astro/cosmology.html"]
+    },
+    {
+      id: "galactic-center", heading: "Do not confuse a galaxy's center with a cosmic one",
+      paragraphs: [
+        "The Milky Way has a center that astronomers can identify from its stars, gas, and central black hole. That is the center of one gravitational structure. It does not become the center of every other galaxy or of the universe.",
+        "Similarly, a picture that places the Big Bang at the left edge is usually using that direction to represent time. You cannot point a telescope toward a special compass direction and see the original central blast location. Ask whether a diagram's axis represents space, time, or our observational viewpoint."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/big-bang-q-and-a/","https://imagine.gsfc.nasa.gov/ask_astro/cosmology.html"]
+    }
+  ],
+  "what-was-before-the-big-bang": [
+    {
+      id: "short-answer", heading: "There is no confirmed answer",
+      paragraphs: [
+        "We do not have an established observation-based account of what, if anything, preceded the earliest stages of our universe. The hot Big Bang model describes expansion and cooling from an early hot, dense state. It successfully links several kinds of evidence, but it is not automatically a complete explanation of why the universe exists.",
+        "Popular statements that there was definitely nothing before it, or definitely another universe, go beyond that evidence. The word 'before' itself depends on how a proposed theory treats time."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/early-universe/","https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "evidence", heading: "What the well-tested part explains",
+      paragraphs: [
+        "Cosmic expansion, the background radiation left from early times, and the abundances of light elements fit together into a coherent early history. These are not photographs of a first instant. They are observations that constrain earlier physical conditions.",
+        "An everyday analogy is reconstructing a fire from heat damage, ash, and witness records. Those clues can strongly support a sequence of events without identifying the ultimate cause of the first spark. Likewise, a successful model of early cosmic evolution need not answer every question about ultimate origins."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-big-bang/"]
+    },
+    {
+      id: "inflation", heading: "Inflation is not a confirmed glimpse of 'before everything'",
+      paragraphs: [
+        "Inflation proposes an extremely rapid early expansion that can help explain large-scale smoothness and the seeds of structure. Different accounts use 'Big Bang' differently: some mean the whole early history, while others mean the hot phase following inflation. A claim about what came before the Big Bang can therefore partly be a terminology problem.",
+        "Evidence compatible with inflation does not identify one complete inflationary model or establish what preceded it. Treat a simulated prehistory as a model-dependent possibility until it produces predictions that can be distinguished and tested."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/early-universe/","https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    },
+    {
+      id: "time-and-limits", heading: "Why science can leave the question open",
+      paragraphs: [
+        "Some proposals let time extend through an earlier phase or bounce. Others make ordinary time an incomplete description near the earliest boundary, so asking what happened earlier may not work in its everyday sense. These are alternatives, not equally verified histories.",
+        "The useful follow-up to an origin claim is: what would we observe if this were true, and what would differ if it were false? If two stories currently predict the same accessible evidence, a vivid illustration cannot decide between them. Uncertainty here is a limit to current knowledge, not a license to present a preferred story as fact."
+      ], sourceUrls: ["https://science.nasa.gov/mission/webb/early-universe/","https://lhea.gsfc.nasa.gov/archive/mather/faq/cosmology.html"]
+    }
+  ],
+  "dark-matter-vs-dark-energy": [
+    {
+      id: "short-answer", heading: "Two names for two different problems",
+      paragraphs: [
+        "Dark matter is the name for unseen matter inferred from gravitational effects on galaxies, clusters, and light. Dark energy is the name attached to the cause of the universe's accelerated large-scale expansion. They are not ordinary matter and antimatter, and neither name tells us a fully identified physical ingredient.",
+        "The shared word 'dark' reflects an observational difficulty. It does not mean astronomers have discovered two kinds of black-colored material or two substances that cancel each other when they meet."
+      ], sourceUrls: ["https://science.nasa.gov/dark-matter/","https://science.nasa.gov/astrophysics/programs/physics-of-the-cosmos/expand-our-knowledge-of-dark-energy/"]
+    },
+    {
+      id: "dark-matter", heading: "Dark matter: additional gravity without matching light",
+      paragraphs: [
+        "Astronomers compare how stars and gas move with how much visible matter they can account for. They also measure gravitational lensing, the distortion of background light by mass, and the growth of cosmic structure. Different observations point toward more gravitating matter than ordinary luminous material alone explains.",
+        "Dark matter can form extended halos and clumps. The argument does not rely on one blurry photograph of an invisible cloud. It relies on combining measurements with a model of gravity. Identifying the underlying particle or other physical constituent remains an open problem."
+      ], sourceUrls: ["https://science.nasa.gov/dark-matter/","https://www.esa.int/Science_Exploration/Space_Science/What_are_dark_matter_and_dark_energy"]
+    },
+    {
+      id: "dark-energy", heading: "Dark energy: a question about expansion history",
+      paragraphs: [
+        "Observations of distant objects and other cosmological measurements show that the late universe's expansion has accelerated. A cosmological constant, a component with constant energy density as space grows, is a simple way to represent the effect in the standard model.",
+        "But a useful mathematical description is not the same as a complete physical explanation. Researchers test whether the effect stays constant, changes with time, or points toward something missing in the gravitational model. A result favoring one possibility must be judged against its assumptions and uncertainty."
+      ], sourceUrls: ["https://science.nasa.gov/astrophysics/programs/physics-of-the-cosmos/expand-our-knowledge-of-dark-energy/","https://www.esa.int/Science_Exploration/Space_Science/What_are_dark_matter_and_dark_energy"]
+    },
+    {
+      id: "compare-claims", heading: "Ask which measurement a headline is discussing",
+      paragraphs: [
+        "A map of gravitationally lensed galaxies primarily helps locate and measure gravitating matter. A measurement of distance versus redshift helps reconstruct expansion. Surveys can contribute to both questions, but the questions are different.",
+        "Budget percentages for ordinary matter, dark matter, and dark energy refer to a fitted cosmic matter-energy inventory under a stated model, not to samples placed on a laboratory balance. Before comparing two percentages in news stories, check whether the model, measurement method, and date of the estimate match."
+      ], sourceUrls: ["https://science.nasa.gov/dark-matter/","https://science.nasa.gov/astrophysics/programs/physics-of-the-cosmos/expand-our-knowledge-of-dark-energy/","https://www.esa.int/Science_Exploration/Space_Science/What_are_dark_matter_and_dark_energy"]
+    }
+  ],
+  "will-the-sun-become-a-black-hole": [
+    {
+      id: "short-answer", heading: "The Sun is not massive enough",
+      paragraphs: [
+        "The Sun will not naturally end its life as a black hole. Its expected remnant is a white dwarf: a hot, compact stellar core that gradually cools. Black-hole formation through stellar collapse requires a much more massive progenitor and a sufficiently massive remaining core.",
+        "That distinction is about mass and the physics supporting the core, not whether an object looks bright or has grown large. A red giant can occupy an enormous volume while containing far less mass than a star capable of leaving a black hole."
+      ], sourceUrls: ["https://www.nasa.gov/image-article/why-sun-wont-become-black-hole/","https://science.nasa.gov/universe/stars/"]
+    },
+    {
+      id: "red-giant", heading: "What happens when central hydrogen runs low?",
+      paragraphs: [
+        "The Sun is powered by nuclear fusion, not a chemical fire. When it exhausts the hydrogen available for fusion in its central region, its structure changes. The core contracts while hydrogen fusion can continue in a surrounding shell, and the outer layers expand into a red giant.",
+        "Helium fusion becomes part of the later evolution. It is misleading to picture the Sun simply switching off when its first fuel supply is depleted. The star goes through stages, redistributing energy and losing material before the compact remnant is exposed."
+      ], sourceUrls: ["https://science.nasa.gov/sun/facts/","https://science.nasa.gov/universe/stars/"]
+    },
+    {
+      id: "white-dwarf", heading: "Why a white dwarf is not a small black hole",
+      paragraphs: [
+        "A white dwarf can be roughly Earth-sized while retaining a substantial fraction of a Sun-like star's mass. Matter inside it is extremely compressed, but it still has a surface from which light can escape. Electron degeneracy pressure, a quantum effect, helps support it against further collapse.",
+        "A black hole has an event horizon. Being dense or small is not by itself enough to make one. The ordinary evolution of an isolated Sun-like star does not deliver the core mass needed to bypass support in this way."
+      ], sourceUrls: ["https://www.nasa.gov/image-article/why-sun-wont-become-black-hole/","https://science.nasa.gov/universe/stars/"]
+    },
+    {
+      id: "timeline", heading: "Should we worry about this on human timescales?",
+      paragraphs: [
+        "NASA describes the Sun as being around halfway through its main lifetime, with roughly five billion years before it becomes a red giant. Those are stellar-evolution timescales, not a countdown to an imminent disaster. Changes in Earth's habitability can occur before the final remnant forms, so 'the Sun is still shining' does not mean Earth stays unchanged forever.",
+        "The departing outer gas and the surviving core are also different objects. A planetary nebula describes the glowing expelled material, not a newborn planet and not the event horizon of a black hole."
+      ], sourceUrls: ["https://www.nasa.gov/image-article/why-sun-wont-become-black-hole/","https://science.nasa.gov/sun/facts/","https://science.nasa.gov/universe/stars/"]
+    }
+  ],
+  "what-color-is-the-sun": [
+    {
+      id: "short-answer", heading: "The combined visible light is white",
+      paragraphs: [
+        "The Sun produces a broad spectrum rather than a single pure color. When its visible wavelengths reach your eyes together without strong atmospheric alteration, their mixture appears white. Describing the Sun as a yellow dwarf is a conventional stellar label, not a claim that it emits only yellow light.",
+        "A useful comparison is white light passing through a prism: separating it reveals colors that were already present in the mixture. The rainbow is not created by painting the light. Do not perform this comparison by aiming your eyes or optics at the Sun."
+      ], sourceUrls: ["https://science.nasa.gov/learn/heat/resource/hby-math-7-portrayals-of-the-sun-in-art/","https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html"]
+    },
+    {
+      id: "atmosphere", heading: "Why sunrise and sunset look warmer",
+      paragraphs: [
+        "Earth's atmosphere redirects and absorbs light by different amounts at different wavelengths. Near the horizon, sunlight takes a longer atmospheric path, often leaving the direct beam richer in reds and oranges. Haze, dust, and cloud can alter the result further.",
+        "The Sun has not cooled by thousands of degrees between noon and sunset. A changing path through air changes what reaches the observer. Cameras add another layer: white balance, exposure, and display settings affect whether an image looks white, yellow, or orange."
+      ], sourceUrls: ["https://science.nasa.gov/learn/heat/resource/hby-math-7-portrayals-of-the-sun-in-art/"]
+    },
+    {
+      id: "telescope-colors", heading: "Why NASA images show blue or green Suns",
+      paragraphs: [
+        "Solar observatories isolate selected wavelengths, including ultraviolet and extreme-ultraviolet bands outside human vision. Image processors assign visible colors so researchers and readers can distinguish structures associated with different observations.",
+        "A blue or green solar disk in one of these images is not a view an astronaut would see through a spacecraft window. Check the instrument, wavelength label, and caption. Comparing two false-color images can reveal changes in solar plasma even when their display colors do not represent ordinary visible appearance."
+      ], sourceUrls: ["https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html"]
+    },
+    {
+      id: "safe-check", heading: "Color is not a safe viewing test",
+      paragraphs: [
+        "An orange-looking Sun can still damage unprotected eyes. Sunglasses, cloud, camera exposure settings, and a dim appearance are not substitutes for appropriate solar protection. Never look through binoculars or a telescope at the Sun without a suitable securely mounted front solar filter.",
+        "Use published spectra, correctly captioned observatory images, or properly supervised solar observations to investigate the question. The key distinction is between the light the Sun emits, what the atmosphere transmits, and how an instrument or image-processing system represents it."
+      ], sourceUrls: ["https://science.nasa.gov/eclipses/safety/"]
+    }
+  ],
+  "why-is-venus-hotter-than-mercury": [
+    {
+      id: "short-answer", heading: "Venus has an atmosphere that changes the energy balance",
+      paragraphs: [
+        "Mercury receives more intense sunlight because it is closer to the Sun. Yet Venus has the hotter surface because its massive atmosphere makes it much harder for energy from the lower atmosphere and surface to escape to space. Venus's atmosphere is mostly carbon dioxide, with an extremely strong greenhouse effect.",
+        "Mercury instead has a very thin exosphere, not a thick heat-redistributing atmosphere. Proximity determines incoming energy, but it does not by itself determine the final temperature of the ground."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://science.nasa.gov/mercury/facts/"]
+    },
+    {
+      id: "numbers", heading: "Compare like with like",
+      paragraphs: [
+        "Sunlit parts of Mercury can reach about 430 degrees Celsius, while the night side can fall to around minus 180 degrees Celsius. Venus's surface is around 465 degrees Celsius, with much less contrast between day and night. These are rounded descriptions, not universal temperatures for every altitude or location.",
+        "A common mistake is comparing a planet's hottest spot with another planet's average, or comparing cloud-top temperature with surface temperature. Ask where the measurement applies and whether it represents a maximum, a mean, or a particular observation."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://science.nasa.gov/mercury/facts/","https://science.nasa.gov/solar-system/temperatures-across-our-solar-system/"]
+    },
+    {
+      id: "mechanism", heading: "The atmosphere does not manufacture energy",
+      paragraphs: [
+        "Sunlight supplies energy, and a planet ultimately has to radiate energy away. Greenhouse gases absorb and emit infrared radiation, changing how energy travels from the surface to the levels that can radiate efficiently into space. The lower atmosphere and surface can therefore be much warmer than they would be without that atmosphere.",
+        "Venus also reflects a substantial share of incoming sunlight from its clouds. Bright and reflective does not necessarily mean cool at the ground. Reflection and atmospheric infrared transport are different parts of the same energy budget."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://science.nasa.gov/solar-system/temperatures-across-our-solar-system/"]
+    },
+    {
+      id: "habitability", heading: "Why this matters when reading exoplanet claims",
+      paragraphs: [
+        "Two rocky planets at similar distances from similar stars could have very different climates if their atmospheres differ. Rotation, clouds, surface reflectivity, and available water also matter. A planet's position in a nominal habitable zone is a starting condition, not a measured guarantee of comfortable temperatures.",
+        "Venus is useful precisely because it breaks the simple rule that farther from the Sun always means a cooler surface. When a discovery announcement estimates temperature, check whether it assumes no greenhouse warming, an assumed atmosphere, or an atmosphere actually constrained by data."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://science.nasa.gov/mercury/facts/","https://science.nasa.gov/solar-system/temperatures-across-our-solar-system/"]
+    }
+  ],
+  "can-you-land-on-jupiter": [
+    {
+      id: "short-answer", heading: "There is no accessible solid ground to land on",
+      paragraphs: [
+        "Jupiter does not have a surface like Earth's crust beneath its visible clouds. A descending spacecraft would encounter increasingly dense, hot material rather than emerge below the clouds onto a landscape. The word 'gas giant' describes its broad composition and structure; it does not mean a hollow ball of thin gas.",
+        "You could send a probe into Jupiter's atmosphere, and NASA has done so. That is atmospheric entry, not landing. The distinction matters when comparing a weather measurement in the clouds with a rover operating on rocky ground."
+      ], sourceUrls: ["https://science.nasa.gov/jupiter/jupiter-facts/","https://science.nasa.gov/mission/galileo-jupiter-atmospheric-probe/"]
+    },
+    {
+      id: "descent", heading: "Pressure rises into a deep fluid interior",
+      paragraphs: [
+        "Jupiter is mostly hydrogen and helium. Far below the cloud tops, pressure compresses hydrogen into a dense fluid. At still greater pressures, hydrogen can conduct electricity in a metallic state. The outer atmosphere does not meet a convenient, calm sea surface with a sharp gas-to-liquid boundary like air meeting an Earth ocean.",
+        "Neither buoyancy nor a stronger parachute makes the deeper environment a safe destination. Heating, compression, and the properties of the material change with depth. A craft would fail long before reaching the regions discussed in simplified core diagrams."
+      ], sourceUrls: ["https://science.nasa.gov/jupiter/jupiter-facts/"]
+    },
+    {
+      id: "galileo", heading: "What happened to the real probe?",
+      paragraphs: [
+        "The Galileo atmospheric probe entered Jupiter in December 1995 and transmitted measurements for about an hour. It measured conditions during its descent before communication ended at roughly 23 Earth atmospheres of pressure. Its measurements sampled one entry region, not the whole planet's weather.",
+        "This is a useful example of successful science without a surviving lander. A probe can answer questions about composition, temperature, and winds even if the mission is designed to end inside the atmosphere. It never reported reaching a beach or a solid floor."
+      ], sourceUrls: ["https://science.nasa.gov/mission/galileo-jupiter-atmospheric-probe/"]
+    },
+    {
+      id: "core", heading: "Doesn't a core mean there is somewhere to stand?",
+      paragraphs: [
+        "A core refers to a planet's internal concentration of heavier material; it is not automatically a neatly bounded solid ball. Juno's gravity measurements support models with a more extended, partly mixed or dilute core than simple textbook drawings suggest.",
+        "Even if some deep region contains rock-rich material, it lies beneath extraordinary pressures and temperatures. It is not an exposed landing surface. When looking at a cutaway illustration, check whether its crisp colored boundaries are teaching devices rather than directly photographed layers or proven sharp interfaces."
+      ], sourceUrls: ["https://science.nasa.gov/jupiter/jupiter-facts/"]
+    }
+  ],
+  "would-saturn-float-in-water": [
+    {
+      id: "short-answer", heading: "It is a density comparison, not a feasible experiment",
+      paragraphs: [
+        "Saturn's average density is about 0.69 grams per cubic centimeter, less than liquid water under familiar conditions. That is the basis of the claim that Saturn would float in a large enough bathtub. As an idealized comparison, it communicates something real: Saturn has surprisingly little mass for its enormous volume.",
+        "It does not mean someone could build a planet-sized pool and expect an intact Saturn to bob peacefully in it. At that scale, the setup stops behaving like a household buoyancy demonstration."
+      ], sourceUrls: ["https://science.nasa.gov/saturn/facts/","https://science.nasa.gov/mission/cassini/faq/","https://science.nasa.gov/wp-content/uploads/2023/09/cassini-arrival-1.pdf"]
+    },
+    {
+      id: "density", heading: "How something so massive can have low density",
+      paragraphs: [
+        "Density is mass divided by volume. Saturn has far more mass than Earth, but its volume is also much larger. Its large supply of hydrogen and helium helps make its bulk density low compared with a rocky planet.",
+        "Compare a large sealed plastic container with a small metal bolt. The container can weigh more in total while having the lower average density. This everyday example illustrates the arithmetic, not Saturn's actual structure: Saturn is not a rigid container holding an empty interior."
+      ], sourceUrls: ["https://science.nasa.gov/saturn/facts/"]
+    },
+    {
+      id: "average", heading: "Low average density does not describe every layer",
+      paragraphs: [
+        "Saturn's deeper interior is compressed and much denser than its upper atmosphere. Its bulk density averages all of those regions together. A dense inner region is therefore compatible with a low overall value.",
+        "Similarly, the visible cloud tops are not a solid surface marking a neatly packaged ball you could lift out of water. Planetary size and average density use agreed reference conventions for a gaseous world. Do not read the average as a direct measurement of the density at the center or in every cloud."
+      ], sourceUrls: ["https://science.nasa.gov/saturn/facts/","https://science.nasa.gov/mission/cassini/faq/"]
+    },
+    {
+      id: "limits", heading: "Why the literal bathtub picture fails",
+      paragraphs: [
+        "A quantity of water large enough to contain a planet would itself have enormous mass, strong self-gravity, and huge internal pressures. Saturn and the water would gravitationally affect one another, while the planet's atmosphere could not act as a rigid protective shell. The familiar assumptions behind an ordinary floating object would no longer hold.",
+        "Use the fact to compare composition and mass per unit volume. Do not use it to infer that Saturn is lightweight, that astronauts could swim through it, or that its interior is made of water. The comparison is memorable because it simplifies the physics, not because it is a proposal for a possible experiment."
+      ], sourceUrls: ["https://science.nasa.gov/saturn/facts/","https://science.nasa.gov/mission/cassini/faq/","https://science.nasa.gov/wp-content/uploads/2023/09/cassini-arrival-1.pdf"]
+    }
+  ],
+  "why-is-the-moon-moving-away": [
+    {
+      id: "short-answer", heading: "Tides transfer angular momentum to the Moon's orbit",
+      paragraphs: [
+        "The Moon's average distance from Earth is currently increasing by about 3.8 centimeters per year. This slow recession is linked to tides and Earth's rotation, not to the Moon running out of gravity or suddenly escaping.",
+        "Earth rotates faster than the Moon travels around it. The tidal response is carried ahead of the Earth-Moon direction, creating an interaction that slows Earth's rotation while adding angular momentum to the lunar orbit. The orbit becomes larger. At the same time, tidal friction dissipates energy as heat."
+      ], sourceUrls: ["https://www.nasa.gov/missions/apollo/apollo-11/the-apollo-experiment-that-keeps-on-giving/","https://science.nasa.gov/moon/tidal-locking/","https://eclipse.gsfc.nasa.gov/LEcat5/secular.html"]
+    },
+    {
+      id: "measurement", heading: "How can we measure centimeters across that distance?",
+      paragraphs: [
+        "Observatories send laser pulses toward retroreflector arrays placed on the Moon and time the returning light. Combining measurements over many years with a detailed model of Earth and lunar motion reveals a long-term trend beneath the much larger regular variations in distance.",
+        "The laser does not come back from the same Earth-Moon separation on every visit. The Moon follows an elliptical orbit, so its distance changes by thousands of kilometers during a month. Scientists separate those predictable changes from the small sustained increase; one isolated reading would not establish the annual rate."
+      ], sourceUrls: ["https://www.nasa.gov/missions/apollo/apollo-11/the-apollo-experiment-that-keeps-on-giving/","https://eclipse.gsfc.nasa.gov/LEcat5/secular.html"]
+    },
+    {
+      id: "worked-example", heading: "What does 3.8 centimeters per year add up to?",
+      paragraphs: [
+        "If today's rate stayed constant for 100 years, the change would be about 3.8 meters. That is a useful scale comparison, not a forecast with centimeter precision. It is tiny compared with the Moon's roughly 384,000-kilometer average distance.",
+        "Projecting the same rate backward or forward for billions of years is unreliable. Tidal dissipation depends on Earth's rotation, ocean basins, and other changing conditions. A simple multiplication cannot reconstruct the entire history of the Moon's orbit."
+      ], sourceUrls: ["https://www.nasa.gov/missions/apollo/apollo-11/the-apollo-experiment-that-keeps-on-giving/","https://science.nasa.gov/moon/tidal-locking/","https://eclipse.gsfc.nasa.gov/LEcat5/secular.html"]
+    },
+    {
+      id: "future", heading: "Is the Moon about to leave us?",
+      paragraphs: [
+        "No. The measured recession is far too slow to produce a sudden loss of the Moon. In a simplified, long-lived Earth-Moon system, tidal evolution tends toward mutual synchronization rather than an abrupt escape. But the Sun's own evolution matters before that idealized distant outcome could be realized.",
+        "Recession also slowly changes the Moon's apparent size and eclipse geometry. It does not mean every lunar distance record is a new crisis. When a headline says the Moon is getting farther away, check whether it means the established long-term trend or simply the ordinary farther point of its monthly orbit."
+      ], sourceUrls: ["https://science.nasa.gov/moon/tidal-locking/","https://eclipse.gsfc.nasa.gov/LEcat5/secular.html"]
+    }
+  ],
+  "why-are-there-no-green-stars": [
+    {
+      id: "short-answer", heading: "A star does not shine at just one wavelength",
+      paragraphs: [
+        "Ordinary stars can look reddish, orange, white, or blue-white, but a normal stellar photosphere does not usually appear distinctly green. The reason is not that stars lack green light. They emit a broad spread of wavelengths, and our visual system combines them.",
+        "A green lamp can concentrate much of its output in a narrow part of the visible spectrum. A star heated to a temperature with strong green output also emits substantial red and blue light. The resulting mixture tends toward white rather than saturated green."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2020/","https://science.nasa.gov/asset/webb/continuous-spectra-blackbody-curves-of-stars/"]
+    },
+    {
+      id: "spectrum", heading: "Why a green peak does not make a green star",
+      paragraphs: [
+        "A star's continuum is often approximated by a blackbody spectrum, with a broad peak that shifts as temperature changes. A peak identifies where one chosen spectral plot reaches its maximum; it does not say that all other wavelengths vanish.",
+        "There is another subtlety: plotting energy per unit wavelength and energy per unit frequency produces different peak locations. The visible color of an object cannot be read from the word 'peak' alone. It depends on the whole visible spectrum and how the observer's eyes respond. That is why calling the Sun a 'green star' because of one plotted maximum is misleading."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2020/","https://science.nasa.gov/asset/webb/continuous-spectra-blackbody-curves-of-stars/"]
+    },
+    {
+      id: "apparent-green", heading: "What if a star really looks green to you?",
+      paragraphs: [
+        "Contrast with a nearby differently colored star, atmospheric effects, a telescope's optics, or a camera's processing can influence apparent color. A personal green impression is therefore not automatically a new class of stellar surface.",
+        "To investigate, compare multiple exposures or observations, check the instrument and processing, and look for a measured spectrum. If a published image isolates an ultraviolet band and assigns it green, the display color says nothing about how that object would look to human eyes in ordinary visible light."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2020/","https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html"]
+    },
+    {
+      id: "other-objects", heading: "Green astronomical objects are a different question",
+      paragraphs: [
+        "The no-green-star rule concerns the broad light from a normal stellar photosphere, not every source in astronomy. Gas that emits strongly in selected spectral lines can produce colors unlike a thermal stellar continuum. Nor is a colored glow around a star necessarily the color of the star itself.",
+        "When judging a striking green picture, ask whether it shows a stellar point, surrounding gas, a narrow filter, or a color assignment made for analysis. The useful distinction is broad-spectrum thermal light versus selective emission or display, not simply whether the picture contains green pixels."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2020/","https://science.nasa.gov/asset/webb/continuous-spectra-blackbody-curves-of-stars/","https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013859/script_31299_00.html"]
+    }
+  ],
+  "why-are-planets-round": [
+    {
+      id: "short-answer", heading: "Gravity competes with the strength of the material",
+      paragraphs: [
+        "Large bodies have enough self-gravity to overcome much of the strength that would support huge bumps and corners. Over time, their material can settle into a shape close to gravitational balance. Without rapid rotation or other strong distortions, that shape is roughly spherical.",
+        "A small asteroid has gravity too. Its rock can simply be strong enough, relative to its weak self-gravity, to retain an irregular outline. The difference is not the presence or absence of gravity, but which effects dominate."
+      ], sourceUrls: ["https://spaceplace.nasa.gov/planets-round/en/","https://spaceplace.nasa.gov/review/posters/small-bodies/small-bodies-factsheet.pdf"]
+    },
+    {
+      id: "scale", heading: "Why a mountain can exist but a planet-sized corner cannot",
+      paragraphs: [
+        "Near Earth's surface, rock can support a mountain without every high point immediately collapsing. But extending the same shape to an entire enormous cube would create vastly greater stresses. Material would fracture, deform, and redistribute rather than preserve the giant corners indefinitely.",
+        "This is a scale-dependent argument, not a claim that every grain must roll directly to the center. Temperature and internal history affect how easily material can deform. A body that was warm enough to relax long ago can remain rounded after it cools and becomes stiffer."
+      ], sourceUrls: ["https://spaceplace.nasa.gov/planets-round/en/","https://spaceplace.nasa.gov/review/posters/small-bodies/small-bodies-factsheet.pdf"]
+    },
+    {
+      id: "no-single-cutoff", heading: "There is no universal 'round above this diameter' rule",
+      paragraphs: [
+        "Rock and ice resist deformation differently. Rotation, impact damage, composition, and thermal history also change the outcome. A single size threshold cannot accurately classify every asteroid, icy moon, and dwarf planet.",
+        "Roundness is one part of the formal solar-system planet definition, but it is not the only part. Ceres is nearly round and is classified as a dwarf planet because it has not cleared its orbital neighborhood. A round moon remains a moon rather than becoming a planet just because its outline resembles Earth's."
+      ], sourceUrls: ["https://spaceplace.nasa.gov/review/posters/small-bodies/small-bodies-factsheet.pdf","https://science.nasa.gov/solar-system/planets/what-is-a-planet/"]
+    },
+    {
+      id: "not-perfect", heading: "Why the giant planets look slightly flattened",
+      paragraphs: [
+        "Rotation favors an equatorial bulge, so a rotating body in gravitational balance need not be a perfect sphere. Saturn and Jupiter show this more clearly than Earth. Local topography and uneven internal mass add smaller departures from a smooth reference shape.",
+        "When comparing pictures, check the viewing angle as well. A flattened world can look more circular from some directions, and an asteroid can hide its irregularity in one projection. A single round-looking photograph is not a complete measurement of three-dimensional shape or internal balance."
+      ], sourceUrls: ["https://spaceplace.nasa.gov/planets-round/en/","https://science.nasa.gov/solar-system/planets/what-is-a-planet/"]
+    }
+  ],
+  "what-happens-when-galaxies-collide": [
+    {
+      id: "short-answer", heading: "A galaxy collision is not a crash between solid disks",
+      paragraphs: [
+        "When galaxies interact, their gravity can distort their shapes, rearrange stellar orbits, and draw out long tails of material. Gas clouds can collide and compress, sometimes triggering intense star formation. But stars themselves usually miss one another because the spaces between them are enormous compared with their sizes.",
+        "Think of two very sparse swarms, not two dinner plates smashing together. The swarms' members can change trajectories under mutual gravity even when very few make physical contact."
+      ], sourceUrls: ["https://science.nasa.gov/universe/galaxies/evolution/","https://science.nasa.gov/missions/hubble/hubbles-dazzling-display-of-2-colliding-galaxies/"]
+    },
+    {
+      id: "gas-versus-stars", heading: "Why gas behaves differently from individual stars",
+      paragraphs: [
+        "A galaxy's gas is spread through large clouds and diffuse regions. When flows of gas meet, they can shock, lose energy, and become compressed. Dense regions may collapse to form new stars, so an encounter can make a galaxy temporarily brighter and bluer.",
+        "Stars mostly behave as separate orbiting objects during the encounter, while gas can dissipate energy. This difference is why 'the galaxies pass through each other' and 'the encounter changes them profoundly' can both be true. A lack of stellar head-on impacts does not mean there was no interaction."
+      ], sourceUrls: ["https://science.nasa.gov/universe/galaxies/evolution/","https://science.nasa.gov/missions/hubble/hubbles-dazzling-display-of-2-colliding-galaxies/"]
+    },
+    {
+      id: "outcome", heading: "Not every encounter ends in one galaxy",
+      paragraphs: [
+        "The result depends on the orbits, relative speeds, masses, gas supplies, and wider gravitational environment. Some encounters are flybys. Others involve repeated passages followed by a merger into a larger system. Long tidal features and disturbed shapes help astronomers reconstruct those histories.",
+        "A telescope image records one observed stage, not a time-lapse of the entire event. Simulations can test which histories reproduce the structures, but their result depends on the starting conditions. An animation should be labeled as a model, not mistaken for a directly filmed future."
+      ], sourceUrls: ["https://science.nasa.gov/universe/galaxies/evolution/"]
+    },
+    {
+      id: "our-galaxy", heading: "Is a Milky Way-Andromeda collision certain?",
+      paragraphs: [
+        "It should not be treated as a fixed appointment. A 2025 analysis discussed by NASA found substantial uncertainty once newer motions and the influence of other Local Group galaxies were included. That challenged the familiar claim of an inevitable collision on one precise timetable.",
+        "The broader lesson is durable: measuring sideways motion and modeling several interacting galaxies matters. An updated probability is not evidence that gravity stopped working. It means a long-range forecast must reflect uncertainties that a simple straight-line approach picture leaves out."
+      ], sourceUrls: ["https://science.nasa.gov/missions/hubble/apocalypse-when-hubble-casts-doubt-on-certainty-of-galactic-collision/"]
+    }
+  ],
+  "can-tidally-locked-planets-support-life": [
+    {
+      id: "short-answer", heading: "Possibly, but tidal locking alone cannot answer it",
+      paragraphs: [
+        "A tidally locked planet in a one-to-one rotation-orbit state keeps approximately the same hemisphere facing its star. One side can receive continuous starlight while the other remains in darkness. That arrangement is unlike Earth's daily cycle, but it does not automatically make every location uninhabitable.",
+        "Climate models show possible conditions where air and oceans transport enough heat to moderate the contrast. They do not show that any particular planet has life, or even that it possesses the atmosphere and water assumed in the calculation."
+      ], sourceUrls: ["https://science.nasa.gov/exoplanets/glossary/","https://arxiv.org/abs/1902.02103","https://science.nasa.gov/astrobiology/learning-resources/alp/if-a-planet-can-have-life/"]
+    },
+    {
+      id: "rotation", heading: "Locked does not mean the planet has stopped spinning",
+      paragraphs: [
+        "A synchronously rotating planet turns once in the same time it takes to orbit its star. From far away, it is still rotating; the rotation keeps its orientation toward the star approximately fixed. A hypothetical 10-day orbit would therefore pair with about a 10-day rotation, not with zero rotation.",
+        "Tidal forces can make synchronous states plausible for close-in rocky planets, especially around smaller stars. But eccentricity, neighboring planets, and rotational history complicate the real outcome. Not every planet near a red dwarf can be declared locked from its distance alone."
+      ], sourceUrls: ["https://science.nasa.gov/exoplanets/glossary/"]
+    },
+    {
+      id: "heat-transport", heading: "The atmosphere determines whether the night side freezes out",
+      paragraphs: [
+        "Winds can carry heat away from the illuminated hemisphere, and an ocean can move additional energy. With too little transport, parts of the atmosphere or available water may freeze onto the dark side. With stronger transport, temperatures can be less extreme than a bare-rock diagram suggests.",
+        "Clouds also matter. Some simulations produce reflective dayside clouds that reduce absorbed sunlight and help extend the conditions compatible with liquid water. These are model-dependent feedbacks, not a rule that every locked planet has a protective cloud shield."
+      ], sourceUrls: ["https://arxiv.org/abs/1902.02103","https://arxiv.org/abs/1307.0515"]
+    },
+    {
+      id: "evidence", heading: "A twilight strip is not a discovered biosphere",
+      paragraphs: [
+        "The region near the day-night boundary is often imagined as the only comfortable place, but its suitability depends on the entire climate. In some modeled worlds, a wider region can be temperate; in others, there may be no viable surface habitat at all.",
+        "Check whether an announcement reports a measured atmosphere, a thermal measurement, or merely an assumed climate simulation. Water availability, atmospheric escape under stellar radiation, and geological history remain important. A planet can be worth investigating without being confirmed habitable, and habitability is not a detection of life."
+      ], sourceUrls: ["https://arxiv.org/abs/1902.02103","https://arxiv.org/abs/1307.0515","https://science.nasa.gov/astrobiology/learning-resources/alp/if-a-planet-can-have-life/"]
+    }
+  ],
 };
