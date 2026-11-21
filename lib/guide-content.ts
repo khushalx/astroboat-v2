@@ -2,6 +2,606 @@ import type { Guide } from "@/lib/guides";
 
 // Editorial copy lives separately from routing, tags, and publication metadata.
 export const guideSections: Record<string, Guide["sections"]> = {
+  "why-cant-we-travel-faster-than-light": [
+    {
+      id: "short-answer", heading: "A massive spacecraft cannot be accelerated to light speed",
+      paragraphs: [
+        "Under special relativity, an object with nonzero rest mass cannot be accelerated to the speed of light in vacuum. As it approaches that speed, the energy required for further increases grows without bound. A more powerful engine could take it closer, but not complete the final step.",
+        "The limit is about the structure of space and time, not simply air resistance, mechanical weakness, or a shortage of fuel in today's rockets. It also constrains the local transmission of information. Finding a material that survives extreme travel would not remove the underlying energy requirement."
+      ], sourceUrls: ["https://www.einstein-online.info/en/speed_of_light/","https://www.einstein-online.info/en/emc/"]
+    },
+    {
+      id: "energy", heading: "Increasing energy gives diminishing speed gains",
+      paragraphs: [
+        "At ordinary speeds, familiar approximations work well: more energy noticeably increases speed. Near light speed, adding large amounts of energy produces progressively smaller increases in velocity. Particle accelerators routinely operate in this regime, so this is not only a prediction about hypothetical starships.",
+        "Some older explanations describe an object's mass increasing with speed. Modern treatments usually keep its rest mass fixed and describe the increase in energy and momentum instead. Both language and definitions matter; the spacecraft is not simply gaining more atoms or becoming a different substance as it accelerates."
+      ], sourceUrls: ["https://www.einstein-online.info/en/emc/","https://www.youtube.com/watch?v=LTJauaefTZM"]
+    },
+    {
+      id: "light-chasing", heading: "Chasing a light beam does not make it look slow",
+      paragraphs: [
+        "A traveler cannot measure a nearby vacuum light beam crawling away at an ordinary relative speed by chasing it fast enough. Inertial observers measure the same vacuum light speed, about 300,000 kilometers per second. Their measurements of elapsed time and distance adjust consistently with that result.",
+        "Ordinary speed addition is therefore not the right rule near this limit. You cannot simply add two high spacecraft speeds and conclude that one observer must see another exceed light speed. Relativistic velocity relationships replace the everyday approximation while recovering it at low speeds."
+      ], sourceUrls: ["https://www.einstein-online.info/en/speed_of_light/"]
+    },
+    {
+      id: "exceptions", heading: "Apparent exceptions need careful definitions",
+      paragraphs: [
+        "Light travels more slowly through materials than through vacuum. A particle can exceed light's speed in a particular medium without exceeding the vacuum limit. That is not a recipe for an interstellar spacecraft that outruns a freely traveling light signal.",
+        "Cosmic expansion and proposed spacetime shortcuts raise different questions from accelerating a ship locally through space. Speculative ideas are not demonstrated transport technologies. A useful claim must specify what is moving, how distance is measured, and whether information actually crosses the local light-speed limit."
+      ], sourceUrls: ["https://www.einstein-online.info/en/speed_of_light/","https://www.einstein-online.info/en/emc/"]
+    }
+  ],
+  "can-black-holes-evaporate": [
+    {
+      id: "short-answer", heading: "Theory predicts mass loss, not an observed cosmic disappearance",
+      paragraphs: [
+        "Hawking radiation is a theoretical prediction that black holes emit radiation through quantum effects associated with their curved spacetime. If a black hole loses more energy this way than it gains from its surroundings, its mass decreases. Over a sufficiently long time, this is called evaporation.",
+        "Astronomers have not directly detected Hawking radiation from astrophysical black holes. It is important to distinguish a major theoretical result from an observed black hole vanishing. The prediction combines quantum field theory with a gravitational background; a complete account of the final stage requires more physics."
+      ], sourceUrls: ["https://www.einstein-online.info/en/evaporating_bh/","https://science.nasa.gov/universe/10-questions-you-might-have-about-black-holes/"]
+    },
+    {
+      id: "horizon", heading: "It is not an ordinary light beam escaping from inside",
+      paragraphs: [
+        "The event horizon remains the boundary beyond which an ordinary outward-directed signal cannot reach distant observers. Hawking radiation is not a flashlight beam climbing out from below that boundary. It arises from the quantum description of fields in the black hole's spacetime.",
+        "Popular stories about particle pairs, with one member falling in and the other escaping, can offer an intuition but should not be mistaken for a literal film of the mechanism. The calculation concerns quantum fields and the radiation seen far away, not a directly observed pair-production scene at a sharply defined location."
+      ], sourceUrls: ["https://www.einstein-online.info/en/evaporating_bh/"]
+    },
+    {
+      id: "mass", heading: "Smaller black holes are predicted to be hotter",
+      paragraphs: [
+        "The predicted Hawking temperature decreases as black-hole mass increases. Stellar-mass and larger black holes would therefore be extraordinarily cold and radiate extremely weakly. Their theoretical evaporation times are vastly longer than the present age of the universe.",
+        "A black hole can also gain energy by absorbing matter or radiation. Net change depends on both incoming and outgoing energy, not the existence of Hawking radiation alone. For large black holes in today's universe, absorption can overwhelm the tiny predicted loss, so evaporation does not imply everything is currently shrinking."
+      ], sourceUrls: ["https://www.einstein-online.info/en/evaporating_bh/","https://science.nasa.gov/universe/10-questions-you-might-have-about-black-holes/"]
+    },
+    {
+      id: "unknown-ending", heading: "The last stage is not a settled movie script",
+      paragraphs: [
+        "As an idealized black hole gets smaller, the semiclassical prediction makes it hotter and increases its radiation. But extending that description all the way to zero mass enters a regime where quantum-gravity effects should matter. The endpoint is not observationally established.",
+        "Hawking radiation also connects with the black-hole information problem: how quantum information is represented through formation and evaporation. That is a real research question, not evidence that a dangerous nearby explosion is expected. The distinction between robust theoretical clues and an unknown final outcome is central to understanding the subject."
+      ], sourceUrls: ["https://www.einstein-online.info/en/evaporating_bh/","https://science.nasa.gov/universe/10-questions-you-might-have-about-black-holes/"]
+    }
+  ],
+  "what-is-a-rogue-planet": [
+    {
+      id: "short-answer", heading: "A planet-sized world without an orbit around a star",
+      paragraphs: [
+        "A rogue planet, also called a free-floating planet, travels through space without being gravitationally bound in orbit around a star. It is not simply a planet on a very long year or a temporarily invisible orbit. Establishing that distinction can be difficult for an individual distant object.",
+        "The word rogue describes its situation, not hostile behavior or evidence that it is approaching Earth. Some candidates have masses comparable with familiar planets, but measuring a mass and confirming the absence of a host star require more information than a single faint image."
+      ], sourceUrls: ["https://www.nasa.gov/universe/unveiling-rogue-planets-with-nasas-roman-space-telescope/","https://science.nasa.gov/resource/where-the-nightlife-never-ends/"]
+    },
+    {
+      id: "origins", heading: "Not every rogue world must have been thrown out",
+      paragraphs: [
+        "Gravitational interactions in a young planetary system can eject a world into interstellar space. Encounters among planets or disturbances involving stars can change orbits enough that an object is no longer bound to its original host.",
+        "Another possible route is formation in isolation through the collapse and fragmentation of gas, extending processes usually associated with stars and brown dwarfs into lower masses. Definitions around these populations can overlap. An object's current freedom does not, by itself, reveal whether it once belonged to a planetary system."
+      ], sourceUrls: ["https://www.nasa.gov/universe/unveiling-rogue-planets-with-nasas-roman-space-telescope/","https://science.nasa.gov/resource/where-the-nightlife-never-ends/"]
+    },
+    {
+      id: "detection", heading: "A dark world can reveal itself by bending background light",
+      paragraphs: [
+        "Gravitational microlensing occurs when an intervening object's gravity temporarily magnifies a more distant background star. The foreground lens does not need to shine brightly. A short-duration signal can therefore reveal a low-mass object that is otherwise extremely difficult to see.",
+        "Young, sufficiently warm free-floating objects can also be detected through infrared emission left from formation. These approaches select different populations: a young glowing world found directly is not the same observational case as a cold object inferred from a brief lensing event."
+      ], sourceUrls: ["https://science.nasa.gov/mission/roman-space-telescope/microlensing/","https://science.nasa.gov/resource/where-the-nightlife-never-ends/"]
+    },
+    {
+      id: "uncertainty", heading: "A short lensing event is a clue, not the whole biography",
+      paragraphs: [
+        "The timescale of a microlensing event depends on mass, geometry, and relative motion. Without additional measurements, those effects can be partly degenerate. An unseen star on a very wide orbit can also complicate the claim that a candidate is truly free-floating.",
+        "Astronomers therefore report uncertainties and distinguish individual candidates from population-level conclusions. Rogue planets expand the range of possible planetary environments, but their discovery does not establish oceans, life, or a particular surface temperature. Those questions demand evidence that a brief gravitational brightening alone cannot provide."
+      ], sourceUrls: ["https://science.nasa.gov/mission/roman-space-telescope/microlensing/","https://ntrs.nasa.gov/citations/20210012890"]
+    }
+  ],
+  "why-are-meteors-different-colors": [
+    {
+      id: "short-answer", heading: "The streak contains light from several ingredients",
+      paragraphs: [
+        "A meteor can appear green, yellow, orange, blue, or white because the glowing trail contains emissions from both meteoroid material and the surrounding atmosphere. Different atoms emit at characteristic wavelengths when excited, while temperature and observing conditions change how their light combines.",
+        "A green streak is therefore not a reliable chemical label for one kind of rock. The familiar charts assigning exactly one element to each color are useful only as rough illustrations. The actual signal can contain multiple elements, atmospheric gases, and overlapping sources of emission."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2021/","https://www.eso.org/public/images/eso0424b/"]
+    },
+    {
+      id: "emission", heading: "The atmosphere contributes to the light show",
+      paragraphs: [
+        "At high entry speeds, collisions and intense heating remove and excite material from the incoming object and energize nearby atmospheric gas. This is not an ordinary campfire needing oxygen to burn. The visible phenomenon includes a rapidly changing, hot mixture rather than just a solid pebble glowing.",
+        "Sodium can contribute strong yellow emission, while other meteoric elements and atmospheric oxygen or nitrogen add features elsewhere in the spectrum. Which contributions dominate depends on conditions, including speed. A spectrum can separate these features in a way that the integrated color seen by an eye cannot."
+      ], sourceUrls: ["https://www.eso.org/public/images/eso0424b/","https://ntrs.nasa.gov/api/citations/19810015593/downloads/19810015593.pdf"]
+    },
+    {
+      id: "eyes-cameras", heading: "A camera may record a color you did not notice",
+      paragraphs: [
+        "Faint meteors often look white because human color discrimination is poor at low light levels. A bright fireball can make colors easier to see. Your impression also depends on how briefly the streak appears and what your eyes were adapted to before it arrived.",
+        "Cameras introduce their own effects. White balance, sensor sensitivity, exposure, and saturation can alter or wash out a bright trail's color. A white center with colored edges may say as much about the recording conditions as about changes in composition along the path."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2021/","https://ntrs.nasa.gov/api/citations/19810015593/downloads/19810015593.pdf"]
+    },
+    {
+      id: "interpretation", heading: "Color alone does not identify a meteorite",
+      paragraphs: [
+        "The moving meteor and a lingering train are not always the same luminous process. Excited atmospheric material can continue glowing after the fast streak has gone, and winds can distort the remaining trail. Interpreting that glow requires attention to when and where it was observed.",
+        "Record the time, direction, duration, and brightness if you see a striking event, but avoid diagnosing an exact mineral from memory. Scientific composition work uses spectra and other measurements. A colorful meteor is genuinely informative; the information is simply richer and less definite than a one-color, one-element lookup suggests."
+      ], sourceUrls: ["https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2021/","https://www.eso.org/public/images/eso0424b/","https://ntrs.nasa.gov/api/citations/19810015593/downloads/19810015593.pdf"]
+    }
+  ],
+  "where-does-space-begin-karman-line": [
+    {
+      id: "short-answer", heading: "A conventional boundary in a gradually thinning atmosphere",
+      paragraphs: [
+        "The Karman line, commonly placed 100 kilometers above mean sea level, is a widely used convention for the beginning of space. It is not a physical ceiling where the last air molecule disappears. Earth's atmosphere becomes progressively thinner rather than stopping at a sharp border.",
+        "Different organizations and purposes have used different thresholds, including roughly 80 kilometers. These definitions help classify flights and records; they do not imply that nature changes abruptly at one exact altitude. Always check which convention a particular spaceflight claim uses before comparing it with another."
+      ], sourceUrls: ["https://www.fai.org/news/statement-about-karman-line","https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-far-away-is-space/","https://science.nasa.gov/earth/earth-observatory/the-top-of-the-atmosphere-7373/"]
+    },
+    {
+      id: "reasoning", heading: "The idea relates to the limits of ordinary flight",
+      paragraphs: [
+        "An airplane normally relies on aerodynamic lift from moving through air. As density falls, maintaining flight this way becomes increasingly difficult. The Karman-line concept connects this thinning atmosphere with the point where orbital motion becomes more relevant than conventional aerodynamic support.",
+        "The exact crossover is not a universal altitude independent of vehicle design, atmospheric conditions, and the assumptions used in a calculation. That is why a round-number boundary is useful as a convention without being a precisely measured material surface surrounding Earth."
+      ], sourceUrls: ["https://www.fai.org/news/statement-about-karman-line","https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-far-away-is-space/"]
+    },
+    {
+      id: "orbit", heading: "Going high enough is not the same as going fast enough",
+      paragraphs: [
+        "A suborbital vehicle can cross a space boundary and still return to Earth without completing an orbit. To remain in a low orbit, a spacecraft needs substantial sideways speed as well as altitude. Reaching a high point alone does not supply that horizontal motion.",
+        "For a rough comparison, the International Space Station orbits at heights of hundreds of kilometers and travels around Earth at close to eight kilometers per second. A vehicle that rose to a similar height with insufficient sideways motion would fall back. Altitude and orbital energy answer different questions."
+      ], sourceUrls: ["https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-far-away-is-space/"]
+    },
+    {
+      id: "still-earth", heading: "Neither gravity nor the atmosphere simply ends there",
+      paragraphs: [
+        "Gravity remains strong well above the Karman line; it is what keeps satellites in orbit. Astronauts float because they and their spacecraft are falling together, not because they crossed a boundary where Earth's pull vanished.",
+        "Extremely thin atmospheric material extends far beyond ordinary aircraft altitudes and can still matter for satellite drag. Spaceflight planning therefore uses density models, trajectories, and mission-specific conditions, not just a single line. The boundary is helpful vocabulary, but it should not replace the physics of the environment above it."
+      ], sourceUrls: ["https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-far-away-is-space/","https://science.nasa.gov/earth/earth-observatory/the-top-of-the-atmosphere-7373/"]
+    }
+  ],
+  "how-long-does-sunlight-take-to-escape-the-sun": [
+    {
+      id: "short-answer", heading: "Eight minutes describes only the final leg",
+      paragraphs: [
+        "Light takes about eight minutes and twenty seconds to travel from the Sun's visible surface to Earth at their average separation. That familiar number does not describe how quickly energy generated in the core reaches the surface. Inside the Sun, transport is far more indirect.",
+        "There is no single original photon that simply waits underground for a fixed birthday and then flies to your eye. Energy is absorbed, re-emitted, and redistributed many times. The better question is how long energy takes to work its way outward through different layers."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/old/websites/sunearthday.nasa.gov/2007/locations/ttt_sunlight.php","https://science.nasa.gov/sun/facts/"]
+    },
+    {
+      id: "random-walk", heading: "A short step can become a very long journey",
+      paragraphs: [
+        "In the dense radiative interior, photons interact repeatedly with matter. Between interactions they travel at light speed locally, but their directions keep changing. Many steps take them sideways or back inward instead of efficiently advancing toward the surface.",
+        "A simple model is a random walk: take a step in a randomly chosen direction, then repeat. Your total path can grow enormously while your distance from the starting point increases much more slowly. The delay comes from this tortuous transport, not from light becoming a slowly crawling object."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/old/websites/sunearthday.nasa.gov/2007/locations/ttt_sunlight.php","https://assets.science.nasa.gov/content/dam/science/hpd/heliophysics-big-year/9%20July%20-%20Random%20Walk%20Problem%20-%20HBY%20and%20Math%20Odenwald%20Slide%20Deck.pdf"]
+    },
+    {
+      id: "different-layers", heading: "The journey also includes moving plasma",
+      paragraphs: [
+        "Farther out, convection becomes important. Hot plasma rises, transfers energy, and cooler material sinks. Radiation and the movement of matter therefore play different roles in different layers, making a single uniform-density random-walk calculation only an educational approximation.",
+        "Published estimates for the interior transport time differ because models and the quantity being timed differ. Many descriptions place it in the broad range of thousands to hundreds of thousands of years. Treat a precise-looking figure as model-dependent, not a measured age stamped on today's sunshine."
+      ], sourceUrls: ["https://cdaweb.gsfc.nasa.gov/pub/documents/old/websites/sunearthday.nasa.gov/2007/locations/ttt_sunlight.php","https://science.nasa.gov/sun/facts/"]
+    },
+    {
+      id: "neutrinos", heading: "Neutrinos offer a much more immediate core signal",
+      paragraphs: [
+        "Neutrinos produced in fusion interact so weakly that most escape the Sun without the repeated absorption experienced by radiation. Detecting them lets experiments test the nuclear reactions powering the present-day core, rather than relying only on the visible surface.",
+        "Sunlight and solar neutrinos thus tell complementary stories. One carries energy that has passed through an opaque, layered star; the other provides a comparatively direct particle signal from the fusion process. Neither makes the eight-minute Earth-to-Sun light-travel time incorrect: they simply refer to different stages and messengers."
+      ], sourceUrls: ["https://science.nasa.gov/sun/facts/","https://www.nature.com/articles/nature13702"]
+    }
+  ],
+  "why-is-the-suns-corona-hotter-than-its-surface": [
+    {
+      id: "short-answer", heading: "Magnetic processes deliver energy above the surface",
+      paragraphs: [
+        "The Sun's corona is a very thin outer atmosphere that reaches temperatures of a million degrees or more, much hotter than the visible photosphere at roughly 5,800 kelvin. Energy carried and released through magnetic processes is central to explaining this temperature rise.",
+        "The broad idea is well established, but the relative contribution of different heating mechanisms remains a research problem. Saying scientists have no clues is misleading; saying a single discovery has explained every part of the corona is usually too strong as well."
+      ], sourceUrls: ["https://hesperia.gsfc.nasa.gov/sftheory/heatf.htm","https://science.nasa.gov/sun/facts/"]
+    },
+    {
+      id: "magnetic-energy", heading: "The Sun is not heated like a simple metal sphere",
+      paragraphs: [
+        "Moving, electrically conducting plasma can stretch and stress magnetic fields. Energy can then travel outward in waves or be released when magnetic configurations change. Magnetic reconnection is one way stored energy can be transferred to particles and heat.",
+        "Small reconnection events called nanoflares are a leading candidate for supplying part of the heating. Observations of tiny, fast plasma features provide evidence relevant to this picture. Their importance depends not just on whether they exist, but on whether their combined energy can meet the heating requirements."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/nasas-iris-spots-nanojets-shining-light-on-heating-the-solar-corona/","https://hesperia.gsfc.nasa.gov/sftheory/heatf.htm"]
+    },
+    {
+      id: "testing", heading: "One hot event is not the whole energy budget",
+      paragraphs: [
+        "Scientists compare observations across ultraviolet and X-ray wavelengths to estimate temperatures and follow rapid changes. A promising event must be checked against competing interpretations, its energy release, and how often similar events occur. Heating an individual loop does not automatically explain an entire atmosphere.",
+        "Different magnetic environments may also favor different processes. Open structures connected to the solar wind are not identical to closed loops over active regions. Waves and reconnection need not be mutually exclusive answers; assessing their roles requires measurements across locations and timescales."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/this-may-be-the-first-complete-observation-of-a-nanoflare/","https://hesperia.gsfc.nasa.gov/sftheory/heatf.htm"]
+    },
+    {
+      id: "temperature", heading: "Hotter does not mean denser or more dangerous to touch",
+      paragraphs: [
+        "Temperature describes particle energies, not the total thermal energy contained in a whole region. The corona is extremely tenuous compared with the visible surface, so its very high temperature should not be imagined as a dense ocean of equally hot material.",
+        "The core is hotter still, and the corona is not the Sun's main fusion engine. Its heat is an energy-transport and magnetic-plasma puzzle above the photosphere. Also check image captions: bright colors in extreme-ultraviolet solar pictures commonly encode selected wavelengths, not the colors a human eye would see."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/this-may-be-the-first-complete-observation-of-a-nanoflare/","https://science.nasa.gov/sun/facts/"]
+    }
+  ],
+  "nova-vs-supernova": [
+    {
+      id: "short-answer", heading: "The names do not describe one sliding scale",
+      paragraphs: [
+        "A classical nova is a thermonuclear eruption in accumulated material on a white dwarf's surface. A supernova is a different and far more energetic stellar explosion, involving either the collapse of a massive star's core or a thermonuclear catastrophe in a white-dwarf system.",
+        "Both can make an object appear dramatically brighter, which helps explain the confusing names. But a nova is not simply a young supernova, and it does not inevitably grow into one. To understand a report, ask what object is involved and what physical process produced the outburst."
+      ], sourceUrls: ["https://science.nasa.gov/universe/whats-a-nova-inside-the-chaos-of-erupting-and-exploding-stars/","https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-stellar-explosions/"]
+    },
+    {
+      id: "nova", heading: "In a classical nova, the white dwarf survives",
+      paragraphs: [
+        "A white dwarf in a close binary can gather hydrogen-rich material from a companion. As the accumulated layer becomes compressed and hot, nuclear reactions can run away and eject material. The underlying white dwarf normally remains after the eruption.",
+        "Some systems erupt repeatedly after more material builds up. That recurrence is not a universal schedule that can be read off from the name nova, and predicting an exact eruption date is difficult. Other stellar outbursts also use nova-related names, so classical nova is the more precise term for this process."
+      ], sourceUrls: ["https://science.nasa.gov/universe/whats-a-nova-inside-the-chaos-of-erupting-and-exploding-stars/"]
+    },
+    {
+      id: "supernova", heading: "Supernovae have more than one physical origin",
+      paragraphs: [
+        "In core-collapse supernovae, a sufficiently massive star reaches a stage where its core can no longer maintain support and collapses. The event can leave a neutron star or black hole. The detailed outcome depends on the star and the explosion, not merely its brightness to an observer.",
+        "Type Ia supernovae instead involve thermonuclear explosions of white dwarfs. Their progenitor pathways and details are active research topics. Some unusual thermonuclear events may leave surviving material, so saying every event in every supernova-related subclass completely destroys its star is too absolute."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-stellar-explosions/","https://astrobiology.nasa.gov/news/of-white-dwarfs-zombie-stars-and-supernovae-explosions/"]
+    },
+    {
+      id: "observations", heading: "Brightness alone cannot identify the explosion",
+      paragraphs: [
+        "Astronomers use the changing brightness, the spectrum, the host environment, and sometimes signals at other wavelengths to classify a transient. An object looking brighter from Earth does not automatically have a larger intrinsic explosion: distance and obscuring dust matter too.",
+        "Our Sun lacks the mass needed to end in an ordinary core-collapse supernova. It is expected to leave a white dwarf after earlier evolutionary stages. That future does not make it a guaranteed nova either; a classical nova requires the appropriate mass-transferring binary circumstances."
+      ], sourceUrls: ["https://science.nasa.gov/universe/whats-a-nova-inside-the-chaos-of-erupting-and-exploding-stars/","https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-stellar-explosions/"]
+    }
+  ],
+  "are-the-stars-we-see-already-dead": [
+    {
+      id: "short-answer", heading: "We see old light, but the conclusion is exaggerated",
+      paragraphs: [
+        "Some stars may have changed dramatically since their light began traveling toward us. That does not mean most stars visible in an ordinary night sky are already dead. A delay in receiving information is not itself evidence that the source has disappeared.",
+        "The relevant comparison is between light-travel time and the star's evolutionary timescale. Many stars shine for millions to billions of years. Looking back hundreds of years at such an object is very different from watching a short-lived stage close to a major explosion."
+      ], sourceUrls: ["https://science.nasa.gov/exoplanets/what-is-a-light-year/","https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question41.html"]
+    },
+    {
+      id: "worked-example", heading: "A light-year measures distance, not a star's age",
+      paragraphs: [
+        "Imagine a star 100 light-years away. The light arriving tonight left it roughly 100 years ago, but that number says nothing by itself about how old the star was then or how long it would continue shining. Its mass and stage of evolution supply the missing context.",
+        "If that hypothetical star has a long stable lifetime, a century is a very small fraction of it. If it is a massive star in a brief late phase, the uncertainty about changes during the delay can matter more. Distance alone cannot answer both cases."
+      ], sourceUrls: ["https://science.nasa.gov/exoplanets/what-is-a-light-year/","https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question41.html"]
+    },
+    {
+      id: "different-stars", heading: "Large stars do not live longest",
+      paragraphs: [
+        "Massive stars have more fuel, but they consume it much faster. Their lives can therefore be far shorter than those of lower-mass stars. A bright-looking star is not necessarily nearby, young, or close to death; apparent brightness combines intrinsic luminosity with distance and other effects.",
+        "Even a star known to be near the end of its life usually lacks a reliable countdown to a specific explosion date. We should not turn uncertainty into a claim that a particular star has definitely exploded already. Future observations, rather than a dramatic slogan, are what would establish a newly arrived signal."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question41.html"]
+    },
+    {
+      id: "distant-universe", heading: "Deep telescope images ask a different question",
+      paragraphs: [
+        "When telescopes study the earliest galaxies and stars, the lookback time can span much of cosmic history. Short-lived stars seen at those early epochs would not be expected to persist unchanged into a much later universe. These images are not equivalent to a naked-eye view of our stellar neighborhood.",
+        "The honest answer is therefore conditional: all astronomical views show delayed information, some sources have since changed, and no blanket statement describes every star. The night sky is a record carried by light, not a collection that can simply be labeled already dead."
+      ], sourceUrls: ["https://science.nasa.gov/exoplanets/what-is-a-light-year/","https://science.nasa.gov/mission/webb/science-overview/science-explainers/what-were-the-first-stars-like/"]
+    }
+  ],
+  "does-time-pass-differently-in-space": [
+    {
+      id: "short-answer", heading: "Yes, but space does not have one universal clock rate",
+      paragraphs: [
+        "Two clocks can record different elapsed times because of their motion and their positions in a gravitational field. Going into space does not automatically make time faster or slower. The answer depends on the particular orbit, the comparison clock, and the paths being compared.",
+        "An astronaut does not feel their thoughts or heartbeat running strangely. Locally, their clock behaves normally. The difference becomes apparent when clock readings are compared through a defined measurement procedure, or when clocks that followed different journeys are brought together again."
+      ], sourceUrls: ["https://www.nist.gov/atomic-clocks/a-powerful-tool-for-science/putting-einstein-test","https://www.nist.gov/news-events/news/2010/09/nist-pair-aluminum-atomic-clocks-reveal-einsteins-relativity-personal-scale"]
+    },
+    {
+      id: "two-effects", heading: "Motion and gravity can pull the comparison in opposite directions",
+      paragraphs: [
+        "For a simple comparison, a moving clock accumulates less time than a clock at rest in the chosen inertial frame. This is the special-relativistic effect often called motion-related time dilation. It becomes pronounced near light speed but is measurable at much lower speeds with precise instruments.",
+        "Gravity adds another effect: a clock at higher gravitational potential, such as one farther above Earth, generally runs faster relative to a lower clock in a suitable stationary comparison. Orbital motion and height must be considered together. Neither altitude alone nor speed alone gives the full result."
+      ], sourceUrls: ["https://www.nist.gov/atomic-clocks/a-powerful-tool-for-science/putting-einstein-test","https://www.nist.gov/news-events/news/2010/09/nist-pair-aluminum-atomic-clocks-reveal-einsteins-relativity-personal-scale"]
+    },
+    {
+      id: "gps", heading: "GPS needs both corrections",
+      paragraphs: [
+        "For GPS satellites, the commonly quoted approximate contributions are about seven microseconds per day slower from motion and 45 microseconds per day faster from gravity, compared with clocks on Earth's surface. The net is roughly 38 microseconds per day faster.",
+        "These are small time differences but significant for a system that infers distances from signal timing. Navigation would accumulate serious errors without appropriate relativistic modeling. A different orbit has a different balance, so the GPS result is not a universal rule for every spacecraft or astronaut."
+      ], sourceUrls: ["https://www.nist.gov/atomic-clocks/a-powerful-tool-for-science/putting-einstein-test"]
+    },
+    {
+      id: "measured", heading: "The effect can be tested without leaving Earth",
+      paragraphs: [
+        "Atomic-clock experiments have measured gravitational differences across very small height separations, including millimeter-scale comparisons. The effect is not a storytelling device reserved for black holes or science-fiction travel. It appears wherever the conditions and measurement precision allow it to be resolved.",
+        "For everyday intuition, think in terms of comparing complete clock histories rather than asking whether time itself is globally slow somewhere. Relativity replaces one universal clock shared by all observers with precise rules connecting their measurements. Those rules are experimentally useful, even when the numerical differences are tiny."
+      ], sourceUrls: ["https://www.nist.gov/news-events/news/2022/02/jila-atomic-clocks-measure-einsteins-general-relativity-millimeter-scale","https://www.nist.gov/news-events/news/2010/09/nist-pair-aluminum-atomic-clocks-reveal-einsteins-relativity-personal-scale"]
+    }
+  ],
+  "why-does-venus-spin-backwards": [
+    {
+      id: "short-answer", heading: "Its surface turns in the unusual direction",
+      paragraphs: [
+        "Venus has retrograde rotation: viewed from above the solar system's north side, its solid body turns in the opposite direction to most planets. An observer able to see through its clouds would experience the Sun rising in the west and setting in the east.",
+        "We can measure this unusual spin, but its complete origin is not settled. Claims that one known collision definitely flipped Venus over go beyond the evidence. Early impacts, gravitational tides, atmospheric effects, and the planet's internal response all enter studies of how its rotation evolved."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://arxiv.org/abs/1611.05678"]
+    },
+    {
+      id: "two-days", heading: "A rotation is not the same as sunrise to sunrise",
+      paragraphs: [
+        "Venus takes about 243 Earth days to rotate once relative to distant stars, while it completes an orbit in about 225 Earth days. That is the sense in which its day is longer than its year. The statement compares a sidereal rotation with an orbital period.",
+        "A solar day means something different: the interval from one local noon to the next. Because Venus rotates backward while traveling around the Sun, that interval is about 117 Earth days. So you should not use the 243-day figure as a prediction for how long one Venusian daytime lasts."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://blogs.esa.int/venustransit/2012/05/31/venus-and-earth-worlds-apart/"]
+    },
+    {
+      id: "changing-spin", heading: "Several torques can compete over time",
+      paragraphs: [
+        "The Sun raises gravitational tides in Venus, and the dense atmosphere develops tides as sunlight heats it. These can exert torques that affect rotation. How the solid planet and atmosphere respond matters, so the story is more complicated than a spinning ball hit once and left alone.",
+        "Models investigate which rotation states can persist and how different starting conditions reach them. A model that can reproduce retrograde spin is not automatically a unique reconstruction of Venus's actual past. Scientists compare several kinds of evidence rather than treating a plausible mechanism as a witnessed event."
+      ], sourceUrls: ["https://arxiv.org/abs/1611.05678"]
+    },
+    {
+      id: "not-sky-motion", heading: "Do not confuse this with apparent retrograde motion",
+      paragraphs: [
+        "When Mars seems to move backward against the stars from Earth, its physical rotation has not reversed. That apparent retrograde motion comes from changing viewing geometry as planets orbit the Sun. Venus's retrograde rotation describes the real spin of its body instead.",
+        "Cloud motion adds another distinction. Venus's atmosphere circulates much faster than its solid surface rotates, so following a cloud feature does not directly time the ground. Keeping orbit, surface rotation, and atmospheric circulation separate removes much of the mystery from seemingly contradictory descriptions of a Venusian day."
+      ], sourceUrls: ["https://science.nasa.gov/venus/venus-facts/","https://blogs.esa.int/venustransit/2012/05/31/venus-and-earth-worlds-apart/"]
+    }
+  ],
+  "why-is-uranus-tilted-sideways": [
+    {
+      id: "short-answer", heading: "Its spin axis lies almost in its orbital plane",
+      paragraphs: [
+        "Uranus has an axial tilt of about 98 degrees, measured from the direction perpendicular to its orbital plane. Instead of spinning roughly upright, it rotates almost on its side. This orientation is measured; the sequence of events that produced it is much less certain.",
+        "A collision with a large early solar-system body is one leading explanation, but it is not a confirmed historical event. Researchers also investigate alternatives involving gravitational interactions, changing spin behavior, or a former moon. The existence of several workable ideas is a reason to distinguish observation from reconstruction."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/","https://science.nasa.gov/asset/hubble/uranus-nov-2014-and-nov-2022/","https://ntrs.nasa.gov/citations/19910010699"]
+    },
+    {
+      id: "seasons", heading: "The tilt produces extreme seasons, not one endless day",
+      paragraphs: [
+        "During parts of Uranus's orbit, one pole points roughly toward the Sun while the other points away. Polar regions can therefore experience decades of continuous sunlight or darkness. As the planet continues around its orbit, the orientation relative to the Sun changes.",
+        "Its year lasts about 84 Earth years, but that does not mean every location gets 42 years of uninterrupted day followed by 42 years of night. Latitude and season matter. Near equinox, the Sun illuminates both hemispheres more evenly, and the daily rotation becomes important for the pattern of daylight."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/","https://science.nasa.gov/asset/hubble/uranus-nov-2014-and-nov-2022/"]
+    },
+    {
+      id: "rotation", heading: "It still rotates quickly despite the long seasons",
+      paragraphs: [
+        "A Uranian rotation takes roughly 17 hours, rather than decades. The long year and large tilt change illumination; they do not stop the planet from spinning. A fast-spinning world can still keep a pole directed toward the Sun for a large fraction of its orbit.",
+        "Its rings and major moons are associated with the planet's tilted equatorial system. Any explanation of its origin must therefore account for more than the angle of one axis. The surrounding system provides constraints on how a proposed impact or slower gravitational process could have worked."
+      ], sourceUrls: ["https://science.nasa.gov/uranus/facts/","https://ntrs.nasa.gov/citations/19910010699"]
+    },
+    {
+      id: "evidence", heading: "Changing polar clouds are clues, not a movie of the impact",
+      paragraphs: [
+        "Repeated telescope observations show Uranus's atmosphere changing as its seasons progress. Bright polar features help scientists study cloud and haze behavior under unusual illumination. They do not directly reveal what happened billions of years earlier.",
+        "When you encounter a headline saying a collision knocked Uranus over, read it as a description of a leading hypothesis unless stronger evidence is specified. The useful mystery is how to connect its present spin, atmosphere, interior, rings, and moons into one physically consistent history."
+      ], sourceUrls: ["https://science.nasa.gov/asset/hubble/uranus-nov-2014-and-nov-2022/","https://ntrs.nasa.gov/citations/19910010699"]
+    }
+  ],
+  "why-are-sunsets-blue-on-mars": [
+    {
+      id: "short-answer", heading: "Fine dust changes the direction of different colors",
+      paragraphs: [
+        "Sunsets on Mars can show a blue glow near the Sun because fine airborne dust scatters sunlight differently from the molecules that dominate Earth's clear-sky colors. Some blue light is preferentially directed into the region close to the Sun as seen by an observer.",
+        "This does not mean the whole Martian sky turns deep blue, or that every sunset looks identical. The blue is concentrated around the Sun, while other parts of the sky can remain dusty yellow, orange, or brown. Dust abundance and viewing conditions influence the appearance."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/planets/mars/what-does-a-sunrise-sunset-look-like-on-mars/","https://www.jpl.nasa.gov/images/pia00917-color-variations-in-the-sky-at-sunset/"]
+    },
+    {
+      id: "earth-comparison", heading: "Earth and Mars use different atmospheric ingredients",
+      paragraphs: [
+        "On Earth, scattering by air molecules strongly favors shorter wavelengths. Much of that blue light reaches us from directions away from the Sun, producing a blue daytime sky. Along the longer path near sunset, the direct sunlight often becomes richer in reds and oranges.",
+        "Mars has a thin atmosphere with suspended dust particles that are larger than individual gas molecules. Their scattering pattern is different, including strong forward scattering. It is therefore misleading to transfer Earth's simple blue-sky explanation unchanged to the blue halo around a Martian sunset."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/planets/mars/what-does-a-sunrise-sunset-look-like-on-mars/","https://www.jpl.nasa.gov/images/pia00917-color-variations-in-the-sky-at-sunset/"]
+    },
+    {
+      id: "red-ground", heading: "A red surface does not require red light everywhere",
+      paragraphs: [
+        "Mars's familiar rusty appearance comes largely from iron-bearing material at its surface. Atmospheric sky color is a separate question about how sunlight interacts with the air and suspended particles. A red world can have a blue sunset without any contradiction.",
+        "The same distinction matters when reading photographs of other planets. The material underfoot, the composition of the atmosphere, and the angle of illumination all contribute differently. A single color label such as Red Planet is a useful nickname, not a rule that every landscape and sky must follow."
+      ], sourceUrls: ["https://www.jpl.nasa.gov/images/pia00917-color-variations-in-the-sky-at-sunset/","https://science.nasa.gov/mars/facts/"]
+    },
+    {
+      id: "camera-colors", heading: "Check how a rover image was processed",
+      paragraphs: [
+        "A rover camera records light through particular filters and sensors. Teams may publish a version calibrated toward natural color, or a white-balanced version that helps geologists compare rocks with familiar Earth lighting. Those products answer different questions and can produce different-looking skies.",
+        "Read the image caption before using a dramatic picture as a precise prediction of human vision. The blue-sunset effect is real, but a displayed image also reflects instrument response and processing choices. Scientific value comes from understanding those choices, not assuming every unusually colored photograph is either fake or an unedited view."
+      ], sourceUrls: ["https://science.nasa.gov/solar-system/planets/mars/what-does-a-sunrise-sunset-look-like-on-mars/","https://www.jpl.nasa.gov/images/pia00917-color-variations-in-the-sky-at-sunset/"]
+    }
+  ],
+  "why-does-pluto-have-a-heart": [
+    {
+      id: "short-answer", heading: "The heart combines two different bright landscapes",
+      paragraphs: [
+        "Pluto's heart-shaped region is called Tombaugh Regio. Its outline comes from adjoining bright terrains, not a symbol etched into the planet. The western lobe includes Sputnik Planitia, a broad basin filled with volatile ice; the eastern lobe has different terrain and surface deposits.",
+        "The resemblance is easiest to recognize in the global images returned by New Horizons. At closer range, the heart breaks into plains, hills, boundaries, and patterned ice. Calling the whole shape one uniform glacier hides some of the geology that makes it interesting."
+      ], sourceUrls: ["https://science.nasa.gov/dwarf-planets/pluto/facts/","https://www.nasa.gov/image-article/plutos-heart/"]
+    },
+    {
+      id: "different-ices", heading: "Nitrogen ice behaves differently from water ice",
+      paragraphs: [
+        "At Pluto's extremely low temperatures, water ice can form rigid mountains and underlying terrain. Nitrogen ice is mechanically softer under relevant conditions and can move over geological time. A solid surface does not have to remain motionless forever.",
+        "This is familiar in principle from glaciers on Earth, although Pluto's materials and conditions differ greatly. Do not picture liquid water sloshing through the heart. Much of the landscape is explained through the slow movement, deposition, and deformation of solid volatile ice."
+      ], sourceUrls: ["https://science.nasa.gov/dwarf-planets/pluto/facts/","https://www.nasa.gov/solar-system/plutos-heart-like-a-cosmic-lava-lamp/"]
+    },
+    {
+      id: "convection", heading: "Some of the smooth plain slowly renews itself",
+      paragraphs: [
+        "Sputnik Planitia displays broad cellular patterns. Models indicate that heat from below can drive slow convection in sufficiently thick nitrogen ice: warmer material rises, cools, and eventually sinks. This overturning can renew the surface and help explain the scarcity of obvious impact craters in parts of the plain.",
+        "A comparison with a lava lamp describes the circulating pattern, not the material or temperature. The ice remains solid in this explanation. The modeled movement is also far too slow to watch as an ordinary time-lapse of roiling liquid."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/plutos-heart-like-a-cosmic-lava-lamp/"]
+    },
+    {
+      id: "open-history", heading: "A youthful surface does not mean a young Pluto",
+      paragraphs: [
+        "Ice can migrate through sublimation and redeposition as sunlight changes with Pluto's seasons. The relationship between the two bright lobes therefore includes a climate history as well as geology. Their shared outline need not mean they formed by exactly the same process.",
+        "Researchers still investigate the basin's origin, the depth of its deposits, and the interior conditions that shaped it. A recently refreshed surface can sit on an ancient world. The heart is evidence of an active and complicated landscape, not proof that scientists have directly observed a hidden ocean or reconstructed every stage of Pluto's past."
+      ], sourceUrls: ["https://www.nasa.gov/image-article/plutos-heart/","https://www.nasa.gov/missions/scientists-probe-mystery-of-plutos-icy-heart/"]
+    }
+  ],
+  "how-does-the-sun-burn-without-oxygen": [
+    {
+      id: "short-answer", heading: "The Sun is not a giant chemical fire",
+      paragraphs: [
+        "The Sun does not need oxygen to keep shining because its main energy source is nuclear fusion, not combustion. In its core, nuclear reactions ultimately turn hydrogen into helium and release energy. Calling this process burning is astronomical shorthand, not a claim that the Sun works like a bonfire.",
+        "A campfire releases energy by rearranging electrons as substances react chemically, commonly with oxygen. Fusion changes atomic nuclei instead. Removing oxygen from a flame can extinguish it; that experiment does not tell us what sustains the Sun."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question36.html"]
+    },
+    {
+      id: "core", heading: "Extreme core conditions make fusion possible",
+      paragraphs: [
+        "The Sun's immense gravity keeps its interior compressed, and the core reaches temperatures of roughly 15 million degrees Celsius. Under these conditions, a chain of reactions can transform hydrogen nuclei into helium. The process involves several steps, not merely two ordinary hydrogen atoms sticking together.",
+        "The final products have slightly less mass than the starting material. That difference corresponds to released energy through mass-energy equivalence. Most of the original mass remains in the products; fusion does not convert every atom involved completely into light."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question36.html","https://science.nasa.gov/sun/facts/"]
+    },
+    {
+      id: "evidence", heading: "Neutrinos give us a test of the hidden engine",
+      paragraphs: [
+        "We cannot look directly into the core with an ordinary telescope because the Sun is opaque. Scientists instead test solar models using several observations. Among the most revealing are neutrinos, particles produced in nuclear reactions that interact only weakly with matter.",
+        "The Borexino experiment detected neutrinos associated with the proton-proton reactions central to solar energy production. This is a different kind of evidence from merely seeing the Sun glow. It connects a measured particle signal with a specific process predicted to occur inside the star."
+      ], sourceUrls: ["https://www.nature.com/articles/nature13702"]
+    },
+    {
+      id: "surface", heading: "The visible surface is not where most energy is made",
+      paragraphs: [
+        "Energy generated deep inside must pass through the Sun before it leaves as radiation from the outer layers. The bright visible surface is therefore not a skin of chemical flame consuming oxygen from space. Its appearance does not identify the underlying reaction by itself.",
+        "The Sun does contain oxygen among its elements, but oxygen is not the fuel partner required for its main hydrogen fusion. Keeping composition, energy generation, and energy transport separate explains why a star can shine for billions of years without a supply of breathable air."
+      ], sourceUrls: ["https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question36.html","https://science.nasa.gov/sun/facts/","https://www.nature.com/articles/nature13702"]
+    }
+  ],
+  "why-cant-we-feel-earth-spinning": [
+    {
+      id: "short-answer", heading: "We are already moving with Earth",
+      paragraphs: [
+        "You do not feel a constant rush because you, the ground, and most of the surrounding air share Earth's rotation. Standing still means still relative to your surroundings, not motionless relative to distant stars. There is no stationary cosmic air rushing past the planet to make that movement obvious.",
+        "Speed alone is not something your body senses directly. Inside a smoothly moving vehicle, you notice braking, turning, or vibration much more readily than steady travel. That analogy helps explain shared motion, but Earth adds an important complication: rotation really does involve acceleration."
+      ], sourceUrls: ["https://pwg.gsfc.nasa.gov/stargaze/StarFAQ21.htm","https://science.nasa.gov/earth/facts/"]
+    },
+    {
+      id: "small-acceleration", heading: "Rotation has an effect, but gravity dominates",
+      paragraphs: [
+        "Even at steady rotational speed, your direction of motion changes as Earth turns. That requires an inward acceleration toward the rotation axis. The ground and gravity keep you following this curved path; you are not simply coasting along a straight line.",
+        "Near the equator, rotation slightly reduces the support force you feel from the ground compared with an otherwise similar nonrotating Earth. The effect is small compared with surface gravity, rather than exactly zero. Moving toward the poles changes the geometry and reduces this rotational contribution."
+      ], sourceUrls: ["https://pwg.gsfc.nasa.gov/stargaze/StarFAQ21.htm"]
+    },
+    {
+      id: "shared-air", heading: "Why the air does not become a permanent hurricane",
+      paragraphs: [
+        "The atmosphere is not left behind while Earth spins underneath it. Over time, interactions with the surface and exchanges within the air make the atmosphere broadly share the planet's rotation. A person jumping upward also keeps their existing sideways motion instead of leaving it on the ground.",
+        "Winds still develop because sunlight heats different regions unevenly, pressure differences drive motion, and rotation influences moving air. Weather is therefore not evidence against shared rotation. It is part of a much more complicated moving system, not a breeze caused by the ground overtaking stationary air."
+      ], sourceUrls: ["https://pwg.gsfc.nasa.gov/stargaze/StarFAQ21.htm","https://science.nasa.gov/earth/facts/"]
+    },
+    {
+      id: "evidence", heading: "A pendulum can reveal what your senses miss",
+      paragraphs: [
+        "A Foucault pendulum provides a more sensitive test than bodily sensation. Its swinging plane changes direction relative to the floor as Earth rotates, with the rate depending on latitude. At a pole the effect is strongest; at the equator this particular precession vanishes.",
+        "The useful distinction is between imperceptible and nonexistent. Earth's rotation is measurable, affects navigation and weather, and slightly changes apparent weight. It simply does not produce the kind of sudden change your balance system would interpret as an obvious spin."
+      ], sourceUrls: ["https://pwg.gsfc.nasa.gov/stargaze/StarFAQ21.htm","https://www.animations.physics.unsw.edu.au/jw/foucault_pendulum.html"]
+    }
+  ],
+  "why-doesnt-earth-fall-into-the-sun": [
+    {
+      id: "short-answer", heading: "Earth is falling, but it keeps missing",
+      paragraphs: [
+        "Earth does fall toward the Sun under gravity. It also has a large sideways velocity, so its path curves around the Sun rather than plunging straight inward. An orbit is this continuous combination of inward acceleration and forward motion, not a place where gravity switches off.",
+        "Imagine throwing a ball sideways: it travels forward as it falls. With sufficient speed and no obstructing surface, the same basic idea produces an orbit. The scale is different for a planet, but a separate outward engine is not required to keep Earth from dropping."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter3-4/"]
+    },
+    {
+      id: "sideways-motion", heading: "The sideways motion is the essential ingredient",
+      paragraphs: [
+        "At Earth's distance, our planet travels around the Sun at roughly 30 kilometers per second. That motion is inherited from the history of the solar system, not continually supplied by a planetary motor. The solar system formed from material that already had angular momentum.",
+        "If Earth somehow lost its sideways orbital motion, gravity would indeed pull it toward the Sun. That is a thought experiment, not a realistic forecast. It also explains why sending a spacecraft close to the Sun is difficult: departing Earth starts it with substantial sideways motion that must be reduced."
+      ], sourceUrls: ["https://www.nasa.gov/solar-system/its-surprisingly-hard-to-go-to-the-sun/"]
+    },
+    {
+      id: "no-force-balance", heading: "Gravity is changing the direction, not being canceled",
+      paragraphs: [
+        "It is tempting to picture gravity and an outward force canceling perfectly. In a frame that does not rotate with Earth, however, gravity supplies the acceleration that bends the orbit. If the forces truly canceled there, Earth would continue in a straight line rather than circle the Sun.",
+        "Earth's orbit is slightly elliptical rather than a perfect circle. Its speed and distance change through the year in a predictable way. Orbital motion does not demand one unchanging separation, and moving a little closer does not automatically start an unstoppable spiral inward."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter3-4/"]
+    },
+    {
+      id: "keeping-orbit", heading: "Why the orbit does not need constant fuel",
+      paragraphs: [
+        "Space around Earth is not perfectly empty, but resistance to the planet's motion is extremely small. Unlike a car driving through air and rubbing against a road, Earth does not need an engine to replace a large, continuous frictional loss.",
+        "Other planets perturb the orbit, and the Sun evolves over very long timescales. Those are genuine topics for celestial mechanics, but they are different from the everyday misconception that gravity should have made Earth fall straight into the Sun already."
+      ], sourceUrls: ["https://science.nasa.gov/learn/basics-of-space-flight/chapter3-4/","https://www.nasa.gov/solar-system/its-surprisingly-hard-to-go-to-the-sun/"]
+    }
+  ],
+  "why-does-the-moon-have-so-many-craters": [
+    {
+      id: "short-answer", heading: "The Moon keeps a longer visible record",
+      paragraphs: [
+        "The Moon is covered in craters largely because it preserves ancient impacts much better than Earth does. It lacks the rain, rivers, oceans, and active plate tectonics that continually reshape our planet. Many scars remain recognizable long after an equivalent feature on Earth would be buried or worn away.",
+        "That does not mean every lunar crater dates from the Moon's beginning, or that Earth escaped the early bombardment. The visible difference is partly a difference in preservation. Counting the marks you can see is not the same as counting every impact a world has ever experienced."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/why-study-craters/","https://spaceplace.nasa.gov/craters/en/"]
+    },
+    {
+      id: "atmosphere", heading: "Air filters small objects, not every dangerous impact",
+      paragraphs: [
+        "Earth's atmosphere breaks up or slows many smaller incoming objects. The Moon's extremely thin exosphere provides no comparable shield, so small impactors can reach its surface much more readily. This helps produce craters across a wide range of sizes.",
+        "Large asteroids can still strike Earth despite its atmosphere. It would be wrong to explain the whole contrast by saying Earth's air stops all space rocks. For large ancient structures, erosion, burial, tectonics, and the survival of old terrain become especially important."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/","https://spaceplace.nasa.gov/craters/en/"]
+    },
+    {
+      id: "changing-surface", heading: "The Moon has erased some of its own history",
+      paragraphs: [
+        "The dark lunar maria are broad regions filled by ancient lava. Those flows buried older features, leaving surfaces that usually have fewer craters than the brighter highlands. The contrast is visible through binoculars, although identifying individual small craters requires more magnification and suitable lighting.",
+        "Impacts also destroy evidence. A new crater can overlap an older one, while countless tiny strikes churn the upper surface into loose material. The Moon is not a perfectly frozen photograph; its geological record is altered more slowly and by different processes than Earth's."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/","https://science.nasa.gov/moon/lunar-craters/why-study-craters/"]
+    },
+    {
+      id: "reading-ages", heading: "More craters usually means an older exposed surface",
+      paragraphs: [
+        "Scientists compare crater populations to estimate relative surface ages: an area exposed longer generally accumulates more impacts. They must account for crater sizes, resurfacing, and overlapping features rather than treating every dark circle as an independent clock tick.",
+        "Absolute ages require additional calibration, including laboratory dates from returned samples. When you compare a crater-rich highland with a smoother lunar sea, you are reading a history of exposure and resurfacing, not simply looking at two places that happened to receive different amounts of bad luck."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-craters/","https://science.nasa.gov/moon/lunar-craters/why-study-craters/"]
+    }
+  ],
+  "does-the-moon-have-an-atmosphere": [
+    {
+      id: "short-answer", heading: "Yes, but it is nothing like breathable air",
+      paragraphs: [
+        "The Moon has an extremely tenuous envelope of particles called an exosphere. Saying it has absolutely no atmosphere is a useful everyday shortcut, but not a complete scientific description. Saying it has air like Earth's would be much more misleading.",
+        "In an exosphere, particles are so widely separated that collisions between them are rare. Many travel on individual paths, strike the surface, or escape. You cannot breathe this material, and it does not provide the pressure or weather system familiar from Earth's lower atmosphere."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-atmosphere/"]
+    },
+    {
+      id: "particle-sources", heading: "The surface and space continually supply particles",
+      paragraphs: [
+        "Tiny impacts can release material from the lunar surface. Sunlight and incoming solar-wind particles can also help dislodge atoms, while some material comes from within the Moon. Different processes contribute different substances, and their importance can vary with conditions.",
+        "This is not a miniature version of Earth's water cycle. Think of a sparse population continually being supplied and removed, rather than a deep ocean of gas circulating above the ground. The solar wind also interacts directly with much of the exposed surface, changing its chemistry over time."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-atmosphere/","https://science.nasa.gov/moon/solar-wind/"]
+    },
+    {
+      id: "losses", heading: "Why the Moon cannot keep an Earthlike atmosphere",
+      paragraphs: [
+        "Lunar gravity is weaker than Earth's, making it easier for some particles to escape. Sunlight can ionize atoms, after which electromagnetic processes may carry them away. Surface interactions can temporarily trap particles as well, so not everything simply flies straight into space.",
+        "Gravity is not absent on the Moon, and weak gravity alone is not a complete explanation for atmospheric history. Temperature, particle mass, supply rates, and exposure to the space environment all matter. A world's atmosphere is the result of competing processes, not a yes-or-no test for gravity."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-atmosphere/","https://science.nasa.gov/moon/solar-wind/"]
+    },
+    {
+      id: "surface-conditions", heading: "Thin gas does not make familiar weather",
+      paragraphs: [
+        "There are no ordinary wind-driven rainstorms sweeping across lunar craters. The sparse exosphere transports little heat, leaving sunlight and shadow especially important for surface temperatures. Space weather, such as particle exposure, is real but is different from atmospheric weather.",
+        "Measuring such a delicate environment also requires care. A spacecraft's exhaust can temporarily introduce substantial material compared with the natural background. Scientists therefore distinguish the undisturbed exosphere from changes caused by exploration; a detected gas is not automatically evidence of a lasting new lunar atmosphere."
+      ], sourceUrls: ["https://science.nasa.gov/moon/lunar-atmosphere/","https://science.nasa.gov/moon/weather-on-the-moon/"]
+    }
+  ],
+  "how-can-mercury-have-ice": [
+    {
+      id: "short-answer", heading: "Some polar crater floors never see direct sunlight",
+      paragraphs: [
+        "Mercury can preserve water ice because certain deep craters near its poles stay permanently shadowed. The planet's axis is only slightly tilted, so the Sun remains low near the polar horizon. A crater wall can block direct sunlight from reaching parts of its floor throughout the year.",
+        "Being close to the Sun does not make every location equally hot. A sunlit plain and a permanently shaded crater floor receive radically different energy inputs. Mercury has no thick atmosphere to distribute heat efficiently between those environments, allowing intense heat and long-lived cold traps on the same world."
+      ], sourceUrls: ["https://science.nasa.gov/mercury/facts/","https://svs.gsfc.nasa.gov/30341/"]
+    },
+    {
+      id: "not-night", heading: "Permanent shadow is different from an ordinary night",
+      paragraphs: [
+        "Mercury's regular nights are very cold, but an ordinary nighttime location eventually receives sunlight again. Polar cold traps are special because direct sunshine stays absent. The surrounding terrain and scattered radiation still matter, so scientists model actual temperatures instead of assuming every dark patch preserves ice.",
+        "A useful comparison is the shaded side of a wall, stretched to a planetary extreme. Shade reduces incoming sunlight, but its effectiveness depends on geometry and other heat sources. On Mercury, stable polar geometry can maintain the necessary conditions for much longer than a single night."
+      ], sourceUrls: ["https://science.nasa.gov/mercury/facts/","https://svs.gsfc.nasa.gov/30341/"]
+    },
+    {
+      id: "evidence", heading: "Several measurements point to water ice",
+      paragraphs: [
+        "Earth-based radar found unusually bright polar deposits. MESSENGER added observations of shadow, surface reflectance, and hydrogen abundance that support the interpretation of water ice. The strongest case comes from measurements agreeing about both the material and the places where it should survive.",
+        "Some ice may be exposed, while other deposits are covered by darker material. A radar-bright region is not a photograph of a frozen lake, and not every permanently shadowed area necessarily contains an equally thick deposit. Distribution and burial affect what different instruments detect."
+      ], sourceUrls: ["https://pgda.gsfc.nasa.gov/products/85","https://svs.gsfc.nasa.gov/30341/"]
+    },
+    {
+      id: "open-questions", heading: "Where the water came from is still being investigated",
+      paragraphs: [
+        "Comets, asteroids, and processes involving the surface and incoming particles can contribute to discussions of Mercury's water supply. Researchers investigate delivery, movement, loss, and trapping rather than inferring one simple origin from the presence of ice.",
+        "The key result is not that Mercury is generally wet or habitable. It is that a world's local environment can preserve material its average reputation would seem to forbid. Similar attention to sunlight and shadow is essential when studying polar resources elsewhere in the solar system."
+      ], sourceUrls: ["https://science.nasa.gov/mercury/facts/","https://pgda.gsfc.nasa.gov/products/85"]
+    }
+  ],
   "understanding-moon-phases": [
     {
       id: "sunlight", heading: "A phase is a viewing angle, not a shadow",

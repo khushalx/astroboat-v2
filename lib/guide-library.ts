@@ -5,6 +5,328 @@ type GuideEntry = Pick<Guide, "slug" | "title" | "description" | "publishedAt" |
 
 const entries: GuideEntry[] = [
   {
+    slug: "why-cant-we-travel-faster-than-light", publishedAt: "2026-11-22",
+    title: "Why Can't We Travel Faster Than Light?",
+    description: "The light-speed limit is not just a problem of better engines. Learn what relativity predicts for spacecraft and why apparent exceptions do not overturn it.",
+    category: "Space Science", tags: ["Speed of light","Special relativity","Space travel"],
+    sources: [
+      { label: "Max Planck Institute: The speed of light", url: "https://www.einstein-online.info/en/speed_of_light/" },
+      { label: "Max Planck Institute: Energy and relativistic motion", url: "https://www.einstein-online.info/en/emc/" },
+      { label: "Fermilab: Is relativistic mass real?", url: "https://www.youtube.com/watch?v=LTJauaefTZM" }
+    ],
+    relatedPaths: [
+      { label: "How time changes in space", href: "/guides/does-time-pass-differently-in-space" },
+      { label: "Are wormholes real?", href: "/guides/are-wormholes-real" },
+      { label: "What cosmic expansion means", href: "/guides/what-is-the-universe-expanding-into" }
+    ]
+  },
+  {
+    slug: "can-black-holes-evaporate", publishedAt: "2026-11-22",
+    title: "Can Black Holes Evaporate? Hawking Radiation Explained",
+    description: "Hawking radiation predicts that black holes can lose mass. Learn why this is not light escaping from inside and why evaporation remains unobserved.",
+    category: "Deep Space", tags: ["Hawking radiation","Black holes","Quantum physics"],
+    sources: [
+      { label: "Max Planck Institute: Evaporating black holes", url: "https://www.einstein-online.info/en/evaporating_bh/" },
+      { label: "NASA: Ten questions about black holes", url: "https://science.nasa.gov/universe/10-questions-you-might-have-about-black-holes/" }
+    ],
+    relatedPaths: [
+      { label: "What lies inside a black hole?", href: "/guides/what-is-inside-a-black-hole" },
+      { label: "Can a black hole swallow Earth?", href: "/guides/can-a-black-hole-swallow-earth" },
+      { label: "Why light cannot be outrun", href: "/guides/why-cant-we-travel-faster-than-light" }
+    ]
+  },
+  {
+    slug: "what-is-a-rogue-planet", publishedAt: "2026-11-22",
+    title: "What Is a Rogue Planet, and How Can We Find One?",
+    description: "Rogue planets travel without orbiting a star. Explore possible origins, infrared searches, and the microlensing clues that can reveal these dark worlds.",
+    category: "Deep Space", tags: ["Rogue planets","Microlensing","Free-floating planets"],
+    sources: [
+      { label: "NASA: Unveiling rogue planets", url: "https://www.nasa.gov/universe/unveiling-rogue-planets-with-nasas-roman-space-telescope/" },
+      { label: "NASA Roman: Microlensing explained", url: "https://science.nasa.gov/mission/roman-space-telescope/microlensing/" },
+      { label: "Research: Free-floating or wide-orbit planets in microlensing data", url: "https://ntrs.nasa.gov/citations/20210012890" },
+      { label: "NASA: A young free-floating world in infrared", url: "https://science.nasa.gov/resource/where-the-nightlife-never-ends/" }
+    ],
+    relatedPaths: [
+      { label: "How astronomers find exoplanets", href: "/guides/how-we-find-exoplanets" },
+      { label: "What the habitable zone means", href: "/guides/what-the-habitable-zone-means" },
+      { label: "Light and astronomical distances", href: "/guides/astronomical-distances-au-and-light-years" }
+    ]
+  },
+  {
+    slug: "why-are-meteors-different-colors", publishedAt: "2026-11-22",
+    title: "Why Are Meteors Different Colors?",
+    description: "Meteor colors come from glowing material and the atmosphere, not a simple rock-color chart. Learn what green, yellow, and white streaks can really tell us.",
+    category: "Skywatching", tags: ["Meteor colors","Fireballs","Emission spectra"],
+    sources: [
+      { label: "NASA Ames: Meteor and fireball colors", url: "https://www.nasa.gov/space-science-and-astrobiology-at-ames/interesting-fact-of-the-month-current/interesting-fact-of-the-month-2021/" },
+      { label: "ESO: A measured meteor spectrum", url: "https://www.eso.org/public/images/eso0424b/" },
+      { label: "NASA research archive: The nature of meteor spectra", url: "https://ntrs.nasa.gov/api/citations/19810015593/downloads/19810015593.pdf" }
+    ],
+    relatedPaths: [
+      { label: "Watch a meteor shower", href: "/guides/how-to-watch-a-meteor-shower" },
+      { label: "Photograph meteor streaks", href: "/guides/photograph-a-meteor-shower" },
+      { label: "How spectroscopy works", href: "/guides/spectroscopy-reading-starlight" }
+    ]
+  },
+  {
+    slug: "where-does-space-begin-karman-line", publishedAt: "2026-11-22",
+    title: "Where Does Space Begin? The Karman Line Explained",
+    description: "The Karman line is a useful boundary, not the end of Earth's air or gravity. Learn why reaching space and entering orbit are different achievements.",
+    category: "Astronomy Basics", tags: ["Karman line","Atmosphere","Suborbital flight"],
+    sources: [
+      { label: "FAI: Statement about the Karman line", url: "https://www.fai.org/news/statement-about-karman-line" },
+      { label: "NASA JPL: How far away is space?", url: "https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-far-away-is-space/" },
+      { label: "NASA Earth Observatory: The top of the atmosphere", url: "https://science.nasa.gov/earth/earth-observatory/the-top-of-the-atmosphere-7373/" }
+    ],
+    relatedPaths: [
+      { label: "Why Earth stays in orbit", href: "/guides/why-doesnt-earth-fall-into-the-sun" },
+      { label: "Why astronauts float", href: "/guides/why-astronauts-float-in-microgravity" },
+      { label: "Why space feels cold", href: "/guides/why-is-space-cold" }
+    ]
+  },
+  {
+    slug: "how-long-does-sunlight-take-to-escape-the-sun", publishedAt: "2026-11-22",
+    title: "How Long Does Sunlight Take to Escape the Sun?",
+    description: "Sunlight takes about eight minutes to reach Earth after leaving the Sun. Its earlier journey through the solar interior is far slower and less direct.",
+    category: "Space Science", tags: ["Sunlight","Photon diffusion","Solar interior"],
+    sources: [
+      { label: "NASA: Ancient sunlight and the random walk", url: "https://cdaweb.gsfc.nasa.gov/pub/documents/old/websites/sunearthday.nasa.gov/2007/locations/ttt_sunlight.php" },
+      { label: "NASA: Sun facts and internal layers", url: "https://science.nasa.gov/sun/facts/" },
+      { label: "NASA HEAT: Modeling a random walk", url: "https://assets.science.nasa.gov/content/dam/science/hpd/heliophysics-big-year/9%20July%20-%20Random%20Walk%20Problem%20-%20HBY%20and%20Math%20Odenwald%20Slide%20Deck.pdf" },
+      { label: "Borexino research: Solar fusion neutrinos", url: "https://www.nature.com/articles/nature13702" }
+    ],
+    relatedPaths: [
+      { label: "How fusion powers the Sun", href: "/guides/how-does-the-sun-burn-without-oxygen" },
+      { label: "Why the corona is hotter", href: "/guides/why-is-the-suns-corona-hotter-than-its-surface" },
+      { label: "Light travel and space communication", href: "/guides/deep-space-communication-and-light-delay" }
+    ]
+  },
+  {
+    slug: "why-is-the-suns-corona-hotter-than-its-surface", publishedAt: "2026-11-22",
+    title: "Why Is the Sun's Corona Hotter Than Its Surface?",
+    description: "The solar corona reaches millions of degrees above a much cooler visible surface. Explore magnetic heating, observational clues, and the remaining puzzle.",
+    category: "Space Science", tags: ["Solar corona","Coronal heating","Magnetic reconnection"],
+    sources: [
+      { label: "NASA: Nanojets and coronal heating", url: "https://www.nasa.gov/solar-system/nasas-iris-spots-nanojets-shining-light-on-heating-the-solar-corona/" },
+      { label: "NASA: Observing a possible nanoflare", url: "https://www.nasa.gov/solar-system/this-may-be-the-first-complete-observation-of-a-nanoflare/" },
+      { label: "NASA Goddard: The coronal heating problem", url: "https://hesperia.gsfc.nasa.gov/sftheory/heatf.htm" },
+      { label: "NASA: Sun facts", url: "https://science.nasa.gov/sun/facts/" }
+    ],
+    relatedPaths: [
+      { label: "How the Sun produces energy", href: "/guides/how-does-the-sun-burn-without-oxygen" },
+      { label: "Why sunlight takes time to escape", href: "/guides/how-long-does-sunlight-take-to-escape-the-sun" },
+      { label: "Solar flares versus CMEs", href: "/guides/solar-flares-versus-coronal-mass-ejections" }
+    ]
+  },
+  {
+    slug: "nova-vs-supernova", publishedAt: "2026-11-22",
+    title: "Nova vs. Supernova: What Is the Difference?",
+    description: "A nova and a supernova are different stellar events, not simply small and large explosions. Learn what erupts, what survives, and how astronomers tell.",
+    category: "Deep Space", tags: ["Nova","Supernova","White dwarfs"],
+    sources: [
+      { label: "NASA: What is a nova?", url: "https://science.nasa.gov/universe/whats-a-nova-inside-the-chaos-of-erupting-and-exploding-stars/" },
+      { label: "NASA Hubble: The science of stellar explosions", url: "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-stellar-explosions/" },
+      { label: "NASA Astrobiology: White dwarfs and unusual supernovae", url: "https://astrobiology.nasa.gov/news/of-white-dwarfs-zombie-stars-and-supernovae-explosions/" }
+    ],
+    relatedPaths: [
+      { label: "How stars evolve", href: "/guides/how-stars-are-born-and-die" },
+      { label: "Why the Sun will not become a black hole", href: "/guides/will-the-sun-become-a-black-hole" },
+      { label: "Neutron stars and pulsars", href: "/guides/neutron-stars-and-pulsars" }
+    ]
+  },
+  {
+    slug: "are-the-stars-we-see-already-dead", publishedAt: "2026-11-22",
+    title: "Are the Stars We See Already Dead?",
+    description: "Starlight shows the past, but that does not mean most visible stars are dead. Compare light-travel time with stellar lifetimes to understand the claim.",
+    category: "Astronomy Basics", tags: ["Starlight","Lookback time","Stellar lifetimes"],
+    sources: [
+      { label: "NASA: What is a light-year?", url: "https://science.nasa.gov/exoplanets/what-is-a-light-year/" },
+      { label: "NASA StarChild: How long do stars live?", url: "https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question41.html" },
+      { label: "NASA Webb: The first stars", url: "https://science.nasa.gov/mission/webb/science-overview/science-explainers/what-were-the-first-stars-like/" }
+    ],
+    relatedPaths: [
+      { label: "Nova versus supernova", href: "/guides/nova-vs-supernova" },
+      { label: "Distances and light-years", href: "/guides/astronomical-distances-au-and-light-years" },
+      { label: "Redshift and lookback time", href: "/guides/cosmological-redshift-and-lookback-time" }
+    ]
+  },
+  {
+    slug: "does-time-pass-differently-in-space", publishedAt: "2026-11-22",
+    title: "Does Time Pass Differently in Space?",
+    description: "Motion and gravity both affect elapsed time. Learn why space clocks can run faster or slower than Earth clocks and how GPS puts relativity to work.",
+    category: "Space Science", tags: ["Time dilation","Relativity","Atomic clocks"],
+    sources: [
+      { label: "NIST: Putting Einstein to the test", url: "https://www.nist.gov/atomic-clocks/a-powerful-tool-for-science/putting-einstein-test" },
+      { label: "NIST and JILA: Gravity measured across a millimeter", url: "https://www.nist.gov/news-events/news/2022/02/jila-atomic-clocks-measure-einsteins-general-relativity-millimeter-scale" },
+      { label: "NIST: Relativity at everyday speeds and heights", url: "https://www.nist.gov/news-events/news/2010/09/nist-pair-aluminum-atomic-clocks-reveal-einsteins-relativity-personal-scale" }
+    ],
+    relatedPaths: [
+      { label: "Why light has a speed limit", href: "/guides/why-cant-we-travel-faster-than-light" },
+      { label: "How GPS works", href: "/guides/how-gps-finds-your-location" },
+      { label: "Gravity and orbital free fall", href: "/guides/why-astronauts-float-in-microgravity" }
+    ]
+  },
+  {
+    slug: "why-does-venus-spin-backwards", publishedAt: "2026-11-22",
+    title: "Why Does Venus Spin Backwards?",
+    description: "Venus rotates in the opposite direction to most planets. Learn what retrograde rotation means, why its day is unusual, and what remains unexplained.",
+    category: "Solar System", tags: ["Venus","Retrograde rotation","Planetary days"],
+    sources: [
+      { label: "NASA: Venus facts", url: "https://science.nasa.gov/venus/venus-facts/" },
+      { label: "ESA: Venus and Earth, worlds apart", url: "https://blogs.esa.int/venustransit/2012/05/31/venus-and-earth-worlds-apart/" },
+      { label: "Research: Atmospheric tides and planetary rotation", url: "https://arxiv.org/abs/1611.05678" }
+    ],
+    relatedPaths: [
+      { label: "Why Uranus is tilted", href: "/guides/why-is-uranus-tilted-sideways" },
+      { label: "Venus in the evening sky", href: "/guides/venus-morning-evening-star-and-phases" },
+      { label: "Why Venus is so hot", href: "/guides/why-is-venus-hotter-than-mercury" }
+    ]
+  },
+  {
+    slug: "why-is-uranus-tilted-sideways", publishedAt: "2026-11-22",
+    title: "Why Is Uranus Tilted Sideways?",
+    description: "Uranus spins with an extreme axial tilt. Discover what that does to its seasons and why the event that tipped it remains an open question.",
+    category: "Solar System", tags: ["Uranus","Axial tilt","Planetary seasons"],
+    sources: [
+      { label: "NASA: Uranus facts", url: "https://science.nasa.gov/uranus/facts/" },
+      { label: "NASA and Hubble: Uranus's changing polar appearance", url: "https://science.nasa.gov/asset/hubble/uranus-nov-2014-and-nov-2022/" },
+      { label: "NASA research archive: Uranus tilt and giant impacts", url: "https://ntrs.nasa.gov/citations/19910010699" }
+    ],
+    relatedPaths: [
+      { label: "Why Venus spins backwards", href: "/guides/why-does-venus-spin-backwards" },
+      { label: "Uranus and Neptune explained", href: "/guides/uranus-and-neptune-ice-giants" },
+      { label: "What causes seasons", href: "/guides/why-earth-has-seasons" }
+    ]
+  },
+  {
+    slug: "why-are-sunsets-blue-on-mars", publishedAt: "2026-11-22",
+    title: "Why Are Sunsets Blue on Mars?",
+    description: "Martian dust makes the sky near the setting Sun look blue. Learn why the effect differs from Earth's sunsets and how camera processing changes images.",
+    category: "Solar System", tags: ["Mars","Blue sunsets","Atmospheric scattering"],
+    sources: [
+      { label: "NASA: Sunrise and sunset on Mars", url: "https://science.nasa.gov/solar-system/planets/mars/what-does-a-sunrise-sunset-look-like-on-mars/" },
+      { label: "NASA JPL: Color variations at Martian sunset", url: "https://www.jpl.nasa.gov/images/pia00917-color-variations-in-the-sky-at-sunset/" },
+      { label: "NASA: Mars facts", url: "https://science.nasa.gov/mars/facts/" }
+    ],
+    relatedPaths: [
+      { label: "Why Mars looks red", href: "/guides/mars-red-color-and-observing" },
+      { label: "How to read space image colors", href: "/guides/how-to-read-space-images" },
+      { label: "What color is the Sun?", href: "/guides/what-color-is-the-sun" }
+    ]
+  },
+  {
+    slug: "why-does-pluto-have-a-heart", publishedAt: "2026-11-22",
+    title: "Why Does Pluto Have a Heart-Shaped Region?",
+    description: "Pluto's heart is a landscape, not a marking painted on ice. Explore Tombaugh Regio, nitrogen glaciers, and the slowly overturning Sputnik Planitia.",
+    category: "Solar System", tags: ["Pluto","Sputnik Planitia","Nitrogen ice"],
+    sources: [
+      { label: "NASA: Pluto facts", url: "https://science.nasa.gov/dwarf-planets/pluto/facts/" },
+      { label: "NASA: Pluto's heart and solid-ice convection", url: "https://www.nasa.gov/solar-system/plutos-heart-like-a-cosmic-lava-lamp/" },
+      { label: "NASA: The two lobes of Pluto's heart", url: "https://www.nasa.gov/image-article/plutos-heart/" },
+      { label: "NASA: Probing Pluto's icy heart", url: "https://www.nasa.gov/missions/scientists-probe-mystery-of-plutos-icy-heart/" }
+    ],
+    relatedPaths: [
+      { label: "What makes a dwarf planet?", href: "/guides/dwarf-planets-pluto-and-ceres" },
+      { label: "How Mercury keeps water ice", href: "/guides/how-can-mercury-have-ice" },
+      { label: "Oceans inside icy moons", href: "/guides/europa-and-enceladus-oceans" }
+    ]
+  },
+  {
+    slug: "how-does-the-sun-burn-without-oxygen", publishedAt: "2026-11-22",
+    title: "How Does the Sun Burn Without Oxygen?",
+    description: "The Sun is powered by nuclear fusion, not ordinary fire. Learn how hydrogen becomes helium and what observations tell us about the solar core.",
+    category: "Space Science", tags: ["Sun","Nuclear fusion","Solar neutrinos"],
+    sources: [
+      { label: "NASA StarChild: How the Sun burns without oxygen", url: "https://starchild.gsfc.nasa.gov/docs/StarChild/questions/question36.html" },
+      { label: "NASA: Sun facts", url: "https://science.nasa.gov/sun/facts/" },
+      { label: "Borexino research: Neutrinos from proton-proton fusion", url: "https://www.nature.com/articles/nature13702" }
+    ],
+    relatedPaths: [
+      { label: "How sunlight escapes the Sun", href: "/guides/how-long-does-sunlight-take-to-escape-the-sun" },
+      { label: "Why the corona is hotter", href: "/guides/why-is-the-suns-corona-hotter-than-its-surface" },
+      { label: "The Sun's future", href: "/guides/will-the-sun-become-a-black-hole" }
+    ]
+  },
+  {
+    slug: "why-cant-we-feel-earth-spinning", publishedAt: "2026-11-22",
+    title: "Why Can't We Feel Earth Spinning?",
+    description: "Earth spins rapidly, but you, the ground, and the atmosphere move together. Learn why rotation feels subtle and how experiments reveal it.",
+    category: "Astronomy Basics", tags: ["Earth rotation","Gravity","Foucault pendulum"],
+    sources: [
+      { label: "NASA: Earth's rotation and acceleration", url: "https://pwg.gsfc.nasa.gov/stargaze/StarFAQ21.htm" },
+      { label: "UNSW Physics: The Foucault pendulum", url: "https://www.animations.physics.unsw.edu.au/jw/foucault_pendulum.html" },
+      { label: "NASA: Earth facts", url: "https://science.nasa.gov/earth/facts/" }
+    ],
+    relatedPaths: [
+      { label: "Why Earth stays in orbit", href: "/guides/why-doesnt-earth-fall-into-the-sun" },
+      { label: "Where space begins", href: "/guides/where-does-space-begin-karman-line" },
+      { label: "Why astronauts float", href: "/guides/why-astronauts-float-in-microgravity" }
+    ]
+  },
+  {
+    slug: "why-doesnt-earth-fall-into-the-sun", publishedAt: "2026-11-22",
+    title: "Why Doesn't Earth Fall Into the Sun?",
+    description: "Earth is falling toward the Sun while moving sideways fast enough to keep missing it. Understand orbital motion without the misleading force balance.",
+    category: "Astronomy Basics", tags: ["Orbits","Gravity","Earth"],
+    sources: [
+      { label: "NASA: Orbital mechanics", url: "https://science.nasa.gov/learn/basics-of-space-flight/chapter3-4/" },
+      { label: "NASA: Why reaching the Sun is difficult", url: "https://www.nasa.gov/solar-system/its-surprisingly-hard-to-go-to-the-sun/" }
+    ],
+    relatedPaths: [
+      { label: "Why we cannot feel Earth's spin", href: "/guides/why-cant-we-feel-earth-spinning" },
+      { label: "How gravity assists work", href: "/guides/gravity-assists-and-spacecraft-flybys" },
+      { label: "Why astronauts float", href: "/guides/why-astronauts-float-in-microgravity" }
+    ]
+  },
+  {
+    slug: "why-does-the-moon-have-so-many-craters", publishedAt: "2026-11-22",
+    title: "Why Does the Moon Have So Many Craters?",
+    description: "The Moon preserves impacts that Earth often erases. Learn how air, erosion, lava, and overlapping craters shape the record we see today.",
+    category: "Moon", tags: ["Lunar craters","Impacts","Planetary geology"],
+    sources: [
+      { label: "NASA: Lunar craters", url: "https://science.nasa.gov/moon/lunar-craters/" },
+      { label: "NASA: Why study craters?", url: "https://science.nasa.gov/moon/lunar-craters/why-study-craters/" },
+      { label: "NASA Space Place: Why Earth has fewer visible craters", url: "https://spaceplace.nasa.gov/craters/en/" }
+    ],
+    relatedPaths: [
+      { label: "Does the Moon have an atmosphere?", href: "/guides/does-the-moon-have-an-atmosphere" },
+      { label: "Lunar seas and highlands", href: "/guides/lunar-maria-and-highlands" },
+      { label: "Observe lunar craters", href: "/guides/how-to-observe-the-moon" }
+    ]
+  },
+  {
+    slug: "does-the-moon-have-an-atmosphere", publishedAt: "2026-11-22",
+    title: "Does the Moon Have an Atmosphere?",
+    description: "The Moon has a tenuous exosphere, not breathable air. Explore where its particles come from and why they behave differently from Earth's atmosphere.",
+    category: "Moon", tags: ["Lunar atmosphere","Exosphere","Solar wind"],
+    sources: [
+      { label: "NASA: The Moon's atmosphere", url: "https://science.nasa.gov/moon/lunar-atmosphere/" },
+      { label: "NASA: Weather on the Moon", url: "https://science.nasa.gov/moon/weather-on-the-moon/" },
+      { label: "NASA: The solar wind and the Moon", url: "https://science.nasa.gov/moon/solar-wind/" }
+    ],
+    relatedPaths: [
+      { label: "Why the Moon has craters", href: "/guides/why-does-the-moon-have-so-many-craters" },
+      { label: "How Mercury can have ice", href: "/guides/how-can-mercury-have-ice" },
+      { label: "Why sound needs a medium", href: "/guides/can-sound-travel-through-space" }
+    ]
+  },
+  {
+    slug: "how-can-mercury-have-ice", publishedAt: "2026-11-22",
+    title: "How Can Mercury Have Ice So Close to the Sun?",
+    description: "Mercury's polar shadows can trap water ice despite its scorching days. See what spacecraft measurements reveal and what remains uncertain.",
+    category: "Solar System", tags: ["Mercury","Water ice","Permanently shadowed regions"],
+    sources: [
+      { label: "NASA: Mercury facts", url: "https://science.nasa.gov/mercury/facts/" },
+      { label: "NASA Goddard: Mercury polar deposits", url: "https://pgda.gsfc.nasa.gov/products/85" },
+      { label: "NASA: Mercury's permanently shadowed craters", url: "https://svs.gsfc.nasa.gov/30341/" }
+    ],
+    relatedPaths: [
+      { label: "The Moon's thin exosphere", href: "/guides/does-the-moon-have-an-atmosphere" },
+      { label: "Why Venus is hotter than Mercury", href: "/guides/why-is-venus-hotter-than-mercury" },
+      { label: "How to observe Mercury", href: "/guides/how-to-see-mercury" }
+    ]
+  },
+  {
     slug: "understanding-moon-phases",
     publishedAt: "2026-10-21",
     updatedAt: "2026-10-22",
@@ -90,6 +412,7 @@ const entries: GuideEntry[] = [
     ],
     relatedPaths: [
       { label: "2026 Geminids viewing guide", href: "/guides/geminid-meteor-shower-2026" },
+      { label: "Why meteors have different colors", href: "/guides/why-are-meteors-different-colors" },
       { label: "2027 Quadrantids viewing guide", href: "/guides/quadrantid-meteor-shower-2027" },
       { label: "2027 Perseids viewing guide", href: "/guides/perseid-meteor-shower-2027" },
       { label: "Photograph a meteor shower", href: "/guides/photograph-a-meteor-shower" },
@@ -254,7 +577,12 @@ const entries: GuideEntry[] = [
       { label: "NASA: Stars", url: "https://science.nasa.gov/universe/stars/" },
       { label: "NASA Webb: Star Lifecycle", url: "https://science.nasa.gov/mission/webb/star-lifecycle/" }
     ],
-    relatedPaths: [{ label: "Explore the astronomy gallery", href: "/gallery" }, { label: "Learn about black holes", href: "/guides/black-holes-explained" }]
+    relatedPaths: [
+      { label: "Are the stars we see already dead?", href: "/guides/are-the-stars-we-see-already-dead" },
+      { label: "Compare novae and supernovae", href: "/guides/nova-vs-supernova" },
+      { label: "Explore the astronomy gallery", href: "/gallery" },
+      { label: "Learn about black holes", href: "/guides/black-holes-explained" }
+    ]
   },
   {
     slug: "black-holes-explained",
@@ -270,6 +598,7 @@ const entries: GuideEntry[] = [
     ],
     relatedPaths: [
       { label: "What is inside a black hole?", href: "/guides/what-is-inside-a-black-hole" },
+      { label: "Can black holes evaporate?", href: "/guides/can-black-holes-evaporate" },
       { label: "Could a black hole swallow Earth?", href: "/guides/can-a-black-hole-swallow-earth" },
       { label: "Are wormholes real?", href: "/guides/are-wormholes-real" },
       { label: "Follow the life cycle of stars", href: "/guides/how-stars-are-born-and-die" },
@@ -324,6 +653,7 @@ const entries: GuideEntry[] = [
     ],
     relatedPaths: [
       { label: "Could a tidally locked planet support life?", href: "/guides/can-tidally-locked-planets-support-life" },
+      { label: "What is a rogue planet?", href: "/guides/what-is-a-rogue-planet" },
       { label: "Why is Venus hotter than Mercury?", href: "/guides/why-is-venus-hotter-than-mercury" },
       { label: "Learn how exoplanets are detected", href: "/guides/how-we-find-exoplanets" },
       { label: "Follow astronomy discoveries", href: "/briefs" }
@@ -586,7 +916,11 @@ const entries: GuideEntry[] = [
       { label: "NASA: Mars Facts", url: "https://science.nasa.gov/mars/facts/" },
       { label: "NASA Space Place: Mars", url: "https://spaceplace.nasa.gov/all-about-mars/en/" }
     ],
-    relatedPaths: [{ label: "Learn about opposition", href: "/guides/planets-conjunctions-and-opposition" }, { label: "Read the limits of magnification", href: "/guides/telescope-basics-aperture-and-magnification" }]
+    relatedPaths: [
+      { label: "Why sunsets are blue on Mars", href: "/guides/why-are-sunsets-blue-on-mars" },
+      { label: "Learn about opposition", href: "/guides/planets-conjunctions-and-opposition" },
+      { label: "Read the limits of magnification", href: "/guides/telescope-basics-aperture-and-magnification" }
+    ]
   },
   {
     slug: "gravity-assists-and-spacecraft-flybys", publishedAt: "2026-10-27",
@@ -763,7 +1097,11 @@ const entries: GuideEntry[] = [
       { label: "NASA: Ceres Facts", url: "https://science.nasa.gov/dwarf-planets/ceres/facts/" },
       { label: "NASA: New Horizons", url: "https://science.nasa.gov/mission/new-horizons/" }
     ],
-    relatedPaths: [{ label: "Understand asteroid and comet differences", href: "/guides/asteroids-comets-and-meteorites" }, { label: "Meet the ice giants", href: "/guides/uranus-and-neptune-ice-giants" }]
+    relatedPaths: [
+      { label: "Why Pluto has a heart-shaped region", href: "/guides/why-does-pluto-have-a-heart" },
+      { label: "Understand asteroid and comet differences", href: "/guides/asteroids-comets-and-meteorites" },
+      { label: "Meet the ice giants", href: "/guides/uranus-and-neptune-ice-giants" }
+    ]
   },
   {
     slug: "uranus-and-neptune-ice-giants", publishedAt: "2026-11-09",
