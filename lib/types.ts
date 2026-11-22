@@ -54,6 +54,14 @@ export type AstronomyBrief = {
   updatedAt?: string;
   author?: string;
   isFallback?: boolean;
+  /** Feed that supplied this brief (e.g. "nasa-science"); stable across runs. */
+  sourceFeedId?: string;
+  /** Composite ranking for the lead story; 0 means not eligible to be featured. */
+  featureScore?: number;
+  /** Explainable editorial relevance score (0-100). */
+  editorialScore?: number;
+  /** True when restored from the last verified snapshot because its source is temporarily down. */
+  isStale?: boolean;
 };
 
 export type BriefSourceStatus = {
@@ -63,6 +71,8 @@ export type BriefSourceStatus = {
   count: number;
   ok: boolean;
   error?: string;
+  /** Items restored from the last-known-good snapshot while this source is failing. */
+  staleCount?: number;
 };
 
 export type BriefsResult = {
@@ -72,6 +82,10 @@ export type BriefsResult = {
   latestItemDate?: string;
   isFallback: boolean;
   warnings: string[];
+  /** True when every live source failed and the list is the last verified snapshot. */
+  isStale?: boolean;
+  staleSavedAt?: string;
+  featuredId?: string;
 };
 
 export type SpaceEvent = {
@@ -279,24 +293,40 @@ export type GalleryCategory =
   | "Stars"
   | "Missions";
 
+/** Hosting archive an image was retrieved from. */
 export type GallerySource =
   | "NASA APOD"
   | "NASA Image Library"
   | "ESA / Webb"
-  | "Hubble"
-  | "ESO"
-  | "Observatory Archive";
+  | "ESA / Hubble"
+  | "ESO";
 
 export type GalleryImage = {
   id: string;
   title: string;
   description: string;
+  /** Alternative text supplied by the publisher, when available. */
+  alt?: string;
+  /** Display rendition shown in the viewer. */
   imageUrl: string;
+  /** Smaller rendition for grid cards. */
   thumbnailUrl: string;
+  /** Direct high-resolution image file. Only set after the URL was confirmed to serve an image. */
   hdImageUrl?: string;
+  /** Hosting archive the image was retrieved from (not necessarily the original publisher). */
   source: GallerySource;
+  /** Official detail page for the image at its hosting archive. */
   sourceUrl: string;
+  /** Official credit line exactly as supplied by the source. */
   credit: string;
+  /** Organization that originally published the image, when the metadata states it. */
+  publisher?: string;
+  /** Photographer or creator, when the metadata names one. */
+  creator?: string;
+  /** Copyright or usage notice supplied by the source. */
+  rights?: string;
+  /** Page describing the usage terms, or a license URL supplied by the source. */
+  rightsUrl?: string;
   date: string;
   category: GalleryCategory;
   objectName?: string;
@@ -305,6 +335,8 @@ export type GalleryImage = {
   aspectRatio?: number;
   featured?: boolean;
   isFallback?: boolean;
+  /** Restored from the last verified snapshot because its source is temporarily unavailable. */
+  isStale?: boolean;
 };
 
 export type GalleryResult = {

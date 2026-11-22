@@ -1,23 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import type { GalleryImage } from "@/lib/types";
+import { imageCandidates, useImageFallback } from "@/components/gallery/useImageFallback";
 
 type GalleryHeroProps = { image: GalleryImage; onSelect: (image: GalleryImage) => void };
 export function GalleryHero({ image, onSelect }: GalleryHeroProps) {
-  const [loaded, setLoaded] = useState(false);
-  const [srcIndex, setSrcIndex] = useState(0);
-  const [failed, setFailed] = useState(false);
-  const urls = [...new Set([image.imageUrl, image.thumbnailUrl, image.hdImageUrl].filter((url): url is string => Boolean(url)))];
+  const { src, status, imgRef, onLoad, onError } = useImageFallback(imageCandidates(image.imageUrl, image.thumbnailUrl));
+  const failed = status === "failed" || !src;
   return (
     <section className="gallery-feature" aria-label="Featured observation">
       <button type="button" className="gallery-feature-image" onClick={() => onSelect(image)} aria-label={`View ${image.title} in high resolution`}>
-        {!loaded && !failed && <span className="absolute inset-0 animate-pulse bg-white/[.03]" aria-hidden="true" />}
-        {failed ? <span className="absolute inset-0 grid place-items-center px-6 text-sm text-astro-muted">Preview unavailable. Open the observation for its original source.</span> : <Image src={urls[srcIndex]} alt={image.title} fill priority sizes="(max-width: 639px) 100vw, 60vw" unoptimized referrerPolicy="no-referrer" className={loaded ? "opacity-100" : "opacity-0"} onLoad={() => setLoaded(true)} onError={() => {
-          setLoaded(false);
-          if (srcIndex + 1 < urls.length) setSrcIndex(srcIndex + 1); else setFailed(true);
-        }} />}
+        {status === "loading" && <span className="absolute inset-0 animate-pulse bg-white/[.03]" aria-hidden="true" />}
+        {failed ? <span className="absolute inset-0 grid place-items-center px-6 text-sm text-astro-muted">Preview unavailable. Open the observation for its original source.</span> : <Image key={src} ref={imgRef} src={src} alt={image.alt || image.title} fill priority sizes="(max-width: 639px) 100vw, 60vw" unoptimized referrerPolicy="no-referrer" className={status === "loaded" ? "opacity-100" : "opacity-0"} onLoad={onLoad} onError={onError} />}
       </button>
       <div className="gallery-feature-copy">
         <span className="eyebrow text-astro-gold">In focus · {image.category}</span>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>NASA Science</title>
+  <item>
+    <title>David J. Miranda</title>
+    <link>https://www.nasa.gov/people/david-j-miranda/</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <description><![CDATA[David J. Miranda is a program analyst supporting the agency&#8217;s science mission directorate. The post David J. Miranda appeared first on NASA Science .]]></description>
+  </item>
+  <item>
+    <title>NASA&#8217;s Webb Telescope Discovers Carbon Dioxide in the Atmosphere of a Distant Exoplanet</title>
+    <link>https://science.nasa.gov/missions/webb/webb-discovers-carbon-dioxide-in-exoplanet-atmosphere/</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[Exoplanets]]></category>
+    <category><![CDATA[James Webb Space Telescope]]></category>
+    <description><![CDATA[NASA&#8217;s James Webb Space Telescope has captured the first clear evidence of carbon dioxide in the atmosphere of a gas giant planet orbiting a Sun-like star 700 light-years away. The detection gives researchers a new way to study how distant planets form. The post NASA&#8217;s Webb Telescope Discovers Carbon Dioxide in the Atmosphere of a Distant Exoplanet appeared first on NASA Science .]]></description>
+    <enclosure url="https://science.nasa.gov/wp-content/uploads/2026/11/webb-co2-spectrum-1200.jpg" type="image/jpeg" length="1000" />
+  </item>
+  <item>
+    <title>NASA’s Europa Clipper Launches on Journey to Jupiter’s Icy Moon</title>
+    <link>https://www.nasa.gov/news-release/nasas-europa-clipper-launches-on-journey-to-jupiters-icy-moon/</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <description><![CDATA[Europa Clipper launched today. The post NASA’s Europa Clipper Launches on Journey to Jupiter’s Icy Moon appeared first on NASA Science .]]></description>
+  </item>
+  <item>
+    <title>Unsafe Link Example About a Galaxy</title>
+    <link>javascript:alert(1)</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <description><![CDATA[A galaxy observed by Hubble shows spiral arms full of young stars and glowing nebulae across thousands of light-years.]]></description>
+  </item>
+  <item>
+    <title>Off-Site Link Claiming a Black Hole Discovery</title>
+    <link>https://example-aggregator.invalid/redirect?to=nasa</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <description><![CDATA[Astronomers discovered a black hole in a distant galaxy using observations from several telescopes around the world.]]></description>
+  </item>
+</channel>
+</rss>

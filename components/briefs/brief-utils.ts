@@ -37,11 +37,30 @@ export function formatBriefDate(value: string) {
   return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
+/**
+ * The lead story is chosen by the server-side feature score (editorial
+ * relevance, significance, recency, source reliability, summary quality and
+ * image availability), never simply the newest item. Off-topic, promotional,
+ * stale and low-quality items have a score of 0 and are never featured.
+ */
 export function getFeaturedBrief(briefs: AstronomyBrief[]) {
-  // Keep the lead current, while favouring a science story with a useful image.
-  const newest = Math.max(...briefs.map((brief) => Date.parse(brief.publishedAt)).filter(Number.isFinite));
-  const recent = briefs.filter((brief) => newest - Date.parse(brief.publishedAt) <= 3 * 86400000);
-  return recent.find((brief) => brief.imageUrl && /galax|nebula|star|telescope|planet|black hole|cosmo/i.test(brief.title) && !/contest|challenge|award|job/i.test(brief.title))
-    ?? recent.find((brief) => brief.source.name === "APOD")
-    ?? briefs[0];
+  let best: AstronomyBrief | undefined;
+  for (const brief of briefs) {
+    if ((brief.featureScore ?? 0) > (best?.featureScore ?? 0)) best = brief;
+  }
+  if (best) return best;
+
+  // Saved sample briefs (no live data) carry no score; lead with one that has artwork.
+  return briefs.every((brief) => brief.isFallback) ? briefs.find((brief) => brief.imageUrl) ?? briefs[0] : undefined;
+}
+
+/** A link to the original publisher, only for well-formed http(s) URLs without credentials. */
+export function getOriginalHref(value: string | undefined) {
+  if (!value) return undefined;
+  try {
+    const url = new URL(value.trim());
+    return (url.protocol === "https:" || url.protocol === "http:") && !url.username && !url.password ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
 }

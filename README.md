@@ -61,9 +61,11 @@ The product is built around three ideas: **source transparency**, **graceful fai
 The Gallery is a current-first visual archive built from official astronomy sources:-
 
 - Combines recent NASA APOD images, targeted NASA Image Library results, ESA/Webb releases, ESA/Hubble releases, and European Southern Observatory image feeds.
-- Uses the latest 45-day APOD window instead of a random historical sample, with the official APOD RSS archive as a keyless fallback.
-- Rejects people, portraits, press events, facility hardware, diagrams, artist concepts, and other non-observational media before they reach the interface.
-- De-duplicates repeated titles and multi-image release sets, then ranks current observatory releases ahead of older archive anchors.
+- Reads APOD from its official feed at `science.nasa.gov/feed/apod-basic/` (APOD moved to science.nasa.gov in 2026), with the NASA APOD API as a validated fallback that rejects placeholder responses.
+- Rejects people, portraits, press events, facility hardware, diagrams, artist concepts, and other non-observational media before they reach the interface, using weighted scoring plus the archives' own image-type metadata.
+- De-duplicates by stable id, source page, image file and release id across archives, keeping the original publisher's copy, then ranks current observatory releases ahead of older archive anchors.
+- Takes exact credits, rights links and download renditions from each archive's official detail page; HD links are shown only after the URL is confirmed to serve an image.
+- Share links (`/gallery?image=<id>`) keep working after an image rotates out of the collection when the durable store is configured.
 - Organizes images across galaxies, nebulae, deep space, planets, the Moon, the Sun, Earth, stars, and missions.
 - Provides search, category filters, progressive loading, a randomized discovery action, shareable deep links, keyboard/swipe navigation, source attribution, and an immersive lightbox.
 - Tries verified preview, display, and HD renditions in sequence. If every rendition fails, the UI shows a proper unavailable state while preserving the official source link.
@@ -75,8 +77,10 @@ The Briefs pipeline is more than a feed reader:
 
 - Collects nine RSS/Atom sources concurrently: NASA News, NASA Science, NASA Artemis, ESA Space Science, ESA Exploration, arXiv astro-ph, NASA APOD, Space.com, and Universe Today.
 - Normalizes inconsistent XML, HTML, CDATA links, dates, authors, categories, and media into one `Brief` model.
-- De-duplicates stories by normalized URL and title, orders them newest-first, and returns up to 40 current items.
-- Produces deterministic short summaries, tags, reading-time estimates, categories, and general topic context. These are code-generated—not AI-written.
+- Scores every item with an explainable editorial model (topic relevance, feed categories, source, and penalties for shopping, entertainment, personnel, events and publicity) before it can be published.
+- De-duplicates by canonical URL (tracking parameters removed), publisher-declared language versions and near-identical titles, orders newest-first, and returns up to 40 current items.
+- Gives every brief a stable id and slug derived from its canonical URL; old links resolve from durable history and legacy slugs redirect.
+- Produces summaries strictly from publisher text (boilerplate removed), plus tags, reading-time estimates, weighted categories, and general topic context. These are code-generated—not AI-written.
 - Enriches missing artwork from trusted article metadata, responsive image sets, APOD high-resolution media, and arXiv article figures.
 - Uses source-aware generated SVG artwork when an article has no usable image.
 - Supports instant text search, six editorial filters, a featured lead story, and crawlable links to all current briefs.
@@ -139,8 +143,8 @@ Search is intentionally a **route launcher**, not a full-text search across live
 
 | Domain | Live source | Cache | Failure behavior |
 | --- | --- | ---: | --- |
-| Gallery | NASA APOD/Images, ESA/Webb, ESA/Hubble, ESO | 6 hours | Preserve healthy sources → APOD RSS fallback → honest empty state if all fail |
-| Briefs | 9 NASA, ESA, arXiv, Space.com, and Universe Today feeds | 1 hour | Preserve healthy feeds → warn on partial data → bundled briefs if all fail |
+| Gallery | NASA APOD/Images, ESA/Webb, ESA/Hubble, ESO | 6 hours | Preserve healthy sources → APOD API fallback → last verified images per source → honest empty state |
+| Briefs | 9 NASA, ESA, arXiv, Space.com, and Universe Today feeds | 1 hour | Preserve healthy feeds → last verified briefs for failing sources → full snapshot → bundled briefs only without history |
 | Brief artwork | Feed media + trusted original article pages | 1 hour | Advance through candidates → generated source/category visual |
 | Launches & events | The Space Devs Launch Library 2 | 6 hours | Per-source fallback with rate-limit and stale-data messaging |
 | Moon | USNO rise/set and phase APIs | 6 hours | Preserve available phase data → saved phase/rise-set fallback with notice |
@@ -275,9 +279,18 @@ GOOGLE_SITE_VERIFICATION=
 BING_SITE_VERIFICATION=
 NEXT_PUBLIC_GA_ID=
 
+# Recommended in production: durable brief/gallery history (set by Vercel's Upstash for Redis integration)
+KV_REST_API_URL=
+KV_REST_API_TOKEN=
+
+# Optional: enables the authenticated content diagnostics endpoint in production
+CONTENT_DIAGNOSTICS_TOKEN=
+
 # Dormant satellite service only; the /satellites UI is currently paused
 # N2YO_API_KEY=your_n2yo_api_key
 ```
+
+See [`docs/content-pipeline.md`](docs/content-pipeline.md) for how the Briefs and Gallery pipelines filter, attribute and persist content.
 
 The core Gallery, Briefs, Events, Moon, and primary JPL asteroid experiences work without API keys. Never commit `.env.local`.
 
@@ -304,6 +317,9 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run typecheck` | Run the TypeScript checker |
 | `npm run seo:audit` | Scan local production routes after starting the server |
 | `npm run test:assistant` | Verify assistant configuration, provider errors, timeouts, and secret-safe diagnostics without live API calls |
+| `npm run test:briefs` | Briefs editorial filtering, summaries, dedupe, stable ids, durable links and fallbacks (mocked network) |
+| `npm run test:gallery` | Gallery APOD sources, attribution, HD verification, dedupe, share links and image fallback (mocked network) |
+| `npm test` | Run every offline test suite |
 
 ## Project map
 

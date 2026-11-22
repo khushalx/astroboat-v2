@@ -66,6 +66,14 @@ export const NASA_IMAGE_LIBRARY_API_BASE = "https://images-api.nasa.gov";
 
 export const NASA_APOD_API_URL = "https://api.nasa.gov/planetary/apod";
 
+// APOD moved to science.nasa.gov in 2026: apod.nasa.gov pages and apod.rss now
+// 301-redirect to https://science.nasa.gov/apod/, whose navigation links this
+// structured feed as the official APOD RSS (title, page, hdurl, credit,
+// copyright and explanation per day).
+export const NASA_APOD_FEED_URL = "https://science.nasa.gov/feed/apod-basic/";
+
+export const GALLERY_COLLECTION_LIMIT = 120;
+
 export const navItems: NavItem[] = [
   { label: "Discover", href: "/" },
   { label: "Gallery", href: "/gallery" },

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>ESA/Webb Images</title>
+<item><title>NGC 7129 (NIRCam image)</title><link>https://esawebb.org/images/weic2620a/</link>
+<description> &lt;img src="https://cdn.esawebb.org/archives/images/news/weic2620a.jpg" border="0" align="left" /&gt;&lt;p&gt;The NASA/ESA/CSA James Webb Space Telescope has unveiled numerous stars formerly hidden by clouds of dust in a stellar nursery known as NGC 7129, 3300 light-years from Earth.&lt;/p&gt;</description>
+<pubDate>Wed, 18 Nov 2026 16:00:00 +0100</pubDate><guid>https://esawebb.org/images/weic2620a/</guid>
+<enclosure url="https://cdn.esawebb.org/archives/images/screen/weic2620a.jpg" length="259421" type="image/jpeg"></enclosure></item>
+<item><title>FRB 20240304B (NIRCam annotated image)</title><link>https://esawebb.org/images/weic2621c/</link>
+<description> &lt;img src="https://cdn.esawebb.org/archives/images/news/weic2621c.jpg" /&gt;&lt;p&gt;Webb observed the host galaxy of the most distant fast radio burst yet identified, a galaxy seen as it was in the early universe.&lt;/p&gt;</description>
+<pubDate>Tue, 17 Nov 2026 16:00:00 +0100</pubDate>
+<enclosure url="https://cdn.esawebb.org/archives/images/screen/weic2621c.jpg" type="image/jpeg"></enclosure></item>
+<item><title>Composition of extreme debris discs across time</title><link>https://esawebb.org/images/weic2618b/</link>
+<description> &lt;img src="https://cdn.esawebb.org/archives/images/news/weic2618b.jpg" /&gt;&lt;p&gt;A team of researchers compiled the largest sample of extreme debris discs around young stars to date using Webb and Spitzer data.&lt;/p&gt;</description>
+<pubDate>Mon, 16 Nov 2026 16:00:00 +0100</pubDate>
+<enclosure url="https://cdn.esawebb.org/archives/images/screen/weic2618b.jpg" type="image/jpeg"></enclosure></item>
+</channel></rss>

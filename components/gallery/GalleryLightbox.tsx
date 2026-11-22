@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import type { GalleryImage } from "@/lib/types";
+import { imageCandidates, useImageFallback } from "@/components/gallery/useImageFallback";
 
 type GalleryLightboxProps = {
   image: GalleryImage | null;
@@ -13,8 +14,6 @@ type GalleryLightboxProps = {
 
 export function GalleryLightbox({ image, images, onClose, onSelectImage }: GalleryLightboxProps) {
   const [copied, setCopied] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageFailed, setImageFailed] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const isOpen = Boolean(image);
   const touchStartX = useRef<number | null>(null);
@@ -28,17 +27,11 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
   const nextImage = hasNext ? images[currentIndex + 1] : null;
 
   const handlePrev = useCallback(() => {
-    if (prevImage) {
-      setImageLoaded(false);
-      onSelectImage(prevImage);
-    }
+    if (prevImage) onSelectImage(prevImage);
   }, [prevImage, onSelectImage]);
 
   const handleNext = useCallback(() => {
-    if (nextImage) {
-      setImageLoaded(false);
-      onSelectImage(nextImage);
-    }
+    if (nextImage) onSelectImage(nextImage);
   }, [nextImage, onSelectImage]);
 
   // Keyboard navigation
@@ -124,35 +117,6 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
     }
   };
 
-  const candidateUrls = image
-    ? Array.from(
-        new Set(
-          [image.imageUrl, image.thumbnailUrl, image.hdImageUrl].filter(
-            (url): url is string => Boolean(url && url.length > 0)
-          )
-        )
-      )
-    : [];
-
-  const [srcIndex, setSrcIndex] = useState(0);
-
-  useEffect(() => {
-    setSrcIndex(0);
-    setImageLoaded(false);
-    setImageFailed(false);
-  }, [image?.id]);
-
-  const currentSrc = candidateUrls[srcIndex] || image?.imageUrl || "";
-
-  const handleImageError = () => {
-    setImageLoaded(false);
-    if (srcIndex + 1 < candidateUrls.length) {
-      setSrcIndex(srcIndex + 1);
-    } else {
-      setImageFailed(true);
-    }
-  };
-
   if (!image) return null;
 
   return (
@@ -178,7 +142,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
       <div className="absolute left-4 right-4 top-4 z-50 flex items-center justify-between pointer-events-auto">
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/70 px-3.5 py-1.5 backdrop-blur-md">
           <span className="font-mono text-xs text-astro-muted">
-            {currentIndex >= 0 ? `${currentIndex + 1} / ${images.length}` : "Featured observation"}
+            {currentIndex >= 0 ? `${currentIndex + 1} / ${images.length}` : "Shared observation"}
           </span>
           {image.category ? (
             <>
@@ -259,46 +223,8 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
 
       {/* Main Lightbox Content Area */}
       <div className="flex h-full w-full max-w-6xl flex-col items-center justify-between pt-16 pb-2 sm:pb-4 overflow-y-auto">
-        {/* Centered Image Container */}
-        <div className="relative flex min-h-[50vh] max-h-[68vh] w-full flex-1 items-center justify-center">
-          {!imageLoaded && !imageFailed ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-astro-blue/30 border-t-astro-blue" />
-            </div>
-          ) : null}
-
-          <div className="relative h-full w-full">
-            {imageFailed ? (
-              <div className="flex h-full w-full flex-col items-center justify-center px-6 text-center text-astro-muted">
-                <svg className="mb-3 h-8 w-8 text-astro-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 8v4m0 4h.01" strokeLinecap="round" />
-                </svg>
-                <p className="text-sm font-medium text-astro-text">Capture temporarily unavailable</p>
-                <p className="mt-1 max-w-sm text-xs leading-5">
-                  Astroboat tried every verified rendition. You can still open the official source below.
-                </p>
-              </div>
-            ) : (
-              <Image
-                key={currentSrc}
-                src={currentSrc}
-                alt={image.title}
-                fill
-                priority
-                sizes="(max-width: 1200px) 100vw, 1200px"
-                unoptimized
-                referrerPolicy="no-referrer"
-                onLoad={() => {
-                  setImageLoaded(true);
-                  setImageFailed(false);
-                }}
-                onError={handleImageError}
-                className={`object-contain transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-              />
-            )}
-          </div>
-        </div>
+        {/* Keyed by image id: loading and failure state never leak between images. */}
+        <LightboxImage key={image.id} image={image} />
 
         {/* Metadata & Astronomy Context Card */}
         <div className="viewer-context mt-3 w-full p-4 sm:p-5">
@@ -318,18 +244,22 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
                 {image.description}
               </p>
 
-              {/* Attribution and Observatory Information */}
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[color:var(--text-dim)]">
-                <span>Credit: <strong className="font-normal text-astro-muted">{image.credit}</strong></span>
-                {image.observatory ? (
-                  <>
-                    <span aria-hidden="true">·</span>
-                    <span>Observatory: <strong className="font-normal text-astro-muted">{image.observatory}</strong></span>
-                  </>
-                ) : null}
-                <span aria-hidden="true">·</span>
-                <time dateTime={image.date} className="font-mono">{image.date}</time>
-              </div>
+              {/* Attribution: credit, publisher, archive, instrument and rights are distinct facts. */}
+              <dl className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[color:var(--text-dim)]">
+                <div className="flex gap-1"><dt>Credit:</dt><dd className="text-astro-muted">{image.credit}</dd></div>
+                {image.creator && !image.credit.includes(image.creator) ? <div className="flex gap-1"><dt>Creator:</dt><dd className="text-astro-muted">{image.creator}</dd></div> : null}
+                {image.observatory ? <div className="flex gap-1"><dt>Observatory:</dt><dd className="text-astro-muted">{image.observatory}</dd></div> : null}
+                {image.publisher ? <div className="flex gap-1"><dt>Published by:</dt><dd className="text-astro-muted">{image.publisher}</dd></div> : null}
+                {/* The NASA library hosts images published by many centers and partners. */}
+                {image.source === "NASA Image Library" ? <div className="flex gap-1"><dt>Archive:</dt><dd className="text-astro-muted">{image.source}</dd></div> : null}
+                <div><dt className="sr-only">Date</dt><dd><time dateTime={image.date} className="font-mono">{image.date}</time></dd></div>
+              </dl>
+              {image.rights ? (
+                <p className="mt-1.5 text-[11px] leading-5 text-[color:var(--text-dim)]">
+                  {image.rights}
+                  {image.rightsUrl ? <> · <a href={image.rightsUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-astro-text">Usage terms</a></> : null}
+                </p>
+              ) : null}
             </div>
 
             {/* Official Source and HD Action Links */}
@@ -344,7 +274,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
                   <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span>View HD</span>
+                  <span>View HD image</span>
                 </a>
               ) : null}
 
@@ -355,7 +285,7 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
                   rel="noopener noreferrer"
                   className="cosmic-secondary inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium"
                 >
-                  <span>View Original Source</span>
+                  <span>View original source</span>
                   <svg className="h-3 w-3 text-astro-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -364,6 +294,53 @@ export function GalleryLightbox({ image, images, onClose, onSelectImage }: Galle
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function LightboxImage({ image }: { image: GalleryImage }) {
+  // Display rendition first, then the smaller one. The HD original is offered as a
+  // link, not loaded automatically, because it can be tens of megabytes.
+  const { src, status, imgRef, onLoad, onError } = useImageFallback(imageCandidates(image.imageUrl, image.thumbnailUrl), 20000);
+  const failed = status === "failed" || !src;
+
+  return (
+    <div className="relative flex min-h-[50vh] max-h-[68vh] w-full flex-1 items-center justify-center">
+      {status === "loading" ? (
+        <div className="absolute inset-0 flex items-center justify-center" role="status" aria-label="Loading image">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-astro-blue/30 border-t-astro-blue" />
+        </div>
+      ) : null}
+
+      <div className="relative h-full w-full">
+        {failed ? (
+          <div className="flex h-full w-full flex-col items-center justify-center px-6 text-center text-astro-muted" role="status">
+            <svg className="mb-3 h-8 w-8 text-astro-dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4m0 4h.01" strokeLinecap="round" />
+            </svg>
+            <p className="text-sm font-medium text-astro-text">Image temporarily unavailable</p>
+            <p className="mt-1 max-w-sm text-xs leading-5">
+              Astroboat tried every available rendition. You can still open the official source below.
+            </p>
+          </div>
+        ) : (
+          <Image
+            key={src}
+            ref={imgRef}
+            src={src}
+            alt={image.alt || image.title}
+            fill
+            priority
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            unoptimized
+            referrerPolicy="no-referrer"
+            onLoad={onLoad}
+            onError={onError}
+            className={`object-contain transition-opacity duration-300 ${status === "loaded" ? "opacity-100" : "opacity-0"}`}
+          />
+        )}
       </div>
     </div>
   );

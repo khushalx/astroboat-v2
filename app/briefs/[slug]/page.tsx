@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
-import { getBriefCategory, getBriefSummary, formatBriefDate } from "@/components/briefs/brief-utils";
+import { getBriefCategory, getBriefSummary, formatBriefDate, getOriginalHref } from "@/components/briefs/brief-utils";
 import { BriefImage } from "@/components/briefs/BriefImage";
 import { DataBadge } from "@/components/ui/DataBadge";
 import { SourceBadge } from "@/components/ui/SourceBadge";
@@ -67,7 +67,7 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
           <span className="text-xs text-astro-muted">{brief.readingTime}</span>
         </div>
         <h1 className="mt-5 font-display text-4xl font-normal leading-[1.08] tracking-[-0.025em] text-astro-text text-balance sm:text-5xl">{brief.title}</h1>
-        <p className="mt-4 text-sm text-astro-muted">Source digest from {brief.source.name}. Published by the source {formatBriefDate(brief.publishedAt)}.</p>
+        <p className="mt-4 text-sm text-astro-muted">Source digest from {brief.source.name}, not original Astroboat reporting. Published by the source {formatBriefDate(brief.publishedAt)}.</p>
         {brief.updatedAt ? <p className="mt-1 text-xs text-astro-muted">Updated by Astroboat {formatBriefDate(brief.updatedAt)}</p> : null}
         <ShareButton url={absoluteUrl(`/briefs/${brief.slug}`)} title={brief.title} />
       </header>
@@ -86,7 +86,8 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
       <div className="mx-auto mt-10 max-w-[70ch]">
         {brief.takeaway ? <p className="context-panel mb-8 text-lg leading-8 text-astro-text">{brief.takeaway}</p> : null}
         <section className="pb-9">
-          <h2 className="font-display text-2xl font-normal text-astro-text">Astroboat summary</h2>
+          <h2 className="font-display text-2xl font-normal text-astro-text">{brief.quality === "original_analysis" ? "Astroboat summary" : `Summary from ${brief.source.name}`}</h2>
+          {brief.quality !== "original_analysis" ? <p className="mt-2 text-xs text-astro-muted">Extracted from the publisher&apos;s own description. Astroboat does not add claims to source digests.</p> : null}
           <div className="mt-4 space-y-4">
             {brief.summary.map((line) => (
               <p key={line} className="text-base leading-8 text-astro-muted">{line}</p>
@@ -118,7 +119,7 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
             ))}
           </div>
           <p className="mt-5 text-sm leading-7 text-astro-muted">
-            Read the original source for the complete article or paper.
+            Read the original source for the complete article or paper{originalHref ? <> on <span className="text-astro-text">{new URL(originalHref).hostname.replace(/^www\./, "")}</span></> : null}.
           </p>
           {originalHref ? (
             <TrackedLink event="original_source_clicked"
@@ -135,8 +136,3 @@ export default async function BriefDetailPage({ params }: BriefDetailPageProps) 
   );
 }
 
-function getOriginalHref(value: string) {
-  const href = value.trim();
-
-  return href && href !== "#" ? href : undefined;
-}

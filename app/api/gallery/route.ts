@@ -13,17 +13,19 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
-    if (id) {
-      const image = await getGalleryImageById(id);
+    if (id !== null) {
+      // Stable ids resolve from the live collection or durable history, so shared
+      // links keep working after an image rotates out of the latest set.
+      const image = await getGalleryImageById(id.trim());
       if (!image) {
-        return NextResponse.json({ error: "Image not found" }, { status: 404 });
+        return NextResponse.json({ error: "Image not found" }, { status: 404, headers: { "Cache-Control": "public, s-maxage=300" } });
       }
-      return NextResponse.json({ image });
+      return NextResponse.json({ image }, { headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400" } });
     }
 
     const requestedCategory = searchParams.get("category") || "All";
     const category = (galleryCategories.includes(requestedCategory) ? requestedCategory : "All") as GalleryCategory;
-    const query = searchParams.get("q")?.toLowerCase().trim() || "";
+    const query = searchParams.get("q")?.toLowerCase().trim().slice(0, 120) || "";
     const page = positiveInteger(searchParams.get("page"), 1);
     const limit = Math.min(60, positiveInteger(searchParams.get("limit"), 24));
 
@@ -59,7 +61,7 @@ export async function GET(request: Request) {
       warnings: result.warnings
     });
   } catch (error) {
-    console.error("Gallery API error:", error);
+    console.error("[gallery] API error:", error instanceof Error ? error.message : "unknown error");
     return NextResponse.json(
       { error: "Failed to retrieve astronomy gallery data" },
       { status: 500 }

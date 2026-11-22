@@ -5,6 +5,9 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { PageShell } from "@/components/ui/PageShell";
 import { getAstronomyBriefs } from "@/services/briefs-service";
 
+// Source feeds are cached for an hour; regenerate the page on the same cadence.
+export const revalidate = 3600;
+
 export const metadata = pageMetadata({
   title: 'Astronomy Briefs & Space Science Updates',
   description: 'Browse recent astronomy and space science updates with concise context and direct links to original sources.',
@@ -24,13 +27,13 @@ export default async function BriefsPage() {
       />
 
       {result.isFallback ? (
-        <div className="data-notice">
+        <div className="data-notice" role="status">
           Live brief sources are temporarily unavailable. Showing saved Astroboat sample briefs.
         </div>
       ) : null}
 
       {!result.isFallback && result.warnings.length > 0 ? (
-        <div className="data-notice">
+        <div className="data-notice" role="status">
           {result.warnings[0]}
         </div>
       ) : null}

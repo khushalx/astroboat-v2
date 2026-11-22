@@ -17,7 +17,7 @@ const filters = [
   "Solar",
   "Near-Earth"
 ];
-// The feed is capped at 40; render every current brief as an ordinary link in HTML.
+// The feed is capped at FINAL_BRIEFS_LIMIT (40); render every current brief as an ordinary link in HTML.
 const pageSize = 40;
 
 type BriefsClientProps = {
@@ -44,7 +44,7 @@ export function BriefsClient({ result }: BriefsClientProps) {
     <div className="space-y-8">
       <div className="feed-meta">
         <p><strong>{briefs.length} briefs</strong> from {activeSources} source{activeSources === 1 ? "" : "s"}</p>
-        <p>{isFallback ? "Saved sample briefs" : `Checked ${formatCheckedTime(lastChecked)} UTC`}</p>
+        <p>{isFallback ? "Saved sample briefs" : result.isStale ? `Last verified ${formatCheckedTime(result.staleSavedAt ?? lastChecked)} UTC` : `Checked ${formatCheckedTime(lastChecked)} UTC`}</p>
       </div>
 
       <div className="space-y-4">
