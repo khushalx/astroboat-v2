@@ -77,11 +77,6 @@ export const navItems: NavItem[] = [
   { label: "Ask Astroboat", href: "/ask" }
 ];
 
-export const skyToolItems: NavItem[] = [
-  { label: "Moon", href: "/moon" },
-  { label: "Asteroid Watch", href: "/asteroids" }
-];
-
 export const galleryCategories = [
   "All",
   "Galaxies",

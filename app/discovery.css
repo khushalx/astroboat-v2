@@ -13,7 +13,6 @@
 .header-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 12px; border-radius: 6px; color: var(--text-secondary); font-size: 13px; transition: color 180ms; }
 .header-link:hover, .header-link.is-active { color: var(--text-primary); }
 .header-link.is-active { background: var(--bg-elevated); color: var(--accent-gold); }
-.sky-tools-menu { position: absolute; top: calc(100% + 12px); left: -36px; width: 280px; padding: 14px 8px 8px; border: 1px solid var(--border-subtle); border-radius: 10px; background: var(--bg-surface); box-shadow: 0 20px 60px #0007; }
 .page-heading { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 12px 48px; align-items: end; max-width: none; padding-bottom: 8px; }
 .page-heading .eyebrow { grid-column: 1 / -1; margin-bottom: 4px; color: var(--accent-gold); }
 .page-heading h1 { font-family: var(--font-display), Georgia, serif; font-size: clamp(2.5rem, 4.4vw, 3.75rem); font-weight: 400; line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }

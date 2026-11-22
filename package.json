@@ -12,17 +12,24 @@
     "test:assistant": "node --test tests/astrobot-route.test.cjs",
     "test:guides": "node --test tests/guides.test.cjs",
     "test:seo": "node --test tests/seo.test.cjs",
-    "test:data": "node --test tests/data-integrity.test.cjs"
+    "test:data": "node --test tests/data-integrity.test.cjs",
+    "test:moon": "node --test tests/moon-observatory.test.cjs",
+    "test:moon:browser": "node --test tests/moon-browser.test.cjs"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
     "@vercel/analytics": "^2.0.1",
+    "astronomy-engine": "^2.1.19",
     "fast-xml-parser": "^4.5.6",
+    "lucide-react": "^1.77.0",
     "next": "^15.5.18",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
@@ -31,6 +38,7 @@
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.5.18",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   }
