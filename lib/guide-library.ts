@@ -5,6 +5,87 @@ type GuideEntry = Pick<Guide, "slug" | "title" | "description" | "publishedAt" |
 
 const entries: GuideEntry[] = [
   {
+    slug: "what-does-space-smell-like", publishedAt: "2026-11-22",
+    title: "What Does Space Smell Like?",
+    description: "Astronauts report a metallic smell after spacewalks, but they are not sniffing a vacuum. Explore what they actually smell and what remains uncertain.",
+    category: "Space Science", tags: ["Smell of space", "Spacewalks", "Astronauts", "Spacecraft air"],
+    sources: [
+      { label: "Canadian Space Agency: Astronaut questions and the smell of space", url: "https://www.csa-asc.gc.ca/eng/astronauts/faq.asp" },
+      { label: "ANU astrophysicist Brad Tucker: What does space smell like?", url: "https://reporter.anu.edu.au/all-stories/what-does-space-smell-like" },
+      { label: "NASA White Sands: Odor evaluation for spacecraft", url: "https://www.nasa.gov/centers-and-facilities/white-sands/odor-evaluation/" }
+    ],
+    relatedPaths: [
+      { label: "Can sound travel through space?", href: "/guides/can-sound-travel-through-space" },
+      { label: "Why astronauts become taller", href: "/guides/why-do-astronauts-grow-taller-in-space" },
+      { label: "Why a vacuum does not have a simple temperature", href: "/guides/why-is-space-cold" }
+    ]
+  },
+  {
+    slug: "can-you-see-apollo-landing-sites-from-earth", publishedAt: "2026-11-22",
+    title: "Can You See the Apollo Landing Sites From Earth?",
+    description: "You can locate the Apollo landing regions, but not resolve their flags from Earth. Learn why magnification is not enough and how lunar orbiters see them.",
+    category: "Moon", tags: ["Apollo landing sites", "Telescope resolution", "Hubble", "Lunar Reconnaissance Orbiter"],
+    sources: [
+      { label: "ESA/Hubble: Apollo landing sites and resolution limits", url: "https://esahubble.org/about/faq/" },
+      { label: "NASA: Hubble optics and visible-light resolution", url: "https://science.nasa.gov/mission/hubble/observatory/design/optics/" },
+      { label: "NASA SVS: Revisiting Apollo landing sites", url: "https://svs.gsfc.nasa.gov/31052/" }
+    ],
+    relatedPaths: [
+      { label: "Plan your first lunar observation", href: "/guides/how-to-observe-the-moon" },
+      { label: "How telescope field of view works", href: "/guides/telescope-field-of-view" },
+      { label: "Read real space images carefully", href: "/guides/how-to-read-space-images" },
+      { label: "Explore the lunar observatory", href: "/moon" }
+    ]
+  },
+  {
+    slug: "what-if-the-sun-disappeared", publishedAt: "2026-11-22",
+    title: "What Would Happen If the Sun Suddenly Disappeared?",
+    description: "Would Earth notice darkness or lost gravity first? Use a clearly hypothetical disappearing Sun to understand light-travel time, gravity, and orbital motion.",
+    category: "Astronomy Basics", tags: ["Sun", "Speed of gravity", "Light-travel time", "Orbits"],
+    sources: [
+      { label: "NASA JPL GRACE-FO: Gravity and the disappearing-Sun thought experiment", url: "https://gracefo.jpl.nasa.gov/news/5/what-is-gravity/" },
+      { label: "NASA Cosmicopia: How fast gravitational changes travel", url: "https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_gr.html" },
+      { label: "NASA: Sun facts and stellar evolution", url: "https://science.nasa.gov/sun/facts/" }
+    ],
+    relatedPaths: [
+      { label: "Why Earth does not fall into the Sun", href: "/guides/why-doesnt-earth-fall-into-the-sun" },
+      { label: "Why light cannot be outrun", href: "/guides/why-cant-we-travel-faster-than-light" },
+      { label: "The much slower journey inside the Sun", href: "/guides/how-long-does-sunlight-take-to-escape-the-sun" }
+    ]
+  },
+  {
+    slug: "can-moons-have-moons", publishedAt: "2026-11-22",
+    title: "Can Moons Have Moons? Submoons Explained",
+    description: "A moon can theoretically host a smaller moon, but stable orbits are difficult. Explore submoons, tidal limits, and why a possible orbit is not a discovery.",
+    category: "Moon", tags: ["Submoons", "Moonmoons", "Orbital stability", "Tides"],
+    sources: [
+      { label: "Kollmeier and Raymond: Can Moons Have Moons?", url: "https://arxiv.org/abs/1810.03304" },
+      { label: "Carnegie Science: Where is Earth's submoon?", url: "https://carnegiescience.edu/news/where-earths-submoon" },
+      { label: "Rosario-Franco and colleagues: Orbital stability of exomoons and submoons", url: "https://arxiv.org/abs/2005.06521" }
+    ],
+    relatedPaths: [
+      { label: "Why our Moon is moving away", href: "/guides/why-is-the-moon-moving-away" },
+      { label: "What tidal locking means", href: "/guides/why-the-moon-has-a-far-side" },
+      { label: "Gravity assists and competing gravitational influences", href: "/guides/gravity-assists-and-spacecraft-flybys" }
+    ]
+  },
+  {
+    slug: "why-do-astronauts-grow-taller-in-space", publishedAt: "2026-11-22",
+    title: "Why Do Astronauts Grow Taller in Space?",
+    description: "Astronauts can become temporarily taller as their spines unload in microgravity. Learn how much height can change and why it matters for spacecraft design.",
+    category: "Space Science", tags: ["Astronaut height", "Microgravity", "Spinal elongation", "Spacecraft design"],
+    sources: [
+      { label: "NASA: What's your space height?", url: "https://www.nasa.gov/wp-content/uploads/2018/05/whatisyourspaceheight.pdf" },
+      { label: "NASA: Astronaut health monitoring and spinal ultrasound", url: "https://www.nasa.gov/directorates/esdmd/hhp/lifetime-surveillance-of-astronaut-health-lsah/" },
+      { label: "NASA Glenn: What is microgravity?", url: "https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/" }
+    ],
+    relatedPaths: [
+      { label: "Why astronauts float despite Earth's gravity", href: "/guides/why-astronauts-float-in-microgravity" },
+      { label: "What astronauts mean by the smell of space", href: "/guides/what-does-space-smell-like" },
+      { label: "Does time pass differently in space?", href: "/guides/does-time-pass-differently-in-space" }
+    ]
+  },
+  {
     slug: "why-cant-we-travel-faster-than-light", publishedAt: "2026-11-22",
     title: "Why Can't We Travel Faster Than Light?",
     description: "The light-speed limit is not just a problem of better engines. Learn what relativity predicts for spacecraft and why apparent exceptions do not overturn it.",
@@ -273,6 +354,7 @@ const entries: GuideEntry[] = [
       { label: "NASA: Why reaching the Sun is difficult", url: "https://www.nasa.gov/solar-system/its-surprisingly-hard-to-go-to-the-sun/" }
     ],
     relatedPaths: [
+      { label: "What if the Sun disappeared?", href: "/guides/what-if-the-sun-disappeared" },
       { label: "Why we cannot feel Earth's spin", href: "/guides/why-cant-we-feel-earth-spinning" },
       { label: "How gravity assists work", href: "/guides/gravity-assists-and-spacecraft-flybys" },
       { label: "Why astronauts float", href: "/guides/why-astronauts-float-in-microgravity" }
@@ -352,7 +434,7 @@ const entries: GuideEntry[] = [
       { label: "NASA: Moon Viewing Tips", url: "https://science.nasa.gov/moon/viewing-tips/" },
       { label: "NASA: Moon Facts", url: "https://science.nasa.gov/moon/facts/" }
     ],
-    relatedPaths: [{ label: "Check lunar conditions", href: "/moon" }, { label: "Understand lunar phases", href: "/guides/understanding-moon-phases" }]
+    relatedPaths: [{ label: "Check lunar conditions", href: "/moon" }, { label: "Understand lunar phases", href: "/guides/understanding-moon-phases" }, { label: "Can a telescope show Apollo hardware?", href: "/guides/can-you-see-apollo-landing-sites-from-earth" }]
   },
   {
     slug: "moonrise-moonset-and-local-time",
@@ -958,7 +1040,7 @@ const entries: GuideEntry[] = [
       { label: "NASA Glenn: What Is Microgravity?", url: "https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/" },
       { label: "NASA: Microgravity for Students", url: "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/" }
     ],
-    relatedPaths: [{ label: "Explore orbital motion", href: "/guides/orbits-and-lagrange-points" }, { label: "Spot an orbiting station", href: "/guides/how-to-spot-the-space-station" }]
+    relatedPaths: [{ label: "Explore orbital motion", href: "/guides/orbits-and-lagrange-points" }, { label: "Spot an orbiting station", href: "/guides/how-to-spot-the-space-station" }, { label: "Why astronauts grow taller", href: "/guides/why-do-astronauts-grow-taller-in-space" }]
   },
   {
     slug: "solar-flares-versus-coronal-mass-ejections", publishedAt: "2026-10-27",
@@ -1482,6 +1564,7 @@ const entries: GuideEntry[] = [
       { label: "NASA: Space data sonification", url: "https://science.nasa.gov/open-science/astronomy-data-sonification/" }
     ],
     relatedPaths: [
+      { label: "Can astronauts smell space?", href: "/guides/what-does-space-smell-like" },
       { label: "Read why space looks black", href: "/guides/why-is-space-black" },
       { label: "Understand radio communication", href: "/guides/deep-space-communication-and-light-delay" },
       { label: "Explore black holes", href: "/guides/black-holes-explained" }
@@ -1705,6 +1788,7 @@ const entries: GuideEntry[] = [
       { label: "NASA Eclipse: Lunar secular acceleration", url: "https://eclipse.gsfc.nasa.gov/LEcat5/secular.html" }
     ],
     relatedPaths: [
+      { label: "Could our Moon have a moon?", href: "/guides/can-moons-have-moons" },
       { label: "Why the Moon causes tides", href: "/guides/why-the-moon-causes-tides" },
       { label: "Why we see the same lunar face", href: "/guides/why-the-moon-has-a-far-side" },
       { label: "Read lunar distance and apparent size", href: "/guides/moon-illusion-and-supermoons" }

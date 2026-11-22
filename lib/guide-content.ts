@@ -2,6 +2,156 @@ import type { Guide } from "@/lib/guides";
 
 // Editorial copy lives separately from routing, tags, and publication metadata.
 export const guideSections: Record<string, Guide["sections"]> = {
+  "what-does-space-smell-like": [
+    {
+      id: "short-answer", heading: "The smell is reported inside the airlock, not in a vacuum",
+      paragraphs: [
+        "Astronauts describe an unusual metallic or gunpowder-like odor after returning from spacewalks. That does not mean they open a helmet outside and smell empty space. The reports come after they are safely back in a pressurized environment, where airborne molecules can reach their noses.",
+        "The distinction changes the question: what produces the odor associated with equipment brought back inside? The Canadian Space Agency separates the vacuum outside from the smell in the airlock. Calling it the smell of space is memorable shorthand, not a direct sample of the universe's fragrance."
+      ], sourceUrls: ["https://www.csa-asc.gc.ca/eng/astronauts/faq.asp"]
+    },
+    {
+      id: "possible-causes", heading: "The reported odor is real; one universal recipe is not established",
+      paragraphs: [
+        "Astrophysicist Brad Tucker describes the odor's source as incompletely understood. Possible contributors include chemistry associated with repressurization and spacecraft materials. Ozone production is one suggested explanation, not a demonstration that every metallic-smelling spacewalk leaves exactly the same chemical mixture behind.",
+        "Descriptions such as burnt food or welding fumes compare unfamiliar sensations with familiar ones. They are not laboratory measurements of composition. Treating an astronaut's comparison as a definitive identification confuses the observation with its explanation; recognizing that difference does not make the observation any less interesting."
+      ], sourceUrls: ["https://reporter.anu.edu.au/all-stories/what-does-space-smell-like"]
+    },
+    {
+      id: "cabin-air", heading: "Why NASA tests how spacecraft materials smell",
+      paragraphs: [
+        "Inside a spacecraft, smell becomes an engineering concern. NASA's White Sands team evaluates items before launch because an unpleasant odor can remain a nuisance in a confined cabin. Crews cannot simply open a window to replace the atmosphere with fresh outdoor air.",
+        "Strong background odors can also reduce sensitivity to other smells. NASA identifies recognizing warning signs, including fire or an ammonia leak, as a reason to avoid overwhelming the crew's noses. Odor testing is therefore different from trying to bottle an exotic scent: it supports a usable, safer working environment."
+      ], sourceUrls: ["https://www.nasa.gov/centers-and-facilities/white-sands/odor-evaluation/"]
+    },
+    {
+      id: "reading-the-claim", heading: "Ask where, when, and what was actually measured",
+      paragraphs: [
+        "A useful way to read a space-smell headline is to separate location from mechanism. An airlock report, a cabin odor, and molecules identified in a distant cloud are different observations. The existence of a molecule with a familiar terrestrial odor does not mean someone has smelled that cloud.",
+        "Keep three questions in mind: Was the observer in breathable air? Is the description a personal comparison or a chemical measurement? Is the proposed cause confirmed or still tentative? Those checks preserve the wonder of the account without turning a colorful description into an unsupported claim."
+      ], sourceUrls: ["https://reporter.anu.edu.au/all-stories/what-does-space-smell-like","https://www.csa-asc.gc.ca/eng/astronauts/faq.asp"]
+    }
+  ],
+  "can-you-see-apollo-landing-sites-from-earth": [
+    {
+      id: "short-answer", heading: "You can find the region, but not pick out a flag",
+      paragraphs: [
+        "An Earth-based amateur telescope can show the lunar landscape around an Apollo landing region, but it cannot reveal the flag, rover, or remaining lander hardware there. These objects occupy far too small an angle in the sky. Knowing exactly where to look does not make their fine detail resolvable.",
+        "Even Hubble cannot provide a recognizable close-up of Apollo equipment from near Earth. ESA's explanation emphasizes telescope resolution and the great distance to the lunar surface. Images that do show the hardware were made from much closer viewpoints, not by endlessly enlarging an ordinary full-Moon photograph."
+      ], sourceUrls: ["https://esahubble.org/about/faq/"]
+    },
+    {
+      id: "angular-size", heading: "A one-meter object is tiny even on our nearest neighbor",
+      paragraphs: [
+        "Angular size compares an object's width with its distance. For an illustrative one-meter object 384,400 kilometers away, width divided by distance gives about 0.00054 arcsecond. That is a calculated scale example, not a measurement of a particular flag or a guarantee about any camera.",
+        "NASA gives approximately 0.05 arcsecond for Hubble's visible-light angular resolution. At the same lunar distance, that angle spans roughly 90 meters. Wavelength and instrument matter, but the scale gap explains the problem: a small artifact is much narrower than the detail this example resolves."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/observatory/design/optics/","https://esahubble.org/about/faq/"]
+    },
+    {
+      id: "zoom-versus-detail", heading: "More magnification does not manufacture missing information",
+      paragraphs: [
+        "A larger displayed image and a sharper observation are not the same thing. Optics spread a tiny source into a diffraction pattern; enlarging the result does not separate details already blended together. Hubble's mirror and observing wavelength determine its resolving capability, not the zoom level on your screen.",
+        "This also explains why seeing a distant galaxy is not contradictory. A galaxy can cover a large angular area despite its enormous distance. Detecting its light does not mean resolving every small object within it. Distance alone is a poor comparison when the targets have radically different physical sizes."
+      ], sourceUrls: ["https://science.nasa.gov/mission/hubble/observatory/design/optics/","https://esahubble.org/about/faq/"]
+    },
+    {
+      id: "orbital-images", heading: "Read the lunar-orbiter images instead",
+      paragraphs: [
+        "NASA's Lunar Reconnaissance Orbiter has photographed all six Apollo landing sites from lunar orbit. Its low-altitude observations show remaining descent stages, equipment, and trails of disturbed surface material. Moving the camera close to the ground changes the scale dramatically without requiring an Earth-sized optical miracle.",
+        "Use NASA's linked annotated views to compare hardware locations, tracks, and surrounding terrain. Pay attention to image scale and lighting: an identifiable equipment spot is not a photograph of lettering on a flag, and a visible astronaut trail is not necessarily a resolved individual boot print."
+      ], sourceUrls: ["https://svs.gsfc.nasa.gov/31052/"]
+    }
+  ],
+  "what-if-the-sun-disappeared": [
+    {
+      id: "short-answer", heading: "The familiar answer is an eight-minute delay, with a major caveat",
+      paragraphs: [
+        "In the standard thought experiment, Earth would not immediately notice the Sun's disappearance. Sunlight already traveling here would continue arriving for about eight minutes and twenty seconds at Earth's average distance. The familiar answer about a change in solar gravity also involves a light-speed delay, not an instantaneous signal.",
+        "But a star cannot simply delete its mass and energy under known physics. This is a deliberately impossible setup for exploring causality, not a prediction of a physically allowed solar event. NASA uses the example to explain gravity's finite propagation speed, rather than to propose a mechanism for a vanishing Sun."
+      ], sourceUrls: ["https://gracefo.jpl.nasa.gov/news/5/what-is-gravity/","https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_gr.html"]
+    },
+    {
+      id: "gravity-delay", heading: "Gravity would not give us an earlier warning than light",
+      paragraphs: [
+        "Changes in gravity propagate at light speed in general relativity. NASA's Cosmicopia explanation applies this to a hypothetical sudden change in solar mass: Earth could not receive that information immediately. In the simplified disappearance example, darkness and the gravitational change therefore have comparable travel delays.",
+        "This does not mean Earth normally steers toward a visibly outdated position of the Sun, or that gravity switches on and off once every eight minutes. An established orbital gravitational field and a newly propagating change are different ideas. The thought experiment concerns how quickly new information can arrive."
+      ], sourceUrls: ["https://science.gsfc.nasa.gov/attic/cosmicopia.gsfc.nasa.gov/qa_sp_gr.html"]
+    },
+    {
+      id: "earth-motion", heading: "Earth would keep its motion, not drop straight down",
+      paragraphs: [
+        "Once the hypothetical change arrived, the classroom model removes the Sun's inward gravitational influence while retaining Earth's existing velocity. Earth would initially continue approximately along a tangent to its former orbit. The Sun's disappearance would not supply a new outward push or erase the planet's sideways motion.",
+        "That straight-line description is an approximation ignoring other gravitational influences. Earth, the Moon, planets, and the galaxy would not disappear with the Sun. Their effects would still matter to a detailed trajectory. The useful lesson is inertia: changing the force does not instantly make an object's existing motion vanish."
+      ], sourceUrls: ["https://gracefo.jpl.nasa.gov/news/5/what-is-gravity/"]
+    },
+    {
+      id: "real-solar-future", heading: "The real Sun has a very different future",
+      paragraphs: [
+        "The Sun's expected evolution is gradual on human timescales, not a sudden disappearance. NASA describes its eventual expansion into a red giant and later white-dwarf remnant, with roughly another five billion years before the end of its main-sequence life. That is a stellar-evolution outline, not an exact countdown.",
+        "Likewise, shutting off fusion is a different hypothetical from removing the whole Sun. The star contains stored energy, and its interior transports energy slowly. Keep these scenarios separate: the eight-minute answer concerns travel from the Sun to Earth, not how quickly a star can change its own output."
+      ], sourceUrls: ["https://science.nasa.gov/sun/facts/"]
+    }
+  ],
+  "can-moons-have-moons": [
+    {
+      id: "short-answer", heading: "Yes in theory, but a possible orbit is not a detected object",
+      paragraphs: [
+        "A smaller natural body could theoretically orbit a moon while that moon orbits a planet. Researchers call such an object a submoon; moonmoon is a popular nickname. Gravity does not impose a rule that an orbiting body is forbidden from having a satellite of its own.",
+        "The difficult question is whether the arrangement can survive. Juna Kollmeier and Sean Raymond studied this in a paper published in 2019, finding that some large moons could permit long-lived submoons under their assumptions. Their result identifies possible configurations; it does not announce a discovered companion to our Moon."
+      ], sourceUrls: ["https://arxiv.org/abs/1810.03304"]
+    },
+    {
+      id: "stability-window", heading: "The orbit needs room between competing limits",
+      paragraphs: [
+        "A moon does not sit alone in empty space. Its planet also pulls on a prospective submoon, especially across a wide orbit. Researchers describe the moon's gravitational neighborhood using a Hill radius, but only part of that neighborhood permits stable satellite motion. Being inside it is not an automatic guarantee.",
+        "A 2020 numerical study found a submoon stability boundary near one-third of the host moon's Hill radius for its circular, coplanar assumptions. Change the orbit geometry and the answer changes. That result is a useful example of a constrained calculation, not a universal distance to apply to every moon."
+      ], sourceUrls: ["https://arxiv.org/abs/2005.06521"]
+    },
+    {
+      id: "tidal-evolution", heading: "Surviving today is different from surviving for billions of years",
+      paragraphs: [
+        "Tidal interactions can slowly change a submoon's orbit. Depending on the system, orbital evolution can carry it toward disruption or beyond a stable region. A short computer run showing several neat loops would therefore answer a much smaller question than long-term survival over a planetary system's history.",
+        "Kollmeier and Raymond found that large moons well separated from their planets are the more promising hosts for roughly ten-kilometer-scale submoons. Their examples included Callisto, Titan, Iapetus, and Earth's Moon. These are conditional dynamical possibilities, not a list of moons known to possess smaller natural satellites."
+      ], sourceUrls: ["https://arxiv.org/abs/1810.03304","https://carnegiescience.edu/news/where-earths-submoon"]
+    },
+    {
+      id: "formation-and-evidence", heading: "An available orbit still needs something to occupy it",
+      paragraphs: [
+        "Carnegie's explanation highlights why the question matters for formation history. Even a theoretically suitable host might never acquire a submoon, or might lose one during later evolution. Uneven lunar mass concentrations introduce another complication that a simplified stability argument does not fully settle.",
+        "When reading a moonmoon headline, separate three claims: an orbit can be stable, a smaller body can form or arrive there, and observations actually establish that body. Only the last is a discovery. The first two remain valuable because they tell researchers where to look and which histories could make sense."
+      ], sourceUrls: ["https://carnegiescience.edu/news/where-earths-submoon","https://arxiv.org/abs/2005.06521"]
+    }
+  ],
+  "why-do-astronauts-grow-taller-in-space": [
+    {
+      id: "short-answer", heading: "It is mostly a temporary change in the spine",
+      paragraphs: [
+        "Astronauts can become taller in microgravity because their spinal columns are no longer loaded in the usual standing direction. The spine can lengthen, changing overall height without the astronaut growing new, longer leg bones. NASA identifies spinal changes as the source of almost all of this increase.",
+        "A smaller version of changing spinal loading happens during ordinary life on Earth: height can differ between morning and evening. Spaceflight changes that loading environment much more extensively. The comparison explains the mechanism; it does not mean a night's sleep reproduces all the physiological effects of living in orbit."
+      ], sourceUrls: ["https://www.nasa.gov/wp-content/uploads/2018/05/whatisyourspaceheight.pdf"]
+    },
+    {
+      id: "gravity-remains", heading: "The space station has not escaped Earth's gravity",
+      paragraphs: [
+        "Microgravity does not mean Earth's pull has disappeared. The station and its occupants are falling around Earth together, so the floor does not continuously support a standing astronaut as a floor does at home. That altered support is central to understanding why the body experiences a different mechanical load.",
+        "Moving farther from Earth's center is not, by itself, the explanation for floating or growing taller. The orbital free-fall environment matters. An astronaut's mass also does not vanish: moving or stopping the person still takes force, even when the person is not pressing down on a bathroom scale."
+      ], sourceUrls: ["https://www.nasa.gov/centers-and-facilities/glenn/what-is-microgravity/"]
+    },
+    {
+      id: "size-and-recovery", heading: "Up to about three percent is not a promise for every person",
+      paragraphs: [
+        "NASA's astronaut-health material reports height increases of up to roughly three percent during long-duration missions, with normal height returning after the astronauts come back to Earth. Individual changes vary. An attention-grabbing number from one crew member should not be treated as a guaranteed result for everyone.",
+        "For scale, three percent of 180 centimeters is 5.4 centimeters. That is illustrative arithmetic using the reported percentage, not a prediction for a particular astronaut. The temporary height change is also not evidence that every other effect of spaceflight on the body disappears just as readily."
+      ], sourceUrls: ["https://www.nasa.gov/directorates/esdmd/hhp/lifetime-surveillance-of-astronaut-health-lsah/"]
+    },
+    {
+      id: "engineering", heading: "A few centimeters can matter inside a spacecraft",
+      paragraphs: [
+        "NASA's space-height lesson connects body measurements with seat dimensions, hatch openings, and spacesuit design. A spacecraft must accommodate people in the conditions in which they will actually work, not only their measurements while standing on Earth. A temporary change can therefore create a real design requirement.",
+        "Spinal ultrasound research and astronaut-health monitoring study these changes rather than treating extra height as a space-travel benefit. The useful takeaway is about adaptation and fit: microgravity changes the body, engineers need to account for it, and a headline about becoming taller is not advice for increasing someone's permanent height."
+      ], sourceUrls: ["https://www.nasa.gov/wp-content/uploads/2018/05/whatisyourspaceheight.pdf","https://www.nasa.gov/directorates/esdmd/hhp/lifetime-surveillance-of-astronaut-health-lsah/"]
+    }
+  ],
   "why-cant-we-travel-faster-than-light": [
     {
       id: "short-answer", heading: "A massive spacecraft cannot be accelerated to light speed",
