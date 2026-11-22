@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:apod="https://science.nasa.gov/apod/">
+<channel>
+  <title>APOD Basic</title>
+  <link>https://science.nasa.gov/</link>
+  <item>
+    <title>The Horsehead and Flame Nebulas</title>
+    <link>https://science.nasa.gov/image-article/apod-2026-november-19-the-horsehead-and-flame-nebulas/</link>
+    <pubDate>Thu, 19 Nov 2026 05:05:00 +0000</pubDate>
+    <apod:url>https://science.nasa.gov/image-article/apod-2026-november-19-the-horsehead-and-flame-nebulas/</apod:url>
+    <apod:hdurl>https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/Horsehead_Nebula_Killion.jpg?w=6000&#038;h=4800&#038;fit=clip</apod:hdurl>
+    <apod:credit><![CDATA[<a href="https://example.org/killion">Mark E. Killion</a>]]></apod:credit>
+    <apod:copyright><![CDATA[<a href="https://example.org/killion">Mark E. Killion</a>]]></apod:copyright>
+    <apod:alt>A dark horse-head shaped cloud of dust appears against a glowing red nebula.</apod:alt>
+    <apod:explanation><![CDATA[<strong>Explanation:</strong> The dark Horsehead Nebula and the glowing Flame Nebula are found in the constellation Orion. Dust in the Horsehead blocks light from bright emission nebula IC 434 behind it.<br><br><strong>Tomorrow's picture: </strong>flare]]></apod:explanation>
+    <content:encoded><![CDATA[<p>Explanation text with a <a href="https://youtu.be/example">video link</a> in the prose.</p>]]></content:encoded>
+  </item>
+  <item>
+    <title>Major Fireball Meteor</title>
+    <link>https://science.nasa.gov/image-article/apod-2026-november-8-major-fireball-meteor/</link>
+    <pubDate>Sun, 08 Nov 2026 05:05:00 +0000</pubDate>
+    <apod:hdurl>https://www.nasa.gov/content/dam/apod/fireball_1200.jpg/jcr:content/renditions/cq5dam.thumbnail.48.48.png</apod:hdurl>
+    <apod:credit><![CDATA[Video credit: Example Observer]]></apod:credit>
+    <apod:explanation><![CDATA[<strong>Explanation:</strong> A bright fireball meteor streaks across the sky in this video.]]></apod:explanation>
+    <content:encoded><![CDATA[<center><video controls><source src="https://example.org/fireball.mp4" type="video/mp4"></video></center>]]></content:encoded>
+  </item>
+  <item>
+    <title>NGC 7129: Star Formation with Jets from Webb</title>
+    <link>https://science.nasa.gov/image-article/apod-2026-november-16-ngc-7129-star-formation-with-jets-from-webb/</link>
+    <pubDate>Mon, 16 Nov 2026 05:05:00 +0000</pubDate>
+    <apod:hdurl>https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/10/weic2620a.jpg?w=1280&#038;h=1194&#038;fit=clip</apod:hdurl>
+    <apod:credit><![CDATA[<a href="https://esawebb.org/">ESA/Webb</a>, NASA &amp; CSA; <em>Processing &amp; <a href="https://creativecommons.org/licenses/by/4.0/">License</a>:</em> A. Pagan (STScI)]]></apod:credit>
+    <apod:explanation><![CDATA[<strong>Explanation:</strong> How do stars form? The James Webb Space Telescope observed the young star cluster NGC 7129 and its glowing jets of gas.]]></apod:explanation>
+  </item>
+</channel>
+</rss>

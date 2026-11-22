@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "assets.science.nasa.gov"
+      },
+      {
+        protocol: "https",
+        hostname: "science.nasa.gov"
+      },
+      {
+        protocol: "https",
         hostname: "stsci-opo.org"
       },
       {

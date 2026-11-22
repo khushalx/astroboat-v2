@@ -13,8 +13,11 @@
     "test:guides": "node --test tests/guides.test.cjs",
     "test:seo": "node --test tests/seo.test.cjs",
     "test:data": "node --test tests/data-integrity.test.cjs",
+    "test:briefs": "node --test tests/briefs-pipeline.test.cjs",
+    "test:gallery": "node --test tests/gallery-pipeline.test.cjs",
     "test:moon": "node --test tests/moon-observatory.test.cjs",
-    "test:moon:browser": "node --test tests/moon-browser.test.cjs"
+    "test:moon:browser": "node --test tests/moon-browser.test.cjs",
+    "test": "node --test tests/astrobot-route.test.cjs tests/guides.test.cjs tests/seo.test.cjs tests/data-integrity.test.cjs tests/moon-observatory.test.cjs tests/briefs-pipeline.test.cjs tests/gallery-pipeline.test.cjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+  <title>News Releases &#8211; NASA</title>
+  <link>https://www.nasa.gov</link>
+  <item>
+    <title>NASA Names Troy Asher Armstrong Flight Research Center Director</title>
+    <link>https://www.nasa.gov/news-release/nasa-names-troy-asher-armstrong-flight-research-center-director/</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[Armstrong Flight Research Center]]></category>
+    <category><![CDATA[Leadership]]></category>
+    <description><![CDATA[NASA Administrator has named Troy Asher as director of the agency&#8217;s Armstrong Flight Research Center in Edwards, California, effective immediately. Asher has served in several leadership roles at the center.]]></description>
+  </item>
+  <item>
+    <title>Contractor to Civil Servant: NASA Welcomes Jared Spiers</title>
+    <link>https://www.nasa.gov/centers-and-facilities/stennis/contractor-to-civil-servant-nasa-welcomes-jared-spiers/</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[Stennis Space Center]]></category>
+    <description><![CDATA[After years supporting the center as a contractor, Jared Spiers has joined the NASA workforce as a civil servant engineer at Stennis Space Center in Mississippi.]]></description>
+  </item>
+  <item>
+    <title>National Space Club Scholars Meeting</title>
+    <link>https://www.nasa.gov/centers-and-facilities/goddard/national-space-club-scholars-meeting/</link>
+    <pubDate>{{DATE_2}}</pubDate>
+    <description><![CDATA[Students selected as National Space Club scholars met with mentors and staff during a meeting at the center this week to discuss internships and careers.]]></description>
+  </item>
+  <item>
+    <title>NASA&#8217;s Europa Clipper Launches on Journey to Jupiter&#8217;s Icy Moon</title>
+    <link>https://www.nasa.gov/news-release/nasas-europa-clipper-launches-on-journey-to-jupiters-icy-moon/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=feed</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <category><![CDATA[Europa Clipper]]></category>
+    <category><![CDATA[Missions]]></category>
+    <description><![CDATA[NASA&#8217;s Europa Clipper spacecraft lifted off aboard a SpaceX Falcon Heavy rocket from Kennedy Space Center, beginning a journey of more than five years to study whether Jupiter&#8217;s moon Europa could support life. [&#8230;]]]></description>
+  </item>
+  <item>
+    <title>Send Your Name to Titan Aboard NASA&#8217;s Dragonfly Mission</title>
+    <link>https://www.nasa.gov/news-release/send-your-name-to-titan-aboard-nasas-dragonfly-mission/</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[Dragonfly]]></category>
+    <description><![CDATA[Lea esta nota de prensa en español aquí. NASA invites the public to send their names aboard the agency&#8217;s Dragonfly rotorcraft, which will explore the organic sands of Saturn&#8217;s moon Titan. [&#8230;]]]></description>
+    <content:encoded><![CDATA[<p><em>Lea esta nota de prensa en español <a href="https://www.nasa.gov/news-release/envia-tu-nombre-a-titan-a-bordo-de-la-mision-dragonfly-de-la-nasa/">aquí</a>.</em></p><p>NASA invites the public to send their names aboard the agency&#8217;s Dragonfly rotorcraft, which will explore the organic sands of Saturn&#8217;s moon Titan after launching in 2028. Names will be etched onto a microchip carried by the spacecraft.</p>]]></content:encoded>
+  </item>
+  <item>
+    <title>Envía tu nombre a Titán a bordo de la misión Dragonfly de la NASA</title>
+    <link>https://www.nasa.gov/news-release/envia-tu-nombre-a-titan-a-bordo-de-la-mision-dragonfly-de-la-nasa/</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[NASA en español]]></category>
+    <description><![CDATA[Read this release in English here. La NASA invita al público a enviar su nombre a bordo de la aeronave Dragonfly de la agencia, que explorará las arenas orgánicas de la luna Titán de Saturno. [&#8230;]]]></description>
+    <content:encoded><![CDATA[<p><em>Read this release in English <a href="https://www.nasa.gov/news-release/send-your-name-to-titan-aboard-nasas-dragonfly-mission/">here</a>. </em><br>La NASA invita al público a enviar su nombre a bordo de la aeronave de ala giratoria Dragonfly de la agencia, que explorará las arenas orgánicas de la luna Titán de Saturno.</p>]]></content:encoded>
+  </item>
+</channel>
+</rss>

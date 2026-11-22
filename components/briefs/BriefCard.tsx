@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BriefImage } from "@/components/briefs/BriefImage";
 import type { AstronomyBrief } from "@/lib/types";
-import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
+import { formatBriefDate, getBriefCategory, getBriefSummary, getOriginalHref } from "@/components/briefs/brief-utils";
 import { TrackedLink } from "@/components/analytics/EditorialActions";
 
 type BriefCardProps = {
@@ -48,8 +48,3 @@ export function BriefCard({ brief }: BriefCardProps) {
   );
 }
 
-function getOriginalHref(value: string) {
-  const href = value.trim();
-
-  return href && href !== "#" ? href : undefined;
-}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BriefImage } from "@/components/briefs/BriefImage";
 import { AstroCard } from "@/components/ui/AstroCard";
 import type { AstronomyBrief } from "@/lib/types";
-import { formatBriefDate, getBriefCategory, getBriefSummary } from "@/components/briefs/brief-utils";
+import { formatBriefDate, getBriefCategory, getBriefSummary, getOriginalHref } from "@/components/briefs/brief-utils";
 import { TrackedLink } from "@/components/analytics/EditorialActions";
 
 type FeaturedBriefCardProps = {
@@ -57,8 +57,3 @@ export function FeaturedBriefCard({ brief }: FeaturedBriefCardProps) {
   );
 }
 
-function getOriginalHref(value: string) {
-  const href = value.trim();
-
-  return href && href !== "#" ? href : undefined;
-}

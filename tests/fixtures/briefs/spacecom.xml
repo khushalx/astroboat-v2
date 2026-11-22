@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+  <title>Space.com</title>
+  <item>
+    <title><![CDATA[This viral star projector has been hyped to Mars and back, but we hunted down the best version you can buy]]></title>
+    <link>https://www.space.com/stargazing/skywatching-kit/viral-star-projector-best-version-you-can-buy</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <category><![CDATA[Skywatching Kit]]></category>
+    <category><![CDATA[Stargazing]]></category>
+    <description><![CDATA[The adverts for this 2 in 1 Galaxy Projector Night Light are bizarre — we cut through the hype to bring you a version that actually delivers stars and planets on your ceiling.]]></description>
+    <media:content url="https://cdn.mos.cms.futurecdn.net/projector-1200-80.jpg" medium="image" type="image/jpeg" />
+  </item>
+  <item>
+    <title><![CDATA['Star Trek: First Contact' at 30: Resistance is futile when it comes to the 'Next Generation' crew's greatest big-screen adventure]]></title>
+    <link>https://www.space.com/entertainment/space-movies-shows/star-trek-first-contact-at-30-review</link>
+    <pubDate>{{DATE_0}}</pubDate>
+    <category><![CDATA[Space Movies & Shows]]></category>
+    <category><![CDATA[Entertainment]]></category>
+    <description><![CDATA[Assimilate this! How cyber-zombies gave Jean-Luc Picard one of his finest hours on the big screen.]]></description>
+  </item>
+  <item>
+    <title><![CDATA[Astronomers spot a rare 'Einstein cross' around a distant galaxy]]></title>
+    <link>https://www.space.com/astronomy/einstein-cross-distant-galaxy?utm_source=feed&amp;fbclid=abc123</link>
+    <pubDate>{{DATE_1}}</pubDate>
+    <category><![CDATA[Astronomy]]></category>
+    <description><![CDATA[Wow.]]></description>
+  </item>
+</channel>
+</rss>
