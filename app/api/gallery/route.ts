@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
-import { getGalleryData, getGalleryImageById } from "@/services/gallery-service";
-import { galleryCategories } from "@/lib/constants";
+import { unstable_cache } from "next/cache";
+import { findGalleryImage, getGalleryData, isGalleryImageId } from "@/services/gallery-service";
+import { GALLERY_REVALIDATE_SECONDS, galleryCategories } from "@/lib/constants";
 import type { GalleryCategory } from "@/lib/types";
+
+// Building the collection fetches every feed, archive detail page and HD check
+// (~25 s on a cold instance). The Next.js data cache shares the last build
+// across serverless instances, so a cold function answers from it instead.
+const getCachedGalleryData = unstable_cache(getGalleryData, ["gallery-collection-v1"], {
+  revalidate: GALLERY_REVALIDATE_SECONDS,
+  tags: ["gallery"]
+});
+
+const LIST_CACHE_CONTROL = "public, s-maxage=600, stale-while-revalidate=3600";
 
 function positiveInteger(value: string | null, fallback: number): number {
   const parsed = Number.parseInt(value || "", 10);
@@ -14,9 +25,10 @@ export async function GET(request: Request) {
     const id = searchParams.get("id");
 
     if (id !== null) {
-      // Stable ids resolve from the live collection or durable history, so shared
+      // Stable ids resolve from the cached collection or durable history, so shared
       // links keep working after an image rotates out of the latest set.
-      const image = await getGalleryImageById(id.trim());
+      const imageId = id.trim();
+      const image = isGalleryImageId(imageId) ? await findGalleryImage(imageId, await getCachedGalleryData()) : null;
       if (!image) {
         return NextResponse.json({ error: "Image not found" }, { status: 404, headers: { "Cache-Control": "public, s-maxage=300" } });
       }
@@ -29,7 +41,7 @@ export async function GET(request: Request) {
     const page = positiveInteger(searchParams.get("page"), 1);
     const limit = Math.min(60, positiveInteger(searchParams.get("limit"), 24));
 
-    const result = await getGalleryData();
+    const result = await getCachedGalleryData();
     let filtered = result.images;
 
     if (category && category !== "All") {
@@ -59,7 +71,7 @@ export async function GET(request: Request) {
       lastUpdated: result.lastUpdated,
       isFallback: result.isFallback,
       warnings: result.warnings
-    });
+    }, { headers: { "Cache-Control": LIST_CACHE_CONTROL } });
   } catch (error) {
     console.error("[gallery] API error:", error instanceof Error ? error.message : "unknown error");
     return NextResponse.json(

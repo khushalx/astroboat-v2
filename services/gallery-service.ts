@@ -1166,9 +1166,22 @@ async function persistGallery(store: ReturnType<typeof getDurableStore>, images:
  * collection are served from durable history when the store is configured.
  */
 export async function getGalleryImageById(id: string): Promise<GalleryImage | null> {
-  if (!/^[a-z0-9][a-z0-9_-]{2,120}$/i.test(id)) return null;
-  const data = await getGalleryData();
-  const live = data.images.find((image) => image.id === id);
+  if (!isGalleryImageId(id)) return null;
+  return findGalleryImage(id, await getGalleryData());
+}
+
+export function isGalleryImageId(id: string): boolean {
+  return /^[a-z0-9][a-z0-9_-]{2,120}$/i.test(id);
+}
+
+/**
+ * Looks an id up in an already-loaded collection, then in durable history.
+ * Never rebuilds the gallery, so callers holding a cached collection get an
+ * answer in milliseconds even on a cold serverless instance.
+ */
+export async function findGalleryImage(id: string, collection: Pick<GalleryResult, "images" | "featuredImage">): Promise<GalleryImage | null> {
+  if (!isGalleryImageId(id)) return null;
+  const live = collection.images.find((image) => image.id === id) ?? (collection.featuredImage?.id === id ? collection.featuredImage : undefined);
   if (live) return live;
 
   const record = await getDurableStore().hashGetJson<StoredImage>(STORE_IMAGES, id);

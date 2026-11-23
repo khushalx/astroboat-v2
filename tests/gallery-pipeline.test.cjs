@@ -299,3 +299,24 @@ test("client image fallback advances through renditions and resets for a new ima
   assert.deepEqual({ ...state }, { key: "b", index: 0, status: "loading" }, "a new image starts clean");
   assert.equal(reducer(state, { type: "loaded" }).status, "loaded");
 });
+
+test("share-link lookups use a provided collection and durable history without rebuilding the gallery", async () => {
+  const redis = createFakeRedis();
+  const first = loadGallery({ redis });
+  const collection = await first.service.getGalleryData();
+  const shared = collection.images.find((img) => img.id === "apod-2026-11-19");
+
+  // A cold instance: only the durable store is reachable, no feeds.
+  const fetch = routeFetch([], { redis, onUnmatched: () => { throw new Error("gallery rebuild attempted"); } });
+  const cold = loadModule("services/gallery-service.ts", { fetch, process: { env: redis.env } });
+  const empty = { images: [], featuredImage: null };
+
+  const fromHistory = await cold.findGalleryImage("apod-2026-11-19", empty);
+  assert.equal(fromHistory?.title, shared.title);
+  assert.ok(fetch.calls.every((call) => redis.owns(call.url)), "only the store was contacted");
+
+  assert.equal((await cold.findGalleryImage(shared.id, { images: [shared], featuredImage: null }))?.id, shared.id);
+  assert.equal((await cold.findGalleryImage(shared.id, { images: [], featuredImage: shared }))?.id, shared.id, "featured image resolves too");
+  assert.equal(await cold.findGalleryImage("apod-1999-01-01", empty), null);
+  assert.equal(await cold.findGalleryImage("../secret", empty), null);
+});
