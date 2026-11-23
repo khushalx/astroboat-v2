@@ -39,7 +39,8 @@ for (const [configured, expected] of [
   [' gpt-oss-20b ', 'openai/gpt-oss-20b'],
   ['openai/gpt-oss-120b', 'openai/gpt-oss-120b'],
   ['llama-3.3-70b-versatile', 'llama-3.3-70b-versatile'],
-  [' ', 'llama-3.3-70b-versatile']
+  [' ', 'openai/gpt-oss-120b'],
+  [undefined, 'openai/gpt-oss-120b']
 ]) {
   test(`configured model ${JSON.stringify(configured)} reaches Groq as ${expected}`, async () => {
     const { post } = route({

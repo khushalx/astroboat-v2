@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GROQ_CHAT_COMPLETIONS_URL = "https://api.groq.com/openai/v1/chat/completions";
-const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
+// Groq retired llama-3.3-70b-versatile (model_not_found as of 2026-11-23).
+const DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b";
 const MAX_MESSAGE_LENGTH = 1000;
 const REQUEST_TIMEOUT_MS = 30_000;
 const TEMPORARY_UNAVAILABLE_ERROR =

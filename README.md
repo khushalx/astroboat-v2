@@ -42,7 +42,7 @@ The product is built around three ideas: **source transparency**, **graceful fai
 | **Launch & Sky Events** | Tracks upcoming launches, mission events, eclipses, meteor activity, conjunctions, and recent events | The Space Devs + curated sky-event data |
 | **Moon Dashboard** | Shows the current phase, illumination, rise/set times, observing guidance, and upcoming primary phases | U.S. Naval Observatory |
 | **Asteroid Watch** | Monitors close approaches with distance, speed, size estimates, and calm risk context | JPL CNEOS CAD + NASA NeoWs fallback |
-| **Ask Astroboat** | Answers astronomy questions with focused, concise explanations | Groq + Llama 3.3 by default |
+| **Ask Astroboat** | Answers astronomy questions with focused, concise explanations | Groq + GPT-OSS 120B by default |
 | **Command Search** | Opens any core tool instantly with keyboard-first navigation | Local route index |
 
 ### Feature status
@@ -124,7 +124,7 @@ Astroboat’s “watch”, “notable”, and “safe” labels are interface he
 
 - Provides an astronomy-only assistant through `POST /api/astrobot`.
 - Keeps the Groq API key on the server and sends only the current question upstream.
-- Defaults to `llama-3.3-70b-versatile`, with a configurable model, a 1,000-character input limit, and concise responses.
+- Defaults to `openai/gpt-oss-120b`, with a configurable model, a 1,000-character input limit, and concise responses.
 - Includes starter prompts, sending/typing/error states, auto-scroll, and keyboard-friendly composition.
 - Rejects invalid input, returns clear configuration errors, and sanitizes upstream failures.
 
@@ -214,7 +214,7 @@ A custom 404 is provided by the App Router. Invalid dynamic brief and guide URLs
 | Styling | Tailwind CSS 3.4, PostCSS, custom CSS variables and keyframes |
 | Feed parsing | `fast-xml-parser` |
 | Data access | Native server-side `fetch`, Next.js time-based revalidation |
-| AI | Groq Chat Completions; Llama 3.3 70B default |
+| AI | Groq Chat Completions; GPT-OSS 120B default |
 | Fonts | DM Serif Display, DM Sans, JetBrains Mono via `next/font/google` |
 | Visuals | Hand-built SVG/CSS Moon, orbit, timeline, sky-grid, and fallback artwork |
 | SEO | Metadata API, canonicals, Open Graph, Twitter cards, JSON-LD, sitemap, robots |
@@ -268,8 +268,8 @@ Create `.env.local` in the project root:
 # Required only for Ask Astroboat
 GROQ_API_KEY=your_groq_api_key
 
-# Optional assistant model override
-GROQ_MODEL=llama-3.3-70b-versatile
+# Optional assistant model override (default: openai/gpt-oss-120b)
+GROQ_MODEL=openai/gpt-oss-120b
 
 # Optional: enables NASA NeoWs as the asteroid fallback
 NASA_API_KEY=your_nasa_api_key
