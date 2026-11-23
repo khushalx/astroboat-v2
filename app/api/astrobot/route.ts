@@ -5,6 +5,9 @@ const GROQ_CHAT_COMPLETIONS_URL = "https://api.groq.com/openai/v1/chat/completio
 const DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b";
 const MAX_MESSAGE_LENGTH = 1000;
 const REQUEST_TIMEOUT_MS = 30_000;
+// Reasoning models (GPT-OSS) spend part of this budget thinking before they
+// answer. 500 tokens cut roughly half of real answers off mid-sentence.
+const MAX_COMPLETION_TOKENS = 1024;
 const TEMPORARY_UNAVAILABLE_ERROR =
   "Astroboat Assistant is temporarily unavailable. Please try again later.";
 
@@ -24,7 +27,8 @@ Answer only questions related to:
 
 Rules:
 - Keep answers beginner-friendly.
-- Keep answers concise.
+- Keep answers concise: usually 2 or 3 short paragraphs, at most about 180 words.
+- Write plain text only. The chat window does not render Markdown, so never use tables, headings, bold or italic markers, or code blocks. Short "- " bullet lines are fine.
 - Do not pretend to have live/current data unless it is provided.
 - If the user asks for current launches, Moon details, or asteroid approaches, tell them to check Astroboat's dedicated pages: Events, Moon, or Asteroid Watch.
 - Do not invent exact current data.
@@ -34,6 +38,7 @@ Rules:
 
 type GroqChatCompletionResponse = {
   choices?: Array<{
+    finish_reason?: unknown;
     message?: {
       content?: unknown;
     };
@@ -102,7 +107,10 @@ export async function POST(request: NextRequest) {
           }
         ],
         temperature: 0.5,
-        max_tokens: 500
+        max_completion_tokens: MAX_COMPLETION_TOKENS,
+        // GPT-OSS reasons before answering; "low" keeps answers fast and leaves the
+        // budget for the reply. Other Groq models reject this parameter.
+        ...(isReasoningModel(model) ? { reasoning_effort: "low", include_reasoning: false } : {})
       }),
       cache: "no-store",
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
@@ -113,14 +121,20 @@ export async function POST(request: NextRequest) {
     }
 
     const data = (await response.json()) as GroqChatCompletionResponse;
-    const answer = data.choices?.[0]?.message?.content;
+    const choice = data.choices?.[0];
+    const rawAnswer = choice?.message?.content;
+    const answer = typeof rawAnswer === "string" ? formatAnswer(rawAnswer, choice?.finish_reason === "length") : "";
 
-    if (typeof answer !== "string" || !answer.trim()) {
-      console.warn("[Astrobot] Groq response did not include an answer.");
+    if (!answer) {
+      console.warn("[Astrobot] Groq response did not include an answer.", { finishReason: typeof choice?.finish_reason === "string" ? choice.finish_reason : "unknown", model });
       return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
     }
 
-    return NextResponse.json({ answer: answer.trim() });
+    if (choice?.finish_reason === "length") {
+      console.warn("[Astrobot] Answer reached the token limit and was trimmed to its last complete sentence.", { model });
+    }
+
+    return NextResponse.json({ answer });
   } catch (error) {
     const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
     console.warn("[Astrobot] Groq request could not be completed", { code: timedOut ? "timeout" : "network_error" });
@@ -131,6 +145,35 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ error: TEMPORARY_UNAVAILABLE_ERROR }, { status: 502 });
   }
+}
+
+function isReasoningModel(model: string) {
+  return /(^|\/)gpt-oss-/i.test(model);
+}
+
+/**
+ * The chat window renders plain text. Remove Markdown emphasis and headings the
+ * model may still emit, and if the reply hit the token limit, end it at the last
+ * complete sentence instead of mid-word.
+ */
+function formatAnswer(raw: string, truncated: boolean): string {
+  let text = raw
+    .replace(/\r\n/g, "\n")
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/__(.+?)__/g, "$1")
+    .replace(/^\s*[-*_]{3,}\s*$/gm, "")
+    .replace(/^(\s*)\* /gm, "$1- ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  if (truncated) {
+    const lastEnd = Math.max(text.lastIndexOf(". "), text.lastIndexOf("! "), text.lastIndexOf("? "), text.lastIndexOf(".\n"), text.lastIndexOf("?\n"), text.lastIndexOf("!\n"));
+    if (/[.!?]["”’)]?$/.test(text)) return text;
+    text = lastEnd > text.length / 3 ? text.slice(0, lastEnd + 1).trim() : `${text.replace(/[\s,;:–—-]+$/, "")}…`;
+  }
+
+  return text;
 }
 
 async function readValidatedMessage(
