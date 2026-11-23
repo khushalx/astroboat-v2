@@ -115,3 +115,40 @@ test('a provider response without content is rejected', async () => {
   const { post } = route({ fetch: async () => Response.json({ choices: [{ message: { content: ' ' } }] }) });
   assert.equal((await post(request())).status, 502);
 });
+
+test('reasoning models get a low reasoning effort and a budget large enough to finish', async () => {
+  for (const [model, reasoning] of [['openai/gpt-oss-120b', true], ['llama-3.1-8b-instant', false]]) {
+    let body;
+    const { post } = route({
+      env: { GROQ_API_KEY: 'test-secret', GROQ_MODEL: model },
+      fetch: async (_url, options) => {
+        body = JSON.parse(options.body);
+        return Response.json({ choices: [{ finish_reason: 'stop', message: { content: 'A complete answer.' } }] });
+      }
+    });
+    assert.equal((await post(request())).status, 200);
+    assert.equal(body.max_completion_tokens, 1024);
+    assert.equal(body.max_tokens, undefined, 'the deprecated parameter is not sent');
+    assert.equal(body.reasoning_effort, reasoning ? 'low' : undefined, model);
+    assert.equal(body.include_reasoning, reasoning ? false : undefined, model);
+    assert.match(body.messages[0].content, /plain text only/i);
+  }
+});
+
+test('an answer cut off by the token limit ends at its last complete sentence', async () => {
+  const { post, logs } = route({
+    fetch: async () => Response.json({ choices: [{ finish_reason: 'length', message: { content: 'White dwarfs form from low-mass stars. Neutron stars need more mass. The boundary of no return' } }] })
+  });
+  const response = await post(request());
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { answer: 'White dwarfs form from low-mass stars. Neutron stars need more mass.' });
+  assert.ok(logs.some(([message]) => /token limit/.test(message)));
+});
+
+test('markdown the chat window cannot render is removed from answers', async () => {
+  const { post } = route({
+    fetch: async () => Response.json({ choices: [{ finish_reason: 'stop', message: { content: '### Nebulae\n**What it is:** a cloud of gas.\n\n---\n* Emission nebulae glow.\n* Dark nebulae block light.' } }] })
+  });
+  const { answer } = await (await post(request())).json();
+  assert.equal(answer, 'Nebulae\nWhat it is: a cloud of gas.\n\n- Emission nebulae glow.\n- Dark nebulae block light.');
+});
