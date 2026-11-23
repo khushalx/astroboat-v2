@@ -10,10 +10,11 @@ Add these variables in Vercel:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 `GROQ_MODEL` is optional. If it is not set, Astroboat uses
-`llama-3.3-70b-versatile`.
+`openai/gpt-oss-120b`. Groq retired the previous default,
+`llama-3.3-70b-versatile`, which now fails with `model_not_found`.
 
 Do not use `NEXT_PUBLIC_GROQ_API_KEY`.
